@@ -18,7 +18,7 @@ Science Advantage provides 180 days of structured science instruction per school
 
 ## Tech Stack
 
-- **Frontend**: Next.js 14 with App Router, TypeScript, Tailwind CSS, shadcn/ui
+- **Frontend**: Next.js with App Router, TypeScript, Tailwind CSS, shadcn/ui
 - **Backend**: Next.js API routes, Prisma ORM
 - **Database**: PostgreSQL on Google Cloud SQL
 - **Authentication**: Auth.js (NextAuth.js)
@@ -27,7 +27,7 @@ Science Advantage provides 180 days of structured science instruction per school
 
 ## Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - PostgreSQL database
 - Google Cloud account
@@ -100,6 +100,20 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+The root route redirects to `/dashboard`, which renders a sprint placeholder built with
+Tailwind CSS and a shadcn/ui `Button` component. This confirms the design system wiring
+before feature work begins.
+
+### 6. Quality Checks
+
+Run these commands before opening a pull request:
+
+```bash
+npm run lint      # ESLint (zero warnings allowed)
+npm run format    # Prettier dry run
+npm run test      # Vitest unit tests
+```
 
 ## Project Structure
 
@@ -211,16 +225,19 @@ npm run deploy:production
 ## Standards Implementation
 
 ### NGSS (Next Generation Science Standards)
+
 - Performance expectations organized by grade bands
 - Three-dimensional learning framework
 - Engineering design integration
 
 ### UK National Curriculum
+
 - Key Stages 1-4 progression
 - Subject-specific requirements
 - Working scientifically skills
 
 ### Thai Basic Education Core Curriculum
+
 - Primary and secondary level organization
 - Science inquiry emphasis
 - Technology integration focus
@@ -236,6 +253,7 @@ npm run deploy:production
 ### Commit Convention
 
 Use conventional commits:
+
 - `feat:` new features
 - `fix:` bug fixes
 - `docs:` documentation changes
