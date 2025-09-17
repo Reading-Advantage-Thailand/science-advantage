@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum LessonType {
+  LESSON
+  EXPERIMENT
+}
+
+model User {
+  id           String             @id @default(cuid())
+  email        String             @unique
+  name         String
+  role         Role               @default(STUDENT)
+  avatarUrl    String?
+  classes      Class[]            @relation("ClassTeacher")
+  enrollments  ClassEnrollment[]
+  attempts     Attempt[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
+
+model Class {
+  id           String             @id @default(cuid())
+  name         String
+  description  String?
+  joinCode     String             @unique
+  teacher      User               @relation("ClassTeacher", fields: [teacherId], references: [id])
+  teacherId    String
+  enrollments  ClassEnrollment[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
+
+model ClassEnrollment {
+  id         String   @id @default(cuid())
+  class      Class    @relation(fields: [classId], references: [id])
+  classId    String
+  student    User     @relation(fields: [studentId], references: [id])
+  studentId  String
+  createdAt  DateTime @default(now())
+
+  @@unique([classId, studentId])
+}
+
+model Lesson {
+  id           String          @id @default(cuid())
+  unitSlug     String
+  title        String
+  slug         String          @unique
+  summary      String?
+  order        Int
+  content      String
+  type         LessonType      @default(LESSON)
+  quizQuestions QuizQuestion[]
+  attempts     Attempt[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model QuizQuestion {
+  id         String   @id @default(cuid())
+  lesson     Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId   String
+  order      Int
+  prompt     String
+  options    String[]
+  answer     String
+  rationale  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Attempt {
+  id          String   @id @default(cuid())
+  student     User     @relation(fields: [studentId], references: [id])
+  studentId   String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId    String
+  score       Int
+  maxScore    Int
+  responses   Json
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([studentId])
+  @@index([lessonId])
+}
