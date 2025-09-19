@@ -19,83 +19,128 @@ enum LessonType {
 }
 
 model User {
-  id           String             @id @default(cuid())
-  email        String             @unique
-  name         String
-  role         Role               @default(STUDENT)
-  avatarUrl    String?
-  classes      Class[]            @relation("ClassTeacher")
-  enrollments  ClassEnrollment[]
-  attempts     Attempt[]
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  id            String            @id @default(cuid())
+  email         String            @unique
+  name          String?
+  role          Role              @default(STUDENT)
+  image         String?
+  emailVerified DateTime?
+  classes       Class[]           @relation("ClassTeacher")
+  enrollments   ClassEnrollment[]
+  attempts      Attempt[]
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
 }
 
 model Class {
-  id           String             @id @default(cuid())
-  name         String
-  description  String?
-  joinCode     String             @unique
-  teacher      User               @relation("ClassTeacher", fields: [teacherId], references: [id])
-  teacherId    String
-  enrollments  ClassEnrollment[]
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  id          String            @id @default(cuid())
+  name        String
+  description String?
+  joinCode    String            @unique
+  teacher     User              @relation("ClassTeacher", fields: [teacherId], references: [id])
+  teacherId   String
+  enrollments ClassEnrollment[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 }
 
 model ClassEnrollment {
-  id         String   @id @default(cuid())
-  class      Class    @relation(fields: [classId], references: [id])
-  classId    String
-  student    User     @relation(fields: [studentId], references: [id])
-  studentId  String
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  class     Class    @relation(fields: [classId], references: [id])
+  classId   String
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId String
+  createdAt DateTime @default(now())
 
   @@unique([classId, studentId])
 }
 
 model Lesson {
-  id           String          @id @default(cuid())
-  unitSlug     String
-  title        String
-  slug         String          @unique
-  summary      String?
-  order        Int
-  content      String
-  type         LessonType      @default(LESSON)
+  id            String         @id @default(cuid())
+  unitSlug      String
+  title         String
+  slug          String         @unique
+  summary       String?
+  order         Int
+  content       String
+  type          LessonType     @default(LESSON)
   quizQuestions QuizQuestion[]
-  attempts     Attempt[]
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+  attempts      Attempt[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model QuizQuestion {
-  id         String   @id @default(cuid())
-  lesson     Lesson   @relation(fields: [lessonId], references: [id])
-  lessonId   String
-  order      Int
-  prompt     String
-  options    String[]
-  answer     String
-  rationale  String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(cuid())
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  String
+  order     Int
+  prompt    String
+  options   String[]
+  answer    String
+  rationale String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Attempt {
-  id          String   @id @default(cuid())
-  student     User     @relation(fields: [studentId], references: [id])
+  id          String    @id @default(cuid())
+  student     User      @relation(fields: [studentId], references: [id])
   studentId   String
-  lesson      Lesson   @relation(fields: [lessonId], references: [id])
+  lesson      Lesson    @relation(fields: [lessonId], references: [id])
   lessonId    String
   score       Int
   maxScore    Int
   responses   Json
-  startedAt   DateTime @default(now())
+  startedAt   DateTime  @default(now())
   completedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([studentId])
   @@index([lessonId])
+}
+
+model Account {
+  id                 String   @id @default(cuid())
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model VerificationToken {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+
+  @@unique([identifier, token])
 }
