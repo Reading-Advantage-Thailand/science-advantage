@@ -21,8 +21,8 @@ Create these issues (titles are exact; each item includes acceptance criteria). 
 3) Database + Prisma Init
 - Acceptance: `npx prisma generate` works; `npx prisma db push` creates base tables for users, classes, lessons, quiz questions, attempts; seed inserts demo Unit 1.
 
-4) Auth (Google OAuth) + Protected Routes
-- Acceptance: Sign-in with Google; `/dashboard` requires auth; session shows user name; sign-out works.
+4) ✅ Auth (Google OAuth) + Protected Routes
+- Acceptance: Shipped via PR #12 — Google sign-in works, `/dashboard` requires auth, session shows user name, and sign-out returns to `/signin`.
 
 5) Lesson Viewer (Static Content, Completion Toggle)
 - Acceptance: Student can open Lesson 1 and click “Mark complete”; teacher can view completion list per class.
