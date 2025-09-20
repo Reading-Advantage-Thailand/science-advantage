@@ -11,8 +11,8 @@
     "format:write": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:integration": "echo \"Integration tests not yet implemented\"",
-    "test:e2e": "echo \"E2E tests not yet implemented\""
+    "test:integration": "vitest run --dir tests/integration",
+    "test:e2e": "vitest run --dir tests/e2e"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
