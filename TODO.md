@@ -26,6 +26,7 @@ Create these issues (titles are exact; each item includes acceptance criteria). 
 
 5) Lesson Viewer (Static Content, Completion Toggle)
 - Acceptance: Student can open Lesson 1 and click “Mark complete”; teacher can view completion list per class.
+- Follow-up: Replace the demo join flow with real class-based access control (see Issue #14).
 
 6) MCQ Quiz (Auto-score)
 - Acceptance: Student completes a 10-question quiz; auto-score saved; teacher sees per-student scores.

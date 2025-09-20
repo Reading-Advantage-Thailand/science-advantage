@@ -28,6 +28,7 @@ model User {
   classes       Class[]           @relation("ClassTeacher")
   enrollments   ClassEnrollment[]
   attempts      Attempt[]
+  lessonCompletions LessonCompletion[]
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime          @default(now())
@@ -42,6 +43,7 @@ model Class {
   teacher     User              @relation("ClassTeacher", fields: [teacherId], references: [id])
   teacherId   String
   enrollments ClassEnrollment[]
+  lessonCompletions LessonCompletion[]
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 }
@@ -68,6 +70,7 @@ model Lesson {
   type          LessonType     @default(LESSON)
   quizQuestions QuizQuestion[]
   attempts      Attempt[]
+  completions   LessonCompletion[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -101,6 +104,22 @@ model Attempt {
 
   @@index([studentId])
   @@index([lessonId])
+}
+
+model LessonCompletion {
+  id          String   @id @default(cuid())
+  lesson      Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId    String
+  student     User     @relation(fields: [studentId], references: [id])
+  studentId   String
+  class       Class    @relation(fields: [classId], references: [id])
+  classId     String
+  completedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([lessonId, studentId, classId])
+  @@index([classId])
+  @@index([studentId])
 }
 
 model Account {

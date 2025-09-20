@@ -306,6 +306,7 @@ const lessons: LessonSeed[] = [
 ];
 
 async function resetForSeed() {
+  await prisma.lessonCompletion.deleteMany();
   await prisma.attempt.deleteMany();
   await prisma.quizQuestion.deleteMany();
   await prisma.lesson.deleteMany();
@@ -342,7 +343,7 @@ async function main() {
     }),
   ]);
 
-  await prisma.class.create({
+  const classroom = await prisma.class.create({
     data: {
       name: "NGSS Grade 6 - Unit 1",
       description: "Pilot cohort focusing on Earth's systems, weather, and climate.",
@@ -358,7 +359,7 @@ async function main() {
     },
   });
 
-  await prisma.$transaction(
+  const createdLessons = await prisma.$transaction(
     lessons.map((lesson) =>
       prisma.lesson.create({
         data: {
@@ -383,6 +384,20 @@ async function main() {
     )
   );
 
+  const lessonOne = createdLessons.find(
+    (lesson) => lesson.slug === "lesson-1-earth-systems-overview"
+  );
+
+  if (lessonOne) {
+    await prisma.lessonCompletion.create({
+      data: {
+        lessonId: lessonOne.id,
+        studentId: students[0].id,
+        classId: classroom.id,
+      },
+    });
+  }
+
   const totalQuestions = lessons.reduce((sum, lesson) => sum + lesson.quiz.length, 0);
 
   console.log("Seeded:", {
@@ -391,6 +406,7 @@ async function main() {
     classes: 1,
     lessons: lessons.length,
     questions: totalQuestions,
+    lessonCompletions: lessonOne ? 1 : 0,
   });
 }
 
