@@ -1,4 +1,8 @@
+import { redirect } from "next/navigation";
+
+import { SignOutButton } from "@/components/features/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
+import { getServerAuthSession } from "@/lib/auth";
 
 const highlights = [
   {
@@ -18,20 +22,31 @@ const highlights = [
   },
 ];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await getServerAuthSession();
+
+  if (!session?.user) {
+    redirect("/signin");
+  }
+
+  const displayName = session.user.name ?? "Science Advantage educator";
+
   return (
     <section className="space-y-10">
-      <header className="space-y-2">
-        <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          Sprint S0 Preview
-        </p>
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Welcome to your Science Advantage dashboard
-        </h1>
-        <p className="text-base text-muted-foreground">
-          This placeholder view verifies that Tailwind CSS, shadcn/ui, and the App Router are wired
-          up. We&apos;ll replace it with live teacher insights as the sprint progresses.
-        </p>
+      <header className="space-y-4">
+        <div className="flex flex-col gap-4 rounded-2xl border border-border/80 bg-card/70 p-6 backdrop-blur md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
+              Sprint S0 Preview
+            </p>
+            <h1 className="text-3xl font-semibold tracking-tight">Welcome back, {displayName}</h1>
+            <p className="text-sm text-muted-foreground">
+              You&apos;re signed in with Google. We&apos;ll replace this placeholder with live class insights as the sprint progresses.
+            </p>
+          </div>
+
+          <SignOutButton className="self-start md:self-center" />
+        </div>
       </header>
 
       <div className="grid gap-6 md:grid-cols-3">
