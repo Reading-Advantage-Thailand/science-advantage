@@ -293,12 +293,20 @@ const lessons: LessonSeed[] = [
       "Students test how different materials affect internal temperature in a model greenhouse to connect energy transfer concepts.",
     order: 6,
     content: [
-      "## Investigation: Designing a Mini Greenhouse",
+      "## Investigation Overview",
+      "Students will design two mini greenhouses and compare how quickly each gains heat when exposed to a lamp.",
+      "",
+      "## Steps",
       "1. Form teams and review the safety checklist.",
       "2. Build two mini greenhouses using provided materials.",
       "3. Select one variable to test (cover material, ventilation, or mass).",
       "4. Collect temperature data every five minutes for 30 minutes.",
       "5. Graph results and recommend materials for a school garden greenhouse.",
+      "",
+      "## Safety Notes",
+      "- Wear safety goggles when working near the heat lamp.",
+      "- Do not touch the bulb or metal clamps with bare hands after they have been on for more than five minutes.",
+      "- Keep water away from electrical cords and outlets.",
     ].join("\n"),
     type: LessonType.EXPERIMENT,
     quiz: [],
@@ -306,6 +314,7 @@ const lessons: LessonSeed[] = [
 ];
 
 async function resetForSeed() {
+  await prisma.experimentSubmission.deleteMany();
   await prisma.lessonCompletion.deleteMany();
   await prisma.attempt.deleteMany();
   await prisma.quizQuestion.deleteMany();
@@ -388,12 +397,34 @@ async function main() {
     (lesson) => lesson.slug === "lesson-1-earth-systems-overview"
   );
 
+  const experimentLesson = createdLessons.find(
+    (lesson) => lesson.slug === "investigation-designing-a-mini-greenhouse"
+  );
+
   if (lessonOne) {
     await prisma.lessonCompletion.create({
       data: {
         lessonId: lessonOne.id,
         studentId: students[0].id,
         classId: classroom.id,
+      },
+    });
+  }
+
+  if (experimentLesson) {
+    await prisma.experimentSubmission.create({
+      data: {
+        lessonId: experimentLesson.id,
+        studentId: students[0].id,
+        classId: classroom.id,
+        data: {
+          teamName: "Avery & Jordan",
+          variableTested: "Cover material",
+          initialTemperatureC: 21.5,
+          finalTemperatureC: 29.2,
+          observations:
+            "Greenhouse with clear plastic warmed faster than the vented model.",
+        },
       },
     });
   }
@@ -407,6 +438,7 @@ async function main() {
     lessons: lessons.length,
     questions: totalQuestions,
     lessonCompletions: lessonOne ? 1 : 0,
+    experimentSubmissions: experimentLesson ? 1 : 0,
   });
 }
 

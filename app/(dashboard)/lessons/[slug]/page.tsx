@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
-import { Role } from "@prisma/client";
+import { LessonType, Role } from "@prisma/client";
+import { ExperimentDataForm } from "@/components/features/experiments/experiment-data-form";
+import { ExperimentGuide } from "@/components/features/experiments/experiment-guide";
 import { LessonCompletionToggle } from "@/components/features/lessons/lesson-completion-toggle";
 import { LessonContent } from "@/components/features/lessons/lesson-content";
 import { LessonQuiz } from "@/components/features/lessons/lesson-quiz";
 import { JoinDemoClassButton } from "@/components/features/demo/join-demo-class-button";
 import { Button } from "@/components/ui/button";
 import { getServerAuthSession } from "@/lib/auth";
+import { parseExperimentContent } from "@/lib/experiments";
+import type { ExperimentSubmissionData } from "@/lib/experiments";
 import { prisma } from "@/lib/prisma";
 import type { ScoredResponse } from "@/lib/quiz";
 
@@ -37,12 +41,15 @@ export default async function LessonPage({ params }: LessonPageProps) {
       title: true,
       summary: true,
       content: true,
+      type: true,
     },
   });
 
   if (!lesson) {
     notFound();
   }
+
+  const isExperiment = lesson.type === LessonType.EXPERIMENT;
 
   const quizQuestions = await prisma.quizQuestion.findMany({
     where: { lessonId: lesson.id },
@@ -165,6 +172,37 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
   const hasEnrollment = Boolean(enrollment);
 
+  const experimentSubmission =
+    isExperiment && !isTeacher && enrollment
+      ? await prisma.experimentSubmission.findUnique({
+          where: {
+            lessonId_studentId_classId: {
+              lessonId: lesson.id,
+              studentId: session.user.id,
+              classId: enrollment.classId,
+            },
+          },
+          select: {
+            data: true,
+            submittedAt: true,
+          },
+        })
+      : null;
+
+  const experimentGuide = isExperiment ? parseExperimentContent(lesson.content) : null;
+
+  const experimentSubmissionForClient = experimentSubmission
+    ? {
+        data: experimentSubmission.data as ExperimentSubmissionData,
+        submittedAt: experimentSubmission.submittedAt?.toISOString() ?? null,
+      }
+    : null;
+
+  const experimentTeacherLink =
+    isTeacher && teacherClass && isExperiment
+      ? `/classes/${teacherClass.id}/lessons/${slug}/experiment-data`
+      : null;
+
   return (
     <section className="space-y-8">
       <div className="space-y-4">
@@ -218,6 +256,15 @@ export default async function LessonPage({ params }: LessonPageProps) {
                       View completion list
                     </Link>
                   </Button>
+                  {isExperiment ? (
+                    <Button variant="outline" size="sm" asChild>
+                      <Link
+                        href={`/classes/${teacherClass.id}/lessons/${slug}/experiment-data`}
+                      >
+                        View experiment submissions
+                      </Link>
+                    </Button>
+                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -232,15 +279,40 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </header>
       </div>
 
-      <LessonContent content={lesson.content} />
+      {isExperiment && experimentGuide ? <ExperimentGuide guide={experimentGuide} /> : null}
 
-      {quizQuestions.length ? (
-        <LessonQuiz
-          lessonSlug={slug}
-          questions={quizQuestions}
-          latestAttempt={latestAttemptForClient}
-        />
-      ) : null}
+      {isExperiment ? (
+        isTeacher ? (
+          experimentTeacherLink ? (
+            <div className="space-y-2 rounded-2xl border border-border/70 bg-card/60 p-6 shadow-sm">
+              <p className="text-sm text-muted-foreground">
+                View class data submissions as they come in.
+              </p>
+              <Button variant="outline" size="sm" asChild>
+                <Link href={experimentTeacherLink}>View experiment submissions</Link>
+              </Button>
+            </div>
+          ) : null
+        ) : (
+          <ExperimentDataForm
+            lessonSlug={slug}
+            classContext={enrollment?.class ?? null}
+            initialSubmission={experimentSubmissionForClient}
+          />
+        )
+      ) : (
+        <>
+          <LessonContent content={lesson.content} />
+
+          {quizQuestions.length ? (
+            <LessonQuiz
+              lessonSlug={slug}
+              questions={quizQuestions}
+              latestAttempt={latestAttemptForClient}
+            />
+          ) : null}
+        </>
+      )}
     </section>
   );
 }
