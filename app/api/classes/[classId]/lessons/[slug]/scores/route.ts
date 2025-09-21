@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getServerAuthSession } from "@/lib/auth";
@@ -25,9 +26,7 @@ export async function GET(_: Request, { params }: RouteContext) {
   }
 
   const classroom = await prisma.class.findUnique({
-    where: {
-      id: classId,
-    },
+    where: { id: classId },
     select: {
       id: true,
       name: true,
@@ -39,7 +38,8 @@ export async function GET(_: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Class not found" }, { status: 404 });
   }
 
-  const isTeacher = classroom.teacherId === session.user.id;
+  const isTeacher =
+    session.user.role === Role.TEACHER && classroom.teacherId === session.user.id;
 
   if (!isTeacher) {
     const membership = await prisma.classEnrollment.findFirst({
@@ -80,31 +80,59 @@ export async function GET(_: Request, { params }: RouteContext) {
     },
   });
 
-  const completions = await prisma.lessonCompletion.findMany({
+  const studentIds = enrollments.map((enrollment) => enrollment.student.id);
+
+  if (studentIds.length === 0) {
+    return NextResponse.json({
+      class: {
+        id: classroom.id,
+        name: classroom.name,
+      },
+      lesson,
+      students: [],
+    });
+  }
+
+  const attempts = await prisma.attempt.findMany({
     where: {
-      classId: classroom.id,
       lessonId: lesson.id,
+      studentId: { in: studentIds },
     },
+    orderBy: [
+      { completedAt: "desc" },
+      { createdAt: "desc" },
+    ],
     select: {
+      id: true,
       studentId: true,
+      score: true,
+      maxScore: true,
       completedAt: true,
+      createdAt: true,
     },
   });
 
-  const completionMap = new Map(
-    completions.map((completion) => [completion.studentId, completion.completedAt])
-  );
+  const attemptMap = new Map<string, (typeof attempts)[number]>();
+
+  for (const attempt of attempts) {
+    if (!attemptMap.has(attempt.studentId)) {
+      attemptMap.set(attempt.studentId, attempt);
+    }
+  }
 
   const students = enrollments
     .map((enrollment) => {
-      const completedAt = completionMap.get(enrollment.student.id);
+      const attempt = attemptMap.get(enrollment.student.id);
 
       return {
         studentId: enrollment.student.id,
         name: enrollment.student.name ?? enrollment.student.email,
         email: enrollment.student.email,
-        completed: Boolean(completedAt),
-        completedAt: completedAt ? completedAt.toISOString() : null,
+        score: attempt ? attempt.score : null,
+        maxScore: attempt ? attempt.maxScore : null,
+        completedAt: attempt?.completedAt
+          ? attempt.completedAt.toISOString()
+          : null,
       };
     })
     .sort((a, b) => a.name.localeCompare(b.name));

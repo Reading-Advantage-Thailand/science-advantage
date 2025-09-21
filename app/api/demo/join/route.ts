@@ -3,11 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerAuthSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-type RouteContext = {
-  params: Record<string, never>;
-};
-
-export async function POST(_: Request, __: RouteContext) {
+export async function POST() {
   const session = await getServerAuthSession();
 
   if (!session?.user) {
