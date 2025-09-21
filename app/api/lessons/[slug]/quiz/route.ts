@@ -1,6 +1,8 @@
+import { Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getServerAuthSession } from "@/lib/auth";
+import { findStudentClassContext } from "@/lib/class-context.server";
 import { prisma } from "@/lib/prisma";
 import { sanitizeResponses, scoreQuizAttempt } from "@/lib/quiz";
 
@@ -23,6 +25,10 @@ export async function GET(_: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  if (session.user.role !== Role.STUDENT) {
+    return NextResponse.json({ error: "Students only" }, { status: 403 });
+  }
+
   const lesson = await prisma.lesson.findUnique({
     where: { slug },
     select: {
@@ -34,6 +40,15 @@ export async function GET(_: Request, { params }: RouteContext) {
 
   if (!lesson) {
     return NextResponse.json({ error: "Lesson not found" }, { status: 404 });
+  }
+
+  const classContext = await findStudentClassContext(session.user.id);
+
+  if (!classContext) {
+    return NextResponse.json(
+      { error: "Class enrollment required" },
+      { status: 403 }
+    );
   }
 
   const questions = await prisma.quizQuestion.findMany({
@@ -91,6 +106,10 @@ export async function POST(request: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  if (session.user.role !== Role.STUDENT) {
+    return NextResponse.json({ error: "Students only" }, { status: 403 });
+  }
+
   const lesson = await prisma.lesson.findUnique({
     where: { slug },
     select: {
@@ -101,6 +120,15 @@ export async function POST(request: Request, { params }: RouteContext) {
 
   if (!lesson) {
     return NextResponse.json({ error: "Lesson not found" }, { status: 404 });
+  }
+
+  const classContext = await findStudentClassContext(session.user.id);
+
+  if (!classContext) {
+    return NextResponse.json(
+      { error: "Class enrollment required" },
+      { status: 403 }
+    );
   }
 
   const questions = await prisma.quizQuestion.findMany({

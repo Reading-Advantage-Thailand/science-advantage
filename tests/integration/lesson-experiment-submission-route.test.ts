@@ -167,4 +167,60 @@ describe("Experiment submission route", () => {
       },
     });
   });
+
+  it("rejects access when the student is not enrolled", async () => {
+    (getServerAuthSession as vi.Mock).mockResolvedValue({
+      user: { id: "student-1", role: Role.STUDENT },
+    });
+
+    (prisma.lesson.findUnique as vi.Mock).mockResolvedValue({
+      id: "lesson-experiment",
+      type: LessonType.EXPERIMENT,
+    });
+
+    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValue(null);
+
+    const response = await GET(new Request("http://localhost/api"), {
+      params: { slug: "investigation-designing-a-mini-greenhouse" },
+    });
+
+    expect(response.status).toBe(403);
+  });
+
+  it("rejects submissions for mismatched class ids", async () => {
+    (getServerAuthSession as vi.Mock).mockResolvedValue({
+      user: { id: "student-1", role: Role.STUDENT },
+    });
+
+    (prisma.lesson.findUnique as vi.Mock).mockResolvedValue({
+      id: "lesson-experiment",
+      type: LessonType.EXPERIMENT,
+    });
+
+    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValue(null);
+
+    const response = await POST(
+      new Request("http://localhost/api", {
+        method: "POST",
+        body: JSON.stringify({
+          classId: "class-unknown",
+          data: {
+            teamName: "Team",
+          },
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      {
+        params: { slug: "investigation-designing-a-mini-greenhouse" },
+      }
+    );
+
+    expect(response.status).toBe(403);
+
+    const payload = await response.json();
+
+    expect(payload.error).toBe("Unauthorized class access");
+  });
 });

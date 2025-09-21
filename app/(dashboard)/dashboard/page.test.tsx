@@ -89,12 +89,7 @@ describe("DashboardPage", () => {
     });
 
     vi.mocked(prisma.class.findFirst).mockResolvedValue(null);
-    vi.mocked(prisma.classEnrollment.findFirst).mockResolvedValue({
-      class: {
-        id: "class-123",
-        name: "Demo Class",
-      },
-    });
+    vi.mocked(prisma.classEnrollment.findFirst).mockResolvedValue(null);
 
     const Page = await DashboardPage();
     render(Page);
@@ -102,5 +97,8 @@ describe("DashboardPage", () => {
     expect(
       screen.queryByRole("link", { name: /view completion list/i })
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/waiting for your teacher to add you to a class/i)
+    ).toBeInTheDocument();
   });
 });

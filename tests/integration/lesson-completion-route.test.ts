@@ -78,6 +78,16 @@ describe("Lesson completion route", () => {
     });
   });
 
+  it("returns 403 when the student is not enrolled", async () => {
+    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValueOnce(null);
+
+    const response = await GET(new Request("http://localhost/api"), {
+      params: { slug: "lesson-1" },
+    });
+
+    expect(response.status).toBe(403);
+  });
+
   it("creates a completion when toggled on", async () => {
     const completedAt = new Date("2024-05-01T12:00:00.000Z");
 
@@ -160,9 +170,7 @@ describe("Lesson completion route", () => {
     expect(payload.classContext).toEqual({ id: "class-1", name: "NGSS Cohort" });
   });
 
-  it("returns an error when no class context is found", async () => {
-    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValueOnce(null);
-
+  it("requires a class id in the payload", async () => {
     const response = await POST(
       new Request("http://localhost/api", {
         method: "POST",
@@ -180,6 +188,44 @@ describe("Lesson completion route", () => {
 
     const payload = await response.json();
 
-    expect(payload.error).toBe("No class context for completion");
+    expect(payload.error).toBe("Class enrollment required");
+  });
+
+  it("rejects access when the class enrollment does not match", async () => {
+    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValueOnce(null);
+
+    const response = await POST(
+      new Request("http://localhost/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ completed: true, classId: "class-2" }),
+      }),
+      {
+        params: { slug: "lesson-1" },
+      }
+    );
+
+    expect(response.status).toBe(403);
+
+    const payload = await response.json();
+
+    expect(payload.error).toBe("Unauthorized class access");
+  });
+
+  it("rejects non-student sessions", async () => {
+    (getServerAuthSession as vi.Mock).mockResolvedValueOnce({
+      user: {
+        id: "teacher-1",
+        role: Role.TEACHER,
+      },
+    });
+
+    const response = await GET(new Request("http://localhost/api"), {
+      params: { slug: "lesson-1" },
+    });
+
+    expect(response.status).toBe(403);
   });
 });
