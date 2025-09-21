@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import type { DefaultSession, NextAuthOptions } from "next-auth";
+import type { DefaultSession, NextAuthOptions, Session } from "next-auth";
 import { getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -7,6 +7,12 @@ import { Role } from "@prisma/client";
 
 import { env } from "@/lib/env";
 import { prisma } from "@/lib/prisma";
+import { isDevAuthEnabled } from "@/lib/dev-auth";
+import {
+  ensureDevUser,
+  getDevAuthCookie,
+  toPrismaRole,
+} from "@/lib/dev-auth.server";
 
 declare module "next-auth" {
   interface Session {
@@ -64,4 +70,30 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export const getServerAuthSession = () => getServerSession(authOptions);
+export const getServerAuthSession = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (session?.user || !isDevAuthEnabled()) {
+    return session;
+  }
+
+  const devOverride = await getDevAuthCookie();
+
+  if (!devOverride) {
+    return session;
+  }
+
+  await ensureDevUser(devOverride);
+
+  const devSession: Session = {
+    user: {
+      id: devOverride.id,
+      role: toPrismaRole(devOverride.role),
+      name: devOverride.name,
+      email: devOverride.email,
+    },
+    expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+  };
+
+  return devSession;
+};

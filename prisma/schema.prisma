@@ -29,6 +29,7 @@ model User {
   enrollments   ClassEnrollment[]
   attempts      Attempt[]
   lessonCompletions LessonCompletion[]
+  experimentSubmissions ExperimentSubmission[]
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime          @default(now())
@@ -44,6 +45,7 @@ model Class {
   teacherId   String
   enrollments ClassEnrollment[]
   lessonCompletions LessonCompletion[]
+  experimentSubmissions ExperimentSubmission[]
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 }
@@ -71,6 +73,7 @@ model Lesson {
   quizQuestions QuizQuestion[]
   attempts      Attempt[]
   completions   LessonCompletion[]
+  experimentSubmissions ExperimentSubmission[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -116,6 +119,23 @@ model LessonCompletion {
   classId     String
   completedAt DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@unique([lessonId, studentId, classId])
+  @@index([classId])
+  @@index([studentId])
+}
+
+model ExperimentSubmission {
+  id        String   @id @default(cuid())
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  String
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId String
+  class     Class    @relation(fields: [classId], references: [id])
+  classId   String
+  data      Json
+  submittedAt DateTime @default(now())
+  updatedAt DateTime   @updatedAt
 
   @@unique([lessonId, studentId, classId])
   @@index([classId])

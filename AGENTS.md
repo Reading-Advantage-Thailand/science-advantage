@@ -18,6 +18,13 @@ Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `t
 ## Environment & Security Tips
 Duplicate `.env.example` into `.env.local` before development and populate credentials for PostgreSQL, NextAuth, Google OAuth, OpenAI, Google Cloud Storage, and Redis. Never commit `.env*` files or production secrets. Rotate keys whenever rotating cloud resources, and confirm that Prisma migrations run cleanly in staging before tagging a release.
 
+### Local Auth Configuration Reminder
+- Only Google OAuth is enabled.
+- Localhost sign-in is restricted to the single Google account `bodangren@gmail.com`.
+- There are no seeded email/password accounts; tests requiring other roles must mock the session layer.
+- A dev-only impersonation toggle is available when `NEXT_PUBLIC_DEV_AUTH=true`. Use the panel on `/signin` to assume teacher or student roles; the override stores an HTTP-only cookie and is automatically cleared on sign out.
+- Any new feature must remain production-secure (no dev overrides leaking to prod) while still supporting the dev impersonation flow so manual QA can run locally.
+
 ## GitHub-Centric Workflow (gh CLI)
 
 - Default branch: `main` (trunk-based). Create one short-lived branch per issue. Do not create sprint branches.
