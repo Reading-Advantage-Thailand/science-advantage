@@ -7,6 +7,7 @@ import { SignOutButton } from "@/components/features/auth/sign-out-button";
 import { JoinDemoClassButton } from "@/components/features/demo/join-demo-class-button";
 import { Button } from "@/components/ui/button";
 import { getServerAuthSession } from "@/lib/auth";
+import { isDevAuthEnabled } from "@/lib/dev-auth";
 import { prisma } from "@/lib/prisma";
 
 const highlights = [
@@ -78,6 +79,7 @@ export default async function DashboardPage() {
       : null;
   const classSummary =
     classForTeacher?.name ?? classForStudent?.class.name ?? null;
+  const demoEnrollmentEnabled = isDevAuthEnabled();
 
   return (
     <section className="space-y-10">
@@ -138,7 +140,13 @@ export default async function DashboardPage() {
           </Button>
         ) : null}
         {!classForStudent && session.user.role === Role.STUDENT ? (
-          <JoinDemoClassButton />
+          demoEnrollmentEnabled ? (
+            <JoinDemoClassButton />
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Waiting for your teacher to add you to a class.
+            </p>
+          )
         ) : null}
       </div>
     </section>

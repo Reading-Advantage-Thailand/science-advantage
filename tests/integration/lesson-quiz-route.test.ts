@@ -16,6 +16,9 @@ vi.mock("@/lib/prisma", () => ({
     quizQuestion: {
       findMany: vi.fn(),
     },
+    classEnrollment: {
+      findFirst: vi.fn(),
+    },
     attempt: {
       findFirst: vi.fn(),
       create: vi.fn(),
@@ -41,6 +44,13 @@ describe("Lesson quiz route", () => {
       id: "lesson-1",
       title: "Earth systems",
       summary: "",
+    });
+
+    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValue({
+      class: {
+        id: "class-1",
+        name: "NGSS Cohort",
+      },
     });
 
     (prisma.quizQuestion.findMany as vi.Mock).mockResolvedValue([]);
@@ -192,5 +202,27 @@ describe("Lesson quiz route", () => {
     );
 
     expect(response.status).toBe(400);
+  });
+
+  it("rejects quiz access for non-enrolled students", async () => {
+    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValueOnce(null);
+
+    const response = await GET(new Request("http://localhost/api"), {
+      params: { slug: "lesson-1" },
+    });
+
+    expect(response.status).toBe(403);
+  });
+
+  it("rejects quiz access for teachers", async () => {
+    (getServerAuthSession as vi.Mock).mockResolvedValueOnce({
+      user: { id: "teacher-1", role: Role.TEACHER },
+    });
+
+    const response = await GET(new Request("http://localhost/api"), {
+      params: { slug: "lesson-1" },
+    });
+
+    expect(response.status).toBe(403);
   });
 });

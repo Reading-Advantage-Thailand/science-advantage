@@ -2,54 +2,9 @@ import { LessonType, Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getServerAuthSession } from "@/lib/auth";
+import { findStudentClassContext } from "@/lib/class-context.server";
 import { parseExperimentSubmissionPayload } from "@/lib/experiments";
 import { prisma } from "@/lib/prisma";
-
-async function resolveClassContext(userId: string, classId?: string) {
-  if (classId) {
-    const enrollment = await prisma.classEnrollment.findFirst({
-      where: {
-        classId,
-        studentId: userId,
-      },
-      select: {
-        classId: true,
-        class: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
-
-    if (!enrollment) {
-      return null;
-    }
-
-    return enrollment.class;
-  }
-
-  const enrollment = await prisma.classEnrollment.findFirst({
-    where: {
-      studentId: userId,
-    },
-    orderBy: {
-      createdAt: "asc",
-    },
-    select: {
-      classId: true,
-      class: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  });
-
-  return enrollment?.class ?? null;
-}
 
 type RouteContext = {
   params:
@@ -70,6 +25,10 @@ export async function GET(_: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  if (session.user.role !== Role.STUDENT) {
+    return NextResponse.json({ error: "Students only" }, { status: 403 });
+  }
+
   const lesson = await prisma.lesson.findUnique({
     where: { slug },
     select: {
@@ -82,13 +41,13 @@ export async function GET(_: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Experiment not found" }, { status: 404 });
   }
 
-  const classContext = await resolveClassContext(session.user.id);
+  const classContext = await findStudentClassContext(session.user.id);
 
   if (!classContext) {
-    return NextResponse.json({
-      classContext: null,
-      submission: null,
-    });
+    return NextResponse.json(
+      { error: "Class enrollment required" },
+      { status: 403 }
+    );
   }
 
   const submission = await prisma.experimentSubmission.findUnique({
@@ -151,10 +110,13 @@ export async function POST(request: Request, { params }: RouteContext) {
   const record = body as Record<string, unknown>;
   const classId = typeof record.classId === "string" ? record.classId : undefined;
 
-  const classContext = await resolveClassContext(session.user.id, classId);
+  const classContext = await findStudentClassContext(session.user.id, classId);
 
   if (!classContext) {
-    return NextResponse.json({ error: "No class context for submission" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Unauthorized class access" },
+      { status: 403 }
+    );
   }
 
   const parsed = parseExperimentSubmissionPayload(record.data);

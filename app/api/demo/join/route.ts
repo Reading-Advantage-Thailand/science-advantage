@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getServerAuthSession } from "@/lib/auth";
+import { isDevAuthEnabled } from "@/lib/dev-auth";
 import { prisma } from "@/lib/prisma";
 
 export async function POST() {
@@ -8,6 +9,13 @@ export async function POST() {
 
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!isDevAuthEnabled()) {
+    return NextResponse.json(
+      { error: "Demo enrollment is disabled" },
+      { status: 403 }
+    );
   }
 
   const classroom = await prisma.class.findFirst({

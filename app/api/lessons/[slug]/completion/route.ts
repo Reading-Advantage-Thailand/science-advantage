@@ -2,6 +2,7 @@ import { Role } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getServerAuthSession } from "@/lib/auth";
+import { findStudentClassContext } from "@/lib/class-context.server";
 import { prisma } from "@/lib/prisma";
 
 type RouteContext = {
@@ -14,52 +15,6 @@ type RouteContext = {
       }>;
 };
 
-async function resolveClassContext(userId: string, role: Role, classId?: string) {
-  if (classId) {
-    const enrollment = await prisma.classEnrollment.findFirst({
-      where: {
-        classId,
-        studentId: userId,
-      },
-      select: {
-        classId: true,
-        class: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
-
-    if (!enrollment) {
-      return null;
-    }
-
-    return enrollment.class;
-  }
-
-  const enrollment = await prisma.classEnrollment.findFirst({
-    where: {
-      studentId: userId,
-    },
-    orderBy: {
-      createdAt: "asc",
-    },
-    select: {
-      classId: true,
-      class: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  });
-
-  return enrollment?.class ?? null;
-}
-
 export async function GET(_: Request, { params }: RouteContext) {
   const { slug } = await Promise.resolve(params);
 
@@ -67,6 +22,10 @@ export async function GET(_: Request, { params }: RouteContext) {
 
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (session.user.role !== Role.STUDENT) {
+    return NextResponse.json({ error: "Students only" }, { status: 403 });
   }
 
   const lesson = await prisma.lesson.findUnique({
@@ -83,31 +42,34 @@ export async function GET(_: Request, { params }: RouteContext) {
     return NextResponse.json({ error: "Lesson not found" }, { status: 404 });
   }
 
-  const classContext = await resolveClassContext(session.user.id, session.user.role);
+  const classContext = await findStudentClassContext(session.user.id);
 
-  let completion: { completed: boolean; completedAt?: string } = { completed: false };
+  if (!classContext) {
+    return NextResponse.json(
+      { error: "Class enrollment required" },
+      { status: 403 }
+    );
+  }
 
-  if (classContext) {
-    const existing = await prisma.lessonCompletion.findUnique({
-      where: {
-        lessonId_studentId_classId: {
-          lessonId: lesson.id,
-          studentId: session.user.id,
-          classId: classContext.id,
-        },
+  const existing = await prisma.lessonCompletion.findUnique({
+    where: {
+      lessonId_studentId_classId: {
+        lessonId: lesson.id,
+        studentId: session.user.id,
+        classId: classContext.id,
       },
-      select: {
-        completedAt: true,
-      },
-    });
+    },
+    select: {
+      completedAt: true,
+    },
+  });
 
-    if (existing) {
-      completion = {
+  const completion = existing
+    ? {
         completed: true,
         completedAt: existing.completedAt.toISOString(),
-      };
-    }
-  }
+      }
+    : { completed: false };
 
   return NextResponse.json({
     lesson,
@@ -123,6 +85,10 @@ export async function POST(request: Request, { params }: RouteContext) {
 
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (session.user.role !== Role.STUDENT) {
+    return NextResponse.json({ error: "Students only" }, { status: 403 });
   }
 
   const lesson = await prisma.lesson.findUnique({
@@ -143,12 +109,21 @@ export async function POST(request: Request, { params }: RouteContext) {
     );
   }
 
-  const classContext = await resolveClassContext(session.user.id, session.user.role, body.classId);
+  const classId = typeof body.classId === "string" ? body.classId : null;
+
+  if (!classId) {
+    return NextResponse.json(
+      { error: "Class enrollment required" },
+      { status: 400 }
+    );
+  }
+
+  const classContext = await findStudentClassContext(session.user.id, classId);
 
   if (!classContext) {
     return NextResponse.json(
-      { error: "No class context for completion" },
-      { status: 400 }
+      { error: "Unauthorized class access" },
+      { status: 403 }
     );
   }
 

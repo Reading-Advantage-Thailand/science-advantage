@@ -10,6 +10,7 @@ import { LessonQuiz } from "@/components/features/lessons/lesson-quiz";
 import { JoinDemoClassButton } from "@/components/features/demo/join-demo-class-button";
 import { Button } from "@/components/ui/button";
 import { getServerAuthSession } from "@/lib/auth";
+import { isDevAuthEnabled } from "@/lib/dev-auth";
 import { parseExperimentContent } from "@/lib/experiments";
 import type { ExperimentSubmissionData } from "@/lib/experiments";
 import { prisma } from "@/lib/prisma";
@@ -167,10 +168,15 @@ export default async function LessonPage({ params }: LessonPageProps) {
         select: {
           completedAt: true,
         },
-      })
+    })
     : null;
 
-  const hasStudentEnrollment = Boolean(enrollment) && !isTeacher;
+  const hasStudentEnrollment = !isTeacher && Boolean(enrollment);
+  const demoEnrollmentEnabled = isDevAuthEnabled();
+
+  if (!isTeacher && !enrollment && !demoEnrollmentEnabled) {
+    redirect("/dashboard");
+  }
 
   const experimentSubmission =
     isExperiment && !isTeacher && enrollment
@@ -262,9 +268,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
           ) : (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                Join the demo class to track your completion status.
+                {demoEnrollmentEnabled
+                  ? "Join the demo class to track your completion status."
+                  : "Ask your teacher to add you to a class to access this lesson."}
               </p>
-              <JoinDemoClassButton />
+              {demoEnrollmentEnabled ? <JoinDemoClassButton /> : null}
             </div>
           )}
         </header>
@@ -295,7 +303,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <>
           <LessonContent content={lesson.content} />
 
-          {quizQuestions.length ? (
+          {!isTeacher && quizQuestions.length ? (
             <LessonQuiz
               lessonSlug={slug}
               questions={quizQuestions}
