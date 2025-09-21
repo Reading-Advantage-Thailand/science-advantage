@@ -56,7 +56,7 @@ export function LessonCompletionToggle({
 
         try {
           payload = (await response.json()) as typeof payload;
-        } catch (parseError) {
+        } catch {
           payload = null;
         }
 

@@ -72,6 +72,10 @@ export default async function DashboardPage() {
     firstLesson && classForTeacher
       ? `/classes/${classForTeacher.id}/lessons/${firstLesson.slug}/completions`
       : null;
+  const teacherScoresLink =
+    firstLesson && classForTeacher
+      ? `/classes/${classForTeacher.id}/lessons/${firstLesson.slug}/scores`
+      : null;
   const classSummary =
     classForTeacher?.name ?? classForStudent?.class.name ?? null;
 
@@ -116,6 +120,11 @@ export default async function DashboardPage() {
         {teacherCompletionsLink ? (
           <Button variant="outline" size="lg" asChild>
             <Link href={teacherCompletionsLink}>View completion list</Link>
+          </Button>
+        ) : null}
+        {teacherScoresLink ? (
+          <Button variant="secondary" size="lg" asChild>
+            <Link href={teacherScoresLink}>View quiz scores</Link>
           </Button>
         ) : null}
         {!lessonLink ? (

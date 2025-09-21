@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
+import { Role } from "@prisma/client";
 import { LessonCompletionToggle } from "@/components/features/lessons/lesson-completion-toggle";
 import { LessonContent } from "@/components/features/lessons/lesson-content";
+import { LessonQuiz } from "@/components/features/lessons/lesson-quiz";
 import { JoinDemoClassButton } from "@/components/features/demo/join-demo-class-button";
 import { Button } from "@/components/ui/button";
 import { getServerAuthSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import type { ScoredResponse } from "@/lib/quiz";
 
 type LessonPageProps = {
   params: {
@@ -25,6 +28,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
     redirect("/signin");
   }
 
+  const isTeacher = session.user.role === Role.TEACHER;
+
   const lesson = await prisma.lesson.findUnique({
     where: { slug },
     select: {
@@ -38,6 +43,92 @@ export default async function LessonPage({ params }: LessonPageProps) {
   if (!lesson) {
     notFound();
   }
+
+  const quizQuestions = await prisma.quizQuestion.findMany({
+    where: { lessonId: lesson.id },
+    orderBy: { order: "asc" },
+    select: {
+      id: true,
+      order: true,
+      prompt: true,
+      options: true,
+    },
+  });
+
+  const latestAttempt = quizQuestions.length
+    ? await prisma.attempt.findFirst({
+        where: {
+          lessonId: lesson.id,
+          studentId: session.user.id,
+        },
+        orderBy: [
+          { completedAt: "desc" },
+          { createdAt: "desc" },
+        ],
+        select: {
+          id: true,
+          score: true,
+          maxScore: true,
+          responses: true,
+          completedAt: true,
+          createdAt: true,
+        },
+      })
+    : null;
+
+  const sanitizeAttemptResponses = (value: unknown): ScoredResponse[] => {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+
+    return value
+      .map((entry) => {
+        if (!entry || typeof entry !== "object") {
+          return null;
+        }
+
+        const record = entry as Record<string, unknown>;
+        const questionId = typeof record.questionId === "string" ? record.questionId : null;
+        const correctAnswer =
+          typeof record.correctAnswer === "string" ? record.correctAnswer : null;
+        const selectedOption =
+          typeof record.selectedOption === "string" ? record.selectedOption : null;
+        const isCorrect = Boolean(record.isCorrect);
+
+        if (!questionId || !correctAnswer) {
+          return null;
+        }
+
+        return {
+          questionId,
+          correctAnswer,
+          selectedOption,
+          isCorrect,
+        } satisfies ScoredResponse;
+      })
+      .filter((entry): entry is ScoredResponse => Boolean(entry));
+  };
+
+  const latestAttemptForClient = latestAttempt
+    ? {
+        id: latestAttempt.id,
+        score: latestAttempt.score,
+        maxScore: latestAttempt.maxScore,
+        responses: sanitizeAttemptResponses(latestAttempt.responses),
+        completedAt: latestAttempt.completedAt?.toISOString() ?? null,
+        createdAt: latestAttempt.createdAt.toISOString(),
+      }
+    : null;
+
+  const teacherClass = isTeacher
+    ? await prisma.class.findFirst({
+        where: { teacherId: session.user.id },
+        select: {
+          id: true,
+          name: true,
+        },
+      })
+    : null;
 
   const enrollment = await prisma.classEnrollment.findFirst({
     where: {
@@ -106,6 +197,30 @@ export default async function LessonPage({ params }: LessonPageProps) {
                 </Button>
               ) : null}
             </div>
+          ) : isTeacher ? (
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Track quiz scores and lesson completion from your class dashboards.
+              </p>
+              {teacherClass ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button variant="outline" size="sm" asChild>
+                    <Link
+                      href={`/classes/${teacherClass.id}/lessons/${slug}/scores`}
+                    >
+                      View quiz scores
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link
+                      href={`/classes/${teacherClass.id}/lessons/${slug}/completions`}
+                    >
+                      View completion list
+                    </Link>
+                  </Button>
+                </div>
+              ) : null}
+            </div>
           ) : (
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
@@ -118,6 +233,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
       </div>
 
       <LessonContent content={lesson.content} />
+
+      {quizQuestions.length ? (
+        <LessonQuiz
+          lessonSlug={slug}
+          questions={quizQuestions}
+          latestAttempt={latestAttemptForClient}
+        />
+      ) : null}
     </section>
   );
 }
