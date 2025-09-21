@@ -170,7 +170,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
       })
     : null;
 
-  const hasEnrollment = Boolean(enrollment);
+  const hasStudentEnrollment = Boolean(enrollment) && !isTeacher;
 
   const experimentSubmission =
     isExperiment && !isTeacher && enrollment
@@ -218,22 +218,13 @@ export default async function LessonPage({ params }: LessonPageProps) {
           {lesson.summary ? (
             <p className="text-base text-muted-foreground">{lesson.summary}</p>
           ) : null}
-          {hasEnrollment ? (
+          {hasStudentEnrollment ? (
             <div className="space-y-3">
               <LessonCompletionToggle
                 lessonSlug={slug}
                 classContext={enrollment?.class ?? null}
                 initialCompleted={Boolean(completion)}
               />
-              {enrollment?.class ? (
-                <Button variant="outline" size="sm" asChild>
-                  <Link
-                    href={`/classes/${enrollment.class.id}/lessons/${slug}/completions`}
-                  >
-                    View class completion list
-                  </Link>
-                </Button>
-              ) : null}
             </div>
           ) : isTeacher ? (
             <div className="space-y-3">
