@@ -55,11 +55,8 @@ export default async function LessonCompletionListPage({
   }
 
   const isTeacher = classroom.teacherId === session.user.id;
-  const membership = classroom.enrollments.find(
-    (enrollment) => enrollment.student.id === session.user.id
-  );
 
-  if (!isTeacher && !membership) {
+  if (!isTeacher) {
     redirect("/dashboard");
   }
 

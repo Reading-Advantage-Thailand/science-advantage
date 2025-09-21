@@ -76,4 +76,31 @@ describe("DashboardPage", () => {
     expect(screen.getByRole("link", { name: /view completion list/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /sign out/i })).toBeInTheDocument();
   });
+
+  it("hides teacher-only completion reports from students", async () => {
+    mockGetServerAuthSession.mockResolvedValue({
+      user: {
+        id: "student_456",
+        role: Role.STUDENT,
+        name: "Sky Student",
+        email: "sky@example.com",
+        image: null,
+      },
+    });
+
+    vi.mocked(prisma.class.findFirst).mockResolvedValue(null);
+    vi.mocked(prisma.classEnrollment.findFirst).mockResolvedValue({
+      class: {
+        id: "class-123",
+        name: "Demo Class",
+      },
+    });
+
+    const Page = await DashboardPage();
+    render(Page);
+
+    expect(
+      screen.queryByRole("link", { name: /view completion list/i })
+    ).not.toBeInTheDocument();
+  });
 });

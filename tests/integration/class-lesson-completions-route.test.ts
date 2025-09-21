@@ -31,7 +31,7 @@ describe("Class lesson completions route", () => {
     vi.resetAllMocks();
   });
 
-  it("requires a teacher session", async () => {
+  it("rejects non-teacher sessions", async () => {
     (getServerAuthSession as vi.Mock).mockResolvedValue({
       user: { id: "student-1", role: Role.STUDENT },
     });
@@ -41,8 +41,6 @@ describe("Class lesson completions route", () => {
       name: "NGSS Cohort",
       teacherId: "teacher-1",
     });
-
-    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValue(null);
 
     const response = await GET(new Request("http://localhost/api"), {
       params: { classId: "class-1", slug: "lesson-1" },
@@ -66,8 +64,6 @@ describe("Class lesson completions route", () => {
       id: "lesson-1",
       title: "Earth systems",
     });
-
-    (prisma.classEnrollment.findFirst as vi.Mock).mockResolvedValue({ id: "enroll-1" });
 
     (prisma.classEnrollment.findMany as vi.Mock).mockResolvedValue([
       {

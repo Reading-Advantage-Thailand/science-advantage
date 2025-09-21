@@ -42,17 +42,7 @@ export async function GET(_: Request, { params }: RouteContext) {
   const isTeacher = classroom.teacherId === session.user.id;
 
   if (!isTeacher) {
-    const membership = await prisma.classEnrollment.findFirst({
-      where: {
-        classId: classroom.id,
-        studentId: session.user.id,
-      },
-      select: { id: true },
-    });
-
-    if (!membership) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const lesson = await prisma.lesson.findUnique({
