@@ -2,6 +2,19 @@
 
 This document outlines the development roadmap for building the Science Advantage platform, based on the epics defined in the Product Requirements Document. This plan replaces the previous MVP-only focus and aligns with the full architectural vision.
 
+## 🤖 BMAD Agent Assignments
+
+For detailed agent assignments and responsibilities, see: **[BMAD Agent Assignments](docs/bmad-agent-assignments.md)**
+
+### Quick Reference:
+
+- **dev (James)**: Implementation, coding, debugging
+- **architect (Winston)**: System design, architecture decisions
+- **qa (Quinn)**: Quality gates, testing strategy, security
+- **ux-expert (Sally)**: UI/UX design, user experience
+- **po (Sarah)**: Product ownership, backlog management
+- **sm (Bob)**: Scrum process, story creation
+
 ## 🚨 URGENT: Critical Infrastructure Refactoring (Highest Priority)
 
 **BLOCKER**: Current codebase violates core architectural standards. Must complete before any other development.

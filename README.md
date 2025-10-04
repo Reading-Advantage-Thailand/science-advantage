@@ -20,17 +20,17 @@ Science Advantage provides 180 days of structured science instruction per school
 
 - **Frontend**: Next.js with App Router, TypeScript, Tailwind CSS, shadcn/ui
 - **Backend**: Next.js API routes, Prisma ORM
-- **Database**: PostgreSQL on Google Cloud SQL
+- **Database**: PostgreSQL on Google Cloud SQL (Production), Dockerized PostgreSQL (Local)
 - **Authentication**: Auth.js (NextAuth.js)
-- **Infrastructure**: Google Cloud Platform
+- **Infrastructure**: Google Cloud Platform (Cloud Run, Cloud SQL, Cloud Storage)
 - **AI Integration**: OpenAI API for content generation and feedback
 
 ## Prerequisites
 
 - Node.js 18+
 - npm or yarn
-- PostgreSQL database
-- Google Cloud account
+- Docker (for local database)
+- Google Cloud account & gcloud CLI
 
 ## Getting Started
 
@@ -55,32 +55,17 @@ Copy the environment template and fill in your values:
 cp .env.example .env.local
 ```
 
-Required environment variables:
-
-```env
-# Database
-DATABASE_URL="postgresql://username:password@host:port/database"
-
-# NextAuth.js
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key"
-
-# Google OAuth (for authentication)
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
-
-# OpenAI API
-OPENAI_API_KEY="your-openai-api-key"
-
-# Google Cloud (for file storage)
-GOOGLE_CLOUD_PROJECT_ID="your-project-id"
-GOOGLE_CLOUD_STORAGE_BUCKET="your-storage-bucket"
-
-# Redis (for caching)
-REDIS_URL="redis://localhost:6379"
-```
+Your local `DATABASE_URL` should point to the Dockerized Postgres instance (e.g., `postgresql://postgres:postgres@localhost:5433/science_advantage`).
 
 ### 4. Database Setup
+
+Start the local database using Docker:
+
+```bash
+docker-compose up -d
+```
+
+Then, set up the schema and seed data:
 
 ```bash
 # Generate Prisma client
@@ -101,10 +86,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The root route redirects to `/dashboard`, which renders a sprint placeholder built with
-Tailwind CSS and a shadcn/ui `Button` component. This confirms the design system wiring
-before feature work begins.
-
 ### 6. Quality Checks
 
 Run these commands before opening a pull request:
@@ -119,23 +100,24 @@ npm run test      # Vitest unit tests
 
 ```
 science-advantage/
-├── app/                    # Next.js App Router
+├── app/                    # Next.js App Router (Pages + API Routes)
 │   ├── (auth)/            # Authentication pages
 │   ├── (dashboard)/       # Main application pages
-│   ├── api/               # API routes
-│   └── globals.css        # Global styles
+│   └── api/               # API routes
 ├── components/            # Reusable React components
 │   ├── ui/               # shadcn/ui components
 │   └── features/         # Feature-specific components
-├── lib/                  # Utility functions and configurations
+├── docs/                  # Project documentation
+├── lib/                   # Shared utilities and configurations
 │   ├── auth.ts           # Auth.js configuration
-│   ├── db.ts             # Database client
+│   ├── prisma.ts         # Prisma client configuration
 │   └── utils.ts          # Helper functions
-├── prisma/               # Database schema and migrations
+├── prisma/                # Database schema and migrations
 │   ├── schema.prisma     # Database schema
-│   └── seeds/            # Seed data
-├── public/               # Static assets
-└── docs/                 # Documentation
+│   └── seed.ts           # Seed script
+├── public/                # Static assets
+├── tests/                 # Integration and E2E tests
+└── ...                    # Config files (package.json, etc.)
 ```
 
 ## Database Schema
@@ -160,24 +142,7 @@ standards_frameworks → standards_hierarchy → lesson_standards_mapping
 
 ## API Documentation
 
-### Authentication Endpoints
-
-- `POST /api/auth/signin` - User login
-- `POST /api/auth/signout` - User logout
-- `GET /api/auth/session` - Current session
-
-### Curriculum Endpoints
-
-- `GET /api/lessons` - Fetch lessons with standards filtering
-- `GET /api/experiments` - Lab activities
-- `POST /api/progress` - Update student progress
-- `GET /api/assessments` - Fetch assessments
-
-### Standards Endpoints
-
-- `GET /api/standards` - Available standards frameworks
-- `GET /api/standards/[framework]` - Specific framework standards
-- `POST /api/lessons/[id]/standards` - Map lesson to standards
+See `docs/architecture/api-spec.md` for the full OpenAPI specification.
 
 ## Development Guidelines
 
@@ -209,18 +174,10 @@ npm run test:e2e
 
 ### Deployment
 
-The application is deployed on Google Cloud Platform:
+Deployments are handled automatically via the GitHub Actions workflow defined in `.github/workflows/deploy.yml`.
 
-```bash
-# Build for production
-npm run build
-
-# Deploy to staging
-npm run deploy:staging
-
-# Deploy to production
-npm run deploy:production
-```
+- **Staging**: Deployed automatically from a `develop` or `staging` branch (if configured).
+- **Production**: Deployed automatically upon a push or merge to the `main` branch.
 
 ## Standards Implementation
 
@@ -268,8 +225,22 @@ This project is licensed under the AGPL License - see the [LICENSE](LICENSE) fil
 ## Support
 
 - Documentation: [docs/](./docs/)
+- BMAD Agent Assignments: [BMAD Agent Assignments](docs/bmad-agent-assignments.md)
 - Issues: [GitHub Issues](https://github.com/Reading-Advantage-Thailand/science-advantage/issues)
 - Email: support@reading-advantage.com
+
+## 🤖 BMAD Development Process
+
+This project uses BMAD-METHOD for AI-assisted development with specialized agent roles:
+
+- **dev (James)**: Full-stack implementation
+- **architect (Winston)**: System design and architecture
+- **qa (Quinn)**: Quality assurance and testing
+- **ux-expert (Sally)**: UI/UX design
+- **po (Sarah)**: Product ownership
+- **sm (Bob)**: Scrum process management
+
+See [BMAD Agent Assignments](docs/bmad-agent-assignments.md) for detailed role assignments and workflows.
 
 ## Roadmap
 

@@ -55,3 +55,6 @@ prisma/dev.db
 tmp/
 temp/
 *.local
+# BMAD (local only)
+.bmad-core/
+.bmad-*/
