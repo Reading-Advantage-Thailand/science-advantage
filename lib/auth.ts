@@ -5,14 +5,10 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { Role } from "@prisma/client";
 
-import { env } from "@/lib/env";
+import { config } from "@/lib/env";
 import { prisma } from "@/lib/prisma";
 import { isDevAuthEnabled } from "@/lib/dev-auth";
-import {
-  ensureDevUser,
-  getDevAuthCookie,
-  toPrismaRole,
-} from "@/lib/dev-auth.server";
+import { ensureDevUser, getDevAuthCookie, toPrismaRole } from "@/lib/dev-auth.server";
 
 declare module "next-auth" {
   interface Session {
@@ -35,7 +31,7 @@ declare module "next-auth/jwt" {
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  secret: env.nextAuthSecret,
+  secret: config.nextAuth.secret,
   session: {
     strategy: "jwt",
   },
@@ -44,8 +40,8 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     GoogleProvider({
-      clientId: env.googleClientId,
-      clientSecret: env.googleClientSecret,
+      clientId: config.google.clientId,
+      clientSecret: config.google.clientSecret,
     }),
   ],
   callbacks: {

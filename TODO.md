@@ -1,48 +1,110 @@
-# Science Advantage — MVP-First Roadmap
+# Science Advantage - Implementation Roadmap
 
-This plan prioritizes thin, end-to-end slices that are demoable early. It replaces phase buckets with small stories tied to a GitHub-first workflow using `gh` for issues, branches, and PRs.
+This document outlines the development roadmap for building the Science Advantage platform, based on the epics defined in the Product Requirements Document. This plan replaces the previous MVP-only focus and aligns with the full architectural vision.
 
-## Goals & Constraints
+## 🚨 URGENT: Critical Infrastructure Refactoring (Highest Priority)
 
-- Scope: NGSS only, Grade 6 pilot; 1 unit, 5 lessons, 1 experiment, 20 MCQs.
-- Roles: teacher and student; Google OAuth only for MVP.
-- Non-goals (Post-MVP): adaptive difficulty, cross-standards mapping, AI feedback, advanced analytics, inventory/printing.
+**BLOCKER**: Current codebase violates core architectural standards. Must complete before any other development.
 
-## Current Sprint (S0) — Skeleton + Auth
+### **Phase 0: Infrastructure Compliance (COMPLETED ✅)**
 
-Create these issues (titles are exact; each item includes acceptance criteria). Use the cheat sheet below to open issues and branches with `gh`.
+- [x] **CRITICAL: Create Missing Core Infrastructure Files**
+  - [x] Create `lib/types.ts` - Centralized shared type definitions
+    - Extract User, Class, Lesson, Quiz types from Prisma
+    - Define API request/response interfaces
+    - Add validation schemas with Zod
+  - [x] Create `lib/api.ts` - Centralized API client
+    - Implement apiClient with proper error handling
+    - Add authentication headers automatically
+    - Standardize response formatting
+  - [x] Create `lib/errors.ts` - Standardized error handling
+    - Define ApiError class hierarchy
+    - Implement handleApiError utility
+    - Create consistent error response format
+  - [x] Refactor `lib/env.ts` - Type-safe environment variables
+    - Replace direct process.env access with Zod schema
+    - Add validation for all required environment variables
+    - Provide type-safe env object
 
-1) App Skeleton (Next.js + TS + Tailwind + shadcn)
-- Acceptance: `npm run dev` serves a placeholder dashboard route; Tailwind and shadcn/ui button renders; ESLint/Prettier run clean.
+**Why This is Critical:**
 
-2) Env + Secrets Baseline
-- Acceptance: `.env.example` contains required keys from README; `npm run dev` fails fast if missing critical vars.
+- Violates `docs/architecture/coding-standards.md` requirements
+- Blocks all future development until compliant
+- Enables type sharing between frontend/backend
+- Provides foundation for centralized API patterns
+- Required for CI/CD pipeline to pass
 
-3) Database + Prisma Init
-- Acceptance: `npx prisma generate` works; `npx prisma db push` creates base tables for users, classes, lessons, quiz questions, attempts; seed inserts demo Unit 1.
+**Estimated Time**: 2-3 hours
+**Dependencies**: None (can start immediately)
 
-4) ✅ Auth (Google OAuth) + Protected Routes
-- Acceptance: Shipped via PR #12 — Google sign-in works, `/dashboard` requires auth, session shows user name, and sign-out returns to `/signin`.
+## Phase 1: Foundation & Core Curriculum (Epics 1 & 2)
 
-5) Lesson Viewer (Static Content, Completion Toggle)
-- Acceptance: Student can open Lesson 1 and click “Mark complete”; teacher can view completion list per class.
-- Follow-up: Replace the demo join flow with real class-based access control (see Issue #14).
+_⚠️ BLOCKED until Phase 0 infrastructure compliance is complete_
 
-6) ✅ MCQ Quiz (Auto-score)
-- Acceptance: Student completes a 10-question quiz; auto-score saved; teacher sees per-student scores.
+The primary goal of this phase is to establish the technical foundation, integrate with the Advantage ecosystem, and build the core content delivery and virtual lab systems.
 
-7) Experiment Guide + Data Entry (Basic)
-- Acceptance: Student views steps and submits a small data form; teacher can export CSV.
+- [ ] **Epic 1: Foundation & Ecosystem Integration**
+  - [ ] Set up the monorepo, CI/CD pipeline, and GCP deployment environment.
+  - [ ] Implement Single Sign-On (SSO) with the existing Advantage authentication system.
+  - [ ] Establish the core API gateway and microservices architecture.
+  - [ ] Implement real-time data synchronization with other Advantage products.
 
-8) Class Admin Lite (Class + Join Code + Assignment)
-- Acceptance: Teacher creates a class and join code; assigns a lesson/quiz; students see items in “My Work”.
+- [ ] **Epic 2: Core Science Curriculum & Content Management**
+  - [ ] Build the curriculum framework aligned with Thai Ministry of Education standards.
+  - [ ] Develop the interactive lesson player for multimedia content.
+  - [ ] Implement the Virtual Laboratory system with initial physics and chemistry simulations.
+  - [ ] Create the bilingual (Thai/English) content management system.
+  - [ ] Build the core assessment and quizzing engine with automatic grading.
+
+## Phase 2: Intelligence & Engagement (Epics 3 & 4)
+
+_⚠️ BLOCKED until Phase 0 infrastructure compliance is complete_
+
+This phase focuses on developing the AI-powered personalization features and the tools required for high user engagement and effective classroom management.
+
+- [ ] **Epic 3: AI-Powered Personalization & Cross-Subject Learning**
+  - [ ] Develop the student learning profile and initial assessment system.
+  - [ ] Build the v1 AI recommendation engine for personalized content.
+  - [ ] Implement cross-subject links between science and reading content.
+  - [ ] Create the predictive analytics model for early student intervention.
+
+- [ ] **Epic 4: User Engagement & Classroom Management**
+  - [ ] Build the comprehensive Teacher Dashboard for class and assignment management.
+  - [ ] Implement gamified learning elements (achievements, skill trees, leaderboards).
+  - [ ] Develop the Parent Portal for monitoring child progress.
+  - [ ] Add collaborative features (discussion forums, group projects).
+
+## Phase 3: Mobility, Analytics & Advanced Features (Epics 5, 6, & 7)
+
+_⚠️ BLOCKED until Phase 0 infrastructure compliance is complete_
+
+This phase extends the platform's reach with mobile applications, deep analytics, and premium features that secure its market-leading position.
+
+- [ ] **Epic 5: Mobile Applications & Offline Capabilities**
+  - [ ] Develop and launch native iOS and Android applications.
+  - [ ] Implement a touch-optimized UI for all core features.
+  - [ ] Build the offline content access and progress synchronization system.
+
+- [ ] **Epic 6: Analytics & Reporting**
+  - [ ] Create the advanced Learning Analytics Dashboard for teachers and admins.
+  - [ ] Develop cross-subject reporting to show ecosystem value.
+  - [ ] Implement system performance and usage analytics dashboards.
+
+- [ ] **Epic 7: Advanced Features & Integrations**
+  - [ ] Integrate a live tutoring platform.
+  - [ ] Develop proof-of-concept AR/VR laboratory experiences.
+  - [ ] Implement integrations with key third-party school systems (LMS, SIS).
+
+---
 
 ## gh Commands — Issue → Branch → PR
 
 Set your sprint milestone name once per sprint:
+
 - `export SPRINT_MILESTONE="S0 – Skeleton + Auth"`
 
 Create an issue and immediately start a branch for it:
+
 - `TITLE="Lesson Viewer (Static Content, Completion Toggle)"`
 - `DESC="Implements read-only lesson page and completion state; teacher list view."`
 - `NUM=$(gh issue create --title "$TITLE" --body "$DESC" --label "type:feature" --milestone "$SPRINT_MILESTONE" --assignee @me --json number --jq .number)`
@@ -50,62 +112,15 @@ Create an issue and immediately start a branch for it:
 - `git switch -c "$BR"`
 
 Run tests locally before opening PR:
+
 - `npm run lint && npm run test && npm run test:integration`
 
 Open PR with auto-merge (squash) after checks pass:
+
 - `gh pr create --fill --label "type:feature" --milestone "$SPRINT_MILESTONE" --draft=false`
 - `gh pr merge --auto --squash`
 
 After merge, sync local and clean up:
+
 - `git checkout main && git pull --ff-only`
 - `git branch -d "$BR" && gh branch delete "$BR" -y`
-
-## Next Sprints Overview
-
-- S1 — Lesson + Completion + Scores
-  - Harden lesson viewer; add class-level completion view; basic scores table.
-- S2 — MCQ Engine Basics
-  - Question/attempt models; timed quiz; item-level stats (basic).
-- S3 — Experiment v1
-  - Guide viewer; safety; single data form; CSV export.
-- S4 — Class Admin Lite
-  - Create class; join codes; assign content; due dates; status.
-- S5 — Pilot Readiness
-  - A11y critical fixes; error states; participation/completion dashboards; docs for pilot.
-
-## Definition of Done (Per Slice)
-
-- TDD followed (Red → Green → Refactor) with tests written first.
-- End-to-end demoable flow behind a route/flag.
-- Seed data supports a 5-minute demo path.
-- Tests: unit + integration for core logic; one e2e happy path per slice.
-- Updated docs in `docs/` and README references.
-- CI green on lint, unit, integration (and e2e if configured); preview deployment link; owner sign-off.
-
-## Demo/Seed Playbook
-
-- Seed: `npx prisma db seed` creates NGSS Grade 6 Unit 1 (5 lessons, 20 MCQs, 1 experiment).
-- Demo path:
-  - Teacher: create class → copy join code → assign Lesson 1 → view completion.
-  - Student: sign in → open Lesson 1 → mark complete → take quiz → submit experiment data.
-  - Teacher: view scores and export experiment CSV.
-
-## Post-MVP Backlog (Themed)
-
-- Multi-Standards: UK, Thai integrations; cross-mapping; equivalency; pacing guides.
-- Adaptive Learning: difficulty tracking; gap detection; reteach triggers; practice generation.
-- Assessment: short-answer eval; rubric tools; writing prompts; plagiarism detection; AI feedback.
-- Experiments: collaborative data; visualization; lab report generator; scheduling tools.
-- Teacher Tools: parent comms; inventory; printing; resource library; customization.
-
-## Risks & Mitigations
-
-- Content readiness: start with minimal seed and iterate; define content freeze dates.
-- Auth friction: start with Google only; add more IdPs post-MVP.
-- Performance: keep schema simple; add Redis/CDN only if profiling requires.
-- School networks: provide offline-friendly print/export for backup; minimal asset sizes.
-
-## Metrics
-
-- DAU by role; lesson completion rate; quiz submission rate; experiment submissions; assignment on-time rate.
- 
