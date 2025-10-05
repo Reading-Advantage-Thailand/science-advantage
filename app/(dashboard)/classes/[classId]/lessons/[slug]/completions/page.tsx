@@ -1,9 +1,28 @@
+"use client";
+
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { getServerAuthSession } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+
+type CompletionData = {
+  class: {
+    id: string;
+    name: string;
+  };
+  lesson: {
+    id: string;
+    title: string;
+  };
+  students: Array<{
+    studentId: string;
+    name: string;
+    email: string;
+    completed: boolean;
+    completedAt: string | null;
+  }>;
+};
 
 type LessonCompletionListPageProps = {
   params:
@@ -17,89 +36,92 @@ type LessonCompletionListPageProps = {
       }>;
 };
 
-export default async function LessonCompletionListPage({
-  params,
-}: LessonCompletionListPageProps) {
-  const { classId, slug } = await Promise.resolve(params);
+export default function LessonCompletionListPage({ params }: LessonCompletionListPageProps) {
+  const [data, setData] = useState<CompletionData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [classId, setClassId] = useState<string>("");
+  const [slug, setSlug] = useState<string>("");
 
-  const session = await getServerAuthSession();
+  // Extract params on mount
+  useEffect(() => {
+    const extractParams = async () => {
+      const resolvedParams = await Promise.resolve(params);
+      setClassId(resolvedParams.classId);
+      setSlug(resolvedParams.slug);
+    };
+    extractParams();
+  }, [params]);
 
-  if (!session?.user) {
-    redirect("/signin");
+  // Fetch completion data
+  const fetchCompletions = useCallback(async () => {
+    if (!classId || !slug) return;
+
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/classes/${classId}/lessons/${slug}/completions`);
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          notFound();
+        }
+        throw new Error("Failed to fetch completions");
+      }
+
+      const completionData = await response.json();
+      setData(completionData);
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  }, [classId, slug]);
+
+  // Initial fetch and periodic refresh
+  useEffect(() => {
+    if (!classId || !slug) return;
+
+    fetchCompletions();
+
+    // Set up polling to check for updates every 5 seconds
+    const interval = setInterval(fetchCompletions, 5000);
+
+    return () => clearInterval(interval);
+  }, [classId, slug, fetchCompletions]);
+
+  if (loading && !data) {
+    return (
+      <section className="space-y-8">
+        <div className="space-y-4">
+          <Button variant="ghost" asChild>
+            <Link href="/dashboard">Back to dashboard</Link>
+          </Button>
+          <div className="animate-pulse">
+            <div className="h-8 bg-muted rounded w-1/3"></div>
+            <div className="h-12 bg-muted rounded w-2/3 mt-2"></div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
-  const classroom = await prisma.class.findUnique({
-    where: {
-      id: classId,
-    },
-    select: {
-      id: true,
-      name: true,
-      teacherId: true,
-      enrollments: {
-        include: {
-          student: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-            },
-          },
-        },
-      },
-    },
-  });
-
-  if (!classroom) {
-    notFound();
+  if (error) {
+    return (
+      <section className="space-y-8">
+        <div className="space-y-4">
+          <Button variant="ghost" asChild>
+            <Link href="/dashboard">Back to dashboard</Link>
+          </Button>
+          <div className="text-destructive">Error: {error}</div>
+        </div>
+      </section>
+    );
   }
 
-  const isTeacher = classroom.teacherId === session.user.id;
-
-  if (!isTeacher) {
-    redirect("/dashboard");
+  if (!data) {
+    return null;
   }
-
-  const lesson = await prisma.lesson.findUnique({
-    where: { slug },
-    select: {
-      id: true,
-      title: true,
-    },
-  });
-
-  if (!lesson) {
-    notFound();
-  }
-
-  const completions = await prisma.lessonCompletion.findMany({
-    where: {
-      classId: classroom.id,
-      lessonId: lesson.id,
-    },
-    select: {
-      studentId: true,
-      completedAt: true,
-    },
-  });
-
-  const completionMap = new Map(
-    completions.map((completion) => [completion.studentId, completion.completedAt])
-  );
-
-  const students = classroom.enrollments
-    .map(({ student }) => {
-      const completedAt = completionMap.get(student.id);
-
-      return {
-        id: student.id,
-        name: student.name ?? student.email,
-        email: student.email,
-        completed: Boolean(completedAt),
-        completedAt,
-      };
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <section className="space-y-8">
@@ -112,10 +134,9 @@ export default async function LessonCompletionListPage({
           <p className="text-sm uppercase tracking-wide text-muted-foreground">
             Lesson completion overview
           </p>
-          <h1 className="text-3xl font-semibold tracking-tight">
-            {lesson.title}
-          </h1>
-          <p className="text-sm text-muted-foreground">Class: {classroom.name}</p>
+          <h1 className="text-3xl font-semibold tracking-tight">{data.lesson.title}</h1>
+          <p className="text-sm text-muted-foreground">Class: {data.class.name}</p>
+          <p className="text-xs text-muted-foreground">Auto-refreshes every 5 seconds</p>
         </header>
       </div>
 
@@ -135,8 +156,8 @@ export default async function LessonCompletionListPage({
             </tr>
           </thead>
           <tbody className="divide-y divide-border/60 bg-card/50">
-            {students.map((student) => (
-              <tr key={student.id}>
+            {data.students.map((student) => (
+              <tr key={student.studentId}>
                 <td className="px-6 py-4 font-medium text-foreground">{student.name}</td>
                 <td className="px-6 py-4 text-muted-foreground">{student.email}</td>
                 <td className="px-6 py-4">
