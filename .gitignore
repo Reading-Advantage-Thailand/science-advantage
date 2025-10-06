@@ -12,10 +12,18 @@ Thumbs.db
 .vscode/
 *.iml
 .codex/
+.claude/
+.gemini/
+.opencode/
 
 # Environment files (keep example only)
 .env*
 !.env.example
+!.env.test
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Next.js / React builds
 .next/

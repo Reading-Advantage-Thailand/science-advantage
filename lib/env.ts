@@ -5,12 +5,13 @@
  * All environment variable access should go through this file to ensure type safety.
  */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { z } from "zod";
 
 // Environment variable schema with validation
 const envSchema = z.object({
   // NextAuth.js
-  NEXTAUTH_URL: z.string().url().optional(),
+  NEXTAUTH_URL: z.string().url({ message: "NEXTAUTH_URL must be a valid URL" }).optional(),
   NEXTAUTH_SECRET: z.string().min(1, "NEXTAUTH_SECRET is required"),
 
   // Google OAuth
@@ -29,7 +30,7 @@ const envSchema = z.object({
     .optional(),
 
   // Redis (for caching/sessions)
-  REDIS_URL: z.string().url().optional(),
+  REDIS_URL: z.string().url({ message: "REDIS_URL must be a valid URL" }).optional(),
   REDIS_TOKEN: z.string().optional(),
 
   // Application settings
@@ -44,7 +45,10 @@ const envSchema = z.object({
     .default(false),
 
   // External service URLs
-  NEXT_PUBLIC_API_URL: z.string().url().optional(),
+  NEXT_PUBLIC_API_URL: z
+    .string()
+    .url({ message: "NEXT_PUBLIC_API_URL must be a valid URL" })
+    .optional(),
 
   // Email service (future)
   SMTP_HOST: z.string().optional(),
@@ -54,7 +58,7 @@ const envSchema = z.object({
 
   // Analytics (future)
   GOOGLE_ANALYTICS_ID: z.string().optional(),
-  SENTRY_DSN: z.string().url().optional(),
+  SENTRY_DSN: z.string().url({ message: "SENTRY_DSN must be a valid URL" }).optional(),
 
   // File upload limits
   MAX_FILE_SIZE: z.string().transform(Number).pipe(z.number()).default(10485760), // 10MB
@@ -62,7 +66,7 @@ const envSchema = z.object({
 });
 
 // Validate environment variables
-function validateEnv(): z.infer<typeof envSchema> {
+export function validateEnv(): z.infer<typeof envSchema> {
   try {
     return envSchema.parse(process.env);
   } catch (error) {
@@ -135,8 +139,35 @@ function getExampleValue(varName: string): string {
   return examples[varName] || "your-value-here";
 }
 
-// Export validated environment variables
-export const env = validateEnv();
+// Export validated environment variables (lazy evaluation)
+let _env: z.infer<typeof envSchema> | null = null;
+
+export const env = new Proxy({} as z.infer<typeof envSchema>, {
+  get(_target, prop) {
+    if (!_env) {
+      _env = validateEnv();
+    }
+    return _env[prop as keyof z.infer<typeof envSchema>];
+  },
+  has(_target, prop) {
+    if (!_env) {
+      _env = validateEnv();
+    }
+    return prop in _env;
+  },
+  ownKeys(_target) {
+    if (!_env) {
+      _env = validateEnv();
+    }
+    return Object.keys(_env);
+  },
+  getOwnPropertyDescriptor(_target, prop) {
+    if (!_env) {
+      _env = validateEnv();
+    }
+    return Object.getOwnPropertyDescriptor(_env, prop);
+  },
+});
 
 // Export individual environment variables with proper types
 export const config = {
@@ -215,6 +246,7 @@ export const config = {
 
 // Export environment variable schema for validation in tests
 export { envSchema };
+export type EnvSchema = z.infer<typeof envSchema>;
 
 // Helper function to check if all required environment variables are present
 export function checkRequiredEnv(): boolean {

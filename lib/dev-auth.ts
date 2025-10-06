@@ -8,11 +8,10 @@ export type DevAuthClientSession = {
   email: string;
 };
 
+import { config } from "./env";
+
 export function isDevAuthEnabled() {
-  return (
-    process.env.NODE_ENV !== "production" &&
-    process.env.NEXT_PUBLIC_DEV_AUTH === "true"
-  );
+  return config.app.isDev && config.features.devAuth;
 }
 
 export function isAllowedDevRole(role: string): role is DevAuthRole {

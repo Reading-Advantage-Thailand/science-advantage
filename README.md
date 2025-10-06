@@ -55,6 +55,8 @@ Copy the environment template and fill in your values:
 cp .env.example .env.local
 ```
 
+For detailed environment setup instructions, including required variables and service configuration, see the [Environment Setup Guide](docs/onboarding/environment.md).
+
 Your local `DATABASE_URL` should point to the Dockerized Postgres instance (e.g., `postgresql://postgres:postgres@localhost:5433/science_advantage`).
 
 ### 4. Database Setup
