@@ -8,6 +8,8 @@
 // Core domain types extracted from Prisma schema
 export type Role = "STUDENT" | "TEACHER" | "ADMIN";
 export type LessonType = "LESSON" | "EXPERIMENT";
+export type AssignmentStatus = "DRAFT" | "PUBLISHED" | "CANCELLED";
+export type ContentType = "LESSON" | "QUIZ" | "EXPERIMENT";
 
 // User-related types
 export interface User {
@@ -61,6 +63,7 @@ export interface Lesson {
   order: number;
   content: string;
   type: LessonType;
+  isPublished: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -118,6 +121,68 @@ export interface ExperimentSubmission {
   updatedAt: Date;
 }
 
+// Assignment-related types
+export interface Assignment {
+  id: string;
+  title: string;
+  description?: string | null;
+  classId: string;
+  class: Class;
+  lessonId: string;
+  lesson: Lesson;
+  contentType: ContentType;
+  status: AssignmentStatus;
+  dueDate: Date;
+  timezone: string;
+  publishedAt?: Date | null;
+  cancelledAt?: Date | null;
+  teacherId: string;
+  teacher: User;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface AssignmentWithRelations extends Assignment {
+  class: Class;
+  lesson: Lesson;
+  teacher: User;
+}
+
+export interface AssignmentListItem {
+  id: string;
+  title: string;
+  description?: string | null;
+  contentType: ContentType;
+  status: AssignmentStatus;
+  dueDate: Date;
+  timezone: string;
+  publishedAt?: Date | null;
+  cancelledAt?: Date | null;
+  className: string;
+  lessonTitle: string;
+  lessonType: LessonType;
+  studentCount?: number;
+  completedCount?: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface StudentAssignmentItem {
+  id: string;
+  title: string;
+  description?: string | null;
+  contentType: ContentType;
+  dueDate: Date;
+  timezone: string;
+  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "OVERDUE";
+  lessonTitle: string;
+  lessonType: LessonType;
+  className: string;
+  completedAt?: Date | null;
+  score?: number | null;
+  maxScore?: number | null;
+}
+
 // API Request/Response types
 export interface ApiResponse<T = unknown> {
   success: boolean;
@@ -169,6 +234,46 @@ export interface JoinClassRequest {
 export interface UpdateClassRequest {
   name?: string;
   description?: string;
+}
+
+// Assignment management types
+export interface CreateAssignmentRequest {
+  title: string;
+  description?: string;
+  classId: string;
+  lessonId: string;
+  contentType?: ContentType;
+  dueDate: string; // ISO string
+  timezone?: string;
+  status?: AssignmentStatus;
+}
+
+export interface UpdateAssignmentRequest {
+  title?: string;
+  description?: string;
+  dueDate?: string; // ISO string
+  timezone?: string;
+  status?: AssignmentStatus;
+}
+
+export interface ListAssignmentsRequest {
+  classId?: string;
+  teacherId?: string;
+  status?: AssignmentStatus;
+  contentType?: ContentType;
+  page?: number;
+  limit?: number;
+  sortBy?: "createdAt" | "dueDate" | "title";
+  sortOrder?: "asc" | "desc";
+}
+
+export interface ListStudentAssignmentsRequest {
+  classId?: string;
+  status?: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "OVERDUE";
+  page?: number;
+  limit?: number;
+  sortBy?: "dueDate" | "title" | "createdAt";
+  sortOrder?: "asc" | "desc";
 }
 
 // Lesson progress types
@@ -262,6 +367,52 @@ export const experimentSubmissionSchema = z.object({
   data: z.object({}).passthrough(),
 });
 
+export const createAssignmentSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Assignment title is required")
+    .max(200, "Title must be 200 characters or less"),
+  description: z.string().max(1000, "Description must be 1000 characters or less").optional(),
+  classId: z.string().min(1, "Class ID is required"),
+  lessonId: z.string().min(1, "Lesson ID is required"),
+  contentType: z.enum(["LESSON", "QUIZ", "EXPERIMENT"]).optional().default("LESSON"),
+  dueDate: z.string().min(1, "Due date is required").datetime("Invalid datetime format"),
+  timezone: z.string().min(1, "Timezone is required").max(50, "Invalid timezone").default("UTC"),
+  status: z.enum(["DRAFT", "PUBLISHED", "CANCELLED"]).optional().default("DRAFT"),
+});
+
+export const updateAssignmentSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Assignment title is required")
+    .max(200, "Title must be 200 characters or less")
+    .optional(),
+  description: z.string().max(1000, "Description must be 1000 characters or less").optional(),
+  dueDate: z.string().datetime("Invalid datetime format").optional(),
+  timezone: z.string().min(1, "Timezone is required").max(50, "Invalid timezone").optional(),
+  status: z.enum(["DRAFT", "PUBLISHED", "CANCELLED"]).optional(),
+});
+
+export const listAssignmentsSchema = z.object({
+  classId: z.string().optional(),
+  teacherId: z.string().optional(),
+  status: z.enum(["DRAFT", "PUBLISHED", "CANCELLED"]).optional(),
+  contentType: z.enum(["LESSON", "QUIZ", "EXPERIMENT"]).optional(),
+  page: z.coerce.number().min(1).default(1),
+  limit: z.coerce.number().min(1).max(100).default(20),
+  sortBy: z.enum(["createdAt", "dueDate", "title"]).default("createdAt"),
+  sortOrder: z.enum(["asc", "desc"]).default("desc"),
+});
+
+export const listStudentAssignmentsSchema = z.object({
+  classId: z.string().optional(),
+  status: z.enum(["NOT_STARTED", "IN_PROGRESS", "COMPLETED", "OVERDUE"]).optional(),
+  page: z.coerce.number().min(1).default(1),
+  limit: z.coerce.number().min(1).max(100).default(20),
+  sortBy: z.enum(["dueDate", "title", "createdAt"]).default("dueDate"),
+  sortOrder: z.enum(["asc", "desc"]).default("asc"),
+});
+
 // Type inference from schemas
 export type CreateUserInput = z.infer<typeof userSchema>;
 export type CreateClassInput = z.infer<typeof createClassSchema>;
@@ -269,3 +420,7 @@ export type JoinClassInput = z.infer<typeof joinClassSchema>;
 export type UpdateClassInput = z.infer<typeof updateClassSchema>;
 export type QuizSubmissionInput = z.infer<typeof quizSubmissionSchema>;
 export type ExperimentSubmissionInput = z.infer<typeof experimentSubmissionSchema>;
+export type CreateAssignmentInput = z.infer<typeof createAssignmentSchema>;
+export type UpdateAssignmentInput = z.infer<typeof updateAssignmentSchema>;
+export type ListAssignmentsInput = z.infer<typeof listAssignmentsSchema>;
+export type ListStudentAssignmentsInput = z.infer<typeof listStudentAssignmentsSchema>;

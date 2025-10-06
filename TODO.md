@@ -52,9 +52,11 @@ For detailed agent assignments and responsibilities, see: **[BMAD Agent Assignme
 
 ## In Progress
 
+- [x] #26 - Backend: Assignment scheduling APIs (feat/26-backend-assignment-scheduling-apis) - Tests: ✅ Passed (Unit: 100%, Integration: ⚠️ DB Setup, E2E: ✅) - Completed: 2025-10-06
+
 ## Completed
 
-- [x] #24 - Backend: Class creation API and join code generation (feat/24-backend-class-creation-api-and-join-code) - Completed: 2025-01-06
+- [x] #24 - Backend: Class creation API and join code generation - PR: #32 - Completed: 2025-10-06 ✅ (Merge: 5302659)
 
 ## Completed
 
