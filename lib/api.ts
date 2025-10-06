@@ -8,6 +8,7 @@
 
 import type { ApiResponse, PaginatedResponse } from "@/lib/types";
 import { handleClientError } from "@/lib/errors";
+import { config } from "./env";
 
 // API client configuration
 interface ApiClientConfig {
@@ -231,7 +232,7 @@ class ApiClient {
 
 // Create default API client instance
 export const apiClient = new ApiClient({
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || "/api",
+  baseUrl: config.api.url,
   timeout: 15000, // 15 seconds for default client
 });
 

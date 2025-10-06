@@ -50,6 +50,12 @@ For detailed agent assignments and responsibilities, see: **[BMAD Agent Assignme
 **Estimated Time**: 2-3 hours
 **Dependencies**: None (can start immediately)
 
+## In Progress
+
+## Completed
+
+- [x] #17 - Env + Secrets Baseline (feat/17-env-secrets-baseline) - Completed: 2025-01-06 - Tests: ✅ Passed (Unit: 91%, Integration: 97%, E2E: 67%)
+
 ## Phase 1: Foundation & Core Curriculum (Epics 1 & 2)
 
 _⚠️ BLOCKED until Phase 0 infrastructure compliance is complete_
