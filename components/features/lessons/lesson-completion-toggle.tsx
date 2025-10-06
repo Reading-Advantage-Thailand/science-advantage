@@ -55,7 +55,11 @@ export function LessonCompletionToggle({
         } | null = null;
 
         try {
-          payload = (await response.json()) as typeof payload;
+          payload = (await response.json()) as {
+            completion?: { completed: boolean };
+            classContext?: { id: string; name: string } | null;
+            error?: string;
+          };
         } catch {
           payload = null;
         }
@@ -70,11 +74,7 @@ export function LessonCompletionToggle({
           setContext(payload.classContext ?? null);
         }
       } catch (exception) {
-        setError(
-          exception instanceof Error
-            ? exception.message
-            : "Unable to update completion"
-        );
+        setError(exception instanceof Error ? exception.message : "Unable to update completion");
       }
     });
   };
