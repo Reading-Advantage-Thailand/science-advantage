@@ -6,11 +6,7 @@ import {
   getDevAuthCookie,
   setDevAuthCookie,
 } from "@/lib/dev-auth.server";
-import {
-  DEV_AUTH_COOKIE,
-  isAllowedDevRole,
-  isDevAuthEnabled,
-} from "@/lib/dev-auth";
+import { DEV_AUTH_COOKIE, isAllowedDevRole, isDevAuthEnabled } from "@/lib/dev-auth";
 
 export async function POST(request: Request) {
   if (!isDevAuthEnabled()) {
@@ -23,7 +19,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
-  const roleInput = typeof (body as Record<string, unknown>).role === "string" ? (body as Record<string, unknown>).role : "";
+  const roleInput =
+    typeof (body as Record<string, unknown>).role === "string"
+      ? ((body as Record<string, unknown>).role as string)
+      : "";
 
   if (!isAllowedDevRole(roleInput)) {
     return NextResponse.json({ error: "Unsupported role" }, { status: 400 });
@@ -31,8 +30,14 @@ export async function POST(request: Request) {
 
   const payload = buildDevAuthCookiePayload({
     role: roleInput,
-    name: (body as Record<string, unknown>).name,
-    email: (body as Record<string, unknown>).email,
+    name:
+      typeof (body as Record<string, unknown>).name === "string"
+        ? ((body as Record<string, unknown>).name as string)
+        : undefined,
+    email:
+      typeof (body as Record<string, unknown>).email === "string"
+        ? ((body as Record<string, unknown>).email as string)
+        : undefined,
   });
 
   await setDevAuthCookie(payload);

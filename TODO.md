@@ -54,6 +54,10 @@ For detailed agent assignments and responsibilities, see: **[BMAD Agent Assignme
 
 ## Completed
 
+- [x] #24 - Backend: Class creation API and join code generation (feat/24-backend-class-creation-api-and-join-code) - Completed: 2025-01-06
+
+## Completed
+
 - [x] #17 - Env + Secrets Baseline (feat/17-env-secrets-baseline) - Completed: 2025-01-06 - Tests: ✅ Passed (Unit: 91%, Integration: 97%, E2E: 67%)
 
 ## Phase 1: Foundation & Core Curriculum (Epics 1 & 2)
