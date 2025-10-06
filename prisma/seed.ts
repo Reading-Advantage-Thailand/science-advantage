@@ -314,6 +314,7 @@ const lessons: LessonSeed[] = [
 ];
 
 async function resetForSeed() {
+  await prisma.assignment.deleteMany();
   await prisma.experimentSubmission.deleteMany();
   await prisma.lessonCompletion.deleteMany();
   await prisma.attempt.deleteMany();
@@ -369,7 +370,7 @@ async function main() {
   });
 
   const createdLessons = await prisma.$transaction(
-    lessons.map((lesson) =>
+    lessons.map((lesson, index) =>
       prisma.lesson.create({
         data: {
           title: lesson.title,
@@ -379,6 +380,7 @@ async function main() {
           unitSlug: UNIT_SLUG,
           content: lesson.content,
           type: lesson.type ?? LessonType.LESSON,
+          isPublished: index < 3, // Publish first 3 lessons
           quizQuestions: {
             create: lesson.quiz.map((question) => ({
               order: question.order,
@@ -429,6 +431,89 @@ async function main() {
     });
   }
 
+  // Create sample assignments
+  const now = new Date();
+  const lessonTwo = createdLessons.find((lesson) => lesson.slug === "lesson-2-weathering-and-erosion");
+  const lessonThree = createdLessons.find((lesson) => lesson.slug === "lesson-3-water-cycle-dynamics");
+  const lessonFour = createdLessons.find((lesson) => lesson.slug === "lesson-4-weather-patterns");
+
+  const assignments = [];
+
+  if (lessonOne) {
+    // Published assignment - due in 3 days
+    const assignment1 = await prisma.assignment.create({
+      data: {
+        title: "Complete Earth's Systems Overview",
+        description: "Read Lesson 1 and complete the quiz. Focus on understanding how Earth's four major systems interact with each other.",
+        classId: classroom.id,
+        lessonId: lessonOne.id,
+        contentType: "LESSON",
+        status: "PUBLISHED",
+        dueDate: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000),
+        timezone: "America/New_York",
+        publishedAt: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), // Published 7 days ago
+        teacherId: teacher.id,
+      },
+    });
+    assignments.push(assignment1);
+  }
+
+  if (lessonTwo) {
+    // Published assignment - due in 5 days
+    const assignment2 = await prisma.assignment.create({
+      data: {
+        title: "Weathering and Erosion Study",
+        description: "Study the differences between weathering and erosion. Pay special attention to chemical vs. physical weathering examples.",
+        classId: classroom.id,
+        lessonId: lessonTwo.id,
+        contentType: "LESSON",
+        status: "PUBLISHED",
+        dueDate: new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000),
+        timezone: "America/New_York",
+        publishedAt: new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000), // Published 3 days ago
+        teacherId: teacher.id,
+      },
+    });
+    assignments.push(assignment2);
+  }
+
+  if (lessonThree) {
+    // Published assignment - due in 7 days
+    const assignment3 = await prisma.assignment.create({
+      data: {
+        title: "Water Cycle Dynamics Quiz",
+        description: "Complete the water cycle lesson and take the quiz. Be prepared to explain the role of the Sun's energy in the water cycle.",
+        classId: classroom.id,
+        lessonId: lessonThree.id,
+        contentType: "LESSON",
+        status: "PUBLISHED",
+        dueDate: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000),
+        timezone: "America/New_York",
+        publishedAt: now,
+        teacherId: teacher.id,
+      },
+    });
+    assignments.push(assignment3);
+  }
+
+  if (lessonFour) {
+    // Draft assignment - not yet published
+    const assignment4 = await prisma.assignment.create({
+      data: {
+        title: "Weather Patterns Assignment (Draft)",
+        description: "This assignment will cover weather patterns and air masses. To be published soon.",
+        classId: classroom.id,
+        lessonId: lessonFour.id,
+        contentType: "LESSON",
+        status: "DRAFT",
+        dueDate: new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000),
+        timezone: "America/New_York",
+        teacherId: teacher.id,
+      },
+    });
+    assignments.push(assignment4);
+  }
+
   const totalQuestions = lessons.reduce((sum, lesson) => sum + lesson.quiz.length, 0);
 
   console.log("Seeded:", {
@@ -439,6 +524,7 @@ async function main() {
     questions: totalQuestions,
     lessonCompletions: lessonOne ? 1 : 0,
     experimentSubmissions: experimentLesson ? 1 : 0,
+    assignments: assignments.length,
   });
 }
 

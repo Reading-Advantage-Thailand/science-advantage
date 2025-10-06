@@ -18,6 +18,18 @@ enum LessonType {
   EXPERIMENT
 }
 
+enum AssignmentStatus {
+  DRAFT
+  PUBLISHED
+  CANCELLED
+}
+
+enum ContentType {
+  LESSON
+  QUIZ
+  EXPERIMENT
+}
+
 model User {
   id            String            @id @default(cuid())
   email         String            @unique
@@ -27,6 +39,7 @@ model User {
   emailVerified DateTime?
   classes       Class[]           @relation("ClassTeacher")
   enrollments   ClassEnrollment[]
+  assignments   Assignment[]      @relation("AssignmentTeacher")
   attempts      Attempt[]
   lessonCompletions LessonCompletion[]
   experimentSubmissions ExperimentSubmission[]
@@ -47,6 +60,7 @@ model Class {
   teacher     User              @relation("ClassTeacher", fields: [teacherId], references: [id])
   teacherId   String
   enrollments ClassEnrollment[]
+  assignments Assignment[]
   lessonCompletions LessonCompletion[]
   experimentSubmissions ExperimentSubmission[]
   createdAt   DateTime          @default(now())
@@ -76,12 +90,16 @@ model Lesson {
   order         Int
   content       String
   type          LessonType     @default(LESSON)
+  isPublished   Boolean        @default(false)
   quizQuestions QuizQuestion[]
   attempts      Attempt[]
   completions   LessonCompletion[]
   experimentSubmissions ExperimentSubmission[]
+  assignments   Assignment[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+
+  @@index([isPublished])
 }
 
 model QuizQuestion {
@@ -178,6 +196,33 @@ model Session {
   expires      DateTime
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Assignment {
+  id          String            @id @default(cuid())
+  title       String
+  description String?
+  class       Class             @relation(fields: [classId], references: [id])
+  classId     String
+  lesson      Lesson            @relation(fields: [lessonId], references: [id])
+  lessonId    String
+  contentType ContentType       @default(LESSON)
+  status      AssignmentStatus  @default(DRAFT)
+  dueDate     DateTime
+  timezone    String            @default("UTC")
+  publishedAt DateTime?
+  cancelledAt DateTime?
+  teacher     User              @relation("AssignmentTeacher", fields: [teacherId], references: [id])
+  teacherId   String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@unique([classId, lessonId])
+  @@index([classId])
+  @@index([lessonId])
+  @@index([teacherId])
+  @@index([status])
+  @@index([dueDate])
 }
 
 model VerificationToken {
