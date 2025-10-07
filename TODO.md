@@ -56,6 +56,7 @@ For detailed agent assignments and responsibilities, see: **[BMAD Agent Assignme
 
 ## Completed
 
+- [x] #36 - Story: Advanced Data Schema (feat/36-story-advanced-data-schema) - Completed: 2025-10-07 ✅ - Tests: ✅ Passed (Schema: 100%, Integration: ✅)
 - [x] #26 - Backend: Assignment scheduling APIs - PR: #34 - Completed: 2025-10-06 ✅ (Merge: a85d808)
 - [x] #24 - Backend: Class creation API and join code generation - PR: #32 - Completed: 2025-10-06 ✅ (Merge: 5302659)
 
