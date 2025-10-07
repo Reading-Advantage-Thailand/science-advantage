@@ -1,9 +1,0 @@
-node_modules
-.next
-out
-coverage
-.build
-build
-
-# Generated
-package-lock.json

@@ -951,4 +951,14 @@
 - Thermometers
 
 **Solar System (Weeks 25-28):**
--
+- Globe, Moon model, and light source for tide modeling
+- Data sheets for planet comparison
+- Art supplies for planet models (clay, markers, etc.)
+
+### Teacher Support Materials
+- Lesson plans for each period
+- Lab setup guides with safety notes
+- Differentiation suggestions for all three tracks
+- Thai context integration examples
+- Assessment rubrics
+- Parent communication templates

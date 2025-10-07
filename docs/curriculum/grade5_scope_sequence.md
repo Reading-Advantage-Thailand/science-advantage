@@ -907,3 +907,103 @@
 
 **Assessments:**
 - Additional higher-order thinking questions (analyze, evaluate, create)
+- More complex scenarios requiring synthesis
+- Multi-step problem solving
+
+**Labs:**
+- Open-ended investigations requiring student-led design
+- Advanced data analysis and interpretation
+- Mentoring peers and leading group discussions
+
+### Medium Track (Standard)
+**Reading:**
+- Grade-level scientific vocabulary
+- Clear explanations with detailed examples
+- Appropriate depth for Grade 5 standards
+
+**Assessments:**
+- Standard question difficulty with application focus
+- Mix of comprehension and analysis
+- Supported short answers with evidence requirements
+
+**Labs:**
+- Guided procedures with clear objectives
+- Standard data collection and analysis
+- Structured lab reports with prompts
+
+### Low Track
+**Reading:**
+- Simplified vocabulary with interactive glossary
+- More visual aids, diagrams, and analogies
+- Chunked text with embedded comprehension checks
+
+**Assessments:**
+- Scaffolded questions with clear steps
+- Visual supports, word banks, and sentence frames
+- Reduced number of questions or extended time
+
+**Labs:**
+- Highly structured, step-by-step procedures
+- Simplified data collection with pre-made tables
+- Guided analysis with sentence starters
+- Increased teacher guidance and check-ins
+
+---
+
+## MATERIALS & RESOURCES
+
+### Digital Resources (in app)
+- 96 reading passages (three difficulty levels)
+- Embedded assessments (adaptive)
+- 20 lab guides with digital forms
+- Lab report templates with AI feedback
+- Project planning tools
+- Progress dashboards
+
+### Physical Materials for Labs
+**Human Body Systems (Week 2):**
+- Stopwatches or timers
+- Measuring tapes
+- Space for exercise
+
+**Ecosystems (Weeks 5 & 7):**
+- Materials for building small model ecosystems (containers, soil, seeds, small plants)
+- Data sheets for resource use survey
+
+**Chemical Changes & Reactions (Weeks 9 & 11):**
+- Common household chemicals for reaction tests (vinegar, baking soda)
+- pH indicators (litmus paper, red cabbage juice)
+- Various household liquids for pH testing (lemon juice, soap water)
+
+**Complex Forces & Motion (Weeks 13 & 15):**
+- Spring scales or force sensors
+- Carts, ramps, and objects with different masses
+- Materials for building simple machines (levers, pulleys)
+
+**Energy Systems (Weeks 17 & 19):**
+- Small electric devices for analysis (e.g., fan, light)
+- Materials for building simple energy transformation models
+- Data sheets for energy source research
+
+**Earth's Changing Surface (Weeks 21 & 23):**
+- Stream tables or trays for erosion models
+- Different soil types, sand, gravel
+- Rock samples (igneous, sedimentary, metamorphic)
+- Hand lenses
+
+**The Solar System (Weeks 25 & 27):**
+- Planetary data tables
+- Graph paper or digital graphing tools
+- Materials for creating a scale model (string, beads, paper)
+
+**Scientific Investigation & Technology (Weeks 29 & 31):**
+- Materials for student-designed investigations
+- Access to computers for technology research
+
+### Teacher Support Materials
+- Lesson plans for each period
+- Lab setup guides with safety notes
+- Differentiation suggestions for all three tracks
+- Thai context integration examples
+- Assessment rubrics
+- Parent communication templates

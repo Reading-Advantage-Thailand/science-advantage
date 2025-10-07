@@ -52,6 +52,8 @@ For detailed agent assignments and responsibilities, see: **[BMAD Agent Assignme
 
 ## In Progress
 
+- [ ] #33 - Bug: Login is broken (feat/33-bug-login-is-broken) - Started: 2025-10-06 - Tests: ❌ Critical Failures (Lint: 7 warnings, Unit: 0%, Integration: 0%, E2E: 0%)
+
 ## Completed
 
 - [x] #26 - Backend: Assignment scheduling APIs - PR: #34 - Completed: 2025-10-06 ✅ (Merge: a85d808)

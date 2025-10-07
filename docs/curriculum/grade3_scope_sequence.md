@@ -956,4 +956,4 @@
 **Labs:**
 - More structured procedures
 - Simplified data collection
--
+- Simplified report with sentence starters

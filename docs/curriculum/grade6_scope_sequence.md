@@ -911,3 +911,109 @@
 
 **Reading Passages:**
 - Advanced vocabulary with scientific terminology
+- In-depth explanations with abstract concepts
+- Connections to secondary school (Mattayom) science topics
+- Analysis of primary research articles (simplified)
+
+**Assessments:**
+- Complex, multi-step problems requiring synthesis and evaluation
+- Open-ended questions with sophisticated reasoning expected
+- Project-based assessments with high degree of autonomy
+
+**Labs:**
+- Fully independent, student-designed research projects
+- Advanced data analysis, including basic statistical measures
+- Formal lab reports mimicking scientific papers
+- Peer review and critique of experimental designs
+
+### Medium Track (Standard)
+**Reading:**
+- Grade-level scientific and technical vocabulary
+- Clear, detailed explanations with concrete examples
+- Appropriate depth and complexity for Grade 6 standards
+
+**Assessments:**
+- Standard question difficulty with a focus on analysis and application
+- Mix of comprehension, application, and analysis tasks
+- Short answers requiring evidence-based reasoning
+
+**Labs:**
+- Guided investigations with opportunities for student input
+- Standard data collection, analysis, and graphing
+- Structured lab reports requiring detailed conclusions
+
+### Low Track
+**Reading:**
+- Simplified vocabulary with an interactive, contextual glossary
+- Extensive use of visual aids, diagrams, and models
+- Text chunked into smaller sections with frequent comprehension checks
+- Audio versions of texts available
+
+**Assessments:**
+- Scaffolded questions with broken-down steps
+- Use of graphic organizers, word banks, and sentence frames
+- Reduced number of questions or extended time options
+- Alternative assessment formats (e.g., oral reports, diagrams)
+
+**Labs:**
+- Highly structured, step-by-step procedures with clear instructions
+- Simplified data collection using pre-made templates and forms
+- Guided data analysis with sentence starters and prompts
+- Small group or one-on-one teacher support
+
+---
+
+## MATERIALS & RESOURCES
+
+### Digital Resources (in app)
+- 96 reading passages (three difficulty levels)
+- Embedded assessments (adaptive)
+- 20 lab guides with digital forms
+- Lab report templates with AI feedback
+- Capstone project planning and management tools
+- Progress and analytics dashboards
+
+### Physical Materials for Labs
+**Genetics (Week 2):**
+- Trait survey sheets (digital or physical)
+- Calculators
+
+**Ecosystems (Weeks 5 & 7):**
+- Access to simulation software or apps for population dynamics
+- Research materials for local species/ecosystems (computers, library access)
+
+**States of Matter (Weeks 9 & 11):**
+- Beakers, hot plates, thermometers for phase change lab
+- Materials for complex mixtures (e.g., sand, salt, iron filings, oil, water)
+- Filtration paper, funnels, magnets, distillation apparatus (optional)
+
+**Force Systems (Weeks 13 & 15):**
+- Materials for building structures (e.g., straws, tape, paper clips, weights)
+- Force sensors or spring scales
+- Materials for modeling force systems (e.g., pulleys, carts)
+
+**Energy Efficiency (Weeks 17 & 19):**
+- Small appliances with energy labels (e.g., light bulbs, fans)
+- Power meters to measure electricity consumption
+- Materials for building energy transformation models
+
+**Earth's Cycles & Climate (Weeks 21 & 23):**
+- Materials for creating water cycle models (containers, lamps, water)
+- Materials for modeling plate boundaries (e.g., clay, foam blocks)
+
+**Solar System & Universe (Weeks 25 & 27):**
+- Access to planetary data sets (online or provided)
+- Graphing software or paper
+- Materials for designing a hypothetical space mission (research tools)
+
+**Advanced Scientific Thinking (Weeks 29 & 31):**
+- Materials for student-designed models
+- Access to computers for research on scientific claims and technology
+
+### Teacher Support Materials
+- Lesson plans for each period with secondary school connections
+- Advanced lab setup guides with safety protocols
+- Differentiation strategies for all three tracks
+- Thai context and global context integration examples
+- Comprehensive assessment rubrics
+- Parent communication templates and progress reports
