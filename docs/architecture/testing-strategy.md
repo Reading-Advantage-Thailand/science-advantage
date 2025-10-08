@@ -274,12 +274,16 @@ describe("Assessment Flow Integration", () => {
 
 ```typescript
 // lib/quiz.test.ts
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { generateAdaptiveQuiz, validateAnswer, calculateProgress } from "./quiz";
-import { openai } from "@ai-sdk/openai";
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {
+  generateAdaptiveQuiz,
+  validateAnswer,
+  calculateProgress,
+} from './quiz';
+import { openai } from '@ai-sdk/openai';
 
 // Mock OpenAI
-vi.mock("@ai-sdk/openai", () => ({
+vi.mock('@ai-sdk/openai', () => ({
   openai: {
     chat: {
       completions: {
@@ -289,13 +293,13 @@ vi.mock("@ai-sdk/openai", () => ({
   },
 }));
 
-describe("Quiz System", () => {
+describe('Quiz System', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  describe("generateAdaptiveQuiz", () => {
-    it("generates quiz based on student performance", async () => {
+  describe('generateAdaptiveQuiz', () => {
+    it('generates quiz based on student performance', async () => {
       const mockAIResponse = {
         choices: [
           {
@@ -303,17 +307,17 @@ describe("Quiz System", () => {
               content: JSON.stringify({
                 questions: [
                   {
-                    id: "q1",
-                    type: "multiple-choice",
-                    question: "What is photosynthesis?",
-                    difficulty: "medium",
-                    options: ["A", "B", "C", "D"],
-                    correctAnswer: "A",
+                    id: 'q1',
+                    type: 'multiple-choice',
+                    question: 'What is photosynthesis?',
+                    difficulty: 'medium',
+                    options: ['A', 'B', 'C', 'D'],
+                    correctAnswer: 'A',
                   },
                 ],
                 adaptation: {
-                  difficulty: "medium",
-                  focusArea: "biology",
+                  difficulty: 'medium',
+                  focusArea: 'biology',
                   estimatedTime: 15,
                 },
               }),
@@ -322,24 +326,26 @@ describe("Quiz System", () => {
         ],
       };
 
-      vi.mocked(openai.chat.completions.create).mockResolvedValue(mockAIResponse as any);
+      vi.mocked(openai.chat.completions.create).mockResolvedValue(
+        mockAIResponse as any
+      );
 
       const result = await generateAdaptiveQuiz({
-        studentId: "student-123",
-        subject: "biology",
+        studentId: 'student-123',
+        subject: 'biology',
         performanceHistory: [
-          { topic: "cells", score: 85, difficulty: "medium" },
-          { topic: "ecosystems", score: 92, difficulty: "hard" },
+          { topic: 'cells', score: 85, difficulty: 'medium' },
+          { topic: 'ecosystems', score: 92, difficulty: 'hard' },
         ],
         timeAvailable: 30,
       });
 
       expect(result.questions).toHaveLength(1);
-      expect(result.questions[0].difficulty).toBe("medium");
-      expect(result.adaptation.focusArea).toBe("biology");
+      expect(result.questions[0].difficulty).toBe('medium');
+      expect(result.adaptation.focusArea).toBe('biology');
     });
 
-    it("adjusts difficulty based on performance", async () => {
+    it('adjusts difficulty based on performance', async () => {
       const mockAIResponse = {
         choices: [
           {
@@ -347,14 +353,14 @@ describe("Quiz System", () => {
               content: JSON.stringify({
                 questions: [
                   {
-                    id: "q1",
-                    difficulty: "hard",
-                    question: "Complex biology question",
+                    id: 'q1',
+                    difficulty: 'hard',
+                    question: 'Complex biology question',
                   },
                 ],
                 adaptation: {
-                  difficulty: "hard",
-                  reason: "Student shows advanced understanding",
+                  difficulty: 'hard',
+                  reason: 'Student shows advanced understanding',
                 },
               }),
             },
@@ -362,59 +368,61 @@ describe("Quiz System", () => {
         ],
       };
 
-      vi.mocked(openai.chat.completions.create).mockResolvedValue(mockAIResponse as any);
+      vi.mocked(openai.chat.completions.create).mockResolvedValue(
+        mockAIResponse as any
+      );
 
       const result = await generateAdaptiveQuiz({
-        studentId: "student-123",
-        subject: "biology",
+        studentId: 'student-123',
+        subject: 'biology',
         performanceHistory: [
-          { topic: "cells", score: 98, difficulty: "hard" },
-          { topic: "genetics", score: 95, difficulty: "hard" },
+          { topic: 'cells', score: 98, difficulty: 'hard' },
+          { topic: 'genetics', score: 95, difficulty: 'hard' },
         ],
         timeAvailable: 30,
       });
 
-      expect(result.questions[0].difficulty).toBe("hard");
-      expect(result.adaptation.reason).toContain("advanced understanding");
+      expect(result.questions[0].difficulty).toBe('hard');
+      expect(result.adaptation.reason).toContain('advanced understanding');
     });
   });
 
-  describe("validateAnswer", () => {
-    it("validifies multiple choice answers correctly", () => {
+  describe('validateAnswer', () => {
+    it('validifies multiple choice answers correctly', () => {
       const question = {
-        type: "multiple-choice" as const,
-        correctAnswer: "A",
+        type: 'multiple-choice' as const,
+        correctAnswer: 'A',
         points: 10,
       };
 
-      const result = validateAnswer(question, "A");
+      const result = validateAnswer(question, 'A');
 
       expect(result.isCorrect).toBe(true);
       expect(result.points).toBe(10);
-      expect(result.feedback).toContain("Correct");
+      expect(result.feedback).toContain('Correct');
     });
 
-    it("provides partial feedback for incorrect answers", () => {
+    it('provides partial feedback for incorrect answers', () => {
       const question = {
-        type: "multiple-choice" as const,
-        correctAnswer: "A",
+        type: 'multiple-choice' as const,
+        correctAnswer: 'A',
         points: 10,
-        explanation: "Photosynthesis is the process...",
+        explanation: 'Photosynthesis is the process...',
       };
 
-      const result = validateAnswer(question, "B");
+      const result = validateAnswer(question, 'B');
 
       expect(result.isCorrect).toBe(false);
       expect(result.points).toBe(0);
-      expect(result.feedback).toContain("Not quite");
-      expect(result.explanation).toBe("Photosynthesis is the process...");
+      expect(result.feedback).toContain('Not quite');
+      expect(result.explanation).toBe('Photosynthesis is the process...');
     });
   });
 
-  describe("calculateProgress", () => {
-    it("calculates learning progress accurately", () => {
+  describe('calculateProgress', () => {
+    it('calculates learning progress accurately', () => {
       const studentProgress = {
-        completedLessons: ["lesson-1", "lesson-2", "lesson-3"],
+        completedLessons: ['lesson-1', 'lesson-2', 'lesson-3'],
         totalLessons: 10,
         assessmentScores: [85, 92, 78],
         experimentScores: [90, 85],
@@ -447,12 +455,16 @@ describe("Quiz System", () => {
 
 ```typescript
 // tests/integration/backend/lesson-progress.test.ts
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { app } from "@/app";
-import { prisma } from "@/lib/prisma";
-import { createTestUser, createTestLesson, authenticateTestUser } from "../helpers";
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { app } from '@/app';
+import { prisma } from '@/lib/prisma';
+import {
+  createTestUser,
+  createTestLesson,
+  authenticateTestUser,
+} from '../helpers';
 
-describe("Lesson Progress API", () => {
+describe('Lesson Progress API', () => {
   let testUser: any;
   let testLesson: any;
   let authToken: string;
@@ -460,14 +472,14 @@ describe("Lesson Progress API", () => {
   beforeEach(async () => {
     // Setup test data
     testUser = await createTestUser({
-      email: "student@test.com",
-      role: "STUDENT",
+      email: 'student@test.com',
+      role: 'STUDENT',
     });
 
     testLesson = await createTestLesson({
-      title: "Test Biology Lesson",
-      subject: "biology",
-      difficulty: "medium",
+      title: 'Test Biology Lesson',
+      subject: 'biology',
+      difficulty: 'medium',
     });
 
     authToken = await authenticateTestUser(testUser);
@@ -482,24 +494,27 @@ describe("Lesson Progress API", () => {
     await prisma.lesson.delete({ where: { id: testLesson.id } });
   });
 
-  it("tracks lesson completion progress", async () => {
-    const response = await app.request(`/api/lessons/${testLesson.id}/progress`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({
-        step: "video",
-        completed: true,
-        timeSpent: 300, // 5 minutes
-      }),
-    });
+  it('tracks lesson completion progress', async () => {
+    const response = await app.request(
+      `/api/lessons/${testLesson.id}/progress`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          step: 'video',
+          completed: true,
+          timeSpent: 300, // 5 minutes
+        }),
+      }
+    );
 
     expect(response.status).toBe(200);
 
     const progress = await response.json();
-    expect(progress.step).toBe("video");
+    expect(progress.step).toBe('video');
     expect(progress.completed).toBe(true);
     expect(progress.timeSpent).toBe(300);
 
@@ -512,34 +527,37 @@ describe("Lesson Progress API", () => {
     });
 
     expect(dbProgress).toBeTruthy();
-    expect(dbProgress?.step).toBe("video");
+    expect(dbProgress?.step).toBe('video');
   });
 
-  it("calculates overall lesson progress", async () => {
+  it('calculates overall lesson progress', async () => {
     // Complete multiple steps
     const steps = [
-      { step: "video", completed: true, timeSpent: 300 },
-      { step: "reading", completed: true, timeSpent: 600 },
-      { step: "experiment", completed: true, timeSpent: 900 },
+      { step: 'video', completed: true, timeSpent: 300 },
+      { step: 'reading', completed: true, timeSpent: 600 },
+      { step: 'experiment', completed: true, timeSpent: 900 },
     ];
 
     for (const stepData of steps) {
       await app.request(`/api/lessons/${testLesson.id}/progress`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${authToken}`,
         },
         body: JSON.stringify(stepData),
       });
     }
 
-    const response = await app.request(`/api/lessons/${testLesson.id}/progress`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
+    const response = await app.request(
+      `/api/lessons/${testLesson.id}/progress`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
 
     expect(response.status).toBe(200);
 
@@ -566,119 +584,132 @@ describe("Lesson Progress API", () => {
 
 ```typescript
 // tests/e2e/virtual-experiment-flow.spec.ts
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test.describe("Virtual Experiment Flow", () => {
+test.describe('Virtual Experiment Flow', () => {
   test.beforeEach(async ({ page }) => {
     // Login as student
-    await page.goto("/auth/signin");
-    await page.fill('input[name="email"]', "student@test.com");
-    await page.fill('input[name="password"]', "test-password");
+    await page.goto('/auth/signin');
+    await page.fill('input[name="email"]', 'student@test.com');
+    await page.fill('input[name="password"]', 'test-password');
     await page.click('button[type="submit"]');
-    await page.waitForURL("/dashboard");
+    await page.waitForURL('/dashboard');
   });
 
-  test("completes virtual chemistry experiment", async ({ page }) => {
+  test('completes virtual chemistry experiment', async ({ page }) => {
     // Navigate to lesson
-    await page.click("text=Chemistry Basics");
-    await page.click("text=Start Virtual Experiment");
+    await page.click('text=Chemistry Basics');
+    await page.click('text=Start Virtual Experiment');
 
     // Verify experiment loads
-    await expect(page.locator("h1")).toContainText("Chemical Reactions Lab");
-    await expect(page.locator('[data-testid="experiment-workspace"]')).toBeVisible();
+    await expect(page.locator('h1')).toContainText('Chemical Reactions Lab');
+    await expect(
+      page.locator('[data-testid="experiment-workspace"]')
+    ).toBeVisible();
 
     // Start experiment
     await page.click('button:has-text("Start Experiment")');
 
     // Step 1: Prepare materials
-    await expect(page.locator("text=Step 1 of 3")).toBeVisible();
-    await expect(page.locator("text=Prepare Materials")).toBeVisible();
+    await expect(page.locator('text=Step 1 of 3')).toBeVisible();
+    await expect(page.locator('text=Prepare Materials')).toBeVisible();
 
     // Drag and drop beaker
-    await page.dragAndDrop("#beaker-inventory", "#experiment-area");
+    await page.dragAndDrop('#beaker-inventory', '#experiment-area');
 
     // Add chemical
-    await page.click("#chemical-a");
-    await page.click("#add-to-beaker");
+    await page.click('#chemical-a');
+    await page.click('#add-to-beaker');
 
     // Verify measurement
-    await expect(page.locator("#beaker-volume")).toContainText("50ml");
+    await expect(page.locator('#beaker-volume')).toContainText('50ml');
 
     // Complete step
     await page.click('button:has-text("Complete Step")');
 
     // Step 2: Mix chemicals
-    await expect(page.locator("text=Step 2 of 3")).toBeVisible();
-    await page.dragAndDrop("#chemical-b", "#beaker");
-    await page.click("#stir-button");
+    await expect(page.locator('text=Step 2 of 3')).toBeVisible();
+    await page.dragAndDrop('#chemical-b', '#beaker');
+    await page.click('#stir-button');
 
     // Observe reaction animation
-    await expect(page.locator("#reaction-animation")).toBeVisible();
+    await expect(page.locator('#reaction-animation')).toBeVisible();
     await page.waitForTimeout(2000); // Wait for animation
 
     // Complete step
     await page.click('button:has-text("Complete Step")');
 
     // Step 3: Record observations
-    await expect(page.locator("text=Step 3 of 3")).toBeVisible();
-    await page.fill("#observations", "The solution turned blue and bubbles formed");
+    await expect(page.locator('text=Step 3 of 3')).toBeVisible();
+    await page.fill(
+      '#observations',
+      'The solution turned blue and bubbles formed'
+    );
     await page.click('button:has-text("Complete Step")');
 
     // Verify completion
-    await expect(page.locator("text=Experiment Completed!")).toBeVisible();
-    await expect(page.locator("text=Score: 100/100")).toBeVisible();
+    await expect(page.locator('text=Experiment Completed!')).toBeVisible();
+    await expect(page.locator('text=Score: 100/100')).toBeVisible();
 
     // Check AI feedback
-    await expect(page.locator("text=Excellent work!")).toBeVisible();
-    await expect(page.locator("text=You correctly followed all safety protocols")).toBeVisible();
+    await expect(page.locator('text=Excellent work!')).toBeVisible();
+    await expect(
+      page.locator('text=You correctly followed all safety protocols')
+    ).toBeVisible();
 
     // Navigate to dashboard
     await page.click('button:has-text("Back to Dashboard")');
 
     // Verify progress updated
-    await expect(page.locator(`text=Chemical Reactions Lab - Completed`)).toBeVisible();
+    await expect(
+      page.locator(`text=Chemical Reactions Lab - Completed`)
+    ).toBeVisible();
   });
 
-  test("uses AI assistance during experiment", async ({ page }) => {
-    await page.goto("/lessons/chemistry-basics/experiment");
+  test('uses AI assistance during experiment', async ({ page }) => {
+    await page.goto('/lessons/chemistry-basics/experiment');
     await page.click('button:has-text("Start Experiment")');
 
     // Make a mistake (wrong measurement)
-    await page.dragAndDrop("#beaker-inventory", "#experiment-area");
-    await page.click("#chemical-a");
-    await page.click("#add-chemical-excess"); // Add too much
+    await page.dragAndDrop('#beaker-inventory', '#experiment-area');
+    await page.click('#chemical-a');
+    await page.click('#add-chemical-excess'); // Add too much
 
     // Wait for AI hint
-    await expect(page.locator(".ai-hint")).toBeVisible();
+    await expect(page.locator('.ai-hint')).toBeVisible();
     await expect(page.locator("text=That's too much chemical")).toBeVisible();
-    await expect(page.locator("text=Try adding exactly 50ml")).toBeVisible();
+    await expect(page.locator('text=Try adding exactly 50ml')).toBeVisible();
 
     // Accept hint
     await page.click('button:has-text("Apply Suggestion")');
 
     // Verify correction
-    await expect(page.locator("#beaker-volume")).toContainText("50ml");
+    await expect(page.locator('#beaker-volume')).toContainText('50ml');
   });
 
-  test("handles experiment timeout gracefully", async ({ page }) => {
+  test('handles experiment timeout gracefully', async ({ page }) => {
     // Start experiment with time limit
-    await page.goto("/lessons/chemistry-basics/experiment");
+    await page.goto('/lessons/chemistry-basics/experiment');
     await page.click('button:has-text("Start Experiment")');
 
     // Wait for timeout (simulate with fast-forward)
     await page.evaluate(() => {
       // Simulate time passing
-      const timer = document.querySelector("#experiment-timer");
+      const timer = document.querySelector('#experiment-timer');
       if (timer) {
-        timer.textContent = "00:00";
-        timer.dispatchEvent(new Event("timeout"));
+        timer.textContent = '00:00';
+        timer.dispatchEvent(new Event('timeout'));
       }
     });
 
     // Verify timeout handling
     await expect(page.locator("text=Time's Up!")).toBeVisible();
-    await expect(page.locator("text=Your progress has been saved")).toBeVisible();
-    await expect(page.locator('button:has-text("Resume Experiment")')).toBeVisible();
+    await expect(
+      page.locator('text=Your progress has been saved')
+    ).toBeVisible();
+    await expect(
+      page.locator('button:has-text("Resume Experiment")')
+    ).toBeVisible();
   });
 });
 ```
@@ -689,20 +720,26 @@ test.describe("Virtual Experiment Flow", () => {
 
 ```typescript
 // vitest.config.ts
-import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: "jsdom",
-    setupFiles: ["./vitest.setup.ts"],
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
     coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      exclude: ["node_modules/", "tests/", "**/*.d.ts", "**/*.config.*", "coverage/"],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        'tests/',
+        '**/*.d.ts',
+        '**/*.config.*',
+        'coverage/',
+      ],
       thresholds: {
         global: {
           branches: 80,
@@ -715,7 +752,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./"),
+      '@': resolve(__dirname, './'),
     },
   },
 });
@@ -725,46 +762,46 @@ export default defineConfig({
 
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: "./tests/e2e",
+  testDir: './tests/e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [
-    ["html"],
-    ["json", { outputFile: "test-results/results.json" }],
-    ["junit", { outputFile: "test-results/results.xml" }],
+    ['html'],
+    ['json', { outputFile: 'test-results/results.json' }],
+    ['junit', { outputFile: 'test-results/results.xml' }],
   ],
   use: {
-    baseURL: "http://localhost:3000",
-    trace: "on-first-retry",
-    screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
     },
     {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
     {
-      name: "Mobile Chrome",
-      use: { ...devices["Pixel 5"] },
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] },
     },
   ],
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:3000",
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },
 });
@@ -776,14 +813,15 @@ export default defineConfig({
 
 ```typescript
 // tests/helpers/database.ts
-import { PrismaClient } from "@prisma/client";
-import { execSync } from "child_process";
+import { PrismaClient } from '@prisma/client';
+import { execSync } from 'child_process';
 
 const testDatabase = new PrismaClient({
   datasources: {
     db: {
       url:
-        process.env.DATABASE_URL || "postgresql://test:test@localhost:5432/science_advantage_test",
+        process.env.DATABASE_URL ||
+        'postgresql://test:test@localhost:5432/science_advantage_test',
     },
   },
 });
@@ -805,16 +843,16 @@ const seedTestData = async () => {
   await testDatabase.user.createMany({
     data: [
       {
-        id: "test-student-1",
-        email: "student@test.com",
-        name: "Test Student",
-        role: "STUDENT",
+        id: 'test-student-1',
+        email: 'student@test.com',
+        name: 'Test Student',
+        role: 'STUDENT',
       },
       {
-        id: "test-teacher-1",
-        email: "teacher@test.com",
-        name: "Test Teacher",
-        role: "TEACHER",
+        id: 'test-teacher-1',
+        email: 'teacher@test.com',
+        name: 'Test Teacher',
+        role: 'TEACHER',
       },
     ],
   });
@@ -825,7 +863,7 @@ const seedTestData = async () => {
 
 ```typescript
 // tests/mocks/ai-service.ts
-import { vi } from "vitest";
+import { vi } from 'vitest';
 
 export const mockAIService = {
   generatePersonalizedContent: vi.fn(),
@@ -835,21 +873,21 @@ export const mockAIService = {
 };
 
 // Setup mocks
-vi.mock("@/lib/ai-service", () => ({
+vi.mock('@/lib/ai-service', () => ({
   aiService: mockAIService,
 }));
 
 export const setupMockAIResponses = () => {
   mockAIService.generatePersonalizedContent.mockResolvedValue({
-    content: "Personalized learning content",
-    difficulty: "medium",
+    content: 'Personalized learning content',
+    difficulty: 'medium',
     estimatedTime: 15,
   });
 
   mockAIService.analyzeStudentPerformance.mockResolvedValue({
-    strengths: ["problem-solving", "critical-thinking"],
-    improvements: ["attention-to-detail"],
-    recommendations: ["advanced-topics"],
+    strengths: ['problem-solving', 'critical-thinking'],
+    improvements: ['attention-to-detail'],
+    recommendations: ['advanced-topics'],
   });
 };
 ```
@@ -875,8 +913,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -901,8 +939,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -924,8 +962,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci

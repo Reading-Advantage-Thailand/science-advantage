@@ -18,10 +18,10 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: '/(.*)',
         headers: [
           {
-            key: "Content-Security-Policy",
+            key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com",
@@ -34,8 +34,8 @@ const nextConfig: NextConfig = {
               "base-uri 'self'",
               "form-action 'self'",
               "frame-ancestors 'none'",
-              "upgrade-insecure-requests",
-            ].join("; "),
+              'upgrade-insecure-requests',
+            ].join('; '),
           },
         ],
       },
@@ -52,18 +52,18 @@ const nextConfig: NextConfig = {
 
 ```typescript
 // lib/sanitize.ts
-import DOMPurify from "isomorphic-dompurify";
+import DOMPurify from 'isomorphic-dompurify';
 
 export const sanitizeHtml = (dirty: string): string => {
   return DOMPurify.sanitize(dirty, {
-    ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "p", "br"],
-    ALLOWED_ATTR: ["href", "target"],
+    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br'],
+    ALLOWED_ATTR: ['href', 'target'],
     ALLOW_DATA_ATTR: false,
   });
 };
 
 export const sanitizeInput = (input: string): string => {
-  return input.trim().replace(/[<>]/g, "");
+  return input.trim().replace(/[<>]/g, '');
 };
 ```
 
@@ -75,13 +75,16 @@ export const sanitizeInput = (input: string): string => {
 
 ```typescript
 // lib/secure-storage.ts
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js';
 
-const ENCRYPTION_KEY = process.env.NEXT_PUBLIC_STORAGE_KEY || "";
+const ENCRYPTION_KEY = process.env.NEXT_PUBLIC_STORAGE_KEY || '';
 
 export const secureSessionStorage = {
   set: (key: string, value: any): void => {
-    const encrypted = CryptoJS.AES.encrypt(JSON.stringify(value), ENCRYPTION_KEY).toString();
+    const encrypted = CryptoJS.AES.encrypt(
+      JSON.stringify(value),
+      ENCRYPTION_KEY
+    ).toString();
     sessionStorage.setItem(key, encrypted);
   },
 
@@ -111,20 +114,20 @@ Comprehensive input validation using Zod schemas:
 
 ```typescript
 // lib/validation.ts
-import { z } from "zod";
+import { z } from 'zod';
 
 export const CreateClassSchema = z.object({
   name: z
     .string()
-    .min(1, "Class name is required")
-    .max(100, "Class name too long")
-    .regex(/^[a-zA-Z0-9\s\-_]+$/, "Invalid characters in class name"),
-  description: z.string().max(500, "Description too long").optional(),
+    .min(1, 'Class name is required')
+    .max(100, 'Class name too long')
+    .regex(/^[a-zA-Z0-9\s\-_]+$/, 'Invalid characters in class name'),
+  description: z.string().max(500, 'Description too long').optional(),
   joinCode: z
     .string()
-    .min(4, "Join code too short")
-    .max(20, "Join code too long")
-    .regex(/^[A-Z0-9]+$/, "Join code must be uppercase letters and numbers"),
+    .min(4, 'Join code too short')
+    .max(20, 'Join code too long')
+    .regex(/^[A-Z0-9]+$/, 'Join code must be uppercase letters and numbers'),
 });
 
 export const SubmitExperimentSchema = z.object({
@@ -132,8 +135,8 @@ export const SubmitExperimentSchema = z.object({
   data: z.record(z.any()),
   observations: z
     .string()
-    .min(1, "Observations required")
-    .max(2000, "Observations too long")
+    .min(1, 'Observations required')
+    .max(2000, 'Observations too long')
     .transform(sanitizeHtml),
 });
 ```
@@ -144,8 +147,8 @@ Implementation of rate limiting to prevent abuse:
 
 ```typescript
 // middleware/rate-limiter.ts
-import { NextRequest, NextResponse } from "next/server";
-import { Redis } from "@upstash/redis";
+import { NextRequest, NextResponse } from 'next/server';
+import { Redis } from '@upstash/redis';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -157,7 +160,7 @@ export async function rateLimit(
   limit: number = 100,
   window: number = 60 * 1000 // 1 minute
 ): Promise<{ success: boolean; reset?: number }> {
-  const ip = request.ip || request.headers.get("x-forwarded-for") || "unknown";
+  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
   const key = `rate-limit:${ip}`;
 
   const current = await redis.incr(key);
@@ -186,30 +189,30 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/api/(.*)",
+        source: '/api/(.*)',
         headers: [
           {
-            key: "Access-Control-Allow-Origin",
+            key: 'Access-Control-Allow-Origin',
             value:
-              process.env.NODE_ENV === "production"
-                ? "https://science-advantage.vercel.app"
-                : "http://localhost:3000",
+              process.env.NODE_ENV === 'production'
+                ? 'https://science-advantage.vercel.app'
+                : 'http://localhost:3000',
           },
           {
-            key: "Access-Control-Allow-Methods",
-            value: "GET, POST, PUT, DELETE, OPTIONS",
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
           },
           {
-            key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization, X-Requested-With",
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization, X-Requested-With',
           },
           {
-            key: "Access-Control-Allow-Credentials",
-            value: "true",
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
           },
           {
-            key: "Access-Control-Max-Age",
-            value: "86400",
+            key: 'Access-Control-Max-Age',
+            value: '86400',
           },
         ],
       },
@@ -229,7 +232,7 @@ Secure JWT token configuration:
 export const authOptions: NextAuthOptions = {
   // ... existing config
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
     maxAge: 60 * 60, // 1 hour
     updateAge: 15 * 60, // 15 minutes
   },
@@ -239,13 +242,16 @@ export const authOptions: NextAuthOptions = {
   },
   cookies: {
     sessionToken: {
-      name: "__Secure-next-auth.session-token",
+      name: '__Secure-next-auth.session-token',
       options: {
         httpOnly: true,
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
-        domain: process.env.NODE_ENV === "production" ? ".science-advantage.vercel.app" : undefined,
+        domain:
+          process.env.NODE_ENV === 'production'
+            ? '.science-advantage.vercel.app'
+            : undefined,
       },
     },
   },
@@ -270,7 +276,9 @@ export class SessionSecurity {
     }
 
     // Check for suspicious activity
-    const suspiciousActivity = await this.detectSuspiciousActivity(session.user.id);
+    const suspiciousActivity = await this.detectSuspiciousActivity(
+      session.user.id
+    );
     if (suspiciousActivity) {
       return false;
     }
@@ -327,7 +335,7 @@ export class DataProtection {
         where: { id: userId },
         data: {
           email: `deleted-${userId}@deleted.com`,
-          name: "Deleted User",
+          name: 'Deleted User',
           image: null,
           emailVerified: null,
         },
@@ -340,7 +348,7 @@ export class DataProtection {
   }
 
   private static hashUserId(userId: string): string {
-    return crypto.createHash("sha256").update(userId).digest("hex");
+    return crypto.createHash('sha256').update(userId).digest('hex');
   }
 }
 ```
@@ -360,7 +368,7 @@ export class AuditLogger {
     metadata,
   }: {
     userId: string;
-    action: "READ" | "CREATE" | "UPDATE" | "DELETE";
+    action: 'READ' | 'CREATE' | 'UPDATE' | 'DELETE';
     resource: string;
     resourceId?: string;
     metadata?: any;
@@ -391,7 +399,11 @@ export class AuditLogger {
 // next.config.ts
 const nextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ["@radix-ui/react-slot", "lucide-react", "class-variance-authority"],
+    optimizePackageImports: [
+      '@radix-ui/react-slot',
+      'lucide-react',
+      'class-variance-authority',
+    ],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -405,7 +417,7 @@ const nextConfig: NextConfig = {
     return config;
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: process.env.NODE_ENV === 'production',
   },
 };
 ```
@@ -487,7 +499,7 @@ export function OptimizedImage({
 
 ```typescript
 // lib/cache.ts
-import { unstable_cache } from "next/cache";
+import { unstable_cache } from 'next/cache';
 
 export const getCachedClasses = unstable_cache(
   async (teacherId: string) => {
@@ -508,10 +520,10 @@ export const getCachedClasses = unstable_cache(
       },
     });
   },
-  ["classes"],
+  ['classes'],
   {
     revalidate: 300, // 5 minutes
-    tags: ["classes"],
+    tags: ['classes'],
   }
 );
 
@@ -525,10 +537,10 @@ export const getCachedLesson = unstable_cache(
       },
     });
   },
-  ["lesson"],
+  ['lesson'],
   {
     revalidate: 600, // 10 minutes
-    tags: ["lesson"],
+    tags: ['lesson'],
   }
 );
 ```
@@ -548,7 +560,10 @@ export class DatabaseOptimizer {
           url: process.env.DATABASE_URL,
         },
       },
-      log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+      log:
+        process.env.NODE_ENV === 'development'
+          ? ['query', 'error', 'warn']
+          : ['error'],
     };
   }
 
@@ -573,7 +588,7 @@ export class DatabaseOptimizer {
         enrolledAt: true,
       },
       orderBy: {
-        enrolledAt: "desc",
+        enrolledAt: 'desc',
       },
     });
   }
@@ -599,17 +614,20 @@ export class DatabaseOptimizer {
 
 ```typescript
 // app/api/lessons/[slug]/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { getCachedLesson } from "@/lib/cache";
+import { NextRequest, NextResponse } from 'next/server';
+import { getCachedLesson } from '@/lib/cache';
 
-export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { slug: string } }
+) {
   try {
     const startTime = Date.now();
 
     const lesson = await getCachedLesson(params.slug);
 
     if (!lesson) {
-      return NextResponse.json({ error: "Lesson not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
     }
 
     const responseTime = Date.now() - startTime;
@@ -625,7 +643,10 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
       },
     });
   } catch (error) {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 ```
@@ -637,7 +658,10 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
 ```typescript
 // lib/monitoring.ts
 export class PerformanceMonitor {
-  static async measureApiCall<T>(name: string, fn: () => Promise<T>): Promise<T> {
+  static async measureApiCall<T>(
+    name: string,
+    fn: () => Promise<T>
+  ): Promise<T> {
     const startTime = performance.now();
 
     try {
@@ -645,13 +669,13 @@ export class PerformanceMonitor {
       const duration = performance.now() - startTime;
 
       // Log performance metrics
-      this.logMetric(name, duration, "success");
+      this.logMetric(name, duration, 'success');
 
       return result;
     } catch (error) {
       const duration = performance.now() - startTime;
 
-      this.logMetric(name, duration, "error");
+      this.logMetric(name, duration, 'error');
 
       throw error;
     }
@@ -659,10 +683,10 @@ export class PerformanceMonitor {
 
   private static logMetric(name: string, duration: number, status: string) {
     // Send to monitoring service (e.g., Vercel Analytics, DataDog)
-    if (process.env.NODE_ENV === "production") {
-      fetch("/api/metrics", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+    if (process.env.NODE_ENV === 'production') {
+      fetch('/api/metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
           duration,
@@ -679,32 +703,37 @@ export class PerformanceMonitor {
 
 ```typescript
 // hooks/use-performance.ts
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export function usePerformanceMonitoring() {
   useEffect(() => {
     // Monitor Core Web Vitals
-    if ("web-vital" in window) {
-      import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-        getCLS(console.log);
-        getFID(console.log);
-        getFCP(console.log);
-        getLCP(console.log);
-        getTTFB(console.log);
-      });
+    if ('web-vital' in window) {
+      import('web-vitals').then(
+        ({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+          getCLS(console.log);
+          getFID(console.log);
+          getFCP(console.log);
+          getLCP(console.log);
+          getTTFB(console.log);
+        }
+      );
     }
 
     // Monitor route changes
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        if (entry.entryType === "navigation") {
+        if (entry.entryType === 'navigation') {
           const navEntry = entry as PerformanceNavigationTiming;
-          console.log("Page load time:", navEntry.loadEventEnd - navEntry.loadEventStart);
+          console.log(
+            'Page load time:',
+            navEntry.loadEventEnd - navEntry.loadEventStart
+          );
         }
       }
     });
 
-    observer.observe({ entryTypes: ["navigation"] });
+    observer.observe({ entryTypes: ['navigation'] });
 
     return () => observer.disconnect();
   }, []);
@@ -730,10 +759,14 @@ export class ErrorTracker {
     this.sendErrorReport(errorData);
   }
 
-  static trackPerformanceIssue(metric: string, value: number, threshold: number) {
+  static trackPerformanceIssue(
+    metric: string,
+    value: number,
+    threshold: number
+  ) {
     if (value > threshold) {
       this.sendAlert({
-        type: "performance",
+        type: 'performance',
         metric,
         value,
         threshold,
@@ -744,26 +777,26 @@ export class ErrorTracker {
 
   private static async sendErrorReport(errorData: any) {
     try {
-      await fetch("/api/errors", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      await fetch('/api/errors', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(errorData),
       });
     } catch {
       // Fallback to console logging
-      console.error("Error tracking failed:", errorData);
+      console.error('Error tracking failed:', errorData);
     }
   }
 
   private static async sendAlert(alertData: any) {
     try {
-      await fetch("/api/alerts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      await fetch('/api/alerts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(alertData),
       });
     } catch {
-      console.error("Alert sending failed:", alertData);
+      console.error('Alert sending failed:', alertData);
     }
   }
 }

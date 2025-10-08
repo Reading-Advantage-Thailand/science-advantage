@@ -168,9 +168,9 @@ We use a hybrid approach combining React Context for global state, Zustand for c
 
 ```typescript
 // stores/use-auth-store.ts
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { User } from "@/types";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { User } from '@/types';
 
 interface AuthState {
   user: User | null;
@@ -198,15 +198,15 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: "auth-storage",
+      name: 'auth-storage',
       partialize: (state) => ({ user: state.user }),
     }
   )
 );
 
 // stores/use-lesson-progress-store.ts
-import { create } from "zustand";
-import { LessonProgress } from "@/types";
+import { create } from 'zustand';
+import { LessonProgress } from '@/types';
 
 interface LessonProgressState {
   progress: Record<string, LessonProgress>;
@@ -215,26 +215,28 @@ interface LessonProgressState {
   clearProgress: () => void;
 }
 
-export const useLessonProgressStore = create<LessonProgressState>((set, get) => ({
-  progress: {},
+export const useLessonProgressStore = create<LessonProgressState>(
+  (set, get) => ({
+    progress: {},
 
-  updateProgress: (lessonSlug, progress) => {
-    set((state) => ({
-      progress: {
-        ...state.progress,
-        [lessonSlug]: progress,
-      },
-    }));
-  },
+    updateProgress: (lessonSlug, progress) => {
+      set((state) => ({
+        progress: {
+          ...state.progress,
+          [lessonSlug]: progress,
+        },
+      }));
+    },
 
-  getProgress: (lessonSlug) => {
-    return get().progress[lessonSlug] || null;
-  },
+    getProgress: (lessonSlug) => {
+      return get().progress[lessonSlug] || null;
+    },
 
-  clearProgress: () => {
-    set({ progress: {} });
-  },
-}));
+    clearProgress: () => {
+      set({ progress: {} });
+    },
+  })
+);
 ```
 
 ### State Management Patterns
@@ -360,17 +362,17 @@ The services layer handles API communication, data transformation, and business 
 
 ```typescript
 // lib/api-client.ts
-import { createApiClient } from "./services/api-client-factory";
+import { createApiClient } from './services/api-client-factory';
 
 export const apiClient = createApiClient({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || '/api',
   timeout: 10000,
   retryAttempts: 3,
   retryDelay: 1000,
 });
 
 // lib/services/api-client-factory.ts
-import axios, { AxiosInstance, AxiosError } from "axios";
+import axios, { AxiosInstance, AxiosError } from 'axios';
 
 interface ApiClientConfig {
   baseURL: string;
@@ -384,7 +386,7 @@ export function createApiClient(config: ApiClientConfig): AxiosInstance {
     baseURL: config.baseURL,
     timeout: config.timeout || 5000,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 
@@ -416,7 +418,7 @@ export function createApiClient(config: ApiClientConfig): AxiosInstance {
           }
         } catch (refreshError) {
           // Redirect to login
-          window.location.href = "/signin";
+          window.location.href = '/signin';
           return Promise.reject(refreshError);
         }
       }
@@ -430,13 +432,13 @@ export function createApiClient(config: ApiClientConfig): AxiosInstance {
 
 async function getAuthToken(): Promise<string | null> {
   // Implementation for getting stored token
-  return localStorage.getItem("auth_token");
+  return localStorage.getItem('auth_token');
 }
 
 async function refreshAuthToken(): Promise<string | null> {
   // Implementation for token refresh
   try {
-    const response = await axios.post("/api/auth/refresh");
+    const response = await axios.post('/api/auth/refresh');
     return response.data.token;
   } catch {
     return null;
@@ -448,9 +450,9 @@ async function refreshAuthToken(): Promise<string | null> {
 
 ```typescript
 // lib/services/lesson-service.ts
-import { apiClient } from "@/lib/api-client";
-import { Lesson, LessonProgress, CreateLessonData } from "@/types";
-import { queryClient } from "@/lib/react-query";
+import { apiClient } from '@/lib/api-client';
+import { Lesson, LessonProgress, CreateLessonData } from '@/types';
+import { queryClient } from '@/lib/react-query';
 
 export class LessonService {
   async getLesson(slug: string): Promise<Lesson> {
@@ -465,11 +467,14 @@ export class LessonService {
     page?: number;
     limit?: number;
   }): Promise<{ lessons: Lesson[]; total: number }> {
-    const response = await apiClient.get("/lessons", { params: filters });
+    const response = await apiClient.get('/lessons', { params: filters });
     return response.data.data;
   }
 
-  async getLessonProgress(userId: string, lessonSlug: string): Promise<LessonProgress | null> {
+  async getLessonProgress(
+    userId: string,
+    lessonSlug: string
+  ): Promise<LessonProgress | null> {
     try {
       const response = await apiClient.get(`/lessons/${lessonSlug}/progress`, {
         params: { userId },
@@ -487,27 +492,30 @@ export class LessonService {
     const response = await apiClient.post(`/lessons/${lessonSlug}/complete`);
 
     // Invalidate related queries
-    queryClient.invalidateQueries(["lesson-progress", lessonSlug]);
-    queryClient.invalidateQueries(["user-progress"]);
+    queryClient.invalidateQueries(['lesson-progress', lessonSlug]);
+    queryClient.invalidateQueries(['user-progress']);
 
     return response.data.data;
   }
 
   async createLesson(data: CreateLessonData): Promise<Lesson> {
-    const response = await apiClient.post("/lessons", data);
+    const response = await apiClient.post('/lessons', data);
 
     // Invalidate lessons list
-    queryClient.invalidateQueries(["lessons"]);
+    queryClient.invalidateQueries(['lessons']);
 
     return response.data.data;
   }
 
-  async updateLesson(slug: string, data: Partial<CreateLessonData>): Promise<Lesson> {
+  async updateLesson(
+    slug: string,
+    data: Partial<CreateLessonData>
+  ): Promise<Lesson> {
     const response = await apiClient.put(`/lessons/${slug}`, data);
 
     // Invalidate related queries
-    queryClient.invalidateQueries(["lesson", slug]);
-    queryClient.invalidateQueries(["lessons"]);
+    queryClient.invalidateQueries(['lesson', slug]);
+    queryClient.invalidateQueries(['lessons']);
 
     return response.data.data;
   }
@@ -641,7 +649,7 @@ export function ExperimentSimulator({
 // hooks/use-learning-analytics.ts
 export function useLearningAnalytics(userId: string) {
   return useQuery({
-    queryKey: ["learning-analytics", userId],
+    queryKey: ['learning-analytics', userId],
     queryFn: () => analyticsService.getUserAnalytics(userId),
     select: (data) => ({
       totalLessonsCompleted: data.completedLessons.length,
@@ -702,11 +710,11 @@ export function useRealTimeClassroom(classId: string) {
   useEffect(() => {
     const newSocket = io(`/classroom/${classId}`);
 
-    newSocket.on("student-joined", (student: User) => {
+    newSocket.on('student-joined', (student: User) => {
       setOnlineStudents((prev) => [...prev, student]);
     });
 
-    newSocket.on("student-left", (studentId: string) => {
+    newSocket.on('student-left', (studentId: string) => {
       setOnlineStudents((prev) => prev.filter((s) => s.id !== studentId));
     });
 
@@ -718,7 +726,7 @@ export function useRealTimeClassroom(classId: string) {
   return {
     socket,
     onlineStudents,
-    broadcastMessage: (message: string) => socket?.emit("broadcast", message),
+    broadcastMessage: (message: string) => socket?.emit('broadcast', message),
   };
 }
 ```

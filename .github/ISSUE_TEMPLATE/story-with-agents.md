@@ -1,9 +1,9 @@
 ---
 name: Story with Agent Assignments
 about: User story with acceptance criteria, TDD test plan, and BMAD agent assignments
-title: ""
-labels: "type:feature"
-assignees: ""
+title: ''
+labels: 'type:feature'
+assignees: ''
 ---
 
 ## User Story

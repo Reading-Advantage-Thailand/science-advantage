@@ -241,27 +241,27 @@ Comprehensive testing organization:
 
 ```typescript
 // Components
-import { Button } from "@/components/ui/button";
-import { LessonContent } from "@/components/features/lessons";
+import { Button } from '@/components/ui/button';
+import { LessonContent } from '@/components/features/lessons';
 
 // Utilities
-import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/lib/auth";
+import { prisma } from '@/lib/prisma';
+import { authOptions } from '@/lib/auth';
 
 // Types (if extracted)
-import { User, Class } from "@/types";
+import { User, Class } from '@/types';
 ```
 
 ### Server/Client Separation
 
 ```typescript
 // Server-only utilities
-import { getServerSession } from "next-auth";
-import { prisma } from "@/lib/prisma";
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
 
 // Client-safe utilities
-import { formatDate } from "@/lib/utils";
-import { useAuth } from "@/hooks/use-auth";
+import { formatDate } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth';
 ```
 
 ## Environment Configuration
@@ -270,7 +270,7 @@ import { useAuth } from "@/hooks/use-auth";
 
 ```typescript
 // lib/env.ts
-import { z } from "zod";
+import { z } from 'zod';
 
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
@@ -299,10 +299,10 @@ export const env = envSchema.parse(process.env);
 // next.config.ts
 const nextConfig = {
   experimental: {
-    serverComponentsExternalPackages: ["@prisma/client"],
+    serverComponentsExternalPackages: ['@prisma/client'],
   },
   images: {
-    domains: ["storage.googleapis.com"],
+    domains: ['storage.googleapis.com'],
   },
 };
 ```
