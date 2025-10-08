@@ -12,23 +12,3 @@ export * from './types';
 export * from './password';
 export * from './session';
 export * from './server';
-
-// Better Auth compatible export
-import { validateSession } from './session';
-
-export const auth = {
-  api: {
-    getSession: async ({ headers }: { headers: Headers }) => {
-      // Get session token from cookies
-      const sessionToken = headers
-        .get('cookie')
-        ?.match(/session-token=([^;]+)/)?.[1];
-
-      if (!sessionToken) {
-        return null;
-      }
-
-      return await validateSession(sessionToken);
-    },
-  },
-};
