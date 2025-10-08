@@ -39,8 +39,10 @@ model session {
 model user {
   id            String    @id
   name          String
-  email         String    @unique
-  emailVerified Boolean
+  username      String    @unique
+  displayUsername String  @unique
+  email         String?   @unique
+  emailVerified Boolean   @default(false)
   image         String?
   role          UserRole  @default(STUDENT)
   gradeLevel    Int?
@@ -69,9 +71,10 @@ enum StandardsAlignment {
 }
 
 enum UserRole {
-  TEACHER
   STUDENT
+  TEACHER
   ADMIN
+  SYSTEM
 }
 
 model Class {

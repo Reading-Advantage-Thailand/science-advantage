@@ -27,8 +27,10 @@ export function SignupForm({
   const router = useRouter();
 
   const [fullname, setFullname] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('STUDENT');
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -51,6 +53,14 @@ export function SignupForm({
          * @default true
          */
         name: fullname,
+        /**
+         * The user username
+         */
+        username,
+        /**
+         * The display username
+         */
+        displayUsername: username,
       },
       {
         onRequest: (ctx) => {
@@ -75,7 +85,7 @@ export function SignupForm({
       <Card>
         <CardHeader>
           <CardTitle>Create an account</CardTitle>
-          <CardDescription>Get started with your new account</CardDescription>
+          <CardDescription>Get started with your new account (Admin use only)</CardDescription>
         </CardHeader>
         <CardContent>
           {error && (
@@ -87,26 +97,51 @@ export function SignupForm({
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="email">Full Name</Label>
+                <Label htmlFor="name">Full Name</Label>
                 <Input
                   onChange={(e) => setFullname(e.target.value)}
                   value={fullname}
                   id="name"
                   type="text"
-                  placeholder="Achour Meguenni"
+                  placeholder="John Doe"
                   required
                 />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                  id="username"
+                  type="text"
+                  placeholder="johndoe"
+                  required
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="email">Email (Optional)</Label>
                 <Input
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   id="email"
                   type="email"
-                  placeholder="me@example.com"
-                  required
+                  placeholder="john@example.com"
                 />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="role">Role</Label>
+                <select
+                  id="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  required
+                >
+                  <option value="STUDENT">Student</option>
+                  <option value="TEACHER">Teacher</option>
+                  <option value="ADMIN">Admin</option>
+                  <option value="SYSTEM">System</option>
+                </select>
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
@@ -134,9 +169,7 @@ export function SignupForm({
                     'Sign Up'
                   )}
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Sign Up with Google
-                </Button>
+
               </div>
             </div>
             <div className="mt-4 text-center text-sm">

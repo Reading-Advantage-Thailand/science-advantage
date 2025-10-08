@@ -5,20 +5,24 @@ const prisma = new PrismaClient();
 
 describe('Advanced Data Schema Tests', () => {
   beforeEach(async () => {
-    // Clean up before each test
+    // Clean up before each test - order matters for foreign keys
     await prisma.curriculumUnit.deleteMany();
     await prisma.lesson.deleteMany();
     await prisma.standard.deleteMany();
     await prisma.class.deleteMany();
+    await prisma.session.deleteMany();
+    await prisma.account.deleteMany();
     await prisma.user.deleteMany();
   });
 
   afterEach(async () => {
-    // Clean up after each test
+    // Clean up after each test - order matters for foreign keys
     await prisma.curriculumUnit.deleteMany();
     await prisma.lesson.deleteMany();
     await prisma.standard.deleteMany();
     await prisma.class.deleteMany();
+    await prisma.session.deleteMany();
+    await prisma.account.deleteMany();
     await prisma.user.deleteMany();
   });
 
@@ -35,6 +39,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'test-user-1',
           email: 'test@example.com',
           name: 'Test User',
+          username: 'testuser1',
+          displayUsername: 'TestUser1',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -52,6 +58,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'test-user-2',
           email: 'teacher@example.com',
           name: 'Test Teacher',
+          username: 'testteacher',
+          displayUsername: 'TestTeacher',
           role: 'TEACHER',
           gradeLevel: null,
           emailVerified: true,
@@ -72,6 +80,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'teacher-1',
           email: 'teacher@example.com',
           name: 'Teacher',
+          username: 'teacher1',
+          displayUsername: 'Teacher1',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -98,6 +108,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'teacher-2',
           email: 'teacher2@example.com',
           name: 'Teacher 2',
+          username: 'teacher2',
+          displayUsername: 'Teacher2',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -181,6 +193,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'teacher-3',
           email: 'teacher3@example.com',
           name: 'Teacher 3',
+          username: 'teacher3',
+          displayUsername: 'Teacher3',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -220,6 +234,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'teacher-rel',
           email: 'teacher-rel@example.com',
           name: 'Teacher Relationship',
+          username: 'teacherrel',
+          displayUsername: 'TeacherRel',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -231,6 +247,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'student-rel',
           email: 'student-rel@example.com',
           name: 'Student Relationship',
+          username: 'studentrel',
+          displayUsername: 'StudentRel',
           role: 'STUDENT',
           gradeLevel: 3,
           emailVerified: true,
@@ -311,6 +329,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'teacher-unit-rel',
           email: 'teacher-unit@example.com',
           name: 'Teacher Unit Relationship',
+          username: 'teacherunitel',
+          displayUsername: 'TeacherUnitRel',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -374,6 +394,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'teacher-complex',
           email: 'teacher-complex@example.com',
           name: 'Complex Test Teacher',
+          username: 'teachercomplex',
+          displayUsername: 'TeacherComplex',
           emailVerified: true,
           createdAt: new Date(),
           updatedAt: new Date()
@@ -385,6 +407,8 @@ describe('Advanced Data Schema Tests', () => {
           id: 'student-complex',
           email: 'student-complex@example.com',
           name: 'Complex Test Student',
+          username: 'studentcomplex',
+          displayUsername: 'StudentComplex',
           role: 'STUDENT',
           gradeLevel: 3,
           emailVerified: true,
