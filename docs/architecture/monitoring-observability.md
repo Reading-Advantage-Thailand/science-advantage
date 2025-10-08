@@ -106,14 +106,14 @@ graph TB
 // lib/monitoring.ts
 export class PerformanceMonitor {
   static trackPageLoad(pageName: string) {
-    if (typeof window !== "undefined" && "performance" in window) {
+    if (typeof window !== 'undefined' && 'performance' in window) {
       const navigation = performance.getEntriesByType(
-        "navigation"
+        'navigation'
       )[0] as PerformanceNavigationTiming;
       const loadTime = navigation.loadEventEnd - navigation.fetchStart;
 
       // Track to analytics
-      this.trackMetric("page_load_time", loadTime, {
+      this.trackMetric('page_load_time', loadTime, {
         page: pageName,
         browser: navigator.userAgent,
       });
@@ -121,13 +121,17 @@ export class PerformanceMonitor {
   }
 
   static trackUserInteraction(action: string, context: Record<string, any>) {
-    this.trackMetric("user_interaction", 1, {
+    this.trackMetric('user_interaction', 1, {
       action,
       ...context,
     });
   }
 
-  private static trackMetric(name: string, value: number, tags: Record<string, string>) {
+  private static trackMetric(
+    name: string,
+    value: number,
+    tags: Record<string, string>
+  ) {
     // Send to monitoring service
     console.log(`[METRIC] ${name}: ${value}`, tags);
   }
@@ -144,8 +148,8 @@ export class ErrorTracker {
       message: error.message,
       stack: error.stack,
       timestamp: new Date().toISOString(),
-      url: typeof window !== "undefined" ? window.location.href : "server",
-      userAgent: typeof window !== "undefined" ? navigator.userAgent : "server",
+      url: typeof window !== 'undefined' ? window.location.href : 'server',
+      userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'server',
       context,
     };
 
@@ -155,7 +159,7 @@ export class ErrorTracker {
 
   private static reportError(errorData: any) {
     // Implementation depends on error tracking service
-    console.error("[ERROR]", errorData);
+    console.error('[ERROR]', errorData);
   }
 }
 ```
@@ -177,7 +181,9 @@ export function apiMonitoringMiddleware(req: NextRequest, res: NextResponse) {
 
   // Log response
   const duration = Date.now() - startTime;
-  console.log(`[API] ${req.method} ${req.url} - ${response.status} - ${duration}ms`);
+  console.log(
+    `[API] ${req.method} ${req.url} - ${response.status} - ${duration}ms`
+  );
 
   // Track metrics
   if (duration > 1000) {
@@ -229,46 +235,46 @@ export class DatabaseMonitor {
 
 ```yaml
 alerts:
-  - name: "High Error Rate"
-    condition: "error_rate > 5%"
-    duration: "5m"
-    severity: "high"
-    action: "notify_team"
+  - name: 'High Error Rate'
+    condition: 'error_rate > 5%'
+    duration: '5m'
+    severity: 'high'
+    action: 'notify_team'
 
-  - name: "Slow API Response"
-    condition: "api_response_time_p95 > 2s"
-    duration: "10m"
-    severity: "medium"
-    action: "daily_digest"
+  - name: 'Slow API Response'
+    condition: 'api_response_time_p95 > 2s'
+    duration: '10m'
+    severity: 'medium'
+    action: 'daily_digest'
 
-  - name: "Database Connection Issues"
-    condition: "db_connection_errors > 10"
-    duration: "1m"
-    severity: "critical"
-    action: "immediate_notification"
+  - name: 'Database Connection Issues'
+    condition: 'db_connection_errors > 10'
+    duration: '1m'
+    severity: 'critical'
+    action: 'immediate_notification'
 
-  - name: "External Service Down"
-    condition: "external_service_availability < 95%"
-    duration: "5m"
-    severity: "high"
-    action: "notify_team"
+  - name: 'External Service Down'
+    condition: 'external_service_availability < 95%'
+    duration: '5m'
+    severity: 'high'
+    action: 'notify_team'
 ```
 
 #### Educational Metrics Alerts
 
 ```yaml
 educational_alerts:
-  - name: "Low Lesson Completion"
-    condition: "lesson_completion_rate < 70%"
-    duration: "24h"
-    severity: "medium"
-    action: "weekly_report"
+  - name: 'Low Lesson Completion'
+    condition: 'lesson_completion_rate < 70%'
+    duration: '24h'
+    severity: 'medium'
+    action: 'weekly_report'
 
-  - name: "Experiment Submission Drop"
-    condition: "experiment_submissions < 50% of baseline"
-    duration: "6h"
-    severity: "high"
-    action: "notify_team"
+  - name: 'Experiment Submission Drop'
+    condition: 'experiment_submissions < 50% of baseline'
+    duration: '6h'
+    severity: 'high'
+    action: 'notify_team'
 ```
 
 ## Logging Strategy
@@ -287,7 +293,7 @@ educational_alerts:
 ```typescript
 interface LogEntry {
   timestamp: string;
-  level: "ERROR" | "WARN" | "INFO" | "DEBUG";
+  level: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG';
   service: string;
   message: string;
   context?: Record<string, any>;
@@ -301,18 +307,18 @@ interface LogEntry {
 
 ```typescript
 // User action logging
-logger.info("User completed lesson", {
-  userId: "user_123",
-  lessonId: "lesson_456",
+logger.info('User completed lesson', {
+  userId: 'user_123',
+  lessonId: 'lesson_456',
   completionTime: 1800, // seconds
-  context: { device: "mobile", browser: "chrome" },
+  context: { device: 'mobile', browser: 'chrome' },
 });
 
 // System error logging
-logger.error("Database connection failed", {
-  service: "api",
-  error: "Connection timeout",
-  context: { query: "SELECT * FROM users", timeout: 30000 },
+logger.error('Database connection failed', {
+  service: 'api',
+  error: 'Connection timeout',
+  context: { query: 'SELECT * FROM users', timeout: 30000 },
 });
 ```
 
@@ -331,7 +337,7 @@ export class RequestTracer {
 
   static traceRequest(req: NextRequest, traceId?: string) {
     const id = traceId || this.generateTraceId();
-    req.headers.set("x-trace-id", id);
+    req.headers.set('x-trace-id', id);
     return id;
   }
 
@@ -349,7 +355,7 @@ export class RequestTracer {
 // app/api/health/route.ts
 export async function GET() {
   const health = {
-    status: "healthy",
+    status: 'healthy',
     timestamp: new Date().toISOString(),
     version: process.env.npm_package_version,
     checks: {
@@ -359,7 +365,9 @@ export async function GET() {
     },
   };
 
-  const isHealthy = Object.values(health.checks).every((check) => check.status === "healthy");
+  const isHealthy = Object.values(health.checks).every(
+    (check) => check.status === 'healthy'
+  );
 
   return NextResponse.json(health, {
     status: isHealthy ? 200 : 503,

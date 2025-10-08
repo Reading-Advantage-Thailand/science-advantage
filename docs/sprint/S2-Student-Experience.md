@@ -1,0 +1,57 @@
+# Sprint 2: Core Student Experience - Enrollment & Structured Lesson Access
+
+**Goal:** Enable students to join classes and navigate the curriculum in the same structured, standards-aligned format that the teacher sees. This sprint focuses on the student's initial experience with the platform.
+
+---
+
+## User Stories
+
+### Story: Join a Class
+
+- **As a student,** I want to join a class using a unique join code provided by my teacher so I can get access to the course materials.
+- **Acceptance Criteria:**
+  - The student dashboard has a clear "Join Class" button or form.
+  - The student enters the 6-character `joinCode`.
+  - The system validates the code and, if successful, creates a `ClassEnrollment` record linking the student to the class.
+  - The student is redirected to their dashboard, where the newly joined class now appears.
+  - The system provides a clear error message for invalid or non-existent join codes.
+
+### Story: View Enrolled Classes
+
+- **As a student,** I want to see all the classes I am enrolled in on my dashboard so I can easily access them.
+- **Acceptance Criteria:**
+  - The student dashboard (`/dashboard`) displays a card for each class the student is enrolled in.
+  - Each class card shows the `Class Name`, `Grade Level`, and the `Teacher's Name`.
+  - Clicking a class card navigates the student into the class view.
+
+### Story: Navigate a Standards-Aligned Curriculum
+
+- **As a student,** when I enter a class, I want to see the curriculum organized into units and lessons so I can easily find what I need to work on.
+- **Acceptance Criteria:**
+  - The student's view of the class curriculum is identical to the teacher's view.
+  - The application uses the class's `standardsAlignment` and `gradeLevel` to render the correct sequence of `CurriculumUnits` and the `Lessons` within them.
+  - The UI clearly indicates which lessons have been completed or started (initial implementation can be simple placeholders).
+
+### Story: View Lesson Content and Standards
+
+- **As a student,** I want to be able to open a lesson and read its content, and also see which educational standards it covers.
+- **Acceptance Criteria:**
+  - Clicking on a lesson title navigates to the lesson viewer page (e.g., `/classes/[classId]/lessons/[lessonSlug]`).
+  - The lesson viewer displays the main content of the lesson (e.g., the reading passage).
+  - A section on the page clearly lists the specific `Standard(s)` that the lesson fulfills (e.g., "Covers Standard: NGSS 3-LS1-1"). This data is pulled from the lesson's relationship with the `Standard` model.
+
+---
+
+## Technical Notes
+
+- API routes will be needed for joining a class and fetching class/curriculum data from a student's perspective.
+- This sprint will involve creating the student-facing dashboard and class navigation components.
+- The logic for displaying the curriculum structure can be reused from Sprint 1, but will be applied within the context of the student's role.
+
+## Definition of Done
+
+- All user stories are complete and meet their acceptance criteria.
+- A student can successfully join a class, view its structured curriculum, and read a lesson's content.
+- The student view is consistent with the teacher's view of the curriculum.
+- All new code is linted, formatted, and passes CI checks.
+- The application remains in a deployable and working state.

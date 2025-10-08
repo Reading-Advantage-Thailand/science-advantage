@@ -25,6 +25,7 @@ Better Auth uses slightly different column names than Auth.js. You'll need to ma
 #### User Schema
 
 **Change Required:**
+
 - Convert `emailVerified` from datetime to boolean
 
 ```prisma
@@ -41,6 +42,7 @@ model User {
 #### Session Schema
 
 **Field Mappings:**
+
 - `expires` → `expiresAt`
 - `sessionToken` → `token`
 - Add `createdAt` and `updatedAt` fields
@@ -61,6 +63,7 @@ model Session {
 #### Account Schema
 
 **Field Mappings:**
+
 - `provider` → `providerId`
 - `providerAccountId` → `accountId`
 - Update token-related fields
@@ -94,22 +97,24 @@ model Account {
 Replace the Auth.js route handler with Better Auth's Next.js handler.
 
 **Before (Auth.js):**
+
 ```typescript
 // app/api/auth/[...nextauth]/route.ts
-import NextAuth from "next-auth"
-import { authOptions } from "~/server/auth"
+import NextAuth from 'next-auth';
+import { authOptions } from '~/server/auth';
 
-const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST }
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
 ```
 
 **After (Better Auth):**
+
 ```typescript
 // app/api/auth/[...all]/route.ts
-import { toNextJsHandler } from "better-auth/next-js"
-import { auth } from "~/server/auth"
+import { toNextJsHandler } from 'better-auth/next-js';
+import { auth } from '~/server/auth';
 
-export const { POST, GET } = toNextJsHandler(auth)
+export const { POST, GET } = toNextJsHandler(auth);
 ```
 
 **Important:** The route path changes from `[...nextauth]` to `[...all]`.
@@ -119,33 +124,36 @@ export const { POST, GET } = toNextJsHandler(auth)
 Replace Auth.js client imports with Better Auth's React client.
 
 **Before (Auth.js):**
+
 ```typescript
-import { signIn, signOut, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from 'next-auth/react';
 ```
 
 **After (Better Auth):**
+
 ```typescript
 // lib/auth-client.ts
-import { createAuthClient } from "better-auth/react"
+import { createAuthClient } from 'better-auth/react';
 
 export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL!
-})
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL!,
+});
 
-export const { signIn, signOut, useSession } = authClient
+export const { signIn, signOut, useSession } = authClient;
 ```
 
 #### Social Login Example
 
 **Google OAuth with Better Auth:**
+
 ```typescript
 export const signInWithGoogle = async () => {
   const data = await signIn.social({
-    provider: "google",
-    callbackURL: "/dashboard"
-  })
-  return data
-}
+    provider: 'google',
+    callbackURL: '/dashboard',
+  });
+  return data;
+};
 ```
 
 ### 5. Adjust Server-Side Session Handling
@@ -153,33 +161,35 @@ export const signInWithGoogle = async () => {
 Update server actions and API routes to use Better Auth's session API.
 
 **Before (Auth.js):**
+
 ```typescript
-import { getServerSession } from "next-auth"
-import { authOptions } from "~/server/auth"
+import { getServerSession } from 'next-auth';
+import { authOptions } from '~/server/auth';
 
 export async function protectedAction() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
   if (!session) {
-    throw new Error("Unauthorized")
+    throw new Error('Unauthorized');
   }
   // ... rest of action
 }
 ```
 
 **After (Better Auth):**
-```typescript
-"use server"
 
-import { auth } from "~/server/auth"
-import { headers } from "next/headers"
+```typescript
+'use server';
+
+import { auth } from '~/server/auth';
+import { headers } from 'next/headers';
 
 export async function protectedAction() {
   const session = await auth.api.getSession({
     headers: await headers(),
-  })
+  });
 
   if (!session) {
-    throw new Error("Unauthorized")
+    throw new Error('Unauthorized');
   }
   // ... rest of action
 }
@@ -190,29 +200,30 @@ export async function protectedAction() {
 Update middleware to use Better Auth's middleware utilities.
 
 **Example middleware.ts:**
+
 ```typescript
-import { auth } from "~/server/auth"
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { auth } from '~/server/auth';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: request.headers,
-  })
+  });
 
   // Protect dashboard routes
-  if (request.nextUrl.pathname.startsWith("/dashboard")) {
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
     if (!session) {
-      return NextResponse.redirect(new URL("/signin", request.url))
+      return NextResponse.redirect(new URL('/signin', request.url));
     }
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"]
-}
+  matcher: ['/dashboard/:path*'],
+};
 ```
 
 ## Environment Variables
@@ -248,14 +259,17 @@ After migration, verify the following:
 ## Common Issues
 
 ### Session Not Persisting
+
 - Verify `NEXT_PUBLIC_BASE_URL` matches your deployment URL
 - Check cookie configuration in Better Auth setup
 
 ### OAuth Redirect Errors
+
 - Update OAuth provider callback URLs to use the new `/api/auth/[...all]` path
 - Ensure `NEXT_PUBLIC_BASE_URL` is set correctly
 
 ### TypeScript Errors
+
 - Regenerate Prisma client after schema changes: `npx prisma generate`
 - Ensure Better Auth types are properly imported
 

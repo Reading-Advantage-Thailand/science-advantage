@@ -42,11 +42,11 @@ app/api/
 
 ```typescript
 // app/api/classes/[classId]/lessons/[slug]/completions/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-import { ApiError } from "@/lib/errors/api-error";
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
+import { ApiError } from '@/lib/errors/api-error';
 
 export async function GET(
   request: NextRequest,
@@ -56,7 +56,10 @@ export async function GET(
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
     }
 
     const { classId, slug } = params;
@@ -82,8 +85,11 @@ export async function GET(
 
     return NextResponse.json({ completion });
   } catch (error) {
-    console.error("Error fetching lesson completion:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    console.error('Error fetching lesson completion:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -95,7 +101,10 @@ export async function POST(
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
     }
 
     const { classId, slug } = params;
@@ -111,7 +120,10 @@ export async function POST(
     });
 
     if (!enrollment) {
-      return NextResponse.json({ error: "Not enrolled in this class" }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Not enrolled in this class' },
+        { status: 403 }
+      );
     }
 
     // Create or update lesson completion
@@ -145,8 +157,11 @@ export async function POST(
 
     return NextResponse.json({ completion });
   } catch (error) {
-    console.error("Error completing lesson:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    console.error('Error completing lesson:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 ```
@@ -159,7 +174,6 @@ Our database schema is defined using Prisma with PostgreSQL as the provider. The
 
 > **A Note on Naming Conventions**
 > The application layers (TypeScript, Prisma Client, API) use `camelCase` for fields and `PascalCase` for models. The underlying PostgreSQL database, however, uses `snake_case` for tables and columns, as documented in `database-schema.md`. Prisma handles this mapping automatically, providing a consistent developer experience.
-
 
 ```prisma
 // Key models from prisma/schema.prisma
@@ -264,7 +278,7 @@ model ExperimentSubmission {
 
 ```typescript
 // lib/prisma.ts
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -272,11 +286,11 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // lib/services/class-service.ts
-import { prisma } from "@/lib/prisma";
-import { Class, ClassEnrollment, User, Role } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import { Class, ClassEnrollment, User, Role } from '@prisma/client';
 
 export interface ClassWithEnrollments extends Class {
   enrollments: (ClassEnrollment & { student: User })[];
@@ -322,7 +336,7 @@ export class ClassService {
         },
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     });
   }
@@ -352,7 +366,11 @@ export class ClassService {
     return enrollments.map((e) => e.class as ClassWithEnrollments);
   }
 
-  async create(data: { name: string; description?: string; teacherId: string }): Promise<Class> {
+  async create(data: {
+    name: string;
+    description?: string;
+    teacherId: string;
+  }): Promise<Class> {
     // Generate unique join code
     const joinCode = this.generateJoinCode();
 
@@ -369,7 +387,10 @@ export class ClassService {
     });
   }
 
-  async enrollStudent(classId: string, studentId: string): Promise<ClassEnrollment> {
+  async enrollStudent(
+    classId: string,
+    studentId: string
+  ): Promise<ClassEnrollment> {
     return prisma.classEnrollment.create({
       data: {
         classId,
@@ -383,18 +404,25 @@ export class ClassService {
   }
 
   private generateJoinCode(): string {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let result = "";
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
     for (let i = 0; i < 6; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     return result;
   }
 }
 
 // lib/services/lesson-service.ts
-import { prisma } from "@/lib/prisma";
-import { Lesson, QuizQuestion, Attempt, LessonCompletion } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import {
+  Lesson,
+  QuizQuestion,
+  Attempt,
+  LessonCompletion,
+} from '@prisma/client';
 
 export interface LessonWithQuestions extends Lesson {
   quizQuestions: QuizQuestion[];
@@ -407,7 +435,7 @@ export class LessonService {
       include: {
         quizQuestions: {
           orderBy: {
-            order: "asc",
+            order: 'asc',
           },
         },
       },
@@ -418,7 +446,7 @@ export class LessonService {
     return prisma.lesson.findMany({
       where: { unitSlug },
       orderBy: {
-        order: "asc",
+        order: 'asc',
       },
     });
   }
@@ -448,12 +476,13 @@ export class LessonService {
           studentId,
         },
         orderBy: {
-          createdAt: "desc",
+          createdAt: 'desc',
         },
       }),
     ]);
 
-    const bestScore = attempts.length > 0 ? Math.max(...attempts.map((a) => a.score)) : null;
+    const bestScore =
+      attempts.length > 0 ? Math.max(...attempts.map((a) => a.score)) : null;
 
     return {
       completion,
@@ -512,17 +541,17 @@ sequenceDiagram
 
 ```typescript
 // lib/middleware/auth-middleware.ts
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { ApiError } from "@/lib/errors/api-error";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { ApiError } from '@/lib/errors/api-error';
 
 export interface AuthenticatedRequest extends NextApiRequest {
   user: {
     id: string;
     email: string;
     name: string;
-    role: "TEACHER" | "STUDENT";
+    role: 'TEACHER' | 'STUDENT';
   };
 }
 
@@ -533,7 +562,7 @@ export async function requireAuth(
   const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
-    throw new ApiError("UNAUTHORIZED", "Authentication required");
+    throw new ApiError('UNAUTHORIZED', 'Authentication required');
   }
 
   return {
@@ -542,7 +571,7 @@ export async function requireAuth(
       id: session.user.id,
       email: session.user.email!,
       name: session.user.name!,
-      role: session.user.role as "TEACHER" | "STUDENT",
+      role: session.user.role as 'TEACHER' | 'STUDENT',
     },
   };
 }
@@ -550,12 +579,12 @@ export async function requireAuth(
 export async function requireRole(
   req: NextApiRequest,
   res: NextApiResponse,
-  requiredRole: "TEACHER" | "STUDENT"
+  requiredRole: 'TEACHER' | 'STUDENT'
 ): Promise<AuthenticatedRequest> {
   const authenticatedReq = await requireAuth(req, res);
 
   if (authenticatedReq.user.role !== requiredRole) {
-    throw new ApiError("FORBIDDEN", `${requiredRole} role required`);
+    throw new ApiError('FORBIDDEN', `${requiredRole} role required`);
   }
 
   return authenticatedReq;
@@ -569,13 +598,13 @@ export async function requireTeacherOrOwner(
   const authenticatedReq = await requireAuth(req, res);
 
   // Teachers can access any resource
-  if (authenticatedReq.user.role === "TEACHER") {
+  if (authenticatedReq.user.role === 'TEACHER') {
     return authenticatedReq;
   }
 
   // Students can only access their own resources
   if (resourceOwnerId && authenticatedReq.user.id !== resourceOwnerId) {
-    throw new ApiError("FORBIDDEN", "Access denied to this resource");
+    throw new ApiError('FORBIDDEN', 'Access denied to this resource');
   }
 
   return authenticatedReq;
@@ -595,29 +624,29 @@ export class ApiError extends Error {
     public statusCode: number = 500
   ) {
     super(message);
-    this.name = "ApiError";
+    this.name = 'ApiError';
   }
 }
 
 export const errorCodes = {
-  UNAUTHORIZED: "UNAUTHORIZED",
-  FORBIDDEN: "FORBIDDEN",
-  NOT_FOUND: "NOT_FOUND",
-  VALIDATION_ERROR: "VALIDATION_ERROR",
-  INTERNAL_ERROR: "INTERNAL_ERROR",
-  METHOD_NOT_ALLOWED: "METHOD_NOT_ALLOWED",
+  UNAUTHORIZED: 'UNAUTHORIZED',
+  FORBIDDEN: 'FORBIDDEN',
+  NOT_FOUND: 'NOT_FOUND',
+  VALIDATION_ERROR: 'VALIDATION_ERROR',
+  INTERNAL_ERROR: 'INTERNAL_ERROR',
+  METHOD_NOT_ALLOWED: 'METHOD_NOT_ALLOWED',
 } as const;
 
 // lib/middleware/error-handler.ts
-import { NextRequest, NextResponse } from "next/server";
-import { ApiError } from "@/lib/errors/api-error";
+import { NextRequest, NextResponse } from 'next/server';
+import { ApiError } from '@/lib/errors/api-error';
 
 export function withErrorHandler(handler: Function) {
   return async (request: NextRequest, ...args: any[]) => {
     try {
       return await handler(request, ...args);
     } catch (error) {
-      console.error("API Error:", error);
+      console.error('API Error:', error);
 
       if (error instanceof ApiError) {
         return NextResponse.json(
@@ -630,23 +659,23 @@ export function withErrorHandler(handler: Function) {
       }
 
       // Handle Prisma errors
-      if (error.code === "P2002") {
+      if (error.code === 'P2002') {
         return NextResponse.json(
-          { error: "Resource already exists", code: "DUPLICATE_RESOURCE" },
+          { error: 'Resource already exists', code: 'DUPLICATE_RESOURCE' },
           { status: 409 }
         );
       }
 
-      if (error.code === "P2025") {
+      if (error.code === 'P2025') {
         return NextResponse.json(
-          { error: "Resource not found", code: "NOT_FOUND" },
+          { error: 'Resource not found', code: 'NOT_FOUND' },
           { status: 404 }
         );
       }
 
       // Generic error
       return NextResponse.json(
-        { error: "Internal server error", code: "INTERNAL_ERROR" },
+        { error: 'Internal server error', code: 'INTERNAL_ERROR' },
         { status: 500 }
       );
     }
@@ -654,26 +683,29 @@ export function withErrorHandler(handler: Function) {
 }
 
 // lib/middleware/validation.ts
-import { NextRequest } from "next/server";
-import { ApiError } from "@/lib/errors/api-error";
+import { NextRequest } from 'next/server';
+import { ApiError } from '@/lib/errors/api-error';
 
 export function validateRequired(fields: string[], data: any) {
   const missing = fields.filter((field) => !data[field]);
   if (missing.length > 0) {
-    throw new ApiError("VALIDATION_ERROR", `Missing required fields: ${missing.join(", ")}`);
+    throw new ApiError(
+      'VALIDATION_ERROR',
+      `Missing required fields: ${missing.join(', ')}`
+    );
   }
 }
 
 export function validateEmail(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    throw new ApiError("VALIDATION_ERROR", "Invalid email format");
+    throw new ApiError('VALIDATION_ERROR', 'Invalid email format');
   }
 }
 
 export function validateJoinCode(joinCode: string) {
   if (joinCode.length !== 6 || !/^[A-Z0-9]+$/.test(joinCode)) {
-    throw new ApiError("VALIDATION_ERROR", "Invalid join code format");
+    throw new ApiError('VALIDATION_ERROR', 'Invalid join code format');
   }
 }
 ```
@@ -684,8 +716,8 @@ export function validateJoinCode(joinCode: string) {
 
 ```typescript
 // lib/middleware/security.ts
-import { NextRequest } from "next/server";
-import { ApiError } from "@/lib/errors/api-error";
+import { NextRequest } from 'next/server';
+import { ApiError } from '@/lib/errors/api-error';
 
 // Rate limiting (simplified for serverless)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
@@ -695,14 +727,17 @@ export function rateLimit(
   limit: number = 100,
   windowMs: number = 15 * 60 * 1000 // 15 minutes
 ) {
-  const ip = request.ip || "unknown";
+  const ip = request.ip || 'unknown';
   const now = Date.now();
   const key = `${ip}:${Math.floor(now / windowMs)}`;
 
-  const current = rateLimitStore.get(key) || { count: 0, resetTime: now + windowMs };
+  const current = rateLimitStore.get(key) || {
+    count: 0,
+    resetTime: now + windowMs,
+  };
 
   if (current.count >= limit) {
-    throw new ApiError("TOO_MANY_REQUESTS", "Rate limit exceeded", 429);
+    throw new ApiError('TOO_MANY_REQUESTS', 'Rate limit exceeded', 429);
   }
 
   current.count++;
@@ -716,15 +751,18 @@ export function rateLimit(
 
 // CORS handling
 export function handleCors(request: NextRequest) {
-  const origin = request.headers.get("origin");
-  const allowedOrigins = [process.env.NEXT_PUBLIC_APP_URL, "http://localhost:3000"];
+  const origin = request.headers.get('origin');
+  const allowedOrigins = [
+    process.env.NEXT_PUBLIC_APP_URL,
+    'http://localhost:3000',
+  ];
 
   if (origin && allowedOrigins.includes(origin)) {
     return {
-      "Access-Control-Allow-Origin": origin,
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      "Access-Control-Allow-Credentials": "true",
+      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Credentials': 'true',
     };
   }
 
@@ -733,15 +771,15 @@ export function handleCors(request: NextRequest) {
 
 // Input sanitization
 export function sanitizeInput(data: any): any {
-  if (typeof data === "string") {
-    return data.trim().replace(/[<>]/g, "");
+  if (typeof data === 'string') {
+    return data.trim().replace(/[<>]/g, '');
   }
 
   if (Array.isArray(data)) {
     return data.map(sanitizeInput);
   }
 
-  if (typeof data === "object" && data !== null) {
+  if (typeof data === 'object' && data !== null) {
     const sanitized: any = {};
     for (const [key, value] of Object.entries(data)) {
       sanitized[key] = sanitizeInput(value);
@@ -759,8 +797,8 @@ export function sanitizeInput(data: any): any {
 
 ```typescript
 // lib/realtime/websocket-manager.ts
-import { Server } from "socket.io";
-import { NextApiRequest, NextApiResponse } from "next";
+import { Server } from 'socket.io';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export class WebSocketManager {
   private io: Server | null = null;
@@ -769,33 +807,36 @@ export class WebSocketManager {
     this.io = new Server(server, {
       cors: {
         origin: process.env.NEXT_PUBLIC_APP_URL,
-        methods: ["GET", "POST"],
+        methods: ['GET', 'POST'],
       },
     });
 
-    this.io.on("connection", (socket) => {
-      console.log("User connected:", socket.id);
+    this.io.on('connection', (socket) => {
+      console.log('User connected:', socket.id);
 
       // Join class room
-      socket.on("join-class", (classId: string) => {
+      socket.on('join-class', (classId: string) => {
         socket.join(`class-${classId}`);
       });
 
       // Leave class room
-      socket.on("leave-class", (classId: string) => {
+      socket.on('leave-class', (classId: string) => {
         socket.leave(`class-${classId}`);
       });
 
       // Handle lesson completion notifications
-      socket.on("lesson-completed", (data: { classId: string; studentId: string }) => {
-        socket.to(`class-${data.classId}`).emit("student-progress", {
-          studentId: data.studentId,
-          type: "lesson-completed",
-        });
-      });
+      socket.on(
+        'lesson-completed',
+        (data: { classId: string; studentId: string }) => {
+          socket.to(`class-${data.classId}`).emit('student-progress', {
+            studentId: data.studentId,
+            type: 'lesson-completed',
+          });
+        }
+      );
 
-      socket.on("disconnect", () => {
-        console.log("User disconnected:", socket.id);
+      socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
       });
     });
   }
@@ -803,14 +844,14 @@ export class WebSocketManager {
   // Notify class of new enrollment
   notifyClassEnrollment(classId: string, studentData: any) {
     if (this.io) {
-      this.io.to(`class-${classId}`).emit("new-enrollment", studentData);
+      this.io.to(`class-${classId}`).emit('new-enrollment', studentData);
     }
   }
 
   // Notify class of quiz submission
   notifyQuizSubmission(classId: string, submissionData: any) {
     if (this.io) {
-      this.io.to(`class-${classId}`).emit("quiz-submission", submissionData);
+      this.io.to(`class-${classId}`).emit('quiz-submission', submissionData);
     }
   }
 }
@@ -830,10 +871,13 @@ export class AIService {
 
   constructor() {
     this.apiKey = process.env.OPENAI_API_KEY!;
-    this.baseUrl = "https://api.openai.com/v1";
+    this.baseUrl = 'https://api.openai.com/v1';
   }
 
-  async generateExperimentFeedback(experimentData: any, lessonContext: string): Promise<string> {
+  async generateExperimentFeedback(
+    experimentData: any,
+    lessonContext: string
+  ): Promise<string> {
     const prompt = `
       As a science teacher, review this experiment submission and provide constructive feedback.
       
@@ -851,20 +895,21 @@ export class AIService {
 
     try {
       const response = await fetch(`${this.baseUrl}/chat/completions`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo",
+          model: 'gpt-3.5-turbo',
           messages: [
             {
-              role: "system",
-              content: "You are a helpful science teacher providing feedback to students.",
+              role: 'system',
+              content:
+                'You are a helpful science teacher providing feedback to students.',
             },
             {
-              role: "user",
+              role: 'user',
               content: prompt,
             },
           ],
@@ -876,12 +921,15 @@ export class AIService {
       const data = await response.json();
       return data.choices[0].message.content;
     } catch (error) {
-      console.error("AI Service Error:", error);
-      throw new ApiError("AI_SERVICE_ERROR", "Failed to generate feedback");
+      console.error('AI Service Error:', error);
+      throw new ApiError('AI_SERVICE_ERROR', 'Failed to generate feedback');
     }
   }
 
-  async generateQuizQuestions(lessonContent: string, questionCount: number = 5): Promise<any[]> {
+  async generateQuizQuestions(
+    lessonContent: string,
+    questionCount: number = 5
+  ): Promise<any[]> {
     const prompt = `
       Based on the following lesson content, generate ${questionCount} multiple-choice quiz questions.
       
@@ -898,21 +946,21 @@ export class AIService {
 
     try {
       const response = await fetch(`${this.baseUrl}/chat/completions`, {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo",
+          model: 'gpt-3.5-turbo',
           messages: [
             {
-              role: "system",
+              role: 'system',
               content:
-                "You are an educational content creator. Generate quiz questions in JSON format.",
+                'You are an educational content creator. Generate quiz questions in JSON format.',
             },
             {
-              role: "user",
+              role: 'user',
               content: prompt,
             },
           ],
@@ -927,8 +975,11 @@ export class AIService {
       // Parse JSON response
       return JSON.parse(content);
     } catch (error) {
-      console.error("AI Service Error:", error);
-      throw new ApiError("AI_SERVICE_ERROR", "Failed to generate quiz questions");
+      console.error('AI Service Error:', error);
+      throw new ApiError(
+        'AI_SERVICE_ERROR',
+        'Failed to generate quiz questions'
+      );
     }
   }
 }
@@ -940,7 +991,7 @@ export class AIService {
 
 ```typescript
 // lib/cache/redis-cache.ts
-import Redis from "ioredis";
+import Redis from 'ioredis';
 
 export class CacheService {
   private redis: Redis;
@@ -954,7 +1005,7 @@ export class CacheService {
       const value = await this.redis.get(key);
       return value ? JSON.parse(value) : null;
     } catch (error) {
-      console.error("Cache get error:", error);
+      console.error('Cache get error:', error);
       return null;
     }
   }
@@ -963,7 +1014,7 @@ export class CacheService {
     try {
       await this.redis.setex(key, ttl, JSON.stringify(value));
     } catch (error) {
-      console.error("Cache set error:", error);
+      console.error('Cache set error:', error);
     }
   }
 
@@ -971,7 +1022,7 @@ export class CacheService {
     try {
       await this.redis.del(key);
     } catch (error) {
-      console.error("Cache delete error:", error);
+      console.error('Cache delete error:', error);
     }
   }
 
@@ -985,7 +1036,7 @@ export class CacheService {
 }
 
 // lib/middleware/cache.ts
-import { CacheService } from "@/lib/cache/redis-cache";
+import { CacheService } from '@/lib/cache/redis-cache';
 
 export function withCache<T>(
   key: string,
@@ -1017,7 +1068,7 @@ export class Logger {
   static info(message: string, meta?: any) {
     console.log(
       JSON.stringify({
-        level: "info",
+        level: 'info',
         message,
         meta,
         timestamp: new Date().toISOString(),
@@ -1028,7 +1079,7 @@ export class Logger {
   static error(message: string, error?: Error, meta?: any) {
     console.error(
       JSON.stringify({
-        level: "error",
+        level: 'error',
         message,
         error: error?.stack,
         meta,
@@ -1040,7 +1091,7 @@ export class Logger {
   static warn(message: string, meta?: any) {
     console.warn(
       JSON.stringify({
-        level: "warn",
+        level: 'warn',
         message,
         meta,
         timestamp: new Date().toISOString(),
@@ -1079,13 +1130,13 @@ export function withMetrics(handler: Function) {
     const url = request.url;
 
     try {
-      Metrics.increment("api.requests");
+      Metrics.increment('api.requests');
       const result = await handler(request, ...args);
 
       const duration = Date.now() - startTime;
       Metrics.timer(`api.response_time`, duration);
 
-      Logger.info("API request completed", {
+      Logger.info('API request completed', {
         url,
         duration,
         status: 200,
@@ -1094,10 +1145,10 @@ export function withMetrics(handler: Function) {
       return result;
     } catch (error) {
       const duration = Date.now() - startTime;
-      Metrics.increment("api.errors");
+      Metrics.increment('api.errors');
       Metrics.timer(`api.response_time`, duration);
 
-      Logger.error("API request failed", error as Error, {
+      Logger.error('API request failed', error as Error, {
         url,
         duration,
       });

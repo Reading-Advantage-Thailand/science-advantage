@@ -34,16 +34,16 @@ Creates a new assignment for a class.
 
 #### Request Fields
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| title | string | Yes | - | Assignment title (max 200 chars) |
-| description | string | No | null | Assignment description (max 1000 chars) |
-| classId | string | Yes | - | ID of the class to assign to |
-| lessonId | string | Yes | - | ID of the lesson content |
-| contentType | enum | No | "LESSON" | Type of content: LESSON, QUIZ, or EXPERIMENT |
-| dueDate | ISO datetime | Yes | - | When the assignment is due |
-| timezone | string | No | "UTC" | Timezone for the due date (max 50 chars) |
-| status | enum | No | "DRAFT" | Assignment status: DRAFT, PUBLISHED, or CANCELLED |
+| Field       | Type         | Required | Default  | Description                                       |
+| ----------- | ------------ | -------- | -------- | ------------------------------------------------- |
+| title       | string       | Yes      | -        | Assignment title (max 200 chars)                  |
+| description | string       | No       | null     | Assignment description (max 1000 chars)           |
+| classId     | string       | Yes      | -        | ID of the class to assign to                      |
+| lessonId    | string       | Yes      | -        | ID of the lesson content                          |
+| contentType | enum         | No       | "LESSON" | Type of content: LESSON, QUIZ, or EXPERIMENT      |
+| dueDate     | ISO datetime | Yes      | -        | When the assignment is due                        |
+| timezone    | string       | No       | "UTC"    | Timezone for the due date (max 50 chars)          |
+| status      | enum         | No       | "DRAFT"  | Assignment status: DRAFT, PUBLISHED, or CANCELLED |
 
 #### Response (201 Created)
 
@@ -82,6 +82,7 @@ Creates a new assignment for a class.
 #### Error Responses
 
 **400 Bad Request** - Validation error
+
 ```json
 {
   "success": false,
@@ -93,6 +94,7 @@ Creates a new assignment for a class.
 ```
 
 **401 Unauthorized** - Not authenticated
+
 ```json
 {
   "success": false,
@@ -104,6 +106,7 @@ Creates a new assignment for a class.
 ```
 
 **403 Forbidden** - Not authorized (wrong role or not class owner)
+
 ```json
 {
   "success": false,
@@ -129,16 +132,16 @@ Retrieves a paginated list of assignments for the authenticated teacher.
 
 #### Query Parameters
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| classId | string | No | - | Filter by class ID |
-| teacherId | string | No | current user | Filter by teacher ID (admins only) |
-| status | enum | No | - | Filter by status: DRAFT, PUBLISHED, CANCELLED |
-| contentType | enum | No | - | Filter by type: LESSON, QUIZ, EXPERIMENT |
-| page | number | No | 1 | Page number (min: 1) |
-| limit | number | No | 20 | Items per page (min: 1, max: 100) |
-| sortBy | enum | No | "createdAt" | Sort field: createdAt, dueDate, title |
-| sortOrder | enum | No | "desc" | Sort order: asc, desc |
+| Parameter   | Type   | Required | Default      | Description                                   |
+| ----------- | ------ | -------- | ------------ | --------------------------------------------- |
+| classId     | string | No       | -            | Filter by class ID                            |
+| teacherId   | string | No       | current user | Filter by teacher ID (admins only)            |
+| status      | enum   | No       | -            | Filter by status: DRAFT, PUBLISHED, CANCELLED |
+| contentType | enum   | No       | -            | Filter by type: LESSON, QUIZ, EXPERIMENT      |
+| page        | number | No       | 1            | Page number (min: 1)                          |
+| limit       | number | No       | 20           | Items per page (min: 1, max: 100)             |
+| sortBy      | enum   | No       | "createdAt"  | Sort field: createdAt, dueDate, title         |
+| sortOrder   | enum   | No       | "desc"       | Sort order: asc, desc                         |
 
 #### Example Request
 
@@ -198,9 +201,9 @@ Retrieves a specific assignment by ID.
 
 #### Path Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| id | string | Assignment ID |
+| Parameter | Type   | Description   |
+| --------- | ------ | ------------- |
+| id        | string | Assignment ID |
 
 #### Response (200 OK)
 
@@ -241,6 +244,7 @@ Retrieves a specific assignment by ID.
 #### Error Responses
 
 **404 Not Found** - Assignment not found
+
 ```json
 {
   "success": false,
@@ -266,9 +270,9 @@ Updates an existing assignment.
 
 #### Path Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| id | string | Assignment ID |
+| Parameter | Type   | Description   |
+| --------- | ------ | ------------- |
+| id        | string | Assignment ID |
 
 #### Request Body
 
@@ -286,13 +290,13 @@ All fields are optional. Only include fields you want to update.
 
 #### Request Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| title | string | No | Assignment title (min 1, max 200 chars) |
-| description | string | No | Assignment description (max 1000 chars) |
-| dueDate | ISO datetime | No | When the assignment is due |
-| timezone | string | No | Timezone for the due date (max 50 chars) |
-| status | enum | No | Assignment status: DRAFT, PUBLISHED, CANCELLED |
+| Field       | Type         | Required | Description                                    |
+| ----------- | ------------ | -------- | ---------------------------------------------- |
+| title       | string       | No       | Assignment title (min 1, max 200 chars)        |
+| description | string       | No       | Assignment description (max 1000 chars)        |
+| dueDate     | ISO datetime | No       | When the assignment is due                     |
+| timezone    | string       | No       | Timezone for the due date (max 50 chars)       |
+| status      | enum         | No       | Assignment status: DRAFT, PUBLISHED, CANCELLED |
 
 #### Response (200 OK)
 
@@ -341,15 +345,15 @@ All fields are optional. Only include fields you want to update.
 
 #### Status Transition Rules
 
-| From | To | Allowed |
-|------|-----|---------|
-| DRAFT | DRAFT | ✅ |
-| DRAFT | PUBLISHED | ✅ (if lesson is published) |
-| DRAFT | CANCELLED | ✅ |
-| PUBLISHED | DRAFT | ❌ |
-| PUBLISHED | PUBLISHED | ✅ |
-| PUBLISHED | CANCELLED | ✅ |
-| CANCELLED | * | ❌ (cannot update) |
+| From      | To        | Allowed                     |
+| --------- | --------- | --------------------------- |
+| DRAFT     | DRAFT     | ✅                          |
+| DRAFT     | PUBLISHED | ✅ (if lesson is published) |
+| DRAFT     | CANCELLED | ✅                          |
+| PUBLISHED | DRAFT     | ❌                          |
+| PUBLISHED | PUBLISHED | ✅                          |
+| PUBLISHED | CANCELLED | ✅                          |
+| CANCELLED | \*        | ❌ (cannot update)          |
 
 ---
 
@@ -366,9 +370,9 @@ Deletes an assignment. Only DRAFT assignments can be deleted. PUBLISHED assignme
 
 #### Path Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| id | string | Assignment ID |
+| Parameter | Type   | Description   |
+| --------- | ------ | ------------- |
+| id        | string | Assignment ID |
 
 #### Response (200 OK)
 
@@ -389,6 +393,7 @@ Deletes an assignment. Only DRAFT assignments can be deleted. PUBLISHED assignme
 #### Error Responses
 
 **400 Bad Request** - Cannot delete published assignment
+
 ```json
 {
   "success": false,

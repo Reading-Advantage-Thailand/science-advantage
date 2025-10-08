@@ -76,8 +76,8 @@ Implement the backend foundation for teacher-led class creation, including join 
 
 ```typescript
 // 6-character codes, excludes similar characters
-const DEFAULT_CHARSET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-const SIMILAR_CHARS = "0O1IL";
+const DEFAULT_CHARSET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const SIMILAR_CHARS = '0O1IL';
 
 // Collision-safe generation with database verification
 const joinCode = await generateUniqueJoinCode(

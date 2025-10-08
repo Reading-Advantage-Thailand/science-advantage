@@ -27,9 +27,9 @@ components:
       type: apiKey
       in: cookie
       name: next-auth.session-token
-  
+
   # Note on Authentication Strategy
-  # The primary authentication method for the web frontend is `sessionAuth` (NextAuth.js session cookies). 
+  # The primary authentication method for the web frontend is `sessionAuth` (NextAuth.js session cookies).
   # The `bearerAuth` (JWT) scheme is provided for external clients, such as the future mobile application or third-party integrations.
 
   schemas:
@@ -69,7 +69,7 @@ components:
           type: string
           format: uuid
         teacher:
-          $ref: "#/components/schemas/User"
+          $ref: '#/components/schemas/User'
         studentCount:
           type: integer
         createdAt:
@@ -212,7 +212,7 @@ components:
         questions:
           type: array
           items:
-            $ref: "#/components/schemas/QuizQuestion"
+            $ref: '#/components/schemas/QuizQuestion'
         passingScore:
           type: integer
           minimum: 0
@@ -293,7 +293,7 @@ components:
 
     PaginatedResponse:
       allOf:
-        - $ref: "#/components/schemas/ApiResponse"
+        - $ref: '#/components/schemas/ApiResponse'
         - type: object
           properties:
             pagination:
@@ -350,18 +350,18 @@ paths:
                 - email
                 - password
       responses:
-        "200":
+        '200':
           description: Sign in successful
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
-        "401":
+                $ref: '#/components/schemas/ApiResponse'
+        '401':
           description: Invalid credentials
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
 
   /auth/signout:
     post:
@@ -372,12 +372,12 @@ paths:
         - bearerAuth: []
         - sessionAuth: []
       responses:
-        "200":
+        '200':
           description: Sign out successful
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
   /auth/me:
     get:
@@ -388,17 +388,17 @@ paths:
         - bearerAuth: []
         - sessionAuth: []
       responses:
-        "200":
+        '200':
           description: Current user retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/User"
+                        $ref: '#/components/schemas/User'
 
   # Classes
   /classes:
@@ -421,19 +421,19 @@ paths:
             type: integer
             default: 20
       responses:
-        "200":
+        '200':
           description: Classes retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PaginatedResponse"
+                  - $ref: '#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/Class"
+                          $ref: '#/components/schemas/Class'
 
     post:
       tags:
@@ -456,23 +456,23 @@ paths:
               required:
                 - name
       responses:
-        "201":
+        '201':
           description: Class created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Class"
-        "403":
+                        $ref: '#/components/schemas/Class'
+        '403':
           description: Only teachers can create classes
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
 
   /classes/{classId}:
     get:
@@ -490,23 +490,23 @@ paths:
             type: string
             format: uuid
       responses:
-        "200":
+        '200':
           description: Class retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Class"
-        "404":
+                        $ref: '#/components/schemas/Class'
+        '404':
           description: Class not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
 
   # Lessons
   /lessons:
@@ -544,19 +544,19 @@ paths:
             type: integer
             default: 20
       responses:
-        "200":
+        '200':
           description: Lessons retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PaginatedResponse"
+                  - $ref: '#/components/schemas/PaginatedResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/Lesson"
+                          $ref: '#/components/schemas/Lesson'
 
   /lessons/{slug}:
     get:
@@ -573,23 +573,23 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Lesson retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Lesson"
-        "404":
+                        $ref: '#/components/schemas/Lesson'
+        '404':
           description: Lesson not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
 
   /lessons/{slug}/completion:
     post:
@@ -606,17 +606,17 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Lesson marked complete
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/LessonProgress"
+                        $ref: '#/components/schemas/LessonProgress'
 
   # Experiments and Quizzes (Lesson-centric)
   /lessons/{slug}/experiment-submissions:
@@ -634,19 +634,19 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Submissions retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/ExperimentSubmission"
+                          $ref: '#/components/schemas/ExperimentSubmission'
     post:
       tags:
         - Experiments
@@ -680,17 +680,17 @@ paths:
                 - observations
                 - results
       responses:
-        "201":
+        '201':
           description: Experiment submitted
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/ExperimentSubmission"
+                        $ref: '#/components/schemas/ExperimentSubmission'
 
   /lessons/{slug}/quiz:
     get:
@@ -707,17 +707,17 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Quiz retrieved
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Quiz"
+                        $ref: '#/components/schemas/Quiz'
     post:
       tags:
         - Quizzes
@@ -751,17 +751,17 @@ paths:
               required:
                 - answers
       responses:
-        "201":
+        '201':
           description: Quiz submitted
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/ApiResponse"
+                  - $ref: '#/components/schemas/ApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/QuizSubmission"
+                        $ref: '#/components/schemas/QuizSubmission'
 
   # Class-specific Lesson Progress (for teachers)
   /classes/{classId}/lessons/{slug}/completions:
@@ -785,13 +785,13 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Completions retrieved
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
-  
+                $ref: '#/components/schemas/ApiResponse'
+
   /classes/{classId}/lessons/{slug}/scores:
     get:
       tags:
@@ -813,12 +813,12 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Scores retrieved
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiResponse"
+                $ref: '#/components/schemas/ApiResponse'
 
 # Security
 security:

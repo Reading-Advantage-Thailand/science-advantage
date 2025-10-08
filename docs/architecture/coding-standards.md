@@ -12,7 +12,7 @@ Minimal but critical standards for AI agents working on the Science Advantage pl
 
 ```typescript
 // ✅ CORRECT - Import shared types
-import { User, Lesson, QuizSubmission } from "@/lib/types";
+import { User, Lesson, QuizSubmission } from '@/lib/types';
 
 // ❌ FORBIDDEN - Duplicate type definitions
 interface User {
@@ -30,14 +30,16 @@ interface User {
 
 ```typescript
 // ✅ CORRECT - Use centralized API client
-import { apiClient } from "@/lib/api";
+import { apiClient } from '@/lib/api';
 
-const user = await apiClient.get("/api/users/123");
-const result = await apiClient.post("/api/lessons/complete", { lessonId: "123" });
+const user = await apiClient.get('/api/users/123');
+const result = await apiClient.post('/api/lessons/complete', {
+  lessonId: '123',
+});
 
 // ❌ FORBIDDEN - Direct HTTP calls
-const response = await fetch("/api/users/123"); // Never do this
-const data = await axios.get("/api/users/123"); // Never do this
+const response = await fetch('/api/users/123'); // Never do this
+const data = await axios.get('/api/users/123'); // Never do this
 ```
 
 **Why**: Centralizes error handling, auth, and response formatting.
@@ -48,7 +50,7 @@ const data = await axios.get("/api/users/123"); // Never do this
 
 ```typescript
 // ✅ CORRECT - Use env helper
-import { env } from "@/lib/env";
+import { env } from '@/lib/env';
 
 const dbUrl = env.DATABASE_URL;
 const apiKey = env.OPENAI_API_KEY;
@@ -65,7 +67,7 @@ const dbUrl = process.env.DATABASE_URL; // Never do this
 
 ```typescript
 // ✅ CORRECT - Use error utilities
-import { ApiError, handleApiError } from "@/lib/errors";
+import { ApiError, handleApiError } from '@/lib/errors';
 
 // In API routes
 try {
@@ -76,7 +78,7 @@ try {
 }
 
 // ❌ FORBIDDEN - Unstructured error responses
-return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
 ```
 
 **Why**: Consistent error format across all API endpoints.
@@ -121,7 +123,7 @@ const completed = check(sub); // Vague
 const [isLoading, setIsLoading] = useState(false);
 
 // ✅ CORRECT - Global state with Zustand
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from '@/stores/auth';
 const { user, login } = useAuthStore();
 
 // ❌ FORBIDDEN - Context for simple global state
@@ -149,12 +151,12 @@ let currentUser: User | null = null; // Never cache user data
 
 ```typescript
 // ✅ CORRECT - Use centralized Prisma client
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 const user = await prisma.user.findUnique({ where: { id } });
 
 // ❌ FORBIDDEN - Direct database connections
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient(); // Never create new instances
 ```
 
@@ -188,8 +190,8 @@ await prisma.userProgress.update(...)  // Could fail, leaving inconsistent state
 
 ```typescript
 // ✅ CORRECT - Validate inputs
-import { z } from "zod";
-import { validateInput } from "@/lib/validation";
+import { z } from 'zod';
+import { validateInput } from '@/lib/validation';
 
 const lessonSchema = z.object({
   title: z.string().min(1).max(100),
@@ -210,11 +212,11 @@ const lesson = await prisma.lesson.create({
 
 ```typescript
 // ✅ CORRECT - Check authentication
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser } from '@/lib/auth';
 
 const user = await getCurrentUser();
 if (!user) {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
 
 // ❌ FORBIDDEN - Missing auth checks
@@ -230,20 +232,20 @@ export async function POST(request: Request) {
 
 ```typescript
 // 1. Next.js/React imports
-import { NextResponse } from "next/server";
-import { useState } from "react";
+import { NextResponse } from 'next/server';
+import { useState } from 'react';
 
 // 2. Third-party libraries
-import { z } from "zod";
-import { Prisma } from "@prisma/client";
+import { z } from 'zod';
+import { Prisma } from '@prisma/client';
 
 // 3. Internal imports (absolute paths)
-import { prisma } from "@/lib/prisma";
-import { User } from "@/lib/types";
-import { auth } from "@/lib/auth";
+import { prisma } from '@/lib/prisma';
+import { User } from '@/lib/types';
+import { auth } from '@/lib/auth';
 
 // 4. Relative imports (same directory)
-import { helperFunction } from "./utils";
+import { helperFunction } from './utils';
 ```
 
 ## Testing Rules
@@ -258,15 +260,15 @@ import { helperFunction } from "./utils";
 
 ```typescript
 // ✅ CORRECT - Describe behavior, not implementation
-describe("User Authentication", () => {
-  it("should authenticate user with valid credentials", async () => {
+describe('User Authentication', () => {
+  it('should authenticate user with valid credentials', async () => {
     // Test implementation
   });
 });
 
 // ❌ FORBIDDEN - Implementation-focused tests
-describe("Auth Service", () => {
-  it("calls prisma.user.findUnique", async () => {
+describe('Auth Service', () => {
+  it('calls prisma.user.findUnique', async () => {
     // Testing implementation details
   });
 });

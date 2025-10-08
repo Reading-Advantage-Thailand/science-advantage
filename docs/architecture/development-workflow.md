@@ -249,9 +249,10 @@ Variables accessible on the client side (must be prefixed with `NEXT_PUBLIC_`):
 ```typescript
 // lib/env.ts - Client-side accessible variables
 export const publicEnv = {
-  NEXT_PUBLIC_APP_NAME: "Science Advantage",
-  NEXT_PUBLIC_DEV_AUTH: process.env.NEXT_PUBLIC_DEV_AUTH === "true",
-  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api",
+  NEXT_PUBLIC_APP_NAME: 'Science Advantage',
+  NEXT_PUBLIC_DEV_AUTH: process.env.NEXT_PUBLIC_DEV_AUTH === 'true',
+  NEXT_PUBLIC_API_URL:
+    process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
 };
 ```
 
@@ -262,10 +263,10 @@ Server-only environment variables:
 ```typescript
 // lib/env.ts - Server-only variables
 export const serverEnv = {
-  DATABASE_URL: required("DATABASE_URL"),
-  NEXTAUTH_SECRET: required("NEXTAUTH_SECRET"),
-  GOOGLE_CLIENT_ID: required("GOOGLE_CLIENT_ID"),
-  GOOGLE_CLIENT_SECRET: required("GOOGLE_CLIENT_SECRET"),
+  DATABASE_URL: required('DATABASE_URL'),
+  NEXTAUTH_SECRET: required('NEXTAUTH_SECRET'),
+  GOOGLE_CLIENT_ID: required('GOOGLE_CLIENT_ID'),
+  GOOGLE_CLIENT_SECRET: required('GOOGLE_CLIENT_SECRET'),
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   GOOGLE_CLOUD_STORAGE_BUCKET: process.env.GOOGLE_CLOUD_STORAGE_BUCKET,
   REDIS_URL: process.env.REDIS_URL,
@@ -348,18 +349,18 @@ async function main() {
   // Create demo teacher
   const teacher = await prisma.user.create({
     data: {
-      email: "teacher@scienceadvantage.com",
-      name: "Demo Teacher",
-      role: "TEACHER",
+      email: 'teacher@scienceadvantage.com',
+      name: 'Demo Teacher',
+      role: 'TEACHER',
     },
   });
 
   // Create demo class
   const demoClass = await prisma.class.create({
     data: {
-      name: "Introduction to Biology",
-      description: "Basic biology concepts for beginners",
-      joinCode: "DEMO123",
+      name: 'Introduction to Biology',
+      description: 'Basic biology concepts for beginners',
+      joinCode: 'DEMO123',
       teacherId: teacher.id,
     },
   });
@@ -368,17 +369,17 @@ async function main() {
   await prisma.lesson.createMany({
     data: [
       {
-        title: "Cell Structure",
-        slug: "cell-structure",
-        type: "LESSON",
-        content: "Lesson content about cells...",
+        title: 'Cell Structure',
+        slug: 'cell-structure',
+        type: 'LESSON',
+        content: 'Lesson content about cells...',
         order: 1,
       },
       {
-        title: "Photosynthesis Experiment",
-        slug: "photosynthesis-experiment",
-        type: "EXPERIMENT",
-        content: "Experiment instructions...",
+        title: 'Photosynthesis Experiment',
+        slug: 'photosynthesis-experiment',
+        type: 'EXPERIMENT',
+        content: 'Experiment instructions...',
         order: 2,
       },
     ],
@@ -425,7 +426,7 @@ const nextConfig = {
   },
 
   // Development-specific configurations
-  ...(process.env.NODE_ENV === "development" && {
+  ...(process.env.NODE_ENV === 'development' && {
     reactStrictMode: true,
     swcMinify: false,
   }),
@@ -470,14 +471,14 @@ Integration tests cover API routes and database operations:
 
 ```typescript
 // tests/integration/auth.test.ts
-import { describe, it, expect, beforeEach } from "vitest";
-import { POST } from "@/app/api/auth/[...nextauth]/route";
+import { describe, it, expect, beforeEach } from 'vitest';
+import { POST } from '@/app/api/auth/[...nextauth]/route';
 
-describe("Authentication API", () => {
-  it("handles sign in requests", async () => {
-    const request = new Request("http://localhost:3000/api/auth/signin", {
-      method: "POST",
-      body: JSON.stringify({ email: "test@example.com" }),
+describe('Authentication API', () => {
+  it('handles sign in requests', async () => {
+    const request = new Request('http://localhost:3000/api/auth/signin', {
+      method: 'POST',
+      body: JSON.stringify({ email: 'test@example.com' }),
     });
 
     const response = await POST(request);
@@ -497,22 +498,24 @@ E2E tests cover complete user workflows:
 
 ```typescript
 // tests/e2e/lesson-completion-flow.test.ts
-import { test, expect } from "@testing-library/test";
+import { test, expect } from '@testing-library/test';
 
-test("complete lesson workflow", async () => {
+test('complete lesson workflow', async () => {
   // Sign in
-  await page.goto("/signin");
-  await page.fill('input[type="email"]', "student@example.com");
+  await page.goto('/signin');
+  await page.fill('input[type="email"]', 'student@example.com');
   await page.click('button[type="submit"]');
 
   // Navigate to lesson
-  await page.goto("/dashboard/classes/demo-class/lessons/cell-structure");
+  await page.goto('/dashboard/classes/demo-class/lessons/cell-structure');
 
   // Complete lesson
   await page.click('[data-testid="complete-lesson"]');
 
   // Verify completion
-  expect(await page.textContent('[data-testid="lesson-status"]')).toBe("Completed");
+  expect(await page.textContent('[data-testid="lesson-status"]')).toBe(
+    'Completed'
+  );
 });
 ```
 
@@ -544,7 +547,10 @@ export const prisma = new PrismaClient({
       url: process.env.DATABASE_URL,
     },
   },
-  log: process.env.NODE_ENV === "development" ? ["query", "info", "warn", "error"] : ["error"],
+  log:
+    process.env.NODE_ENV === 'development'
+      ? ['query', 'info', 'warn', 'error']
+      : ['error'],
 });
 ```
 
@@ -554,13 +560,15 @@ export const prisma = new PrismaClient({
 
 ```typescript
 // lib/env.ts - Environment detection
-const isDevelopment = process.env.NODE_ENV === "development";
-const isProduction = process.env.NODE_ENV === "production";
+const isDevelopment = process.env.NODE_ENV === 'development';
+const isProduction = process.env.NODE_ENV === 'production';
 
 export const config = {
   isDevelopment,
   isProduction,
-  databaseUrl: isDevelopment ? process.env.DATABASE_URL : process.env.PRODUCTION_DATABASE_URL,
+  databaseUrl: isDevelopment
+    ? process.env.DATABASE_URL
+    : process.env.PRODUCTION_DATABASE_URL,
 };
 ```
 

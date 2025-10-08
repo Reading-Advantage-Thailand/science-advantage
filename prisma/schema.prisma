@@ -7,87 +7,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id              String   @id @default(cuid())
-  email           String   @unique
-  name            String?
-  role            UserRole @default(STUDENT)
-  image           String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  taughtClasses   Class[]  @relation("TeacherClasses")
-  enrolledClasses Class[]  @relation("StudentClasses")
-
-  @@map("users")
+model account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+  user                  user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Class {
-  id                 String             @id @default(cuid())
-  name               String
-  gradeLevel         Int
-  standardsAlignment StandardsAlignment
-  joinCode           String             @unique
-  teacherId          String
-  createdAt          DateTime           @default(now())
-  updatedAt          DateTime           @updatedAt
-  teacher            User               @relation("TeacherClasses", fields: [teacherId], references: [id], onDelete: Cascade)
-  curriculumUnits    CurriculumUnit[]
-  students           User[]             @relation("StudentClasses")
-
-  @@map("classes")
+model session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Standard {
-  id          String   @id @default(cuid())
-  framework   String
-  code        String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  lessons     Lesson[] @relation("LessonToStandard")
-
-  @@unique([framework, code])
-  @@map("standards")
+model user {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  account       account[]
+  session       session[]
 }
 
-model Lesson {
-  id              String           @id @default(cuid())
-  title           String
-  content         String?
-  order           Int
-  gradeLevel      Int
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  curriculumUnits CurriculumUnit[] @relation("CurriculumUnitToLesson")
-  standards       Standard[]       @relation("LessonToStandard")
-
-  @@unique([gradeLevel, order])
-  @@map("lessons")
-}
-
-model CurriculumUnit {
-  id         String   @id @default(cuid())
-  title      String
-  framework  String
-  gradeLevel Int
-  order      Int
-  classId    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  class      Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
-  lessons    Lesson[] @relation("CurriculumUnitToLesson")
-
-  @@unique([classId, order])
-  @@map("curriculum_units")
-}
-
-enum StandardsAlignment {
-  THAI
-  NGSS
-}
-
-enum UserRole {
-  TEACHER
-  STUDENT
-  ADMIN
+model verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
 }

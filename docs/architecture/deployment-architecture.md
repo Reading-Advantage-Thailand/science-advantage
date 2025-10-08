@@ -5,6 +5,7 @@
 The Science Advantage platform is deployed entirely on the **Google Cloud Platform (GCP)**, leveraging its scalable, secure, and managed services. This architecture ensures high availability and performance while providing a robust environment for a modern Next.js application.
 
 The core components of the GCP architecture are:
+
 - **Google Cloud Run**: For hosting the containerized Next.js application, providing a serverless and scalable runtime environment.
 - **Google Cloud SQL for PostgreSQL**: A fully managed relational database service for the application's data.
 - **Google Cloud Storage**: For storing and serving static assets, user uploads, and experiment data.
@@ -43,6 +44,7 @@ graph TD
 The Next.js application is containerized using Docker for portability and consistent deployments.
 
 **`Dockerfile`**
+
 ```dockerfile
 # 1. Base Image
 FROM node:20-alpine AS base
@@ -82,7 +84,8 @@ ENV PORT=3000
 
 CMD ["node", "server.js"]
 ```
-*Note: This Dockerfile uses the `standalone` output mode in `next.config.ts` for optimized, smaller production images.*
+
+_Note: This Dockerfile uses the `standalone` output mode in `next.config.ts` for optimized, smaller production images._
 
 ### Hosting on Google Cloud Run
 
@@ -105,10 +108,12 @@ A managed PostgreSQL instance on Cloud SQL serves as the primary database.
 The entire CI/CD process is automated using GitHub Actions, triggered by pushes and pull requests to the main branches. The workflow ensures that every change is automatically tested and deployed, providing rapid and reliable delivery.
 
 **Workflow Trigger:**
+
 - **On push to `main`**: A full build, test, and production deployment is triggered.
 - **On pull_request to `main`**: The test suite is run to validate changes before merging.
 
 **`.github/workflows/deploy.yml`**
+
 ```yaml
 name: Build and Deploy to Cloud Run
 
@@ -129,37 +134,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    # Authenticate to Google Cloud
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+      # Authenticate to Google Cloud
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
-    # Set up Cloud SDK
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
+      # Set up Cloud SDK
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
 
-    # Configure Docker to use the gcloud command-line tool as a credential helper
-    - name: Configure Docker
-      run: gcloud auth configure-docker ${{ env.GCP_ARTIFACT_REGISTRY }}
+      # Configure Docker to use the gcloud command-line tool as a credential helper
+      - name: Configure Docker
+        run: gcloud auth configure-docker ${{ env.GCP_ARTIFACT_REGISTRY }}
 
-    # Build and push Docker image to Google Artifact Registry
-    - name: Build and Push Image
-      run: |
-        docker build -t "${{ env.GCP_ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_SERVICE_NAME }}:${{ github.sha }}" .
-        docker push "${{ env.GCP_ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_SERVICE_NAME }}:${{ github.sha }}"
+      # Build and push Docker image to Google Artifact Registry
+      - name: Build and Push Image
+        run: |
+          docker build -t "${{ env.GCP_ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_SERVICE_NAME }}:${{ github.sha }}" .
+          docker push "${{ env.GCP_ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_SERVICE_NAME }}:${{ github.sha }}"
 
-    # Deploy image to Cloud Run
-    - name: Deploy to Cloud Run
-      run: |
-        gcloud run deploy ${{ env.GCP_SERVICE_NAME }} \
-          --image "${{ env.GCP_ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_SERVICE_NAME }}:${{ github.sha }}" \
-          --region ${{ env.GCP_REGION }} \
-          --platform managed \
-          --allow-unauthenticated
+      # Deploy image to Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.GCP_SERVICE_NAME }} \
+            --image "${{ env.GCP_ARTIFACT_REGISTRY }}/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_SERVICE_NAME }}:${{ github.sha }}" \
+            --region ${{ env.GCP_REGION }} \
+            --platform managed \
+            --allow-unauthenticated
 ```
 
 ### Environment and Secret Management

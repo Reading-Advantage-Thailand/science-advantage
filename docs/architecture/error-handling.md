@@ -51,14 +51,14 @@ export interface ApiError {
 }
 
 export interface ValidationError extends ApiError {
-  error: ApiError["error"] & {
+  error: ApiError['error'] & {
     field: string;
     validationRule: string;
   };
 }
 
 export interface EducationalError extends ApiError {
-  error: ApiError["error"] & {
+  error: ApiError['error'] & {
     educational?: {
       explanation: string;
       suggestion?: string;
@@ -73,21 +73,21 @@ export interface EducationalError extends ApiError {
 ```typescript
 export enum ErrorCategory {
   // Client errors (4xx)
-  VALIDATION = "VALIDATION",
-  AUTHENTICATION = "AUTHENTICATION",
-  AUTHORIZATION = "AUTHORIZATION",
-  NOT_FOUND = "NOT_FOUND",
-  RATE_LIMIT = "RATE_LIMIT",
+  VALIDATION = 'VALIDATION',
+  AUTHENTICATION = 'AUTHENTICATION',
+  AUTHORIZATION = 'AUTHORIZATION',
+  NOT_FOUND = 'NOT_FOUND',
+  RATE_LIMIT = 'RATE_LIMIT',
 
   // Server errors (5xx)
-  INTERNAL = "INTERNAL",
-  DATABASE = "DATABASE",
-  EXTERNAL_SERVICE = "EXTERNAL_SERVICE",
+  INTERNAL = 'INTERNAL',
+  DATABASE = 'DATABASE',
+  EXTERNAL_SERVICE = 'EXTERNAL_SERVICE',
 
   // Educational specific
-  LESSON_ACCESS = "LESSON_ACCESS",
-  QUIZ_SUBMISSION = "QUIZ_SUBMISSION",
-  EXPERIMENT_ERROR = "EXPERIMENT_ERROR",
+  LESSON_ACCESS = 'LESSON_ACCESS',
+  QUIZ_SUBMISSION = 'QUIZ_SUBMISSION',
+  EXPERIMENT_ERROR = 'EXPERIMENT_ERROR',
 }
 ```
 
@@ -169,13 +169,13 @@ function DefaultErrorFallback({ error, reset }: { error: Error; reset: () => voi
 
 ```typescript
 // lib/api.ts
-import { ApiError, EducationalError } from "@/lib/types";
+import { ApiError, EducationalError } from '@/lib/types';
 
 class ApiClient {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_URL || "";
+    this.baseURL = process.env.NEXT_PUBLIC_API_URL || '';
   }
 
   private async handleResponse<T>(response: Response): Promise<T> {
@@ -198,8 +198,8 @@ class ApiClient {
   private createApiError(response: Response, errorData: any): ApiError {
     const defaultError: ApiError = {
       error: {
-        code: "UNKNOWN_ERROR",
-        message: "An unexpected error occurred",
+        code: 'UNKNOWN_ERROR',
+        message: 'An unexpected error occurred',
         timestamp: new Date().toISOString(),
         requestId: this.generateRequestId(),
       },
@@ -228,77 +228,77 @@ class ApiClient {
   private getErrorCodeFromStatus(status: number): string {
     switch (status) {
       case 400:
-        return "BAD_REQUEST";
+        return 'BAD_REQUEST';
       case 401:
-        return "AUTHENTICATION";
+        return 'AUTHENTICATION';
       case 403:
-        return "AUTHORIZATION";
+        return 'AUTHORIZATION';
       case 404:
-        return "NOT_FOUND";
+        return 'NOT_FOUND';
       case 429:
-        return "RATE_LIMIT";
+        return 'RATE_LIMIT';
       case 500:
-        return "INTERNAL";
+        return 'INTERNAL';
       case 502:
-        return "EXTERNAL_SERVICE";
+        return 'EXTERNAL_SERVICE';
       case 503:
-        return "SERVICE_UNAVAILABLE";
+        return 'SERVICE_UNAVAILABLE';
       default:
-        return "UNKNOWN_ERROR";
+        return 'UNKNOWN_ERROR';
     }
   }
 
   private getErrorMessageFromStatus(status: number): string {
     switch (status) {
       case 400:
-        return "Invalid request. Please check your input.";
+        return 'Invalid request. Please check your input.';
       case 401:
-        return "Please sign in to continue.";
+        return 'Please sign in to continue.';
       case 403:
         return "You don't have permission to perform this action.";
       case 404:
-        return "The requested resource was not found.";
+        return 'The requested resource was not found.';
       case 429:
-        return "Too many requests. Please try again later.";
+        return 'Too many requests. Please try again later.';
       case 500:
-        return "Server error. Please try again in a few moments.";
+        return 'Server error. Please try again in a few moments.';
       case 502:
-        return "Service temporarily unavailable. Please try again.";
+        return 'Service temporarily unavailable. Please try again.';
       case 503:
-        return "Service maintenance in progress. Please try again later.";
+        return 'Service maintenance in progress. Please try again later.';
       default:
-        return "An unexpected error occurred. Please try again.";
+        return 'An unexpected error occurred. Please try again.';
     }
   }
 
   private showUserMessage(error: ApiError) {
     // Use toast or notification system
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       // Integration with toast library
-      console.error("API Error:", error);
+      console.error('API Error:', error);
 
       // For educational errors, show enhanced message
-      if ("educational" in error.error) {
-        const eduError = error.error as EducationalError["error"];
+      if ('educational' in error.error) {
+        const eduError = error.error as EducationalError['error'];
         this.showEducationalMessage(eduError);
       }
     }
   }
 
-  private showEducationalMessage(error: EducationalError["error"]) {
+  private showEducationalMessage(error: EducationalError['error']) {
     if (error.educational) {
       // Show enhanced educational message
       const message = `${error.message}\n\n${error.educational.explanation}`;
 
       // Could integrate with a modal or enhanced toast
-      console.info("Educational Message:", message);
+      console.info('Educational Message:', message);
     }
   }
 
   private logError(error: ApiError, response: Response) {
     // Send to monitoring service
-    if (typeof window !== "undefined") {
-      window.gtag?.("event", "api_error", {
+    if (typeof window !== 'undefined') {
+      window.gtag?.('event', 'api_error', {
         error_code: error.error.code,
         error_message: error.error.message,
         status: response.status,
@@ -313,9 +313,9 @@ class ApiClient {
 
   async get<T>(endpoint: string): Promise<T> {
     const response = await fetch(`${this.baseURL}${endpoint}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     return this.handleResponse<T>(response);
@@ -323,9 +323,9 @@ class ApiClient {
 
   async post<T>(endpoint: string, data?: any): Promise<T> {
     const response = await fetch(`${this.baseURL}${endpoint}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: data ? JSON.stringify(data) : undefined,
     });
@@ -346,21 +346,23 @@ For clarity and simplicity, the standard error handling pattern within Next.js A
 
 ```typescript
 // app/api/some-route/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
     // Business logic that might throw an error
     const data = await someService.fetchData();
     if (!data) {
-      return NextResponse.json({ error: "Not Found" }, { status: 404 });
+      return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     }
     return NextResponse.json({ data });
-
   } catch (error) {
-    console.error("API Error in some-route:", error);
+    console.error('API Error in some-route:', error);
     // Return a generic error response
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 ```
@@ -373,11 +375,10 @@ For more complex business logic, especially within shared services in the `lib/`
 
 #### Error Handler Middleware
 
-
 ```typescript
 // lib/error-handler.ts
-import { NextRequest, NextResponse } from "next/server";
-import { ApiError, EducationalError, ErrorCategory } from "@/lib/types";
+import { NextRequest, NextResponse } from 'next/server';
+import { ApiError, EducationalError, ErrorCategory } from '@/lib/types';
 
 export class AppError extends Error {
   public readonly statusCode: number;
@@ -385,16 +386,16 @@ export class AppError extends Error {
   public readonly isOperational: boolean;
   public readonly details?: Record<string, any>;
   public readonly field?: string;
-  public readonly educational?: EducationalError["error"]["educational"];
+  public readonly educational?: EducationalError['error']['educational'];
 
   constructor(
     message: string,
     statusCode: number = 500,
-    code: string = "INTERNAL",
+    code: string = 'INTERNAL',
     isOperational: boolean = true,
     details?: Record<string, any>,
     field?: string,
-    educational?: EducationalError["error"]["educational"]
+    educational?: EducationalError['error']['educational']
   ) {
     super(message);
     this.statusCode = statusCode;
@@ -411,38 +412,66 @@ export class AppError extends Error {
 // Educational error creators
 export class LessonAccessError extends AppError {
   constructor(message: string, explanation?: string, suggestion?: string) {
-    super(message, 403, ErrorCategory.LESSON_ACCESS, true, undefined, undefined, {
-      explanation: explanation || "This lesson requires specific prerequisites or permissions.",
-      suggestion: suggestion || "Please complete previous lessons or contact your teacher.",
-      learnMore: "/help/lesson-access",
-    });
+    super(
+      message,
+      403,
+      ErrorCategory.LESSON_ACCESS,
+      true,
+      undefined,
+      undefined,
+      {
+        explanation:
+          explanation ||
+          'This lesson requires specific prerequisites or permissions.',
+        suggestion:
+          suggestion ||
+          'Please complete previous lessons or contact your teacher.',
+        learnMore: '/help/lesson-access',
+      }
+    );
   }
 }
 
 export class QuizSubmissionError extends AppError {
   constructor(message: string, explanation?: string, suggestion?: string) {
-    super(message, 400, ErrorCategory.QUIZ_SUBMISSION, true, undefined, undefined, {
-      explanation: explanation || "Your quiz submission could not be processed.",
-      suggestion: suggestion || "Please review your answers and try again.",
-      learnMore: "/help/quiz-submission",
-    });
+    super(
+      message,
+      400,
+      ErrorCategory.QUIZ_SUBMISSION,
+      true,
+      undefined,
+      undefined,
+      {
+        explanation:
+          explanation || 'Your quiz submission could not be processed.',
+        suggestion: suggestion || 'Please review your answers and try again.',
+        learnMore: '/help/quiz-submission',
+      }
+    );
   }
 }
 
 export class ValidationError extends AppError {
   constructor(message: string, field: string, validationRule: string) {
-    super(message, 400, ErrorCategory.VALIDATION, true, { validationRule }, field);
+    super(
+      message,
+      400,
+      ErrorCategory.VALIDATION,
+      true,
+      { validationRule },
+      field
+    );
   }
 }
 
 // Error handler middleware
 export function errorHandler(error: Error, request: NextRequest) {
   let statusCode = 500;
-  let errorCode = "INTERNAL";
-  let message = "Internal server error";
+  let errorCode = 'INTERNAL';
+  let message = 'Internal server error';
   let details: Record<string, any> | undefined;
   let field: string | undefined;
-  let educational: EducationalError["error"]["educational"] | undefined;
+  let educational: EducationalError['error']['educational'] | undefined;
 
   // Handle known application errors
   if (error instanceof AppError) {
@@ -454,31 +483,31 @@ export function errorHandler(error: Error, request: NextRequest) {
     educational = error.educational;
   }
   // Handle Prisma errors
-  else if (error.name === "PrismaClientKnownRequestError") {
+  else if (error.name === 'PrismaClientKnownRequestError') {
     const prismaError = error as any;
 
     switch (prismaError.code) {
-      case "P2002":
+      case 'P2002':
         statusCode = 400;
-        errorCode = "DUPLICATE_ENTRY";
-        message = "This record already exists.";
+        errorCode = 'DUPLICATE_ENTRY';
+        message = 'This record already exists.';
         field = prismaError.meta?.target?.[0];
         break;
-      case "P2025":
+      case 'P2025':
         statusCode = 404;
-        errorCode = "NOT_FOUND";
-        message = "Record not found.";
+        errorCode = 'NOT_FOUND';
+        message = 'Record not found.';
         break;
       default:
         statusCode = 400;
-        errorCode = "DATABASE_ERROR";
-        message = "Database operation failed.";
+        errorCode = 'DATABASE_ERROR';
+        message = 'Database operation failed.';
     }
   }
   // Handle validation errors
-  else if (error.name === "ValidationError") {
+  else if (error.name === 'ValidationError') {
     statusCode = 400;
-    errorCode = "VALIDATION";
+    errorCode = 'VALIDATION';
     message = error.message;
   }
 
@@ -522,10 +551,10 @@ function logError(error: Error, request: NextRequest, errorResponse: ApiError) {
   };
 
   // Log to console (in production, use proper logging service)
-  console.error("API Error:", JSON.stringify(logData, null, 2));
+  console.error('API Error:', JSON.stringify(logData, null, 2));
 
   // Send to monitoring service
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === 'production') {
     // Integration with monitoring service (e.g., Sentry, DataDog)
     // Sentry.captureException(error, { extra: logData });
   }
@@ -536,16 +565,16 @@ function logError(error: Error, request: NextRequest, errorResponse: ApiError) {
 
 ```typescript
 // app/api/lessons/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { errorHandler, LessonAccessError } from "@/lib/error-handler";
-import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from 'next/server';
+import { errorHandler, LessonAccessError } from '@/lib/error-handler';
+import { getServerSession } from 'next-auth';
 
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession();
 
     if (!session) {
-      throw new AppError("Authentication required", 401, "AUTHENTICATION");
+      throw new AppError('Authentication required', 401, 'AUTHENTICATION');
     }
 
     // Business logic
@@ -563,16 +592,16 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     if (!session) {
-      throw new AppError("Authentication required", 401, "AUTHENTICATION");
+      throw new AppError('Authentication required', 401, 'AUTHENTICATION');
     }
 
     // Validate lesson access
     const hasAccess = await checkLessonAccess(session.user.id, body.lessonId);
     if (!hasAccess) {
       throw new LessonAccessError(
-        "You cannot access this lesson",
-        "This lesson requires completing prerequisite lessons first.",
-        "Please complete the introductory lessons in this module."
+        'You cannot access this lesson',
+        'This lesson requires completing prerequisite lessons first.',
+        'Please complete the introductory lessons in this module.'
       );
     }
 
@@ -594,16 +623,17 @@ export async function POST(request: NextRequest) {
 // Example: Student tries to access advanced lesson without prerequisites
 const lessonAccessError = {
   error: {
-    code: "LESSON_ACCESS",
+    code: 'LESSON_ACCESS',
     message: 'You need to complete "Introduction to Chemistry" first',
     educational: {
       explanation:
-        "Advanced chemistry lessons build on foundational concepts. Mastering the basics ensures you have the knowledge needed for more complex topics.",
-      suggestion: "Complete the introductory lessons in order, then return to this lesson.",
-      learnMore: "/help/learning-path",
+        'Advanced chemistry lessons build on foundational concepts. Mastering the basics ensures you have the knowledge needed for more complex topics.',
+      suggestion:
+        'Complete the introductory lessons in order, then return to this lesson.',
+      learnMore: '/help/learning-path',
     },
-    timestamp: "2024-01-15T10:30:00Z",
-    requestId: "req_1642248600_abc123",
+    timestamp: '2024-01-15T10:30:00Z',
+    requestId: 'req_1642248600_abc123',
   },
 };
 ```
@@ -614,18 +644,18 @@ const lessonAccessError = {
 // Example: Invalid quiz answer format
 const quizError = {
   error: {
-    code: "QUIZ_SUBMISSION",
-    message: "Question 3 requires a numerical answer",
-    field: "answers.2",
+    code: 'QUIZ_SUBMISSION',
+    message: 'Question 3 requires a numerical answer',
+    field: 'answers.2',
     educational: {
       explanation:
-        "This question tests your ability to calculate chemical concentrations. Please enter a number with appropriate units.",
+        'This question tests your ability to calculate chemical concentrations. Please enter a number with appropriate units.',
       suggestion:
         'Review the concentration formula and try again. Remember to include units like "mol/L".',
-      learnMore: "/help/quiz-answers",
+      learnMore: '/help/quiz-answers',
     },
-    timestamp: "2024-01-15T10:30:00Z",
-    requestId: "req_1642248600_def456",
+    timestamp: '2024-01-15T10:30:00Z',
+    requestId: 'req_1642248600_def456',
   },
 };
 ```
@@ -636,20 +666,21 @@ const quizError = {
 // Example: Virtual experiment configuration error
 const experimentError = {
   error: {
-    code: "EXPERIMENT_ERROR",
-    message: "Invalid experiment parameters",
+    code: 'EXPERIMENT_ERROR',
+    message: 'Invalid experiment parameters',
     details: {
-      temperature: "Temperature must be between 0°C and 100°C",
-      concentration: "Concentration cannot be negative",
+      temperature: 'Temperature must be between 0°C and 100°C',
+      concentration: 'Concentration cannot be negative',
     },
     educational: {
       explanation:
-        "Virtual experiments follow real-world physical and chemical laws. Temperature and concentration values must be within realistic ranges.",
-      suggestion: "Check the experiment guidelines for valid parameter ranges and try again.",
-      learnMore: "/help/experiment-setup",
+        'Virtual experiments follow real-world physical and chemical laws. Temperature and concentration values must be within realistic ranges.',
+      suggestion:
+        'Check the experiment guidelines for valid parameter ranges and try again.',
+      learnMore: '/help/experiment-setup',
     },
-    timestamp: "2024-01-15T10:30:00Z",
-    requestId: "req_1642248600_ghi789",
+    timestamp: '2024-01-15T10:30:00Z',
+    requestId: 'req_1642248600_ghi789',
   },
 };
 ```
@@ -663,8 +694,8 @@ const experimentError = {
 export class ErrorMonitor {
   static logError(error: ApiError, context: Record<string, any>) {
     // Google Analytics integration
-    if (typeof window !== "undefined") {
-      window.gtag?.("event", "error", {
+    if (typeof window !== 'undefined') {
+      window.gtag?.('event', 'error', {
         error_code: error.error.code,
         error_message: error.error.message,
         ...context,
@@ -675,10 +706,13 @@ export class ErrorMonitor {
     this.sendToMonitoringService(error, context);
   }
 
-  static logEducationalError(error: EducationalError, context: Record<string, any>) {
+  static logEducationalError(
+    error: EducationalError,
+    context: Record<string, any>
+  ) {
     // Track educational errors separately for learning analytics
-    if (typeof window !== "undefined") {
-      window.gtag?.("event", "educational_error", {
+    if (typeof window !== 'undefined') {
+      window.gtag?.('event', 'educational_error', {
         error_code: error.error.code,
         has_explanation: !!error.error.educational?.explanation,
         has_suggestion: !!error.error.educational?.suggestion,
@@ -689,9 +723,12 @@ export class ErrorMonitor {
     this.logError(error, context);
   }
 
-  private static sendToMonitoringService(error: ApiError, context: Record<string, any>) {
+  private static sendToMonitoringService(
+    error: ApiError,
+    context: Record<string, any>
+  ) {
     // Integration with monitoring service (Sentry, DataDog, etc.)
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === 'production') {
       // Example Sentry integration
       // Sentry.captureException(new Error(error.error.message), {
       //   extra: { error, context },
@@ -776,10 +813,12 @@ export default function RootLayout({
 
 ```typescript
 // lib/api-wrapper.ts
-import { NextRequest, NextResponse } from "next/server";
-import { errorHandler } from "@/lib/error-handler";
+import { NextRequest, NextResponse } from 'next/server';
+import { errorHandler } from '@/lib/error-handler';
 
-export function withErrorHandler(handler: (req: NextRequest) => Promise<NextResponse>) {
+export function withErrorHandler(
+  handler: (req: NextRequest) => Promise<NextResponse>
+) {
   return async (request: NextRequest) => {
     try {
       return await handler(request);
@@ -792,7 +831,7 @@ export function withErrorHandler(handler: (req: NextRequest) => Promise<NextResp
 // Usage in API routes
 export const GET = withErrorHandler(async (request: NextRequest) => {
   // API logic here
-  return NextResponse.json({ data: "success" });
+  return NextResponse.json({ data: 'success' });
 });
 ```
 

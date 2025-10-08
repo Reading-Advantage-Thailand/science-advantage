@@ -32,7 +32,7 @@ interface User {
   id: string;
   email: string;
   username: string;
-  role: "STUDENT" | "TEACHER" | "PARENT" | "ADMIN";
+  role: 'STUDENT' | 'TEACHER' | 'PARENT' | 'ADMIN';
   profile: UserProfile;
   preferences: UserPreferences;
   ecosystemAccounts: EcosystemAccount[];
@@ -48,22 +48,22 @@ interface UserProfile {
   displayName: string;
   avatar?: string;
   dateOfBirth?: Date;
-  gender?: "MALE" | "FEMALE" | "OTHER";
+  gender?: 'MALE' | 'FEMALE' | 'OTHER';
   nationality: string;
-  primaryLanguage: "TH" | "EN";
+  primaryLanguage: 'TH' | 'EN';
   timezone: string;
 }
 
 interface UserPreferences {
-  language: "TH" | "EN" | "BOTH";
-  theme: "LIGHT" | "DARK" | "AUTO";
+  language: 'TH' | 'EN' | 'BOTH';
+  theme: 'LIGHT' | 'DARK' | 'AUTO';
   notifications: NotificationPreferences;
   accessibility: AccessibilityPreferences;
-  learningStyle?: "VISUAL" | "AUDITORY" | "KINESTHETIC" | "READING";
+  learningStyle?: 'VISUAL' | 'AUDITORY' | 'KINESTHETIC' | 'READING';
 }
 
 interface EcosystemAccount {
-  product: "READING_ADVANTAGE" | "PRIMARY_ADVANTAGE" | "SCIENCE_ADVANTAGE";
+  product: 'READING_ADVANTAGE' | 'PRIMARY_ADVANTAGE' | 'SCIENCE_ADVANTAGE';
   externalId: string;
   linkedAt: Date;
   isActive: boolean;
@@ -112,7 +112,7 @@ interface Student {
 interface LearningProfile {
   scienceAptitude: number; // 0-100 scale
   readingLevel: number; // Grade level equivalent
-  learningPace: "SLOW" | "NORMAL" | "FAST";
+  learningPace: 'SLOW' | 'NORMAL' | 'FAST';
   preferredTopics: string[];
   weakAreas: string[];
   lastAssessmentDate: Date;
@@ -121,7 +121,7 @@ interface LearningProfile {
 
 interface AdaptationRecord {
   date: Date;
-  type: "DIFFICULTY_ADJUSTMENT" | "TOPIC_RECOMMENDATION" | "PACE_CHANGE";
+  type: 'DIFFICULTY_ADJUSTMENT' | 'TOPIC_RECOMMENDATION' | 'PACE_CHANGE';
   oldValue: any;
   newValue: any;
   reason: string;
@@ -168,7 +168,7 @@ interface Teacher {
 }
 
 interface TeacherCredential {
-  type: "BACHELOR" | "MASTER" | "PHD" | "CERTIFICATE";
+  type: 'BACHELOR' | 'MASTER' | 'PHD' | 'CERTIFICATE';
   field: string;
   institution: string;
   yearObtained: number;
@@ -176,10 +176,10 @@ interface TeacherCredential {
 }
 
 interface TeachingStyle {
-  approach: "TRADITIONAL" | "PROJECT_BASED" | "INQUIRY_BASED" | "BLENDED";
-  technologyIntegration: "MINIMAL" | "MODERATE" | "EXTENSIVE";
-  assessmentPreference: "FORMAL" | "INFORMAL" | "BLENDED";
-  classroomManagement: "AUTHORITATIVE" | "COLLABORATIVE" | "PERMISSIVE";
+  approach: 'TRADITIONAL' | 'PROJECT_BASED' | 'INQUIRY_BASED' | 'BLENDED';
+  technologyIntegration: 'MINIMAL' | 'MODERATE' | 'EXTENSIVE';
+  assessmentPreference: 'FORMAL' | 'INFORMAL' | 'BLENDED';
+  classroomManagement: 'AUTHORITATIVE' | 'COLLABORATIVE' | 'PERMISSIVE';
 }
 ```
 
@@ -213,7 +213,7 @@ interface TeachingStyle {
 interface School {
   id: string;
   name: string;
-  type: "PUBLIC" | "PRIVATE" | "INTERNATIONAL";
+  type: 'PUBLIC' | 'PRIVATE' | 'INTERNATIONAL';
   address: Address;
   contactInfo: ContactInfo;
   subscription: Subscription;
@@ -225,13 +225,13 @@ interface School {
 interface SchoolSettings {
   academicCalendar: AcademicCalendar;
   gradingScale: GradingScale;
-  languagePolicy: "TH_ONLY" | "EN_ONLY" | "BILINGUAL";
+  languagePolicy: 'TH_ONLY' | 'EN_ONLY' | 'BILINGUAL';
   accessibilityRequirements: AccessibilityRequirement[];
   dataRetentionPolicy: DataRetentionPolicy;
 }
 
 interface LMSIntegration {
-  platform: "MOODLE" | "GOOGLE_CLASSROOM" | "CANVAS" | "CUSTOM";
+  platform: 'MOODLE' | 'GOOGLE_CLASSROOM' | 'CANVAS' | 'CUSTOM';
   apiKey: string;
   endpointUrl: string;
   syncSettings: SyncSettings;
@@ -351,18 +351,18 @@ interface Experiment {
 }
 
 type ExperimentCategory =
-  | "PHYSICS_MECHANICS"
-  | "PHYSICS_ELECTRICITY"
-  | "PHYSICS_OPTICS"
-  | "CHEMISTRY_REACTIONS"
-  | "CHEMISTRY_SOLUTIONS"
-  | "BIOLOGY_CELLS"
-  | "BIOLOGY_ECOSYSTEMS"
-  | "EARTH_SCIENCE_GEOLOGY"
-  | "EARTH_SCIENCE_METEOROLOGY";
+  | 'PHYSICS_MECHANICS'
+  | 'PHYSICS_ELECTRICITY'
+  | 'PHYSICS_OPTICS'
+  | 'CHEMISTRY_REACTIONS'
+  | 'CHEMISTRY_SOLUTIONS'
+  | 'BIOLOGY_CELLS'
+  | 'BIOLOGY_ECOSYSTEMS'
+  | 'EARTH_SCIENCE_GEOLOGY'
+  | 'EARTH_SCIENCE_METEOROLOGY';
 
 interface SimulationConfig {
-  type: "2D" | "3D" | "INTERACTIVE" | "VIDEO";
+  type: '2D' | '3D' | 'INTERACTIVE' | 'VIDEO';
   engine: string; // e.g., 'PhET', 'Custom WebGL'
   parameters: SimulationParameter[];
   interactions: Interaction[];
@@ -421,12 +421,12 @@ interface ExperimentSession {
 }
 
 type SessionStatus =
-  | "NOT_STARTED"
-  | "IN_PROGRESS"
-  | "PAUSED"
-  | "COMPLETED"
-  | "ABANDONED"
-  | "FAILED";
+  | 'NOT_STARTED'
+  | 'IN_PROGRESS'
+  | 'PAUSED'
+  | 'COMPLETED'
+  | 'ABANDONED'
+  | 'FAILED';
 
 interface SessionProgress {
   stepsCompleted: number;
@@ -443,7 +443,7 @@ interface InteractionLog {
   action: string;
   parameters: Record<string, any>;
   duration: number; // in milliseconds
-  result: "SUCCESS" | "ERROR" | "HINT" | "RESET";
+  result: 'SUCCESS' | 'ERROR' | 'HINT' | 'RESET';
 }
 ```
 
@@ -491,7 +491,7 @@ interface LearningPath {
 
 interface LearningActivity {
   id: string;
-  type: "LESSON" | "EXPERIMENT" | "ASSESSMENT" | "READING" | "VIDEO";
+  type: 'LESSON' | 'EXPERIMENT' | 'ASSESSMENT' | 'READING' | 'VIDEO';
   title: string;
   description: string;
   order: number;
@@ -512,8 +512,8 @@ interface PathAdaptation {
 
 interface Recommendation {
   id: string;
-  type: "CONTENT" | "PACE" | "DIFFICULTY" | "TOPIC";
-  priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+  type: 'CONTENT' | 'PACE' | 'DIFFICULTY' | 'TOPIC';
+  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
   title: string;
   description: string;
   actionItems: string[];
@@ -563,12 +563,12 @@ interface Assessment {
 }
 
 type AssessmentType =
-  | "FORMATIVE_QUIZ"
-  | "SUMMATIVE_TEST"
-  | "EXPERIMENT_EVALUATION"
-  | "PROJECT_ASSESSMENT"
-  | "READING_COMPREHENSION"
-  | "CROSS_SUBJECT";
+  | 'FORMATIVE_QUIZ'
+  | 'SUMMATIVE_TEST'
+  | 'EXPERIMENT_EVALUATION'
+  | 'PROJECT_ASSESSMENT'
+  | 'READING_COMPREHENSION'
+  | 'CROSS_SUBJECT';
 
 interface Question {
   id: string;
@@ -584,12 +584,12 @@ interface Question {
 }
 
 type QuestionType =
-  | "MULTIPLE_CHOICE"
-  | "TRUE_FALSE"
-  | "SHORT_ANSWER"
-  | "ESSAY"
-  | "DRAG_AND_DROP"
-  | "INTERACTIVE_SIMULATION";
+  | 'MULTIPLE_CHOICE'
+  | 'TRUE_FALSE'
+  | 'SHORT_ANSWER'
+  | 'ESSAY'
+  | 'DRAG_AND_DROP'
+  | 'INTERACTIVE_SIMULATION';
 ```
 
 #### Relationships
@@ -636,21 +636,21 @@ interface ProgressRecord {
 }
 
 type ActivityType =
-  | "LESSON"
-  | "EXPERIMENT"
-  | "ASSESSMENT"
-  | "READING"
-  | "VIDEO"
-  | "PROJECT"
-  | "DISCUSSION";
+  | 'LESSON'
+  | 'EXPERIMENT'
+  | 'ASSESSMENT'
+  | 'READING'
+  | 'VIDEO'
+  | 'PROJECT'
+  | 'DISCUSSION';
 
 type MasteryLevel =
-  | "NOT_INTRODUCED"
-  | "INTRODUCED"
-  | "DEVELOPING"
-  | "APPROACHING"
-  | "MASTERED"
-  | "EXTENDED";
+  | 'NOT_INTRODUCED'
+  | 'INTRODUCED'
+  | 'DEVELOPING'
+  | 'APPROACHING'
+  | 'MASTERED'
+  | 'EXTENDED';
 ```
 
 #### Relationships
@@ -690,19 +690,19 @@ interface Achievement {
 }
 
 type AchievementCategory =
-  | "SCIENCE_MASTERY"
-  | "EXPERIMENT_EXPERT"
-  | "READING_COMPREHENSION"
-  | "CONSISTENCY"
-  | "COLLABORATION"
-  | "CROSS_SUBJECT"
-  | "SPEED"
-  | "ACCURACY";
+  | 'SCIENCE_MASTERY'
+  | 'EXPERIMENT_EXPERT'
+  | 'READING_COMPREHENSION'
+  | 'CONSISTENCY'
+  | 'COLLABORATION'
+  | 'CROSS_SUBJECT'
+  | 'SPEED'
+  | 'ACCURACY';
 
-type AchievementRarity = "COMMON" | "UNCOMMON" | "RARE" | "EPIC" | "LEGENDARY";
+type AchievementRarity = 'COMMON' | 'UNCOMMON' | 'RARE' | 'EPIC' | 'LEGENDARY';
 
 interface AchievementCriteria {
-  type: "COMPLETION" | "SCORE" | "STREAK" | "TIME" | "COMBINATION";
+  type: 'COMPLETION' | 'SCORE' | 'STREAK' | 'TIME' | 'COMBINATION';
   target: number;
   conditions: Record<string, any>;
   timeframe?: string; // e.g., 'WEEKLY', 'MONTHLY'
@@ -743,11 +743,11 @@ interface CrossSubjectLink {
 }
 
 type LinkType =
-  | "VOCABULARY_BUILDING"
-  | "CONCEPT_REINFORCEMENT"
-  | "SKILL_APPLICATION"
-  | "CONTEXTUAL_LEARNING"
-  | "ASSESSMENT_PREPARATION";
+  | 'VOCABULARY_BUILDING'
+  | 'CONCEPT_REINFORCEMENT'
+  | 'SKILL_APPLICATION'
+  | 'CONTEXTUAL_LEARNING'
+  | 'ASSESSMENT_PREPARATION';
 ```
 
 ## Data Model Relationships Summary

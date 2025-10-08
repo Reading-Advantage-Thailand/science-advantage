@@ -113,15 +113,15 @@ Used selectively for premium features with careful cost management:
 // Example: Generating science concept hints
 const generateHint = async (concept: string, difficulty: number) => {
   const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: 'gpt-3.5-turbo',
     messages: [
       {
-        role: "system",
+        role: 'system',
         content:
-          "You are a helpful science tutor for Thai students. Provide hints in both Thai and English.",
+          'You are a helpful science tutor for Thai students. Provide hints in both Thai and English.',
       },
       {
-        role: "user",
+        role: 'user',
         content: `Provide a hint for understanding ${concept} at difficulty level ${difficulty}/5`,
       },
     ],

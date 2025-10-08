@@ -277,27 +277,27 @@ model Class {
 ### Creating a Class with JavaScript
 
 ```javascript
-const response = await fetch("/api/classes", {
-  method: "POST",
+const response = await fetch('/api/classes', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    name: "Chemistry 101",
-    description: "Introduction to Chemistry",
+    name: 'Chemistry 101',
+    description: 'Introduction to Chemistry',
   }),
 });
 
 const result = await response.json();
 if (result.success) {
-  console.log("Class created with join code:", result.data.joinCode);
+  console.log('Class created with join code:', result.data.joinCode);
 }
 ```
 
 ### Listing Classes with Pagination
 
 ```javascript
-const response = await fetch("/api/classes?page=1&limit=10");
+const response = await fetch('/api/classes?page=1&limit=10');
 const result = await response.json();
 
 if (result.success) {
