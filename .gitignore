@@ -11,10 +11,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.iml
-.codex/
-.claude/
-.gemini/
-.opencode/
 
 # Environment files (keep example only)
 .env*

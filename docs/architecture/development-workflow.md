@@ -127,6 +127,18 @@ npx prisma db push
 npx prisma db seed
 ```
 
+> **IMPORTANT**: Environment variables must be explicitly passed to Prisma commands in some environments. If you encounter "Environment variable not found" errors, use:
+> 
+> ```bash
+> # Load environment variables explicitly
+> DATABASE_URL="postgresql://postgres:postgres@localhost:5433/science_advantage" npx prisma generate
+> DATABASE_URL="postgresql://postgres:postgres@localhost:5433/science_advantage" npx prisma db push
+> 
+> # Or load all environment variables from .env.local
+> set -a && source .env.local && set +a && npx prisma generate
+> set -a && source .env.local && set +a && npx prisma db push
+> ```
+
 #### 5. Start Development Server
 
 ```bash
