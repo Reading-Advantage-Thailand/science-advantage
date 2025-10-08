@@ -15,8 +15,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Auth System',
-  description: 'Auth System',
+  title: 'Science Advantage - The Future of K-12 Science Education',
+  description:
+    'Comprehensive, standards-aligned science curriculum for K-12 education with NGSS alignment, adaptive learning, and 180-day structured instruction.',
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      {
+        url: '/apple-touch-icon-180x180.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
+    other: [{ rel: 'manifest', url: '/site.webmanifest' }],
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
