@@ -1,8 +1,9 @@
 # Science Advantage - TODO
 
-## In Review
+## Completed
 
-- [ ] #36 - Story: Advanced Data Schema - PR: #43 (In Review) - Submitted: 2025-10-08
+- [x] #35 - Story: Project Initialization (feat/35-story-project-initialization) - Completed: 2025-10-08
+- [x] #36 - Story: Advanced Data Schema (feat/36-story-advanced-data-schema) - Completed: 2025-10-08 - PR: #43 (Merged)
 
 ## Completed
 
