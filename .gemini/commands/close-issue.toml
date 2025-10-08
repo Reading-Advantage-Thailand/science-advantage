@@ -1,0 +1,112 @@
+description = "Clean up after a merged PR and update all tracking files."
+prompt = """
+Execute the Close Issue Command by following these steps:
+
+1. **Verify PR is Merged**
+   ```bash
+   # Get current branch
+   CURRENT_BRANCH=$(git branch --show-current)
+   
+   # Extract issue number from branch name
+   ISSUE_NUMBER=$(echo "$CURRENT_BRANCH" | sed -E 's/feat\/([0-9]+).*/\1/')
+   
+   # Check PR status
+   PR_STATUS=$(gh pr view --json state,mergeCommit --jq '.state')
+   
+   if [ "$PR_STATUS" != "MERGED" ]; then
+     echo "PR is not yet merged. Current status: $PR_STATUS"
+     echo "Please wait for PR to be merged before running this command."
+     exit 1
+   fi
+   ```
+
+2. **Switch to Main Branch**
+   ```bash
+   git checkout main
+   ```
+
+3. **Pull Latest Changes**
+   ```bash
+   git pull --ff-only
+   ```
+
+4. **Get PR Details for Documentation**
+   ```bash
+   # Get PR number and merge details
+   PR_NUMBER=$(gh pr view --json number --jq .number)
+   MERGE_COMMIT=$(gh pr view --json mergeCommit --jq .mergeCommit.oid)
+   MERGED_DATE=$(gh pr view --json mergedAt --jq .mergedAt)
+   ```
+
+5. **Delete Local Feature Branch**
+   ```bash
+   git branch -d "$CURRENT_BRANCH"
+   ```
+
+6. **Delete Remote Feature Branch**
+   ```bash
+   gh branch delete "$CURRENT_BRANCH" -y
+   ```
+
+7. **Close the GitHub Issue**
+   ```bash
+   # Close issue with comment referencing the PR
+   gh issue close "$ISSUE_NUMBER" \
+     --comment "Completed via PR #$PR_NUMBER. Merge commit: $MERGE_COMMIT"
+   ```
+
+8. **Update TODO.md**
+   - Move issue from "In Review" to "Completed"
+   - Add completion date and PR number
+   - Update overall completion percentage
+   - Remove from "In Progress" section
+
+9. **Update Sprint File**
+   - Mark story as "Completed"
+   - Add completion date and PR number
+   - Add any final notes or lessons learned
+   - Update sprint completion percentage
+
+10. **Clean Up Any Temporary Files**
+    ```bash
+    # Remove any temporary test files or build artifacts
+    npm run clean 2>/dev/null || true
+    ```
+
+## File Update Patterns:
+
+**TODO.md Example:**
+```markdown
+## Completed
+- [x] #123 - Issue Title - PR: #456 - Completed: YYYY-MM-DD ✅
+```
+
+**Sprint File Example:**
+```markdown
+## Issue Title
+**Status**: Completed ✅
+**PR**: #456 - Merged: YYYY-MM-DD
+**Merge Commit**: $MERGE_COMMIT
+**Completed**: YYYY-MM-DD
+**Notes**: Implementation went smoothly, no blockers encountered.
+```
+
+## Completion Verification:
+- Verify main branch is up to date
+- Confirm feature branch is deleted locally and remotely
+- Ensure GitHub issue is closed with proper comment
+- Check that all tracking files are updated
+
+## Error Handling:
+- If PR is not merged, halt and inform user
+- If branch deletion fails, check for unmerged changes
+- If issue closure fails, verify permissions
+- If file updates fail, check file permissions
+
+## Notes:
+- Always verify PR is merged before cleanup
+- Update all tracking files with completion details
+- Include merge commit reference for traceability
+- Clean up both local and remote branches
+- Add completion date to all tracking files
+"""

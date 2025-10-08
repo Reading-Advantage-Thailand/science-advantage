@@ -25,7 +25,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { user } from '@prisma/client';
-import LogoutButton from './auth/logout-button';
+import LogoutButton from '@/components/features/auth/logout-button';
 
 export function NavUser({ user }: { user: user }) {
   const { isMobile } = useSidebar();

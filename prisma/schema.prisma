@@ -42,10 +42,14 @@ model user {
   email         String    @unique
   emailVerified Boolean
   image         String?
+  role          UserRole  @default(STUDENT)
+  gradeLevel    Int?
   createdAt     DateTime
   updatedAt     DateTime
   account       account[]
   session       session[]
+  taughtClasses Class[]   @relation("ClassTeacher")
+  enrolledClass Class[]   @relation("ClassStudents")
 }
 
 model verification {
@@ -55,4 +59,82 @@ model verification {
   expiresAt  DateTime
   createdAt  DateTime?
   updatedAt  DateTime?
+}
+
+// Curriculum and Class Management Models
+
+enum StandardsAlignment {
+  THAI
+  NGSS
+}
+
+enum UserRole {
+  TEACHER
+  STUDENT
+  ADMIN
+}
+
+model Class {
+  id                  String             @id @default(cuid())
+  name                String
+  gradeLevel          Int
+  standardsAlignment  StandardsAlignment
+  teacherId           String
+  teacher             user               @relation("ClassTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  students            user[]             @relation("ClassStudents")
+  curriculumUnits     CurriculumUnit[]
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  @@index([teacherId])
+  @@index([gradeLevel])
+  @@index([standardsAlignment])
+}
+
+model Standard {
+  id          String             @id @default(cuid())
+  framework   StandardsAlignment
+  code        String
+  description String
+  gradeLevel  Int?
+  lessons     Lesson[]
+
+  @@unique([framework, code])
+  @@index([framework])
+  @@index([gradeLevel])
+}
+
+model Lesson {
+  id                String    @id @default(cuid())
+  title             String
+  description       String?
+  content           String?
+  gradeLevel        Int
+  order             Int
+  standards         Standard[]
+  curriculumUnits   CurriculumUnit[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([gradeLevel])
+  @@index([order])
+}
+
+model CurriculumUnit {
+  id          String             @id @default(cuid())
+  title       String
+  description String?
+  framework   StandardsAlignment
+  gradeLevel  Int
+  order       Int
+  lessons     Lesson[]
+  classId     String
+  class       Class              @relation(fields: [classId], references: [id], onDelete: Cascade)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@unique([classId, framework, order])
+  @@index([classId])
+  @@index([framework])
+  @@index([gradeLevel])
 }
