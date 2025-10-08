@@ -1,3 +1,4 @@
+
 {
   "mcpServers": {
     "shadcn-ui": {
@@ -5,7 +6,10 @@
       "command": "npx",
       "args": [
         "@jpisnice/shadcn-ui-mcp-server"
-      ]
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
     },
     "chrome-devtools": {
       "command": "npx",

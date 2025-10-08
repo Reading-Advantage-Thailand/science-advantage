@@ -20,6 +20,7 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+.opencode/opencode.json
 
 # Next.js / React builds
 .next/

@@ -1,8 +1,8 @@
 # Science Advantage - TODO
 
-## In Progress
+## In Review
 
-- None
+- [ ] #36 - Story: Advanced Data Schema - PR: #43 (In Review) - Submitted: 2025-10-08
 
 ## Completed
 
