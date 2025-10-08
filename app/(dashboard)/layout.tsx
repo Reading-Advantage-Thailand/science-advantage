@@ -29,10 +29,7 @@ export default async function layout({
         } as React.CSSProperties
       }
     >
-      <AppSidebar
-        user={{ ...session.user, image: session.user.image ?? null }}
-        variant="inset"
-      />
+      <AppSidebar user={session.user} variant="inset" />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
