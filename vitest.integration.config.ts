@@ -6,13 +6,7 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     setupFiles: ['./vitest.setup.ts'],
-    // Run tests sequentially to avoid database conflicts
-    pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
+    include: ['**/*.integration.test.ts'],
   },
   resolve: {
     alias: {

@@ -62,14 +62,22 @@ AGENT=qa
    - Build may take several minutes once the codebase grows
    - Warnings won't block deployment. Errors will.
 
-7. **Analyze Results**
+7a. **Ask for Review**
+
+   Ask Codex CLI for review
+
+   ```bash
+   codex exec "You are acting as a reviewer for a proposed code change made by another engineer.
+   ```
+
+7b. **Analyze Results**
    - If ALL tests pass: Continue to file updates
    - If ANY tests fail:
      - Provide detailed error report
      - Suggest specific fixes
      - Halt for user intervention
 
-7. **Update TODO.md**
+7c. **Update TODO.md**
    - Add testing status to the current issue
    - Example: "Tests: ✅ Passed (Unit: 95%, Integration: ✅, E2E: ✅)"
 

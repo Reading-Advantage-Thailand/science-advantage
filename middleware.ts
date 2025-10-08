@@ -1,19 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSessionCookie } from 'better-auth/cookies';
 
 export async function middleware(request: NextRequest) {
-  const sessionCookie = getSessionCookie(request);
-
   const { pathname } = request.nextUrl;
 
-  // Redirect authenticated users away from login/signup pages
-  if (sessionCookie && ['/login', '/signup'].includes(pathname)) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+  // Get the session token from cookies
+  const sessionToken = request.cookies.get('session_token')?.value;
+  const hasSession = !!sessionToken;
+
+  // Protected routes that require authentication
+  const protectedRoutes = ['/student', '/teacher', '/admin', '/system'];
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+  // If accessing protected route without session, redirect to login
+  if (isProtectedRoute && !hasSession) {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // Redirect unauthenticated users trying to access protected routes
-  if (!sessionCookie && pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/signup', request.url));
+  // If accessing login/signup with session, redirect to dashboard
+  // The dashboard page will handle role-based redirect
+  if (hasSession && ['/login', '/signup'].includes(pathname)) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   return NextResponse.next();
@@ -21,5 +27,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   runtime: 'nodejs',
-  matcher: ['/dashboard', '/login', '/signup'], // Apply middleware to these routes
+  matcher: ['/student/:path*', '/teacher/:path*', '/admin/:path*', '/system/:path*', '/dashboard', '/login', '/signup'],
 };

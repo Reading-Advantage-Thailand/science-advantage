@@ -1,6 +1,3 @@
-import { auth } from '@/lib/auth'; // path to your Better Auth server instance
-import { headers } from 'next/headers';
-
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
@@ -9,11 +6,10 @@ import {
   IconLockSquareRoundedFilled,
   IconShieldCheckFilled,
 } from '@tabler/icons-react';
+import { getSession } from '@/lib/auth/server';
 
 export default async function page() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -27,23 +23,18 @@ export default async function page() {
           <nav className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <ModeToggle />
-              {session?.user ? (
+              {session ? (
                 <a href="/dashboard">
                   <Button variant="outline" size="sm">
                     Dashboard
                   </Button>
                 </a>
               ) : (
-                <>
-                  <Link href="/login">
-                    <Button variant="outline" size="sm">
-                      Log in
-                    </Button>
-                  </Link>
-                  <Link href="/signup">
-                    <Button size="sm">Sign up</Button>
-                  </Link>
-                </>
+                <Link href="/login">
+                  <Button size="sm">
+                    Log in
+                  </Button>
+                </Link>
               )}
             </div>
           </nav>

@@ -15,8 +15,8 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 
 import { authClient } from '@/lib/auth-client';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Terminal } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Terminal, User, GraduationCap, Shield, Cog } from 'lucide-react';
 
 import { IconLoader } from '@tabler/icons-react';
 
@@ -26,50 +26,38 @@ export function LoginForm({
 }: React.ComponentProps<'div'>) {
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
+    setError('');
 
-    const { data, error } = await authClient.signIn.email(
-      {
-        /**
-         * The user email
-         */
-        email,
-        /**
-         * The user password
-         */
-        password,
-        /**
-         * a url to redirect to after the user verifies their email (optional)
-         */
-        callbackURL: '/dashboard',
-        /**
-         * remember the user session after the browser is closed.
-         * @default true
-         */
-        rememberMe: false,
-      },
-      {
-        onRequest: (ctx) => {
-          setLoading(true);
-        },
-        onSuccess: (ctx) => {
-          // redirect to the dashboard
-          //alert("Logged in successfully");
-        },
-        onError: (ctx) => {
-          // display the error message
-          setError(ctx.error.message);
-          setLoading(false);
-        },
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Login failed');
+        setLoading(false);
+        return;
       }
-    );
+
+      // Redirect to dashboard (which will redirect based on role)
+      window.location.href = '/dashboard';
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+      setLoading(false);
+    }
   }
 
   return (
@@ -78,7 +66,7 @@ export function LoginForm({
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your username below to login to your account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -91,13 +79,13 @@ export function LoginForm({
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
                   required
                 />
               </div>
@@ -127,18 +115,57 @@ export function LoginForm({
                     'Login'
                   )}
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button>
               </div>
             </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{' '}
-              <a href="/signup" className="underline underline-offset-4">
-                Sign up
-              </a>
-            </div>
           </form>
+        </CardContent>
+      </Card>
+
+      {/* Demo Credentials */}
+      <Card className="border-blue-200 bg-blue-50/50 dark:border-blue-900 dark:bg-blue-950/20">
+        <CardHeader>
+          <CardTitle className="text-sm">Demo Credentials</CardTitle>
+          <CardDescription className="text-xs">
+            Use these credentials to test different role access levels
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex items-center gap-3 rounded-md border bg-white dark:bg-gray-950 p-3">
+            <User className="h-4 w-4 text-blue-600" />
+            <div className="flex-1 space-y-0.5">
+              <p className="text-xs font-medium">Student</p>
+              <p className="text-xs text-muted-foreground font-mono">
+                student_demo / Password123!
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 rounded-md border bg-white dark:bg-gray-950 p-3">
+            <GraduationCap className="h-4 w-4 text-green-600" />
+            <div className="flex-1 space-y-0.5">
+              <p className="text-xs font-medium">Teacher</p>
+              <p className="text-xs text-muted-foreground font-mono">
+                teacher_demo / Password123!
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 rounded-md border bg-white dark:bg-gray-950 p-3">
+            <Shield className="h-4 w-4 text-purple-600" />
+            <div className="flex-1 space-y-0.5">
+              <p className="text-xs font-medium">Admin</p>
+              <p className="text-xs text-muted-foreground font-mono">
+                admin_demo / Password123!
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 rounded-md border bg-white dark:bg-gray-950 p-3">
+            <Cog className="h-4 w-4 text-orange-600" />
+            <div className="flex-1 space-y-0.5">
+              <p className="text-xs font-medium">System Admin</p>
+              <p className="text-xs text-muted-foreground font-mono">
+                system_demo / Password123!
+              </p>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
