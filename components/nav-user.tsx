@@ -1,14 +1,8 @@
 'use client';
 
-import {
-  IconCreditCard,
-  IconDotsVertical,
-  IconLogout,
-  IconNotification,
-  IconUserCircle,
-} from '@tabler/icons-react';
+import { IconDotsVertical, IconLogout, IconUserCircle } from '@tabler/icons-react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,10 +18,10 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { user } from '@prisma/client';
 import LogoutButton from '@/components/features/auth/logout-button';
+import type { Session } from '@/lib/auth';
 
-export function NavUser({ user }: { user: user }) {
+export function NavUser({ user }: { user: Session['user'] }) {
   const { isMobile } = useSidebar();
 
   return (

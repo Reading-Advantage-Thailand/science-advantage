@@ -59,7 +59,7 @@ Transforming K-12 science education through innovative technology that brings to
 
 ### Backend Infrastructure
 
-- **Better Auth** for secure, role-based authentication
+- **Custom Authentication** for secure, role-based authentication
 - **Prisma ORM** with PostgreSQL for robust data management
 - **API-first architecture** for scalability and integration
 - **Real-time collaboration** features for classroom interaction

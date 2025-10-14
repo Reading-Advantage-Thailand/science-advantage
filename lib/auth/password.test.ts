@@ -67,9 +67,10 @@ describe('Password Hashing and Verification', () => {
     it('should reject password with wrong case', async () => {
       const password = 'Password123';
       const wrongPassword = 'password123';
-      const hash = await hashPassword(password);
 
+      const hash = await hashPassword(password);
       const isValid = await verifyPassword(wrongPassword, hash);
+
       expect(isValid).toBe(false);
     });
 

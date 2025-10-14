@@ -362,88 +362,34 @@ The services layer handles API communication, data transformation, and business 
 
 ```typescript
 // lib/api-client.ts
-import { createApiClient } from './services/api-client-factory';
-
-export const apiClient = createApiClient({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || '/api',
-  timeout: 10000,
-  retryAttempts: 3,
-  retryDelay: 1000,
-});
-
-// lib/services/api-client-factory.ts
-import axios, { AxiosInstance, AxiosError } from 'axios';
-
-interface ApiClientConfig {
-  baseURL: string;
-  timeout?: number;
-  retryAttempts?: number;
-  retryDelay?: number;
-}
-
-export function createApiClient(config: ApiClientConfig): AxiosInstance {
-  const client = axios.create({
-    baseURL: config.baseURL,
-    timeout: config.timeout || 5000,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  // Request interceptor for auth token
-  client.interceptors.request.use(async (config) => {
-    // Add auth token from storage
-    const token = await getAuthToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
-
-  // Response interceptor for error handling
-  client.interceptors.response.use(
-    (response) => response,
-    async (error: AxiosError) => {
-      const originalRequest = error.config as any;
-
-      // Handle token refresh
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-
-        try {
-          const newToken = await refreshAuthToken();
-          if (newToken) {
-            originalRequest.headers.Authorization = `Bearer ${newToken}`;
-            return client(originalRequest);
-          }
-        } catch (refreshError) {
-          // Redirect to login
-          window.location.href = '/signin';
-          return Promise.reject(refreshError);
-        }
-      }
-
-      return Promise.reject(error);
-    }
-  );
-
-  return client;
-}
-
-async function getAuthToken(): Promise<string | null> {
-  // Implementation for getting stored token
-  return localStorage.getItem('auth_token');
-}
-
-async function refreshAuthToken(): Promise<string | null> {
-  // Implementation for token refresh
-  try {
-    const response = await axios.post('/api/auth/refresh');
-    return response.data.token;
-  } catch {
-    return null;
+async function fetcher(url: string, options?: RequestInit) {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the data.');
+    // Attach extra info to the error object.
+    error.info = await response.json();
+    error.status = response.status;
+    throw error;
   }
+  return response.json();
 }
+
+export const apiClient = {
+  get: (url: string) => fetcher(url),
+  post: (url: string, data: any) => fetcher(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }),
+  put: (url: string, data: any) => fetcher(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }),
+  delete: (url: string) => fetcher(url, {
+    method: 'DELETE',
+  }),
+};
 ```
 
 ### Service Example
@@ -818,3 +764,47 @@ describe('Lesson Flow Integration', () => {
 ```
 
 This frontend architecture provides a robust foundation for Science Advantage's educational platform, supporting complex interactive features, real-time collaboration, and comprehensive accessibility while maintaining excellent performance and developer experience.
+
+## Forms Architecture
+
+### Dynamic Form Generation with Zod
+
+To ensure consistency, reduce boilerplate, and maintain a single source of truth for validation, forms should be dynamically generated from Zod schemas where possible.
+
+**Pattern:**
+
+1.  **Define a Zod Schema:** Create a schema that defines the data structure, validation rules, and metadata for a form.
+2.  **Create a Form Component Factory:** A function or higher-order component that takes the Zod schema and generates the appropriate form fields (e.g., `Input`, `Select`, `Checkbox`).
+3.  **Use with `react-hook-form`:** The same Zod schema is used as the validator for `react-hook-form` to handle client-side and server-side validation seamlessly.
+
+**Example:**
+
+```typescript
+// lib/schemas/class-schema.ts
+import { z } from 'zod';
+
+export const classSchema = z.object({
+  name: z.string().min(3, 'Class name must be at least 3 characters'),
+  gradeLevel: z.number().min(1).max(12),
+  description: z.string().optional(),
+});
+
+// components/features/classes/class-form.tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { classSchema } from '@/lib/schemas/class-schema';
+import { generateForm } from '@/components/ui/form-generator';
+
+export function ClassForm({ onSubmit }) {
+  const form = useForm({
+    resolver: zodResolver(classSchema),
+  });
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      {generateForm(classSchema, form)}
+      <Button type="submit">Submit</Button>
+    </form>
+  );
+}
+```

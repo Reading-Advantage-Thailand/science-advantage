@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getSessionToken, deleteSession, deleteSessionCookie } from '@/lib/auth/session';
+import * as authSession from '@/lib/auth/session';
 
 export async function POST() {
+  const token = await authSession.getSessionToken();
+
   try {
-    const token = await getSessionToken();
-
     if (token) {
-      await deleteSession(token);
+      await authSession.deleteSession(token);
     }
-
-    await deleteSessionCookie();
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -18,5 +16,7 @@ export async function POST() {
       { error: 'Internal server error' },
       { status: 500 }
     );
+  } finally {
+    await authSession.deleteSessionCookie().catch(() => {});
   }
 }

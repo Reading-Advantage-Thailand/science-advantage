@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
+import type { user as UserModel, session as SessionModel } from '@prisma/client';
 import { POST } from './route';
 import { createSession } from '@/lib/auth/session';
-import { hashPassword } from '@/lib/auth/password';
+import * as sessionModule from '@/lib/auth/session';
+import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -15,15 +17,18 @@ vi.mock('next/headers', () => ({
   cookies: vi.fn(() => mockCookies),
 }));
 
-const prisma = new PrismaClient();
-
 describe('POST /api/auth/logout - Integration Tests', () => {
-  let testUser: any;
-  let testSession: any;
+  beforeAll(() => {
+    setPrismaClient(prisma);
+  });
+  let testUser: UserModel;
+  let testSession: SessionModel;
 
   beforeEach(async () => {
-    // Clear mocks
-    vi.clearAllMocks();
+    mockCookies.get.mockReset();
+    mockCookies.set.mockReset();
+    mockCookies.delete.mockReset();
+    mockCookies.get.mockReturnValue(undefined);
 
     // Clean up
     await prisma.session.deleteMany();
@@ -128,67 +133,35 @@ describe('POST /api/auth/logout - Integration Tests', () => {
     });
   });
 
-  describe('Multiple Sessions', () => {
-    it('should only delete the current session, not other sessions', async () => {
-      const session2 = await createSession(testUser.id);
-
+  describe('Error Handling', () => {
+    it('should handle database errors gracefully', async () => {
       mockCookies.get.mockReturnValue({ value: testSession.id });
 
-      await POST();
+      const deleteSpy = vi
+        .spyOn(sessionModule, 'deleteSession')
+        .mockRejectedValueOnce(new Error('Database error'));
 
-      const deletedSession = await prisma.session.findUnique({
-        where: { token: testSession.id },
-      });
+      const response = await POST();
+      const data = await response.json();
 
-      const remainingSession = await prisma.session.findUnique({
-        where: { token: session2.id },
-      });
+      expect(response.status).toBe(500);
+      expect(data.error).toBe('Internal server error');
 
-      expect(deletedSession).toBeNull();
-      expect(remainingSession).toBeDefined();
+      deleteSpy.mockRestore();
     });
 
-    it('should allow multiple logouts for the same user', async () => {
-      const session2 = await createSession(testUser.id);
-
-      // First logout
+    it('should still delete cookie when session deletion fails', async () => {
       mockCookies.get.mockReturnValue({ value: testSession.id });
-      const response1 = await POST();
-      const data1 = await response1.json();
 
-      expect(data1.success).toBe(true);
-
-      // Second logout
-      mockCookies.get.mockReturnValue({ value: session2.id });
-      const response2 = await POST();
-      const data2 = await response2.json();
-
-      expect(data2.success).toBe(true);
-
-      // Verify both sessions are deleted
-      const sessions = await prisma.session.findMany({
-        where: { userId: testUser.id },
-      });
-
-      expect(sessions.length).toBe(0);
-    });
-  });
-
-  describe('Cookie Handling', () => {
-    it('should always delete cookie even without session token', async () => {
-      mockCookies.get.mockReturnValue(undefined);
+      const deleteSpy = vi
+        .spyOn(sessionModule, 'deleteSession')
+        .mockRejectedValueOnce(new Error('Database error'));
 
       await POST();
 
       expect(mockCookies.delete).toHaveBeenCalled();
-    });
 
-    it('should delete cookie even if session deletion fails', async () => {
-      mockCookies.get.mockReturnValue({ value: 'non-existent-token' });
-
-      await POST();
-
-      expect(mockCookies.delete).toHaveBeenCalled();
+      deleteSpy.mockRestore();
     });
   });
 

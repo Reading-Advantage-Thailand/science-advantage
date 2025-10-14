@@ -9,8 +9,12 @@ Based on our serverless architecture choice on Vercel, we use Next.js 15 App Rou
 ```
 app/api/
 ├── auth/
-│   └── [...nextauth]/
-│       └── route.ts          # NextAuth.js configuration
+│   ├── login/
+│   │   └── route.ts
+│   ├── logout/
+│   │   └── route.ts
+│   └── session/
+│       └── route.ts
 ├── classes/
 │   └── [classId]/
 │       ├── lessons/
@@ -43,8 +47,7 @@ app/api/
 ```typescript
 // app/api/classes/[classId]/lessons/[slug]/completions/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { getCurrentSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import { ApiError } from '@/lib/errors/api-error';
 
@@ -53,7 +56,7 @@ export async function GET(
   { params }: { params: { classId: string; slug: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getCurrentSession();
 
     if (!session) {
       return NextResponse.json(
@@ -98,7 +101,7 @@ export async function POST(
   { params }: { params: { classId: string; slug: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getCurrentSession();
 
     if (!session) {
       return NextResponse.json(
@@ -520,94 +523,48 @@ export class LessonService {
 sequenceDiagram
     participant User
     participant Frontend
-    participant NextAuth
-    participant Google
+    participant AuthAPI as "/api/auth/login"
     participant Database
 
-    User->>Frontend: Click Sign In
-    Frontend->>NextAuth: GET /api/auth/signin
-    NextAuth->>User: Redirect to Google
-    User->>Google: Authenticate
-    Google->>NextAuth: Redirect with code
-    NextAuth->>Google: Exchange code for tokens
-    Google->>NextAuth: User profile
-    NextAuth->>Database: Find/create user
-    Database->>NextAuth: User data
-    NextAuth->>Frontend: Set session cookie
+    User->>Frontend: Submits login form
+    Frontend->>AuthAPI: POST with username and password
+    AuthAPI->>Database: Find user and verify password
+    Database->>AuthAPI: User data
+    AuthAPI->>Database: Create session
+    Database->>AuthAPI: Session token
+    AuthAPI->>Frontend: Set session cookie
     Frontend->>User: Redirect to dashboard
 ```
 
 ### Middleware/Guards
 
 ```typescript
-// lib/middleware/auth-middleware.ts
-import { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { ApiError } from '@/lib/errors/api-error';
+// middleware.ts
+import { NextRequest, NextResponse } from 'next/server';
 
-export interface AuthenticatedRequest extends NextApiRequest {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role: 'TEACHER' | 'STUDENT';
-  };
-}
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
-export async function requireAuth(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<AuthenticatedRequest> {
-  const session = await getServerSession(req, res, authOptions);
+  // Get the session token from cookies
+  const sessionToken = request.cookies.get('session_token')?.value;
+  const hasSession = !!sessionToken;
 
-  if (!session) {
-    throw new ApiError('UNAUTHORIZED', 'Authentication required');
+  // Protected routes that require authentication
+  const protectedRoutes = ['/student', '/teacher', '/admin', '/system'];
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+  // If accessing protected route without session, redirect to login
+  if (isProtectedRoute && !hasSession) {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  return {
-    ...req,
-    user: {
-      id: session.user.id,
-      email: session.user.email!,
-      name: session.user.name!,
-      role: session.user.role as 'TEACHER' | 'STUDENT',
-    },
-  };
-}
-
-export async function requireRole(
-  req: NextApiRequest,
-  res: NextApiResponse,
-  requiredRole: 'TEACHER' | 'STUDENT'
-): Promise<AuthenticatedRequest> {
-  const authenticatedReq = await requireAuth(req, res);
-
-  if (authenticatedReq.user.role !== requiredRole) {
-    throw new ApiError('FORBIDDEN', `${requiredRole} role required`);
+  // If accessing login with session, redirect to dashboard
+  // The dashboard page will handle role-based redirect
+  if (hasSession && pathname === '/login') {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  return authenticatedReq;
-}
-
-export async function requireTeacherOrOwner(
-  req: NextApiRequest,
-  res: NextApiResponse,
-  resourceOwnerId?: string
-): Promise<AuthenticatedRequest> {
-  const authenticatedReq = await requireAuth(req, res);
-
-  // Teachers can access any resource
-  if (authenticatedReq.user.role === 'TEACHER') {
-    return authenticatedReq;
-  }
-
-  // Students can only access their own resources
-  if (resourceOwnerId && authenticatedReq.user.id !== resourceOwnerId) {
-    throw new ApiError('FORBIDDEN', 'Access denied to this resource');
-  }
-
-  return authenticatedReq;
+  return NextResponse.next();
 }
 ```
 
@@ -1157,4 +1114,3 @@ export function withMetrics(handler: Function) {
     }
   };
 }
-```

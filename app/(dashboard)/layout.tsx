@@ -1,24 +1,14 @@
 import { AppSidebar } from '@/components/layout/app-sidebar';
-
 import { SiteHeader } from '@/components/layout/site-header';
-
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { requireAuth } from '@/lib/auth/server';
 
-import { auth } from '@/lib/auth'; // path to your Better Auth server instance
-import { headers } from 'next/headers';
-
-export default async function layout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
-  });
-
-  if (!session?.user) {
-    return;
-  }
+  const session = await requireAuth();
 
   return (
     <SidebarProvider

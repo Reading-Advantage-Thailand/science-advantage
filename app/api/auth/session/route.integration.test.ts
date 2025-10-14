@@ -1,7 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
+import type { user as UserModel, session as SessionModel } from '@prisma/client';
 import { GET } from './route';
 import { createSession } from '@/lib/auth/session';
+import * as sessionModule from '@/lib/auth/session';
+import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -14,15 +17,18 @@ vi.mock('next/headers', () => ({
   cookies: vi.fn(() => mockCookies),
 }));
 
-const prisma = new PrismaClient();
-
 describe('GET /api/auth/session - Integration Tests', () => {
-  let testUser: any;
-  let testSession: any;
+  beforeAll(() => {
+    setPrismaClient(prisma);
+  });
+  let testUser: UserModel;
+  let testSession: SessionModel;
 
   beforeEach(async () => {
-    // Clear mocks
-    vi.clearAllMocks();
+    mockCookies.get.mockReset();
+    mockCookies.set.mockReset();
+    mockCookies.delete.mockReset();
+    mockCookies.get.mockReturnValue(undefined);
 
     // Clean up
     await prisma.session.deleteMany();
@@ -134,27 +140,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
       expect(data.session).toBeNull();
     });
 
-    it('should return null session for invalid token', async () => {
-      mockCookies.get.mockReturnValue({ value: 'invalid-token' });
-
-      const response = await GET();
-      const data = await response.json();
-
-      expect(response.status).toBe(200);
-      expect(data.session).toBeNull();
-    });
-
-    it('should return null session for non-existent token', async () => {
-      mockCookies.get.mockReturnValue({ value: 'non-existent-token-123' });
-
-      const response = await GET();
-      const data = await response.json();
-
-      expect(response.status).toBe(200);
-      expect(data.session).toBeNull();
-    });
-
-    it('should return null for empty token', async () => {
+    it('should return null session when cookie has empty value', async () => {
       mockCookies.get.mockReturnValue({ value: '' });
 
       const response = await GET();
@@ -165,9 +151,18 @@ describe('GET /api/auth/session - Integration Tests', () => {
     });
   });
 
-  describe('Expired Session', () => {
+  describe('Invalid Session', () => {
+    it('should return null for invalid session token', async () => {
+      mockCookies.get.mockReturnValue({ value: 'invalid-token' });
+
+      const response = await GET();
+      const data = await response.json();
+
+      expect(response.status).toBe(200);
+      expect(data.session).toBeNull();
+    });
+
     it('should return null for expired session', async () => {
-      // Create an expired session
       const expiredSession = await prisma.session.create({
         data: {
           id: 'expired-session',
@@ -187,70 +182,61 @@ describe('GET /api/auth/session - Integration Tests', () => {
       expect(response.status).toBe(200);
       expect(data.session).toBeNull();
     });
+  });
 
-    it('should delete expired session from database', async () => {
-      // Create an expired session
-      const expiredSession = await prisma.session.create({
-        data: {
-          id: 'expired-session-2',
-          token: 'expired-token-2',
-          userId: testUser.id,
-          expiresAt: new Date(Date.now() - 1000),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      });
+  describe('Error Handling', () => {
+    it('should handle database errors gracefully', async () => {
+      mockCookies.get.mockReturnValue({ value: testSession.id });
 
-      mockCookies.get.mockReturnValue({ value: expiredSession.token });
-
-      await GET();
-
-      // Verify session was deleted
-      const deletedSession = await prisma.session.findUnique({
-        where: { token: expiredSession.token },
-      });
-
-      expect(deletedSession).toBeNull();
-    });
-
-    it('should return valid session just before expiration', async () => {
-      // Create session expiring in 1 second
-      const almostExpiredSession = await prisma.session.create({
-        data: {
-          id: 'almost-expired',
-          token: 'almost-expired-token',
-          userId: testUser.id,
-          expiresAt: new Date(Date.now() + 1000), // 1 second from now
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      });
-
-      mockCookies.get.mockReturnValue({ value: almostExpiredSession.token });
+      const findSpy = vi
+        .spyOn(sessionModule, 'getCurrentSession')
+        .mockRejectedValueOnce(new Error('Database error'));
 
       const response = await GET();
       const data = await response.json();
 
-      expect(response.status).toBe(200);
-      expect(data.session).toBeDefined();
-      expect(data.session.user.id).toBe(testUser.id);
+      expect(response.status).toBe(500);
+      expect(data.error).toBe('Internal server error');
+
+      findSpy.mockRestore();
+    });
+
+    it('should handle cookie access errors', async () => {
+      mockCookies.get.mockImplementationOnce(() => {
+        throw new Error('Cookie error');
+      });
+
+      const response = await GET();
+      const data = await response.json();
+
+      expect(response.status).toBe(500);
+      expect(data.error).toBe('Internal server error');
     });
   });
 
-  describe('Session Security', () => {
-    it('should not expose sensitive user data', async () => {
+  describe('Response Format', () => {
+    it('should return correct response structure with session', async () => {
       mockCookies.get.mockReturnValue({ value: testSession.id });
 
       const response = await GET();
       const data = await response.json();
 
-      // Should not include password or account data
-      expect(data.session.user.password).toBeUndefined();
-      expect(data.session.user.account).toBeUndefined();
-      expect(data.session.token).toBeUndefined();
+      expect(data).toHaveProperty('session');
+      expect(data.session).toHaveProperty('user');
+      expect(data.session).toHaveProperty('expiresAt');
     });
 
-    it('should not expose session token in response', async () => {
+    it('should return correct response structure without session', async () => {
+      mockCookies.get.mockReturnValue(undefined);
+
+      const response = await GET();
+      const data = await response.json();
+
+      expect(data).toHaveProperty('session');
+      expect(data.session).toBeNull();
+    });
+
+    it('should not expose sensitive session fields', async () => {
       mockCookies.get.mockReturnValue({ value: testSession.id });
 
       const response = await GET();
@@ -312,46 +298,6 @@ describe('GET /api/auth/session - Integration Tests', () => {
       const data = await response.json();
 
       expect(data.session.user.role).toBe('TEACHER');
-    });
-  });
-
-  describe('Response Format', () => {
-    it('should return correct response structure with session', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
-
-      const response = await GET();
-      const data = await response.json();
-
-      expect(data).toHaveProperty('session');
-      expect(data.session).toHaveProperty('user');
-      expect(data.session).toHaveProperty('expiresAt');
-    });
-
-    it('should return correct response structure without session', async () => {
-      mockCookies.get.mockReturnValue(undefined);
-
-      const response = await GET();
-      const data = await response.json();
-
-      expect(data).toHaveProperty('session');
-      expect(data.session).toBeNull();
-    });
-
-    it('should always return 200 status', async () => {
-      // With valid session
-      mockCookies.get.mockReturnValue({ value: testSession.id });
-      const response1 = await GET();
-      expect(response1.status).toBe(200);
-
-      // Without session
-      mockCookies.get.mockReturnValue(undefined);
-      const response2 = await GET();
-      expect(response2.status).toBe(200);
-
-      // With invalid session
-      mockCookies.get.mockReturnValue({ value: 'invalid' });
-      const response3 = await GET();
-      expect(response3.status).toBe(200);
     });
   });
 

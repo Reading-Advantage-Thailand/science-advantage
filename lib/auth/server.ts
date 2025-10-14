@@ -29,7 +29,7 @@ export async function requireAuth(): Promise<Session> {
   const session = await getCurrentSession();
 
   if (!session) {
-    redirect('/login');
+    return redirect('/login');
   }
 
   return session;
@@ -47,7 +47,7 @@ export async function requireRole(requiredRole: UserRole): Promise<Session> {
 
   if (userLevel < requiredLevel) {
     // User doesn't have sufficient permissions - redirect to their dashboard
-    redirect(ROLE_ROUTES[session.user.role] || '/login');
+    return redirect(ROLE_ROUTES[session.user.role] || '/login');
   }
 
   return session;

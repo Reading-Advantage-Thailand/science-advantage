@@ -10,9 +10,6 @@ import {
   IconUsers,
   IconRocket,
   IconCheck,
-  IconSchool,
-  IconBuilding,
-  IconGlobe,
   IconDeviceDesktop,
   IconWifi,
   IconTools,
@@ -21,9 +18,8 @@ import {
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/server';
 
-export default async function page() {
+export default async function HomePage() {
   const session = await getSession();
-
   return (
     <div className="flex min-h-screen flex-col">
       {/* Navigation */}
@@ -45,7 +41,7 @@ export default async function page() {
             <div className="flex items-center gap-2">
               <ModeToggle />
               {session ? (
-                <a href="/dashboard">
+                <Link href="/dashboard">
                   <Button
                     variant="outline"
                     size="sm"
@@ -53,7 +49,7 @@ export default async function page() {
                   >
                     Dashboard
                   </Button>
-                </a>
+                </Link>
               ) : (
                 <Link href="/login">
                   <Button

@@ -16,9 +16,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // If accessing login/signup with session, redirect to dashboard
+  // If accessing login with session, redirect to dashboard
   // The dashboard page will handle role-based redirect
-  if (hasSession && ['/login', '/signup'].includes(pathname)) {
+  if (hasSession && pathname === '/login') {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -27,5 +27,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   runtime: 'nodejs',
-  matcher: ['/student/:path*', '/teacher/:path*', '/admin/:path*', '/system/:path*', '/dashboard', '/login', '/signup'],
+  matcher: ['/student/:path*', '/teacher/:path*', '/admin/:path*', '/system/:path*', '/dashboard', '/login'],
 };

@@ -4,6 +4,45 @@
 
 ---
 
+## Sprint Prerequisites ✅
+
+Before starting implementation, ensure these prerequisites are complete:
+
+### 1. Schema Migration (COMPLETED ✅)
+- [x] Added `joinCode String @unique` field to `Class` model
+- [x] Added index on `joinCode` for fast lookups
+- [x] Run `npx prisma db push` to apply schema changes
+
+### 2. Seed Data (COMPLETED ✅)
+- [x] Created comprehensive seed script: `prisma/seed.ts`
+- [x] Demo users: student_demo, teacher_demo, admin_demo (password: Password123!)
+- [x] Demo classes:
+  - Grade 3 Thai (joinCode: DEMO3T) - 2 units, 5 lessons
+  - Grade 4 Thai (joinCode: DEMO4T) - 2 units, 5 lessons
+  - Grade 6 NGSS (joinCode: DEMO6N) - 1 unit, 3 lessons
+- [x] Curriculum units and lessons populated with bilingual content
+- [x] Run `npm run seed` to populate database
+
+### 3. Directory Refactor (REQUIRED - Issue #54)
+- [ ] **Issue #54 must be merged FIRST** (elevated to P1 BLOCKING)
+- Ensures all feature work uses correct paths: `/app/(dashboard)/...`
+- Prevents rework and merge conflicts
+
+### 4. i18n Infrastructure (TODO - Before Sprint)
+- [ ] Install `next-intl` or equivalent i18n library
+- [ ] Create translation file structure: `/messages/en.json`, `/messages/th.json`
+- [ ] Set up i18n middleware and locale detection
+- [ ] Define translation keys for Sprint 1 (see Epic #49 for full list)
+- [ ] Test language switching functionality
+
+### 5. Development Environment
+- [ ] PostgreSQL running via `docker-compose up -d`
+- [ ] Environment variables set in `.env.local`
+- [ ] Dev server runs: `npm run dev`
+- [ ] Tests pass: `npm run test`
+
+---
+
 ## User Stories
 
 ### Story: Create a Standards-Aligned Class
@@ -40,6 +79,20 @@
 - **Acceptance Criteria:**
   - The class detail page prominently displays the unique `joinCode` for the class.
   - There is a button to easily copy the join code to the clipboard.
+
+---
+
+## Technical Tasks & Refactoring
+
+### Story: Refactor `app` Directory Structure
+
+- **As a developer,** I want the `app` directory to follow the documented architecture, so that the project is easier to navigate and maintain.
+- **Acceptance Criteria:**
+  - The redundant `/app/dashboard` directory is removed.
+  - All dashboard-related routes are consolidated under the `/app/(dashboard)/` route group.
+  - The `/app/login` directory is moved to `/app/(auth)/login/`.
+  - The file structure in `app/` matches the diagram in `docs/architecture/unified-project-structure.md`.
+  - All routes and navigation continue to function correctly after the refactor.
 
 ---
 

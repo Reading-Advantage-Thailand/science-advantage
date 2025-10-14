@@ -1,7 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-
-import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 
 export default function LogoutButton() {
@@ -10,19 +8,22 @@ export default function LogoutButton() {
   const [loading, setLoading] = useState(false);
 
   async function handleLogOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push('/login'); // redirect to login page
-        },
-        onRequest: (ctx) => {
-          setLoading(true);
-        },
-        onResponse: (ctx) => {
-          setLoading(false);
-        },
-      },
-    });
+    try {
+      setLoading(true);
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to log out');
+      }
+
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      setLoading(false);
+    }
   }
   return (
     <button onClick={() => handleLogOut()}>

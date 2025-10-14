@@ -8,7 +8,12 @@ import { cookies } from 'next/headers';
 import { randomBytes } from 'crypto';
 import type { Session } from './types';
 
-const prisma = new PrismaClient();
+let prismaClient = new PrismaClient();
+
+// Allow tests to inject a shared Prisma client instance
+export function setPrismaClient(client: PrismaClient) {
+  prismaClient = client;
+}
 
 const SESSION_COOKIE_NAME = 'session_token';
 const SESSION_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
@@ -27,7 +32,7 @@ export async function createSession(userId: string): Promise<Session> {
   const token = generateSessionToken();
   const expiresAt = new Date(Date.now() + SESSION_DURATION);
 
-  const session = await prisma.session.create({
+  const session = await prismaClient.session.create({
     data: {
       id: token,
       userId,
@@ -62,7 +67,7 @@ export async function createSession(userId: string): Promise<Session> {
  * Validate a session token and return the session
  */
 export async function validateSession(token: string): Promise<Session | null> {
-  const session = await prisma.session.findUnique({
+  const session = await prismaClient.session.findUnique({
     where: { token },
     include: {
       user: {
@@ -84,7 +89,7 @@ export async function validateSession(token: string): Promise<Session | null> {
 
   // Check if session is expired
   if (session.expiresAt < new Date()) {
-    await prisma.session.delete({ where: { id: session.id } });
+    await prismaClient.session.delete({ where: { id: session.id } });
     return null;
   }
 
@@ -100,7 +105,7 @@ export async function validateSession(token: string): Promise<Session | null> {
  * Delete a session
  */
 export async function deleteSession(token: string): Promise<void> {
-  await prisma.session.delete({ where: { token } }).catch(() => {});
+  await prismaClient.session.delete({ where: { token } }).catch(() => {});
 }
 
 /**

@@ -29,7 +29,7 @@ This guide helps you set up your development environment for the Science Advanta
    ```bash
    npx prisma generate
    npx prisma db push
-   npx prisma db seed
+   npm run seed
    ```
 
 5. **Start development server**
@@ -220,8 +220,7 @@ rm -rf node_modules package-lock.json
 npm install
 
 # Reset database
-npx prisma db push --force-reset
-npx prisma db seed
+npm run dev:reset
 
 # Clear Next.js cache
 rm -rf .next

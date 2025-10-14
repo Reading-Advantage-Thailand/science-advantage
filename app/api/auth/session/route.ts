@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getCurrentSession } from '@/lib/auth/session';
+import * as authSession from '@/lib/auth/session';
 
 export async function GET() {
   try {
-    const session = await getCurrentSession();
+    const session = await authSession.getCurrentSession();
 
     if (!session) {
       return NextResponse.json({ session: null }, { status: 200 });

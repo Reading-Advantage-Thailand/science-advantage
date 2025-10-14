@@ -26,10 +26,10 @@ components:
     sessionAuth:
       type: apiKey
       in: cookie
-      name: next-auth.session-token
+      name: session_token
 
   # Note on Authentication Strategy
-  # The primary authentication method for the web frontend is `sessionAuth` (NextAuth.js session cookies).
+  # The primary authentication method for the web frontend is `sessionAuth` (a custom session cookie).
   # The `bearerAuth` (JWT) scheme is provided for external clients, such as the future mobile application or third-party integrations.
 
   schemas:
@@ -63,8 +63,16 @@ components:
           format: uuid
         name:
           type: string
-        description:
+        gradeLevel:
+          type: integer
+          minimum: 3
+          maximum: 6
+        standardsAlignment:
           type: string
+          enum: [THAI, NGSS]
+        joinCode:
+          type: string
+          description: Unique 6-character alphanumeric code for class enrollment
         teacherId:
           type: string
           format: uuid
@@ -72,6 +80,38 @@ components:
           $ref: '#/components/schemas/User'
         studentCount:
           type: integer
+        curriculumUnits:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurriculumUnit'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CurriculumUnit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        framework:
+          type: string
+          enum: [THAI, NGSS]
+        gradeLevel:
+          type: integer
+        order:
+          type: integer
+        lessons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lesson'
         createdAt:
           type: string
           format: date-time
@@ -329,7 +369,7 @@ components:
 # Paths
 paths:
   # Authentication
-  /auth/signin:
+  /auth/login:
     post:
       tags:
         - Authentication
@@ -341,13 +381,12 @@ paths:
             schema:
               type: object
               properties:
-                email:
+                username:
                   type: string
-                  format: email
                 password:
                   type: string
               required:
-                - email
+                - username
                 - password
       responses:
         '200':
@@ -363,13 +402,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /auth/signout:
+  /auth/logout:
     post:
       tags:
         - Authentication
       summary: Sign out user
       security:
-        - bearerAuth: []
         - sessionAuth: []
       responses:
         '200':
@@ -379,17 +417,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
 
-  /auth/me:
+  /auth/session:
     get:
       tags:
         - Authentication
-      summary: Get current user
+      summary: Get current user session
       security:
-        - bearerAuth: []
         - sessionAuth: []
       responses:
         '200':
-          description: Current user retrieved
+          description: Current user session retrieved
           content:
             application/json:
               schema:
@@ -398,8 +435,7 @@ paths:
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/User'
-
+                        $ref: '#/components/schemas/User' 
   # Classes
   /classes:
     get:
@@ -451,13 +487,22 @@ paths:
               properties:
                 name:
                   type: string
-                description:
+                  minLength: 3
+                  maxLength: 100
+                gradeLevel:
+                  type: integer
+                  minimum: 3
+                  maximum: 6
+                standardsAlignment:
                   type: string
+                  enum: [THAI, NGSS]
               required:
                 - name
+                - gradeLevel
+                - standardsAlignment
       responses:
         '201':
-          description: Class created
+          description: Class created with auto-generated joinCode
           content:
             application/json:
               schema:
@@ -467,8 +512,20 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/Class'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '403':
           description: Only teachers can create classes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Join code collision (rare, retry internally)
           content:
             application/json:
               schema:
@@ -478,7 +535,8 @@ paths:
     get:
       tags:
         - Classes
-      summary: Get class details
+      summary: Get class details with curriculum units
+      description: Returns class metadata and curriculum units. joinCode only visible to teacher/admin.
       security:
         - bearerAuth: []
         - sessionAuth: []
@@ -491,7 +549,7 @@ paths:
             format: uuid
       responses:
         '200':
-          description: Class retrieved
+          description: Class retrieved with curriculum units
           content:
             application/json:
               schema:
@@ -501,6 +559,12 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/Class'
+        '403':
+          description: User not authorized to view this class
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           description: Class not found
           content:

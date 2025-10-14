@@ -186,24 +186,42 @@ await prisma.userProgress.update(...)  // Could fail, leaving inconsistent state
 
 ### Input Validation
 
-**RULE**: All user inputs must be validated before processing.
+**RULE**: All API route handlers that accept a request body MUST use a Zod schema to validate the incoming data. Validation should happen before any business logic is executed.
 
 ```typescript
-// ✅ CORRECT - Validate inputs
+// ✅ CORRECT - Validate inputs at the start of an API route
 import { z } from 'zod';
-import { validateInput } from '@/lib/validation';
 
 const lessonSchema = z.object({
   title: z.string().min(1).max(100),
   content: z.string().min(10),
 });
 
-const validatedData = validateInput(lessonSchema, inputData);
+export async function POST(request: Request) {
+  const body = await request.json();
+  const validation = lessonSchema.safeParse(body);
+
+  if (!validation.success) {
+    return NextResponse.json(validation.error.errors, { status: 400 });
+  }
+
+  // Proceed with validated data
+  const lesson = await prisma.lesson.create({
+    data: validation.data,
+  });
+
+  return NextResponse.json(lesson);
+}
 
 // ❌ FORBIDDEN - Unvalidated inputs
-const lesson = await prisma.lesson.create({
-  data: { title: req.body.title, content: req.body.content }, // Dangerous
-});
+export async function POST(request: Request) {
+  const body = await request.json();
+  // No validation!
+  const lesson = await prisma.lesson.create({
+    data: { title: body.title, content: body.content }, // Dangerous
+  });
+  return NextResponse.json(lesson);
+}
 ```
 
 ### Authentication Checks

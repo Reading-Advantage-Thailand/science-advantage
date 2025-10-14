@@ -1,4 +1,7 @@
-import { authClient } from './lib/auth-client';
+import { PrismaClient } from '@prisma/client';
+import { hashPassword } from './lib/auth/password';
+
+const prisma = new PrismaClient();
 
 async function createTestUsers() {
   console.log('Creating test users with passwords...');
@@ -10,6 +13,7 @@ async function createTestUsers() {
       name: 'Student User',
       email: 'student@example.com',
       displayUsername: 'student1',
+      role: 'STUDENT' as const,
     },
     {
       username: 'teacher1',
@@ -17,6 +21,7 @@ async function createTestUsers() {
       name: 'Teacher User',
       email: 'teacher@example.com',
       displayUsername: 'teacher1',
+      role: 'TEACHER' as const,
     },
     {
       username: 'admin1',
@@ -24,6 +29,7 @@ async function createTestUsers() {
       name: 'Admin User',
       email: 'admin@example.com',
       displayUsername: 'admin1',
+      role: 'ADMIN' as const,
     },
     {
       username: 'system1',
@@ -31,24 +37,54 @@ async function createTestUsers() {
       name: 'System User',
       email: 'system@example.com',
       displayUsername: 'system1',
+      role: 'SYSTEM' as const,
     },
   ];
 
   for (const userData of users) {
     try {
-      const { data, error } = await authClient.signUp.email({
-        email: userData.email,
-        password: userData.password,
-        name: userData.name,
-        username: userData.username,
-        displayUsername: userData.displayUsername,
+      const hashedPassword = await hashPassword(userData.password);
+      const user = await prisma.user.upsert({
+        where: { username: userData.username },
+        update: {
+          name: userData.name,
+          email: userData.email,
+          displayUsername: userData.displayUsername,
+          role: userData.role,
+          updatedAt: new Date(),
+        },
+        create: {
+          id: `seed_${userData.username}`,
+          username: userData.username,
+          displayUsername: userData.displayUsername,
+          name: userData.name,
+          email: userData.email,
+          role: userData.role,
+          emailVerified: false,
+          image: null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       });
 
-      if (error) {
-        console.error(`Error creating user ${userData.username}:`, error);
-      } else {
-        console.log(`Created user: ${userData.username}`);
-      }
+      await prisma.account.upsert({
+        where: { id: `${user.id}_credential` },
+        update: {
+          password: hashedPassword,
+          updatedAt: new Date(),
+        },
+        create: {
+          id: `${user.id}_credential`,
+          accountId: user.username,
+          providerId: 'credential',
+          userId: user.id,
+          password: hashedPassword,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
+
+      console.log(`✓ Ensured user ${userData.username}`);
     } catch (error) {
       console.error(`Error creating user ${userData.username}:`, error);
     }
@@ -58,4 +94,11 @@ async function createTestUsers() {
   console.log('You can now login with any of these users using password: password123');
 }
 
-createTestUsers().catch(console.error);
+createTestUsers()
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

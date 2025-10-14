@@ -12,9 +12,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { useRouter } from 'next/navigation';
-
-import { authClient } from '@/lib/auth-client';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Terminal, User, GraduationCap, Shield, Cog } from 'lucide-react';
 
@@ -24,8 +21,6 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
-  const router = useRouter();
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -54,7 +49,7 @@ export function LoginForm({
 
       // Redirect to dashboard (which will redirect based on role)
       window.location.href = '/dashboard';
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.');
       setLoading(false);
     }

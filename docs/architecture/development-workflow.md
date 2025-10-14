@@ -124,7 +124,7 @@ npx prisma generate
 npx prisma db push
 
 # Seed database with initial data
-npx prisma db seed
+npm run seed
 ```
 
 > **IMPORTANT**: Environment variables must be explicitly passed to Prisma commands in some environments. If you encounter "Environment variable not found" errors, use:
@@ -176,7 +176,7 @@ npx prisma db push
 npx prisma migrate dev --name <migration-name>
 
 # Reset database (destructive)
-npx prisma migrate reset
+npm run dev:reset
 
 # View database in Prisma Studio
 npx prisma studio

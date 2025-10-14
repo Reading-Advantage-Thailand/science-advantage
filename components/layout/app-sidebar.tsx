@@ -1,28 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import {
-  IconCamera,
-  IconChartBar,
-  IconCopy,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconHome,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUserCircle,
-  IconUsers,
-} from '@tabler/icons-react';
+import { IconCamera, IconCopy, IconDashboard, IconFileAi, IconFileDescription, IconHome, IconInnerShadowTop, IconSettings, IconUserCircle } from '@tabler/icons-react';
 
-import { NavDocuments } from '@/components/nav-documents';
 import { NavMain } from '@/components/nav-main';
 import { NavSecondary } from '@/components/nav-secondary';
 import { NavUser } from '@/components/nav-user';
@@ -35,7 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { user } from '@prisma/client';
+import type { Session } from '@/lib/auth';
 
 const data = {
   navMain: [
@@ -155,7 +135,7 @@ const data = {
 };
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  user: user;
+  user: Session['user'];
 }
 
 export function AppSidebar({ user, ...props }: AppSidebarProps) {

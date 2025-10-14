@@ -1,5 +1,5 @@
 /**
- * Reusable Auth Module - Password Hashing
+ * Reusable Auth Module - Password Utilities
  * Copy this entire auth/ folder to any Next.js project
  */
 
@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs';
 const SALT_ROUNDS = 10;
 
 /**
- * Hash a plain text password
+ * Hash a password using bcrypt
  */
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, SALT_ROUNDS);
@@ -21,5 +21,10 @@ export async function verifyPassword(
   password: string,
   hash: string
 ): Promise<boolean> {
-  return bcrypt.compare(password, hash);
+  try {
+    return await bcrypt.compare(password, hash);
+  } catch {
+    // If the hash is invalid or malformed, bcrypt throws
+    return false;
+  }
 }

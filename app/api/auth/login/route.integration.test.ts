@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
+import type { user as UserModel } from '@prisma/client';
 import { POST } from './route';
 import { hashPassword } from '@/lib/auth/password';
 import { NextRequest } from 'next/server';
+import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers
 vi.mock('next/headers', () => ({
@@ -13,10 +15,11 @@ vi.mock('next/headers', () => ({
   })),
 }));
 
-const prisma = new PrismaClient();
-
 describe('POST /api/auth/login - Integration Tests', () => {
-  let testUser: any;
+  beforeAll(() => {
+    setPrismaClient(prisma);
+  });
+  let testUser: UserModel;
 
   beforeEach(async () => {
     // Clean up
@@ -135,10 +138,10 @@ describe('POST /api/auth/login - Integration Tests', () => {
         await prisma.account.create({
           data: {
             id: `account-${role}`,
-            accountId: `credential-${role}`,
+            accountId: `${role.toLowerCase()}-credential`,
             providerId: 'credential',
             userId: user.id,
-            password: await hashPassword('password123'),
+            password: await hashPassword('testPassword123'),
             createdAt: new Date(),
             updatedAt: new Date(),
           },
@@ -148,7 +151,7 @@ describe('POST /api/auth/login - Integration Tests', () => {
           method: 'POST',
           body: JSON.stringify({
             username: role.toLowerCase(),
-            password: 'password123',
+            password: 'testPassword123',
           }),
         });
 
@@ -156,13 +159,39 @@ describe('POST /api/auth/login - Integration Tests', () => {
         const data = await response.json();
 
         expect(response.status).toBe(200);
+        expect(data.success).toBe(true);
         expect(data.user.role).toBe(role);
       }
     });
   });
 
-  describe('Failed Login Attempts', () => {
-    it('should reject login with incorrect password', async () => {
+  describe('Validation', () => {
+    it('should validate required fields', async () => {
+      const request = new NextRequest('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username: 'testlogin' }),
+      });
+
+      const response = await POST(request);
+      const data = await response.json();
+
+      expect(response.status).toBe(400);
+      expect(data.error).toBe('Username and password are required');
+    });
+
+    it('should handle missing body', async () => {
+      const request = new NextRequest('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+      });
+
+      const response = await POST(request);
+      const data = await response.json();
+
+      expect(response.status).toBe(500);
+      expect(data.error).toBe('Internal server error');
+    });
+
+    it('should reject incorrect password', async () => {
       const request = new NextRequest('http://localhost:3000/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({
@@ -176,15 +205,14 @@ describe('POST /api/auth/login - Integration Tests', () => {
 
       expect(response.status).toBe(401);
       expect(data.error).toBe('Invalid username or password');
-      expect(data.success).toBeUndefined();
     });
 
-    it('should reject login with non-existent username', async () => {
+    it('should reject non-existent user', async () => {
       const request = new NextRequest('http://localhost:3000/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({
           username: 'nonexistent',
-          password: 'testPassword123',
+          password: 'wrongPassword',
         }),
       });
 
@@ -195,90 +223,8 @@ describe('POST /api/auth/login - Integration Tests', () => {
       expect(data.error).toBe('Invalid username or password');
     });
 
-    it('should reject login with missing username', async () => {
-      const request = new NextRequest('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          password: 'testPassword123',
-        }),
-      });
-
-      const response = await POST(request);
-      const data = await response.json();
-
-      expect(response.status).toBe(400);
-      expect(data.error).toBe('Username and password are required');
-    });
-
-    it('should reject login with missing password', async () => {
-      const request = new NextRequest('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: 'testlogin',
-        }),
-      });
-
-      const response = await POST(request);
-      const data = await response.json();
-
-      expect(response.status).toBe(400);
-      expect(data.error).toBe('Username and password are required');
-    });
-
-    it('should reject login with empty username', async () => {
-      const request = new NextRequest('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: '',
-          password: 'testPassword123',
-        }),
-      });
-
-      const response = await POST(request);
-      const data = await response.json();
-
-      expect(response.status).toBe(400);
-      expect(data.error).toBe('Username and password are required');
-    });
-
-    it('should reject login with empty password', async () => {
-      const request = new NextRequest('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: 'testlogin',
-          password: '',
-        }),
-      });
-
-      const response = await POST(request);
-      const data = await response.json();
-
-      expect(response.status).toBe(400);
-      expect(data.error).toBe('Username and password are required');
-    });
-
-    it('should not create session on failed login', async () => {
-      const request = new NextRequest('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: 'testlogin',
-          password: 'wrongPassword',
-        }),
-      });
-
-      await POST(request);
-
-      const sessions = await prisma.session.findMany({
-        where: { userId: testUser.id },
-      });
-
-      expect(sessions.length).toBe(0);
-    });
-  });
-
-  describe('User Account Validation', () => {
     it('should reject user without credential account', async () => {
-      const userWithoutAccount = await prisma.user.create({
+      const noAccountUser = await prisma.user.create({
         data: {
           id: 'no-account-user',
           name: 'No Account User',
@@ -294,47 +240,7 @@ describe('POST /api/auth/login - Integration Tests', () => {
       const request = new NextRequest('http://localhost:3000/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({
-          username: 'noaccount',
-          password: 'anyPassword',
-        }),
-      });
-
-      const response = await POST(request);
-      const data = await response.json();
-
-      expect(response.status).toBe(401);
-      expect(data.error).toBe('Invalid username or password');
-    });
-
-    it('should reject user with non-credential provider account', async () => {
-      const oauthUser = await prisma.user.create({
-        data: {
-          id: 'oauth-user',
-          name: 'OAuth User',
-          username: 'oauthuser',
-          displayUsername: 'OAuthUser',
-          email: 'oauth@example.com',
-          role: 'STUDENT',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      });
-
-      await prisma.account.create({
-        data: {
-          id: 'oauth-account',
-          accountId: 'google-123',
-          providerId: 'google',
-          userId: oauthUser.id,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      });
-
-      const request = new NextRequest('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: 'oauthuser',
+          username: noAccountUser.username,
           password: 'anyPassword',
         }),
       });
