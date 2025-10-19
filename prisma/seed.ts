@@ -46,6 +46,14 @@ async function main() {
       role: 'ADMIN' as const,
       gradeLevel: null,
     },
+    {
+      username: 'system_demo',
+      displayUsername: 'system_demo',
+      name: 'Demo System Admin',
+      email: 'system@demo.local',
+      role: 'SYSTEM' as const,
+      gradeLevel: null,
+    },
   ];
 
   const users: Record<string, any> = {};
@@ -374,6 +382,7 @@ async function main() {
   console.log('Username: student_demo | Password: Password123!');
   console.log('Username: teacher_demo | Password: Password123!');
   console.log('Username: admin_demo   | Password: Password123!');
+  console.log('Username: system_demo  | Password: Password123!');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
   console.log('🏫 Demo Classes:');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
