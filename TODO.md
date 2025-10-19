@@ -4,6 +4,7 @@
 
 - [ ] #52 - Story: View Dynamic Curriculum Structure (feat/52-story-view-dynamic-curriculum-structure) - Started: 2025-10-19
 - [ ] #51 - Story: View Classes on Dashboard (feat/51-story-view-classes-on-dashboard) - Started: 2025-10-19
+- [ ] #53 - Story: Access Class Join Code (feat/53-story-access-class-join-code) - Started: 2025-10-19
 - [x] #45 - Appropriately style the css for the site based on the style guidelines and logo (feat/45-appropriately-style-the-css-for-the-site) - Completed: 2025-10-08 - Tests: ✅ Passed (Unit: 100%, Build: ✅, Lint: ⚠️ Warnings)
 
 ## Completed
