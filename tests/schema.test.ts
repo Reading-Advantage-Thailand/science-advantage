@@ -3,6 +3,9 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+let joinCodeCounter = 0;
+const nextJoinCode = () => `TEST${(joinCodeCounter++).toString().padStart(4, '0')}`;
+
 describe('Advanced Data Schema Tests', () => {
   beforeEach(async () => {
     // Clean up before each test - order matters for foreign keys
@@ -93,7 +96,8 @@ describe('Advanced Data Schema Tests', () => {
           name: 'Test Thai Class',
           gradeLevel: 3,
           standardsAlignment: 'THAI',
-          teacherId: teacher.id
+          teacherId: teacher.id,
+          joinCode: nextJoinCode(),
         }
       });
 
@@ -121,7 +125,8 @@ describe('Advanced Data Schema Tests', () => {
           name: 'Test NGSS Class',
           gradeLevel: 4,
           standardsAlignment: 'NGSS',
-          teacherId: teacher.id
+          teacherId: teacher.id,
+          joinCode: nextJoinCode(),
         }
       });
 
@@ -206,7 +211,8 @@ describe('Advanced Data Schema Tests', () => {
           name: 'Test Class for Unit',
           gradeLevel: 3,
           standardsAlignment: 'NGSS',
-          teacherId: teacher.id
+          teacherId: teacher.id,
+          joinCode: nextJoinCode(),
         }
       });
 
@@ -265,7 +271,8 @@ describe('Advanced Data Schema Tests', () => {
           teacherId: teacher.id,
           students: {
             connect: [{ id: student.id }]
-          }
+          },
+          joinCode: nextJoinCode(),
         }
       });
 
@@ -342,7 +349,8 @@ describe('Advanced Data Schema Tests', () => {
           name: 'Class for Unit Relationship',
           gradeLevel: 3,
           standardsAlignment: 'NGSS',
-          teacherId: teacher.id
+          teacherId: teacher.id,
+          joinCode: nextJoinCode(),
         }
       });
 
@@ -425,7 +433,8 @@ describe('Advanced Data Schema Tests', () => {
           teacherId: teacher.id,
           students: {
             connect: [{ id: student.id }]
-          }
+          },
+          joinCode: nextJoinCode(),
         }
       });
 
@@ -499,7 +508,8 @@ describe('Advanced Data Schema Tests', () => {
             name: 'Invalid Class',
             gradeLevel: 3,
             standardsAlignment: 'NGSS',
-            teacherId: 'non-existent-teacher-id'
+            teacherId: 'non-existent-teacher-id',
+            joinCode: nextJoinCode(),
           }
         })
       ).rejects.toThrow();

@@ -2,6 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider        = "prisma-zod-generator"
+  output          = "../lib/generated/zod"
+  useMultipleFiles = true
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -79,7 +85,9 @@ enum UserRole {
 
 model Class {
   id                  String             @id @default(cuid())
+  /// @zod.string.min(3).max(100).trim()
   name                String
+  /// @zod.number.int().min(3).max(6)
   gradeLevel          Int
   standardsAlignment  StandardsAlignment
   joinCode            String             @unique
