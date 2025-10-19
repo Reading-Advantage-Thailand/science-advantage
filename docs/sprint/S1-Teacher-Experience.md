@@ -57,6 +57,8 @@ Before starting implementation, ensure these prerequisites are complete:
 
 ### Story: View Classes on Dashboard
 
+- **Status**: In Progress (Branch: feat/51-story-view-classes-on-dashboard)
+- **Started**: 2025-10-19
 - **As a teacher,** I want to see a list of all the classes I have created on my dashboard so I can get a quick overview of my teaching responsibilities.
 - **Acceptance Criteria:**
   - The teacher dashboard (`/dashboard`) displays a card for each class created by the logged-in teacher.
