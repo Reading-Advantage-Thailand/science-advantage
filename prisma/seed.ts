@@ -28,7 +28,7 @@ async function main() {
       name: 'Demo Student',
       email: 'student@demo.local',
       role: 'STUDENT' as const,
-      gradeLevel: 6,
+      gradeLevel: 3,
     },
     {
       username: 'teacher_demo',
@@ -91,290 +91,212 @@ async function main() {
     console.log(`  ✓ Created ${userData.role} user: ${userData.username}`);
   }
 
-  // 2. Seed curriculum templates (lessons and standards)
-  console.log('\n📚 Seeding curriculum data...');
+  // 2. Seed Grade 3 Thai National Standards
+  console.log('\n📚 Seeding Grade 3 Thai National Standards...');
 
-  // Define curriculum structure: Grade → Standard → Units → Lessons
-  const curriculumData = [
-    {
-      grade: 3,
-      framework: 'THAI' as StandardsAlignment,
-      units: [
-        {
-          title: 'Living Things and Their Environment',
-          titleTH: 'สิ่งมีชีวิตและสิ่งแวดล้อม',
-          description: 'Explore plants, animals, and their habitats',
-          lessons: [
-            { title: 'Parts of Plants', titleTH: 'ส่วนต่าง ๆ ของพืช' },
-            { title: 'Animal Habitats', titleTH: 'ที่อยู่อาศัยของสัตว์' },
-            { title: 'Food Chains', titleTH: 'ห่วงโซ่อาหาร' },
-          ],
-        },
-        {
-          title: 'Matter and Materials',
-          titleTH: 'สสารและวัสดุ',
-          description: 'Learn about properties of materials',
-          lessons: [
-            { title: 'Solids, Liquids, and Gases', titleTH: 'ของแข็ง ของเหลว และก๊าซ' },
-            { title: 'Changing Materials', titleTH: 'การเปลี่ยนแปลงของวัสดุ' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 4,
-      framework: 'THAI' as StandardsAlignment,
-      units: [
-        {
-          title: 'Energy and Force',
-          titleTH: 'พลังงานและแรง',
-          description: 'Understand energy transformations and forces',
-          lessons: [
-            { title: 'Types of Energy', titleTH: 'ประเภทของพลังงาน' },
-            { title: 'Push and Pull', titleTH: 'แรงดันและแรงดึง' },
-            { title: 'Simple Machines', titleTH: 'เครื่องจักรกลง่าย ๆ' },
-          ],
-        },
-        {
-          title: 'Earth and Space',
-          titleTH: 'โลกและอวกาศ',
-          description: 'Explore the Earth, moon, and solar system',
-          lessons: [
-            { title: 'Day and Night', titleTH: 'กลางวันและกลางคืน' },
-            { title: 'The Moon', titleTH: 'ดวงจันทร์' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 5,
-      framework: 'THAI' as StandardsAlignment,
-      units: [
-        {
-          title: 'Human Body Systems',
-          titleTH: 'ระบบในร่างกายมนุษย์',
-          description: 'Learn about major body systems',
-          lessons: [
-            { title: 'Digestive System', titleTH: 'ระบบย่อยอาหาร' },
-            { title: 'Circulatory System', titleTH: 'ระบบไหลเวียนเลือด' },
-            { title: 'Respiratory System', titleTH: 'ระบบหายใจ' },
-          ],
-        },
-        {
-          title: 'Ecosystems',
-          titleTH: 'ระบบนิเวศ',
-          description: 'Study interactions in ecosystems',
-          lessons: [
-            { title: 'Producers and Consumers', titleTH: 'ผู้ผลิตและผู้บริโภค' },
-            { title: 'Decomposers', titleTH: 'ผู้ย่อยสลาย' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 6,
-      framework: 'THAI' as StandardsAlignment,
-      units: [
-        {
-          title: 'Chemical Reactions',
-          titleTH: 'ปฏิกิริยาเคมี',
-          description: 'Introduction to chemical changes',
-          lessons: [
-            { title: 'Physical vs Chemical Changes', titleTH: 'การเปลี่ยนแปลงทางกายภาพและเคมี' },
-            { title: 'Acids and Bases', titleTH: 'กรดและเบส' },
-            { title: 'Combustion', titleTH: 'การเผาไหม้' },
-          ],
-        },
-        {
-          title: 'Electricity and Magnetism',
-          titleTH: 'ไฟฟ้าและแม่เหล็ก',
-          description: 'Explore electrical circuits and magnets',
-          lessons: [
-            { title: 'Electric Circuits', titleTH: 'วงจรไฟฟ้า' },
-            { title: 'Magnets', titleTH: 'แม่เหล็ก' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 3,
-      framework: 'NGSS' as StandardsAlignment,
-      units: [
-        {
-          title: 'Weather and Climate',
-          titleTH: 'สภาพอากาศและภูมิอากาศ',
-          description: 'Study weather patterns and climate',
-          lessons: [
-            { title: 'Weather vs Climate', titleTH: 'สภาพอากาศกับภูมิอากาศ' },
-            { title: 'Measuring Weather', titleTH: 'การวัดสภาพอากาศ' },
-            { title: 'Climate Zones', titleTH: 'เขตภูมิอากาศ' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 4,
-      framework: 'NGSS' as StandardsAlignment,
-      units: [
-        {
-          title: 'Energy Transfer',
-          titleTH: 'การถ่ายเทพลังงาน',
-          description: 'Learn how energy moves and transforms',
-          lessons: [
-            { title: 'Energy in Motion', titleTH: 'พลังงานในการเคลื่อนที่' },
-            { title: 'Heat Transfer', titleTH: 'การถ่ายเทความร้อน' },
-            { title: 'Light and Sound', titleTH: 'แสงและเสียง' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 5,
-      framework: 'NGSS' as StandardsAlignment,
-      units: [
-        {
-          title: 'Structure and Properties of Matter',
-          titleTH: 'โครงสร้างและคุณสมบัติของสสาร',
-          description: 'Investigate matter at the particle level',
-          lessons: [
-            { title: 'Atoms and Molecules', titleTH: 'อะตอมและโมเลกุล' },
-            { title: 'Mixtures and Solutions', titleTH: 'สารผสมและสารละลาย' },
-          ],
-        },
-      ],
-    },
-    {
-      grade: 6,
-      framework: 'NGSS' as StandardsAlignment,
-      units: [
-        {
-          title: 'Cells and Organisms',
-          titleTH: 'เซลล์และสิ่งมีชีวิต',
-          description: 'Study cells as the building blocks of life',
-          lessons: [
-            { title: 'Cell Structure', titleTH: 'โครงสร้างเซลล์' },
-            { title: 'Cell Functions', titleTH: 'หน้าที่ของเซลล์' },
-            { title: 'Photosynthesis', titleTH: 'การสังเคราะห์แสง' },
-          ],
-        },
-      ],
-    },
+  const grade3ThaiStandards = [
+    // Strand 1: Living Things & Life Processes
+    { code: 'Sc1.1-G3', description: 'Identify and describe characteristics that distinguish living from non-living things' },
+    { code: 'Sc1.2-G3', description: 'Observe and record basic life processes' },
+    { code: 'Sc1.3-G3', description: 'Compare similarities and differences among living things' },
+
+    // Strand 2: Life & the Environment
+    { code: 'Sc2.1-G3', description: 'Describe relationships between organisms and their environment' },
+    { code: 'Sc2.2-G3', description: 'Create simple food chains showing energy flow' },
+    { code: 'Sc2.3-G3', description: 'Identify ways to protect local environments' },
+
+    // Strand 3: Substances & Properties
+    { code: 'Sc3.1-G3', description: 'Observe and describe properties of common substances' },
+    { code: 'Sc3.2-G3', description: 'Identify the three states of matter in everyday objects' },
+
+    // Strand 4: Forces & Motion
+    { code: 'Sc4.1-G3', description: 'Demonstrate push and pull forces' },
+    { code: 'Sc4.2-G3', description: 'Describe how forces cause motion or changes in motion' },
+
+    // Strand 5: Energy
+    { code: 'Sc5.1-G3', description: 'Identify different forms of energy in daily life' },
+    { code: 'Sc5.2-G3', description: 'Describe basic energy sources' },
+
+    // Strand 6: Earth's Processes
+    { code: 'Sc6.1-G3', description: 'Describe major features of Earth\'s surface' },
+    { code: 'Sc6.2-G3', description: 'Observe and record weather patterns' },
+    { code: 'Sc6.3-G3', description: 'Explain the day-night cycle' },
+
+    // Strand 7: Astronomy & Space
+    { code: 'Sc7.1-G3', description: 'Describe the Sun, Earth, and Moon' },
+    { code: 'Sc7.2-G3', description: 'Explain what causes day and night' },
+    { code: 'Sc7.3-G3', description: 'Observe and record moon phases' },
+
+    // Strand 8: Nature of Science & Technology
+    { code: 'Sc8.1-G3', description: 'Use scientific process to investigate simple questions' },
+    { code: 'Sc8.2-G3', description: 'Use basic tools for observation and measurement' },
+    { code: 'Sc8.3-G3', description: 'Record observations using drawings and simple descriptions' },
   ];
 
-  const lessonsByKey: Record<string, any> = {};
-  for (const curriculumItem of curriculumData) {
-    for (let unitIdx = 0; unitIdx < curriculumItem.units.length; unitIdx++) {
-      const unitData = curriculumItem.units[unitIdx];
-      for (let lessonIdx = 0; lessonIdx < unitData.lessons.length; lessonIdx++) {
-        const lessonData = unitData.lessons[lessonIdx];
-        const lessonKey = `${curriculumItem.grade}_${curriculumItem.framework}_${unitIdx}_${lessonIdx}`;
-
-        const lesson = await prisma.lesson.upsert({
-          where: { id: lessonKey },
-          update: {},
-          create: {
-            id: lessonKey,
-            title: `${lessonData.title} / ${lessonData.titleTH}`,
-            description: `Learn about ${lessonData.title.toLowerCase()} in grade ${curriculumItem.grade}`,
-            content: `This is placeholder content for ${lessonData.title}. Full lesson content will be added later.`,
-            gradeLevel: curriculumItem.grade,
-            order: lessonIdx + 1,
-          },
-        });
-        lessonsByKey[lessonKey] = lesson;
-      }
-    }
-  }
-  console.log(`  ✓ Created ${Object.keys(lessonsByKey).length} lessons`);
-
-  // 3. Seed demo classes with curriculum units
-  console.log('\n🏫 Seeding demo classes...');
-  const teacher = users['TEACHER'];
-
-  const demoClasses = [
-    {
-      name: 'Grade 3 Science (Thai Standards)',
-      gradeLevel: 3,
-      standardsAlignment: 'THAI' as StandardsAlignment,
-      joinCode: 'DEMO3T',
-    },
-    {
-      name: 'Grade 4 Science (Thai Standards)',
-      gradeLevel: 4,
-      standardsAlignment: 'THAI' as StandardsAlignment,
-      joinCode: 'DEMO4T',
-    },
-    {
-      name: 'Grade 6 Science (NGSS)',
-      gradeLevel: 6,
-      standardsAlignment: 'NGSS' as StandardsAlignment,
-      joinCode: 'DEMO6N',
-    },
-  ];
-
-  for (const classData of demoClasses) {
-    const cls = await prisma.class.upsert({
-      where: { joinCode: classData.joinCode },
+  const standardsById: Record<string, any> = {};
+  for (const standardData of grade3ThaiStandards) {
+    const standard = await prisma.standard.upsert({
+      where: {
+        framework_code: {
+          framework: 'THAI',
+          code: standardData.code,
+        }
+      },
       update: {},
       create: {
-        ...classData,
-        teacherId: teacher.id,
+        framework: 'THAI',
+        code: standardData.code,
+        description: standardData.description,
+        gradeLevel: 3,
       },
     });
-
-    // Find curriculum units for this grade/framework and create them for the class
-    const matchingCurriculum = curriculumData.filter(
-      (c) => c.grade === classData.gradeLevel && c.framework === classData.standardsAlignment
-    );
-
-    for (const curriculumItem of matchingCurriculum) {
-      for (let unitIdx = 0; unitIdx < curriculumItem.units.length; unitIdx++) {
-        const unitData = curriculumItem.units[unitIdx];
-        const unitKey = `${cls.id}_unit_${unitIdx}`;
-
-        // Collect lesson IDs for this unit
-        const lessonIds = unitData.lessons.map((_, lessonIdx) => {
-          return `${curriculumItem.grade}_${curriculumItem.framework}_${unitIdx}_${lessonIdx}`;
-        });
-
-        await prisma.curriculumUnit.upsert({
-          where: { id: unitKey },
-          update: {},
-          create: {
-            id: unitKey,
-            title: `${unitData.title} / ${unitData.titleTH}`,
-            description: unitData.description,
-            framework: classData.standardsAlignment,
-            gradeLevel: classData.gradeLevel,
-            order: unitIdx + 1,
-            classId: cls.id,
-            lessons: {
-              connect: lessonIds.map((id) => ({ id })),
-            },
-          },
-        });
-      }
-    }
-
-    console.log(`  ✓ Created class: ${classData.name} (Join code: ${classData.joinCode})`);
+    standardsById[standardData.code] = standard;
+    console.log(`  ✓ Created standard: ${standardData.code}`);
   }
 
-  // 4. Enroll demo student in one class
-  const student = users['STUDENT'];
-  const demoClass = await prisma.class.findUnique({
-    where: { joinCode: 'DEMO6N' },
-  });
-  if (demoClass) {
-    await prisma.class.update({
-      where: { id: demoClass.id },
-      data: {
-        students: {
-          connect: { id: student.id },
+  // 3. Seed Grade 3 Lessons (Unit 1: Introduction to Science & Living Things)
+  console.log('\n📖 Seeding Grade 3 Unit 1 lessons...');
+
+  const unit1Lessons = [
+    {
+      id: 'g3-being-a-scientist',
+      title: 'Being a Scientist / การเป็นนักวิทยาศาสตร์',
+      description: 'What do scientists do? Learn about observing, questioning, predicting, testing, and concluding.',
+      order: 1,
+      standards: ['Sc8.1-G3', 'Sc8.2-G3'],
+    },
+    {
+      id: 'g3-science-safety-tools',
+      title: 'Science Safety and Tools / ความปลอดภัยและเครื่องมือทางวิทยาศาสตร์',
+      description: 'Staying safe in science and using basic tools like magnifying glass, ruler, and thermometer.',
+      order: 2,
+      standards: ['Sc8.2-G3'],
+    },
+    {
+      id: 'g3-making-observations',
+      title: 'Making Observations / การสังเกต',
+      description: 'Using our senses to observe and record what we see in detail.',
+      order: 3,
+      standards: ['Sc8.2-G3', 'Sc8.3-G3'],
+    },
+    {
+      id: 'g3-what-makes-alive',
+      title: 'What Makes Something Alive? / อะไรทำให้สิ่งมีชีวิต',
+      description: 'Seven characteristics of living things: movement, growth, reproduction, response, nutrition, respiration, excretion.',
+      order: 4,
+      standards: ['Sc1.1-G3'],
+    },
+    {
+      id: 'g3-diversity-living-things',
+      title: 'Diversity of Living Things / ความหลากหลายของสิ่งมีชีวิต',
+      description: 'Many types of living things - plants, animals, and more. Basic grouping by observable features.',
+      order: 5,
+      standards: ['Sc1.3-G3'],
+    },
+    {
+      id: 'g3-observing-living-things-lab',
+      title: 'Lab: Observing Living Things / การสังเกตสิ่งมีชีวิต',
+      description: 'Plant observation study - bean seed planting and initial observations.',
+      order: 6,
+      standards: ['Sc1.2-G3', 'Sc8.1-G3', 'Sc8.3-G3'],
+    },
+    {
+      id: 'g3-life-processes-growth',
+      title: 'Life Processes - Growth / กระบวนการชีวิต - การเติบโต',
+      description: 'How living things grow and change over time with examples from plants and animals.',
+      order: 7,
+      standards: ['Sc1.2-G3'],
+    },
+    {
+      id: 'g3-life-processes-reproduction',
+      title: 'Life Processes - Reproduction / กระบวนการชีวิต - การสืบพันธุ์',
+      description: 'How living things make more of their kind with simple examples appropriate for Grade 3.',
+      order: 8,
+      standards: ['Sc1.2-G3'],
+    },
+    {
+      id: 'g3-comparing-living-things',
+      title: 'Comparing Living Things / การเปรียบเทียบสิ่งมีชีวิต',
+      description: 'Similarities and differences among organisms and how we group living things by features.',
+      order: 9,
+      standards: ['Sc1.3-G3'],
+    },
+  ];
+
+  const lessonsById: Record<string, any> = {};
+  for (const lessonData of unit1Lessons) {
+    const lesson = await prisma.lesson.upsert({
+      where: { id: lessonData.id },
+      update: {},
+      create: {
+        id: lessonData.id,
+        title: lessonData.title,
+        description: lessonData.description,
+        content: `This is placeholder content for ${lessonData.title}. Full lesson content will be added later.`,
+        gradeLevel: 3,
+        order: lessonData.order,
+        standards: {
+          connect: lessonData.standards.map(code => ({
+            framework_code: {
+              framework: 'THAI',
+              code,
+            }
+          })),
         },
       },
     });
-    console.log(`  ✓ Enrolled demo student in ${demoClass.name}`);
+    lessonsById[lessonData.id] = lesson;
+    console.log(`  ✓ Created lesson: ${lessonData.title.split('/')[0].trim()}`);
   }
+
+  // 4. Seed demo class with curriculum units
+  console.log('\n🏫 Seeding demo class...');
+  const teacher = users['TEACHER'];
+
+  const demoClass = await prisma.class.upsert({
+    where: { joinCode: 'DEMO3T' },
+    update: {},
+    create: {
+      name: 'Grade 3 Science (Thai Standards)',
+      gradeLevel: 3,
+      standardsAlignment: 'THAI',
+      joinCode: 'DEMO3T',
+      teacherId: teacher.id,
+    },
+  });
+  console.log(`  ✓ Created class: ${demoClass.name} (Join code: ${demoClass.joinCode})`);
+
+  // 5. Create CurriculumUnit for Unit 1
+  console.log('\n📚 Creating curriculum unit...');
+  const unit1 = await prisma.curriculumUnit.upsert({
+    where: { id: `${demoClass.id}_unit_1` },
+    update: {},
+    create: {
+      id: `${demoClass.id}_unit_1`,
+      title: 'Unit 1: Introduction to Science & Living Things / หน่วยที่ 1: บทนำสู่วิทยาศาสตร์และสิ่งมีชีวิต',
+      description: 'Explore what science is and learn about living things and their characteristics.',
+      framework: 'THAI',
+      gradeLevel: 3,
+      order: 1,
+      classId: demoClass.id,
+      lessons: {
+        connect: unit1Lessons.map(l => ({ id: l.id })),
+      },
+    },
+  });
+  console.log(`  ✓ Created curriculum unit: Unit 1`);
+
+  // 6. Enroll demo student in class
+  const student = users['STUDENT'];
+  await prisma.class.update({
+    where: { id: demoClass.id },
+    data: {
+      students: {
+        connect: { id: student.id },
+      },
+    },
+  });
+  console.log(`  ✓ Enrolled demo student in ${demoClass.name}`);
 
   console.log('\n✅ Seed completed successfully!\n');
   console.log('📝 Demo Credentials:');
@@ -384,11 +306,9 @@ async function main() {
   console.log('Username: admin_demo   | Password: Password123!');
   console.log('Username: system_demo  | Password: Password123!');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
-  console.log('🏫 Demo Classes:');
+  console.log('🏫 Demo Class:');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.log('Grade 3 (Thai) - Join code: DEMO3T');
-  console.log('Grade 4 (Thai) - Join code: DEMO4T');
-  console.log('Grade 6 (NGSS) - Join code: DEMO6N');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 }
 
