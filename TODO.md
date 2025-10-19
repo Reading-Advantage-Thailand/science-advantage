@@ -7,6 +7,7 @@
 
 ## Completed
 
+- [x] #52 - Story: View Dynamic Curriculum Structure (feat/52-story-view-dynamic-curriculum-structure) - Completed: 2025-10-19 - PR: #59 (Merged) - Tests: ✅ `npm run lint`; `npm run test -- tests/api/class-detail.test.ts`
 - [x] #35 - Story: Project Initialization (feat/35-story-project-initialization) - Completed: 2025-10-08
 - [x] #36 - Story: Advanced Data Schema (feat/36-story-advanced-data-schema) - Completed: 2025-10-08 - PR: #43 (Merged) - Tests: ✅ Passed (Unit: 100%, Build: ✅, Lint: ⚠️ Warnings)
 - [x] #37 - Story: User Authentication with Role-Based Access Control (feat/37-story-user-authentication-with-role-base) - PR: #44 (Merged) - Completed: 2025-10-08 ✅ - Tests: ✅ All Passed (150/150, Unit: ✅, Integration: ✅, E2E: N/A, Lint: ⚠️ 45 warnings)
