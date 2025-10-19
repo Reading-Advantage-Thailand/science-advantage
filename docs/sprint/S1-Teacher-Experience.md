@@ -77,12 +77,13 @@ Before starting implementation, ensure these prerequisites are complete:
 
 ### Story: Access Class Join Code
 
-- **Status**: In Progress (Branch: feat/53-story-access-class-join-code)
+- **Status**: In Review (Branch: feat/53-story-access-class-join-code)
 - **Started**: 2025-10-19
 - **As a teacher,** I need to easily find and share a unique join code for each class so that my students can enroll themselves.
 - **Acceptance Criteria:**
   - The class detail page prominently displays the unique `joinCode` for the class.
   - There is a button to easily copy the join code to the clipboard.
+- **Tests**: `npm run lint`; `npx vitest run lib/utils/clipboard.test.ts` *(integration suite requires \`science_advantage_test_test\` database)*
 
 ---
 
