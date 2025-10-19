@@ -41,7 +41,7 @@ export default async function HomePage() {
             <div className="flex items-center gap-2">
               <ModeToggle />
               {session ? (
-                <Link href="/dashboard">
+                <Link href={`/${session.user.role.toLowerCase()}`}>
                   <Button
                     variant="outline"
                     size="sm"
@@ -51,7 +51,7 @@ export default async function HomePage() {
                   </Button>
                 </Link>
               ) : (
-                <Link href="/login">
+                <Link href="/signin">
                   <Button
                     size="sm"
                     className="bg-rose-600 hover:bg-rose-700 text-white"

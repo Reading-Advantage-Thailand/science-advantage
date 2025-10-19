@@ -1,24 +1,19 @@
 import { NextResponse } from 'next/server';
-import * as authSession from '@/lib/auth/session';
+import { getCurrentSession } from '@/lib/auth/session';
 
 export async function GET() {
   try {
-    const session = await authSession.getCurrentSession();
+    const session = await getCurrentSession();
 
     if (!session) {
       return NextResponse.json({ session: null }, { status: 200 });
     }
 
-    return NextResponse.json({
-      session: {
-        user: session.user,
-        expiresAt: session.expiresAt,
-      },
-    });
+    return NextResponse.json({ session });
   } catch (error) {
     console.error('Session error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'An error occurred while fetching session' },
       { status: 500 }
     );
   }

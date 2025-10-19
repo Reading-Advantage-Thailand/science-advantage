@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/prisma';
 import { verifyPassword } from '@/lib/auth/password';
 import { createSession, setSessionCookie } from '@/lib/auth/session';
-
-const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,20 +21,12 @@ export async function POST(request: NextRequest) {
       include: {
         account: {
           where: { providerId: 'credential' },
+          take: 1,
         },
       },
     });
 
-    if (!user || user.account.length === 0) {
-      return NextResponse.json(
-        { error: 'Invalid username or password' },
-        { status: 401 }
-      );
-    }
-
-    const account = user.account[0];
-
-    if (!account.password) {
+    if (!user || user.account.length === 0 || !user.account[0].password) {
       return NextResponse.json(
         { error: 'Invalid username or password' },
         { status: 401 }
@@ -44,7 +34,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify password
-    const isValidPassword = await verifyPassword(password, account.password);
+    const isValidPassword = await verifyPassword(
+      password,
+      user.account[0].password
+    );
 
     if (!isValidPassword) {
       return NextResponse.json(
@@ -61,18 +54,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      user: {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
+      user: session.user,
     });
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'An error occurred during login' },
       { status: 500 }
     );
   }
