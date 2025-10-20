@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { ClassCreateInputObjectZodSchema } from '@/lib/generated/zod/schemas/objects/ClassCreateInput.schema';
 import { ClassUpdateInputObjectZodSchema } from '@/lib/generated/zod/schemas/objects/ClassUpdateInput.schema';
+import { isValidJoinCodeFormat } from '@/lib/utils/generateJoinCode';
 
 /**
  * Base schema derived from Prisma's `ClassCreateInput` definition.
@@ -48,3 +49,22 @@ export const createClassFormSchema = z.object({
 });
 
 export type CreateClassFormInput = z.infer<typeof createClassFormSchema>;
+
+/**
+ * Validation for student-facing join class flow.
+ * Trims whitespace, uppercases the code, and verifies format.
+ */
+export const joinClassSchema = z.object({
+  joinCode: z
+    .string({
+      required_error: 'Join code is required',
+      invalid_type_error: 'Join code must be a string',
+    })
+    .trim()
+    .transform(value => value.toUpperCase())
+    .refine(isValidJoinCodeFormat, {
+      message: 'Invalid join code format',
+    }),
+});
+
+export type JoinClassInput = z.infer<typeof joinClassSchema>;

@@ -9,12 +9,22 @@
 
 ## Completed
 
-- [x] #52 - Story: View Dynamic Curriculum Structure (feat/52-story-view-dynamic-curriculum-structure) - Completed: 2025-10-19 - PR: #59 (Merged) - Tests: ✅ `npm run lint`; `npm run test -- tests/api/class-detail.test.ts`
-- [x] #35 - Story: Project Initialization (feat/35-story-project-initialization) - Completed: 2025-10-08
-- [x] #36 - Story: Advanced Data Schema (feat/36-story-advanced-data-schema) - Completed: 2025-10-08 - PR: #43 (Merged) - Tests: ✅ Passed (Unit: 100%, Build: ✅, Lint: ⚠️ Warnings)
-- [x] #37 - Story: User Authentication with Role-Based Access Control (feat/37-story-user-authentication-with-role-base) - PR: #44 (Merged) - Completed: 2025-10-08 ✅ - Tests: ✅ All Passed (150/150, Unit: ✅, Integration: ✅, E2E: N/A, Lint: ⚠️ 45 warnings)
-- [x] #45 - Appropriately style the css for the site based on the style guidelines and logo (feat/45-appropriately-style-the-css-for-the-site) - Completed: 2025-10-08 - Tests: ✅ Passed (Unit: 100%, Build: ✅, Lint: ⚠️ Warnings)
+### Sprint 1: Core Teacher Experience (S1)
+
+- [x] #52 - Story: View Dynamic Curriculum Structure - Completed: 2025-10-19 - PR: #59 (Merged)
+- [x] #51 - Story: View Classes on Dashboard - Completed: 2025-10-19
+- [x] Story: Create a Standards-Aligned Class - Completed
+- [x] Story: Access Class Join Code - Completed
+
+### Sprint 0: Foundation & Advanced Schema Setup (S0)
+
+- [x] #35 - Story: Project Initialization - Completed: 2025-10-08
+- [x] #36 - Story: Advanced Data Schema - Completed: 2025-10-08 - PR: #43 (Merged)
+- [x] #37 - Story: User Authentication with Role-Based Access Control - Completed: 2025-10-08 - PR: #44 (Merged)
+- [x] #39 - Story: Curriculum Seeding - Completed - PR: #56 (Merged)
+- [x] #45 - Appropriately style the CSS for the site - Completed: 2025-10-08
 
 ## Backlog
 
 - Issues will be added here as they are created
+- [ ] #62 - Chore: Set up Sprint 1 i18n infrastructure (Sprint 1)

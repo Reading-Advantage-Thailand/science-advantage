@@ -1,5 +1,10 @@
 # Sprint 2: Core Student Experience - Enrollment & Structured Lesson Access
 
+**Milestone**: Sprint 2: Core Student Experience
+**Epic Tracker**: #67
+**Created**: 2025-10-19
+**Issues Created**: 14 (1 epic tracker + 5 stories + 8 tasks)
+
 **Goal:** Enable students to join classes and navigate the curriculum in the same structured, standards-aligned format that the teacher sees. This sprint focuses on the student's initial experience with the platform.
 
 ---
@@ -7,6 +12,15 @@
 ## User Stories
 
 ### Story: Join a Class
+
+**Issue**: #63 - Created: 2025-10-19
+**Priority**: P1
+**Labels**: type:feature, area:frontend, area:backend
+**Status**: PR Created (Branch: feat/69-task-be-create-join-class-api-endpoint)
+**Started**: 2025-10-20
+**PR**: #78 - https://github.com/Reading-Advantage-Thailand/science-advantage/pull/78
+**Submitted**: 2025-10-20
+**Reviewers**: _(pending)_
 
 - **As a student,** I want to join a class using a unique join code provided by my teacher so I can get access to the course materials.
 - **Acceptance Criteria:**
@@ -16,7 +30,15 @@
   - The student is redirected to their dashboard, where the newly joined class now appears.
   - The system provides a clear error message for invalid or non-existent join codes.
 
+**Tasks:**
+- #69: Task: BE - Create join class API endpoint
+- #70: Task: FE - Create join class form
+
 ### Story: View Enrolled Classes
+
+**Issue**: #64 - Created: 2025-10-19
+**Priority**: P1
+**Labels**: type:feature, area:frontend
 
 - **As a student,** I want to see all the classes I am enrolled in on my dashboard so I can easily access them.
 - **Acceptance Criteria:**
@@ -24,7 +46,15 @@
   - Each class card shows the `Class Name`, `Grade Level`, and the `Teacher's Name`.
   - Clicking a class card navigates the student into the class view.
 
+**Tasks:**
+- #71: Task: BE - Create enrolled classes API endpoint
+- #72: Task: FE - Display enrolled classes
+
 ### Story: Navigate a Standards-Aligned Curriculum
+
+**Issue**: #65 - Created: 2025-10-19
+**Priority**: P1
+**Labels**: type:feature, area:frontend, area:backend
 
 - **As a student,** when I enter a class, I want to see the curriculum organized into units and lessons so I can easily find what I need to work on.
 - **Acceptance Criteria:**
@@ -32,13 +62,39 @@
   - The application uses the class's `standardsAlignment` and `gradeLevel` to render the correct sequence of `CurriculumUnits` and the `Lessons` within them.
   - The UI clearly indicates which lessons have been completed or started (initial implementation can be simple placeholders).
 
+**Tasks:**
+- #73: Task: BE - Create curriculum API endpoint
+- #74: Task: FE - Display curriculum
+
 ### Story: View Lesson Content and Standards
+
+**Issue**: #66 - Created: 2025-10-19
+**Priority**: P2
+**Labels**: type:feature, area:frontend, area:backend
 
 - **As a student,** I want to be able to open a lesson and read its content, and also see which educational standards it covers.
 - **Acceptance Criteria:**
   - Clicking on a lesson title navigates to the lesson viewer page (e.g., `/classes/[classId]/lessons/[lessonSlug]`).
   - The lesson viewer displays the main content of the lesson (e.g., the reading passage).
   - A section on the page clearly lists the specific `Standard(s)` that the lesson fulfills (e.g., "Covers Standard: NGSS 3-LS1-1"). This data is pulled from the lesson's relationship with the `Standard` model.
+
+**Tasks:**
+- #75: Task: BE - Create lesson content API endpoint
+- #76: Task: FE - Display lesson content
+
+### Story: Student Settings Page
+
+**Issue**: #68 - Created: 2025-10-19
+**Priority**: P2
+**Labels**: type:feature, area:frontend
+
+- **As a student,** I want a simple settings page where I can manage my account details.
+- **Acceptance Criteria:**
+  - A "Settings" link in the user menu navigates to `/settings`.
+  - The settings page displays the student's name and email.
+  - The settings page has a placeholder for future settings, such as "Notification Preferences" and "Language Preferences".
+
+**Note:** This story uses dynamic form views based on Zod schemas; no separate tasks needed.
 
 ---
 
