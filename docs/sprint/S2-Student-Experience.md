@@ -16,14 +16,15 @@
 **Issue**: #63 - Created: 2025-10-19
 **Priority**: P1
 **Labels**: type:feature, area:frontend, area:backend
-**Status**: In Progress (Branch: feat/70-task-fe-create-join-class-form)
+**Status**: Completed ✅
 **Started**: 2025-10-20
+**Completed**: 2025-10-21
 **PR**: #78 - https://github.com/Reading-Advantage-Thailand/science-advantage/pull/78
 **Submitted**: 2025-10-20
 **Merged**: 2025-10-20
 **Merge Commit**: dc95580864d0fcb944bf0568ab7c1ff1a80f48fb
 **Reviewers**: _(pending)_
-**Notes**: Backend join endpoint live (#69); frontend join form (#70) integrating against `POST /api/classes/join` is in progress.
+**Notes**: Backend join endpoint live (#69); frontend join form (#70) integrated and navigation now lands on a student class placeholder view until Story #65 ships.
 
 - **As a student,** I want to join a class using a unique join code provided by my teacher so I can get access to the course materials.
 - **Acceptance Criteria:**
@@ -48,7 +49,7 @@
 **Started**: 2025-10-20
 **Completed**: 2025-10-20
 **Reviewers**: @bodangren
-**Notes**: Backend endpoint delivered via PR #80; frontend dashboard now consumes it with loading, empty, and error states for enrolled classes.
+**Notes**: Backend endpoint delivered via PR #80; frontend dashboard now consumes it with loading, empty, and error states for enrolled classes. Placeholder student class view covers navigation until Story #65 delivers the full experience.
 
 - **As a student,** I want to see all the classes I am enrolled in on my dashboard so I can easily access them.
 - **Acceptance Criteria:**

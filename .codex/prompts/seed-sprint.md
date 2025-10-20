@@ -1,4 +1,4 @@
-# Seed Sprint Command
+# seed-sprint
 
 Create GitHub issues for the next sprint based on sprint markdown files (Scrum Master command).
 

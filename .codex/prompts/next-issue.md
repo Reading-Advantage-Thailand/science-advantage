@@ -1,4 +1,4 @@
-# Next Issue Command
+# next-issue
 
 Select and start work on the next available issue from your assigned GitHub issues.
 

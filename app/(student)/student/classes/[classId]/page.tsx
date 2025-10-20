@@ -25,12 +25,16 @@ export default async function StudentClassPage({
 
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <h1 className="text-2xl font-semibold text-gray-900">
-          Class view coming soon
+          Class overview coming soon
         </h1>
         <p className="mt-2 text-gray-600">
-          You&apos;re viewing class{' '}
+          You&apos;re looking at class{' '}
           <span className="font-semibold text-gray-900">{classId}</span>. The
-          full curriculum view will be available in an upcoming update.
+          full student curriculum experience will ship with Sprint 2 Story #65.
+        </p>
+        <p className="mt-3 text-sm text-gray-500">
+          Until then, you can head back to your dashboard to join additional
+          classes or review your enrolled courses.
         </p>
       </div>
     </div>

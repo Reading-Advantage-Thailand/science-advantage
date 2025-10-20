@@ -1,4 +1,4 @@
-# Close Issue Command
+# close-issue
 
 Clean up after a merged PR and update all tracking files.
 

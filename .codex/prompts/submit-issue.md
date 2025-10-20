@@ -1,4 +1,4 @@
-# Submit Issue Command
+# submit-issue
 
 Complete work on the current issue and create a pull request with proper formatting and auto-merge.
 

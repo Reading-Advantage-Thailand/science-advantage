@@ -1,5 +1,4 @@
-# Test Issue Command
-
+# test-issue
 Run comprehensive testing for the current issue including linting, unit tests, integration tests, and e2e tests.
 
 ## Steps to Execute:
