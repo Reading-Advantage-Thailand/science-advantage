@@ -229,9 +229,13 @@ export function JoinCodePanel({
               isRevealed ? "text-emerald-700" : "text-emerald-600"
             )}
             aria-live="polite"
-            aria-label={isRevealed ? joinCode : t.revealPlaceholder}
+            aria-label={
+              isRevealed
+                ? joinCode ?? t.revealPlaceholder
+                : t.revealPlaceholder
+            }
           >
-            {isRevealed ? joinCode : "••••••"}
+            {isRevealed ? joinCode ?? t.revealPlaceholder : "••••••"}
           </span>
           <div className="flex items-center gap-2">
             <Button
