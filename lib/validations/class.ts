@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { ClassCreateInputObjectZodSchema } from '@/lib/generated/zod/schemas/objects/ClassCreateInput.schema';
 import { ClassUpdateInputObjectZodSchema } from '@/lib/generated/zod/schemas/objects/ClassUpdateInput.schema';
-import { isValidJoinCodeFormat } from '@/lib/utils/generateJoinCode';
+import { isValidJoinCodeFormat } from '@/lib/utils/join-code-format';
 
 /**
  * Base schema derived from Prisma's `ClassCreateInput` definition.
