@@ -42,9 +42,13 @@
 **Issue**: #64 - Created: 2025-10-19
 **Priority**: P1
 **Labels**: type:feature, area:frontend
-**Status**: In Progress (Branch: feat/72-task-fe-display-enrolled-classes)
+**Status**: Completed ✅
+**PR**: #81 - https://github.com/Reading-Advantage-Thailand/science-advantage/pull/81
+**Merge Commit**: 17a3ad8a1978a26bbbee7fbd60cf6af2c05f1f05
 **Started**: 2025-10-20
-**Notes**: Backend endpoint delivered via PR #80 (2bd02ecbc8b4f2e91cbe329d10d69040c1fcaa1b); final frontend display work tracked in #72.
+**Completed**: 2025-10-20
+**Reviewers**: @bodangren
+**Notes**: Backend endpoint delivered via PR #80; frontend dashboard now consumes it with loading, empty, and error states for enrolled classes.
 
 - **As a student,** I want to see all the classes I am enrolled in on my dashboard so I can easily access them.
 - **Acceptance Criteria:**

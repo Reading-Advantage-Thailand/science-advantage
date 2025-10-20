@@ -2,7 +2,6 @@
 
 ## In Progress
 
-- [ ] #72 - Task: FE - Display enrolled classes (feat/72-task-fe-display-enrolled-classes) - Started: 2025-10-20
 - [ ] #52 - Story: View Dynamic Curriculum Structure (feat/52-story-view-dynamic-curriculum-structure) - Started: 2025-10-19
 - [ ] #51 - Story: View Classes on Dashboard (feat/51-story-view-classes-on-dashboard) - Started: 2025-10-19
 - [ ] #53 - Story: Access Class Join Code (feat/53-story-access-class-join-code) - Started: 2025-10-19
@@ -17,6 +16,7 @@
 
 ### Sprint 2: Core Student Experience (S2)
 
+- [x] #72 - Task: FE - Display enrolled classes - PR: #81 - Completed: 2025-10-20 ✅
 - [x] #71 - Task: BE - Create enrolled classes API endpoint - PR: #80 - Completed: 2025-10-20 ✅
 - [x] #69 - Task: BE - Create join class API endpoint - PR: #78 - Completed: 2025-10-20 ✅
 
