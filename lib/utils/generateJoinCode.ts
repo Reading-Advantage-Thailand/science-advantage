@@ -5,11 +5,16 @@
 
 import { PrismaClient } from '@prisma/client';
 
+import {
+  JOIN_CODE_CHARSET,
+  JOIN_CODE_LENGTH,
+  isValidJoinCodeFormat,
+} from '@/lib/utils/join-code-format';
+
 type PrismaClassDelegate = Pick<PrismaClient, 'class'>;
 
-// Characters excluding ambiguous ones: I, O, 0, 1
-const CHARSET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-const CODE_LENGTH = 6;
+const CHARSET = JOIN_CODE_CHARSET;
+const CODE_LENGTH = JOIN_CODE_LENGTH;
 const MAX_RETRIES = 5;
 
 /**
@@ -61,15 +66,4 @@ export async function generateUniqueJoinCode(
   throw new Error('Unexpected error in join code generation');
 }
 
-/**
- * Validate join code format
- * Returns true if code matches expected format
- */
-export function isValidJoinCodeFormat(code: string): boolean {
-  if (code.length !== CODE_LENGTH) {
-    return false;
-  }
-
-  // Check all characters are in charset
-  return code.split('').every(char => CHARSET.includes(char));
-}
+export { isValidJoinCodeFormat };

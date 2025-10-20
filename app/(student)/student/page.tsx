@@ -1,5 +1,12 @@
 import { requireRole } from '@/lib/auth/server';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { JoinClassForm } from '@/components/features/student/join-class-form';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export default async function StudentPage() {
   const session = await requireRole('STUDENT');
@@ -22,7 +29,12 @@ export default async function StudentPage() {
             <CardDescription>Classes you&apos;re enrolled in</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">No classes yet. Join a class using a class code.</p>
+            <div className="space-y-4">
+              <p className="text-gray-500">
+                No classes yet. Join a class using a code from your teacher.
+              </p>
+              <JoinClassForm />
+            </div>
           </CardContent>
         </Card>
 

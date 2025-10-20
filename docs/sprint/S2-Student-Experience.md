@@ -16,11 +16,14 @@
 **Issue**: #63 - Created: 2025-10-19
 **Priority**: P1
 **Labels**: type:feature, area:frontend, area:backend
-**Status**: PR Created (Branch: feat/69-task-be-create-join-class-api-endpoint)
+**Status**: In Progress (Branch: feat/70-task-fe-create-join-class-form)
 **Started**: 2025-10-20
 **PR**: #78 - https://github.com/Reading-Advantage-Thailand/science-advantage/pull/78
 **Submitted**: 2025-10-20
+**Merged**: 2025-10-20
+**Merge Commit**: dc95580864d0fcb944bf0568ab7c1ff1a80f48fb
 **Reviewers**: _(pending)_
+**Notes**: Backend join endpoint live (#69); frontend join form (#70) integrating against `POST /api/classes/join` is in progress.
 
 - **As a student,** I want to join a class using a unique join code provided by my teacher so I can get access to the course materials.
 - **Acceptance Criteria:**
