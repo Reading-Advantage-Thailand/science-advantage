@@ -15,7 +15,11 @@
 - [ ] #66 - Story: View Lesson Content and Standards (P2)
 
 **Active Tasks**:
-- [ ] #69 - Task: BE - Create join class API endpoint (feat/69-task-be-create-join-class-api-endpoint) - Started: 2025-10-20
+- [ ] *(none currently)*
+
+## In Review
+
+- [ ] #69 - Task: BE - Create join class API endpoint - PR: #78 (In Review) - Submitted: 2025-10-20
 
 ## Completed
 
