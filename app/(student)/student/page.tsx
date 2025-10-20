@@ -1,5 +1,6 @@
 import { requireRole } from '@/lib/auth/server';
 import { JoinClassForm } from '@/components/features/student/join-class-form';
+import { StudentClassesSection } from '@/components/features/student/student-classes-section';
 import {
   Card,
   CardContent,
@@ -28,12 +29,20 @@ export default async function StudentPage() {
             <CardTitle>My Classes</CardTitle>
             <CardDescription>Classes you&apos;re enrolled in</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <p className="text-gray-500">
-                No classes yet. Join a class using a code from your teacher.
-              </p>
-              <JoinClassForm />
+          <CardContent className="space-y-6">
+            <StudentClassesSection />
+            <div className="space-y-3 rounded-lg border border-dashed border-gray-200 bg-gray-50 p-4">
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900">
+                  Join another class
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Enter the 6-character code from your teacher.
+                </p>
+              </div>
+              <div className="rounded-lg bg-white p-4 shadow-sm">
+                <JoinClassForm />
+              </div>
             </div>
           </CardContent>
         </Card>

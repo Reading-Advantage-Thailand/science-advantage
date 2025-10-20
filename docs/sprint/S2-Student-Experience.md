@@ -42,6 +42,9 @@
 **Issue**: #64 - Created: 2025-10-19
 **Priority**: P1
 **Labels**: type:feature, area:frontend
+**Status**: In Progress (Branch: feat/72-task-fe-display-enrolled-classes)
+**Started**: 2025-10-20
+**Notes**: Backend endpoint delivered via PR #80 (2bd02ecbc8b4f2e91cbe329d10d69040c1fcaa1b); final frontend display work tracked in #72.
 
 - **As a student,** I want to see all the classes I am enrolled in on my dashboard so I can easily access them.
 - **Acceptance Criteria:**
