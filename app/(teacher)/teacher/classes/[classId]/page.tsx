@@ -6,7 +6,7 @@ import { getClassDetailWithCurriculum } from '@/lib/services/classes/get-class-d
 import { ClassDetailHeader } from '@/components/features/teacher/class-detail/class-detail-header';
 import { CurriculumAccordion } from '@/components/features/teacher/class-detail/curriculum-accordion';
 import { ClassSnapshotPanel } from '@/components/features/teacher/class-detail/class-snapshot-panel';
-import { JoinCodePanel } from '@/components/features/classes/join-code-panel';
+import { JoinCodePanel } from '@/components/features/teacher/class-detail/join-code-panel';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getStandardsAlignmentLabel } from '@/lib/utils/class-format';
 
@@ -45,6 +45,11 @@ export default async function TeacherClassDetailPage({ params }: { params: Route
   const isAdmin = hasRole(session, 'ADMIN');
 
   if (!isTeacherOwner && !isAdmin) {
+    console.warn('Unauthorized class detail access attempt', {
+      classId,
+      viewerId: session.user.id,
+      viewerRole: session.user.role,
+    });
     return notFound();
   }
 
@@ -80,7 +85,12 @@ export default async function TeacherClassDetailPage({ params }: { params: Route
         </Card>
 
         <div className="flex flex-col gap-6">
-          <JoinCodePanel joinCode={classDetail.joinCode} classTitle={classDetail.name} />
+          <JoinCodePanel
+            classId={classDetail.id}
+            classTitle={classDetail.name}
+            joinCode={classDetail.joinCode}
+            isOwner={isTeacherOwner || isAdmin}
+          />
           <ClassSnapshotPanel
             gradeLevel={classDetail.gradeLevel}
             standardsAlignment={classDetail.standardsAlignment}

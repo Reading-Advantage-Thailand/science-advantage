@@ -69,7 +69,7 @@ Before starting implementation, ensure these prerequisites are complete:
 
 - **As a teacher,** when I view a specific class, I want to see the curriculum presented as an ordered list of units so I can understand the scope and sequence of the course.
 - **Acceptance Criteria:**
-  - The class detail page (e.g., `/classes/[classId]`) is a protected route.
+  - The class detail page (e.g., `/teacher/classes/[classId]` served from `app/(teacher)/teacher/classes/[classId]/page.tsx`) is a protected route.
   - The page fetches the `Class` details, including its `standardsAlignment` and `gradeLevel`.
   - The application logic uses these two properties to query for the corresponding `CurriculumUnit`s.
   - The page displays a list of `CurriculumUnit` titles, sorted by their `order` field.
@@ -77,10 +77,13 @@ Before starting implementation, ensure these prerequisites are complete:
 
 ### Story: Access Class Join Code
 
+- **Status**: In Review (Branch: feat/53-story-access-class-join-code)
+- **Started**: 2025-10-19
 - **As a teacher,** I need to easily find and share a unique join code for each class so that my students can enroll themselves.
 - **Acceptance Criteria:**
   - The class detail page prominently displays the unique `joinCode` for the class.
   - There is a button to easily copy the join code to the clipboard.
+- **Tests**: `npm run lint`; `npx vitest run lib/utils/clipboard.test.ts` *(integration suite requires \`science_advantage_test_test\` database)*
 
 ---
 
@@ -101,7 +104,7 @@ Before starting implementation, ensure these prerequisites are complete:
 ## Technical Notes
 
 - This sprint requires building the first set of API routes under `app/api/classes/`.
-- Frontend components will be built in `components/features/dashboard/` and `components/features/classes/`.
+- Frontend components will be built in `components/features/teacher/` (teacher experience) and `components/features/student/`.
 - Significant focus will be on the backend logic that correctly queries and assembles the curriculum structure based on the class's alignment.
 
 ## Definition of Done

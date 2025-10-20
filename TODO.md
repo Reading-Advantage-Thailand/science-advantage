@@ -2,24 +2,10 @@
 
 ## In Progress
 
-### Sprint 2: Core Student Experience (S2)
-
-**Started**: 2025-10-19
-**Milestone**: Sprint 2: Core Student Experience
-**Epic Tracker**: #67
-
-**Active Stories**:
-- [ ] #63 - Story: Join a Class (P1)
-- [ ] #64 - Story: View Enrolled Classes (P1)
-- [ ] #65 - Story: Navigate a Standards-Aligned Curriculum (P1)
-- [ ] #66 - Story: View Lesson Content and Standards (P2)
-
-**Active Tasks**:
-- [ ] *(none currently)*
-
-## In Review
-
-- [ ] #69 - Task: BE - Create join class API endpoint - PR: #78 (In Review) - Submitted: 2025-10-20
+- [ ] #52 - Story: View Dynamic Curriculum Structure (feat/52-story-view-dynamic-curriculum-structure) - Started: 2025-10-19
+- [ ] #51 - Story: View Classes on Dashboard (feat/51-story-view-classes-on-dashboard) - Started: 2025-10-19
+- [ ] #53 - Story: Access Class Join Code (feat/53-story-access-class-join-code) - Started: 2025-10-19
+- [x] #45 - Appropriately style the css for the site based on the style guidelines and logo (feat/45-appropriately-style-the-css-for-the-site) - Completed: 2025-10-08 - Tests: ✅ Passed (Unit: 100%, Build: ✅, Lint: ⚠️ Warnings)
 
 ## Completed
 
