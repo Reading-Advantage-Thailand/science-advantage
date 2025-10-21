@@ -2,15 +2,17 @@
 
 ## In Progress
 
-- [ ] #76 - Task: FE - Display lesson content (feat/76-task-fe-display-lesson-content) - Started: 2025-10-21
+*(none currently)*
 
 ## In Review
 
-- [ ] *(none currently)*
+*(none currently)*
 
 ## Completed
 
 ### Sprint 2: Core Student Experience (S2)
+- [x] #76 - Task: FE - Display lesson content - PR: #87 - Completed: 2025-10-21 ✅
+- [x] #75 - Task: BE - Create lesson content API endpoint - PR: #84 - Completed: 2025-10-21 ✅
 - [x] #74 - Task: FE - Display curriculum - PR: #83 - Completed: 2025-10-21 ✅
 - [x] #73 - Task: BE - Create curriculum API endpoint - PR: #82 - Completed: 2025-10-21 ✅
 - [x] #64 - Story: View Enrolled Classes - PR: #80, #81 - Completed: 2025-10-21 ✅
