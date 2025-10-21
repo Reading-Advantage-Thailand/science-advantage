@@ -10,9 +10,13 @@
 
 ## Completed
 
-### Sprint 2: Core Student Experience (S2)
+### Sprint 2: Core Student Experience (S2) - COMPLETE ✅
+- [x] #67 - Epic: Core Student Experience - Sprint 2 Tracker - Completed: 2025-10-21 ✅
 - [x] #68 - Story: Student Settings Page - PR: #88 - Completed: 2025-10-21 ✅
 - [x] #66 - Story: View Lesson Content and Standards - Completed: 2025-10-21 ✅
+- [x] #65 - Story: Navigate a Standards-Aligned Curriculum - Completed: 2025-10-21 ✅
+- [x] #64 - Story: View Enrolled Classes - Completed: 2025-10-21 ✅
+- [x] #63 - Story: Join a Class - Completed: 2025-10-21 ✅
 - [x] #76 - Task: FE - Display lesson content - PR: #87 - Completed: 2025-10-21 ✅
 - [x] #75 - Task: BE - Create lesson content API endpoint - PR: #84 - Completed: 2025-10-21 ✅
 - [x] #74 - Task: FE - Display curriculum - PR: #83 - Completed: 2025-10-21 ✅
