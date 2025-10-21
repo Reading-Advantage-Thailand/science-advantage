@@ -66,6 +66,8 @@
 **Issue**: #65 - Created: 2025-10-19
 **Priority**: P1
 **Labels**: type:feature, area:frontend, area:backend
+**Status**: In Progress
+**Started**: 2025-10-21
 
 - **As a student,** when I enter a class, I want to see the curriculum organized into units and lessons so I can easily find what I need to work on.
 - **Acceptance Criteria:**
@@ -74,7 +76,7 @@
   - The UI clearly indicates which lessons have been completed or started (initial implementation can be simple placeholders).
 
 **Tasks:**
-- #73: Task: BE - Create curriculum API endpoint
+- #73: Task: BE - Create curriculum API endpoint (Branch: feat/73-task-be-create-curriculum-api-endpoint, Status: Complete, Started: 2025-10-21, Completed: 2025-10-21, PR: #82)
 - #74: Task: FE - Display curriculum
 
 ### Story: View Lesson Content and Standards
