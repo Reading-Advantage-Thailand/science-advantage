@@ -1,30 +1,45 @@
-Title
+## Summary
 
-- Short, imperative summary (e.g., "Add lesson viewer completion toggle").
+Implements: [Issue title]
 
-Linked Issue
+## Spec Changes
 
-- Closes #<number>
+Updated: `docs/specs/[capability]/spec.md`
+Change Type: **[ADDED/MODIFIED/REMOVED]** Requirements
 
-Summary
+### Spec Deltas
 
-- What changed and why.
+[Detailed spec changes]
 
-Acceptance Criteria
+## Implementation Details
 
-- Bullet the criteria and note how each is satisfied.
+[Brief description of implementation approach]
 
-Test Plan (TDD)
+## Testing
 
-- Unit: commands run locally: `npm run test`
-- Integration: `npm run test:integration` and notes/screenshots of results
-- E2E (if applicable): `npm run test:e2e` and results
-- Evidence: paste logs or attach screenshots of passing runs
+- [ ] Unit tests passing
+- [ ] Integration tests passing
+- [ ] E2E tests passing
+- [ ] Linting passing
+- [ ] Build successful
 
-Checklist
+## Checklist
 
-- [ ] Tests added/updated (unit, integration, e2e)
-- [ ] Red → Green → Refactor completed
-- [ ] Lint + typecheck clean (`npm run lint`)
-- [ ] Docs updated (`docs/` and README references)
-- [ ] No secrets committed; migrations reviewed if present
+- [ ] Implementation complete
+- [ ] Tests passing
+- [ ] Specs updated in docs/specs/
+- [ ] Acceptance criteria met
+- [ ] Code reviewed (self-review)
+- [ ] Breaking changes documented
+
+## Breaking Changes
+
+[List any breaking changes or note "None"]
+
+## Migration Guide
+
+[If breaking changes, provide migration guide]
+
+---
+
+Closes #[issue-number]

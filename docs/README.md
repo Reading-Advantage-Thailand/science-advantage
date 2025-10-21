@@ -1,97 +1,32 @@
-# Science Advantage Documentation
+# Science Advantage Docs
 
-This directory contains comprehensive documentation for the Science Advantage platform development.
+Documentation follows the spec-first workflow. Use this index to locate the source
+of truth for product context, requirements, and delivery planning.
 
-## 📚 Documentation Structure
+## Core References
 
-### **🤖 BMAD Development Process**
+- **Project Brief:** `project-brief/` (and summary `project-brief.md`)
+- **Product Requirements:** `prd/` (and overview `prd.md`)
+- **Capability Specs:** `specs/`
+- **Sprint Plans & History:** `sprint/`
+- **Migration Report:** `MIGRATION-REPORT.md`
 
-- [BMAD Agent Assignments](bmad-agent-assignments.md) - Detailed agent roles and responsibilities
-- [BMAD Quick Reference](bmad-quick-reference.md) - Agent commands and workflows
+## Working with Specs
 
-### **📋 Product & Planning**
+- Add or update specs in `docs/specs/<capability>/spec.md`.
+- Each spec should capture requirements, scenarios, and PRD references.
+- Architecture notes or historical context should be promoted into specs when
+  relevant; otherwise keep them in the archive.
 
-- [PRD](prd/) - Product Requirements Document
-- [Project Brief](project-brief/) - Project overview and specifications
-- [Sprint Planning](sprint/) - Current and future sprint details
+## Legacy Archive
 
-### **🏗️ Architecture**
+Earlier documentation, legacy workflow notes, and research artifacts live in
+`docs/archive/`. Consult the archive when migrating information, but avoid linking
+to it directly from new specs—bring the important details forward instead.
 
-- [Architecture Documentation](architecture/) - System design and technical specifications
-- [Frontend Specifications](front-end-spec/) - UI/UX design and component specifications
+## Related Assets
 
-### **📊 Research & Analysis**
-
-- [Competitor Analysis](competitor-analysis/) - Market research and competitive landscape
-
----
-
-## 🚀 Quick Start for Developers
-
-1. **Read the BMAD Agent Assignments** to understand the development process
-2. **Check the current Sprint** for active work items
-3. **Review Architecture** before implementing features
-4. **Follow the Quality Process** using BMAD agents
-
----
-
-## 🤖 BMAD Agent Overview
-
-This project uses BMAD-METHOD with specialized AI agents:
-
-| Agent                   | Role                      | Primary Commands                  |
-| ----------------------- | ------------------------- | --------------------------------- |
-| **dev (James)**         | Full-stack implementation | `*develop-story`, `*run-tests`    |
-| **architect (Winston)** | System design             | `*create-full-stack-architecture` |
-| **qa (Quinn)**          | Quality assurance         | `*review`, `*gate`                |
-| **ux-expert (Sally)**   | UI/UX design              | `*create-front-end-spec`          |
-| **po (Sarah)**          | Product ownership         | `*validate-story-draft`           |
-| **sm (Bob)**            | Scrum process             | `*draft`, `*story-checklist`      |
-
-See [BMAD Quick Reference](bmad-quick-reference.md) for detailed commands.
-
----
-
-## 📋 Current Status
-
-### **Phase 0: Infrastructure Compliance** ✅ COMPLETED
-
-- Core infrastructure files created
-- Type-safe environment variables implemented
-- Centralized API client and error handling established
-
-### **Phase 1: Foundation & Core Curriculum** 🔄 IN PROGRESS
-
-- Sprint S0: Skeleton + Auth active
-- App skeleton, authentication, and core features being implemented
-
-### **Upcoming Phases**
-
-- Phase 2: Intelligence & Engagement (Epics 3 & 4)
-- Phase 3: Mobility, Analytics & Advanced Features (Epics 5, 6, & 7)
-
----
-
-## 🔗 Important Links
-
-- **Main Project README**: [../README.md](../README.md)
-- **Implementation Roadmap**: [../TODO.md](../TODO.md)
-- **GitHub Issues**: Project issue tracking
-- **BMAD Framework**: [AGENTS.md](../AGENTS.md)
-
----
-
-## 📝 Contributing to Documentation
-
-When updating documentation:
-
-1. Keep agent assignments current
-2. Update architecture docs when making changes
-3. Document new processes in the quick reference
-4. Maintain consistency across all documentation files
-
----
-
-**Last Updated**: 2025-01-04  
-**Maintained by**: BMAD Agent Team  
-**Version**: 1.0
+- Root workflow guidance: `../CLAUDE.md`
+- TODO / roadmap snapshot: `../TODO.md`
+- Tests and implementation specifics: see repo directories referenced in
+  the root `README.md`.
