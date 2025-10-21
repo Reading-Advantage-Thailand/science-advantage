@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Loader2, CheckCircle2, Circle } from 'lucide-react';
@@ -38,6 +39,7 @@ interface StudentCurriculumViewProps {
 }
 
 export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
+  const router = useRouter();
   const [curriculum, setCurriculum] = useState<CurriculumData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,6 +134,7 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
                   {unit.lessons.map(lesson => (
                     <li
                       key={lesson.id}
+                      onClick={() => router.push(`/student/classes/${classId}/lessons/${lesson.slug}`)}
                       className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm transition hover:border-rose-200 hover:shadow-md cursor-pointer"
                     >
                       <div className="flex items-start justify-between gap-3">
