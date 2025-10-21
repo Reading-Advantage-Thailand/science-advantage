@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] #75 - Task: BE - Create lesson content API endpoint (feat/75-task-be-create-lesson-content-api-endpoi) - Started: 2025-10-21
+- [ ] #76 - Task: FE - Display lesson content (feat/76-task-fe-display-lesson-content) - Started: 2025-10-21
 
 ## In Review
 
