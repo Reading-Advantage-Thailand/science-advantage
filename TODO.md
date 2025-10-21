@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] #73 - Task: BE - Create curriculum API endpoint (feat/73-task-be-create-curriculum-api-endpoint) - Started: 2025-10-21
+- [ ] *(none currently)*
 
 ## In Review
 
@@ -11,6 +11,7 @@
 ## Completed
 
 ### Sprint 2: Core Student Experience (S2)
+- [x] #73 - Task: BE - Create curriculum API endpoint - PR: #82 - Completed: 2025-10-21 ✅
 - [x] #64 - Story: View Enrolled Classes - PR: #80, #81 - Completed: 2025-10-21 ✅
 - [x] #63 - Story: Join a Class - PR: #78, #79 - Completed: 2025-10-21 ✅
 - [x] #70 - Task: FE - Create join class form - PR: #79 - Completed: 2025-10-20 ✅
