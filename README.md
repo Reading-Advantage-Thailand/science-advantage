@@ -1,163 +1,84 @@
-# Science Advantage - The Future of K-12 Science Education
+# Science Advantage
 
-🚀 **Coming 2025** - A comprehensive, standards-aligned science curriculum platform for K-12 education with NGSS alignment, adaptive learning, and 180-day structured instruction.
+Science Advantage is the K-12 science learning experience for the Advantage
+ecosystem. This repository houses the Next.js application, Prisma schema, and the
+spec-first documentation that guides product development.
 
-![Science Advantage](public/science-advantage.png)
+## Quick Links
 
-## 🎯 Mission
+- Product Brief: `docs/project-brief.md`
+- Product Requirements (PRD): `docs/prd.md`
+- Capability Specs: `docs/specs/`
+- Sprint Plans: `docs/sprint/`
+- Migration Status: `docs/MIGRATION-REPORT.md`
+- Workflow Guide: `CLAUDE.md`
 
-Transforming K-12 science education through innovative technology that brings together cutting-edge digital learning with proven educational methods, creating an unparalleled learning experience for students and teachers alike.
-
-## 📌 Core Features
-
-### 📚 Comprehensive Curriculum Coverage
-
-- ✅ **Full K-12 science curriculum** aligned with NGSS disciplinary core ideas
-- ✅ **180 days of structured instruction** with grade-appropriate content progression
-- ✅ **Cross-curricular connections** integrating real-world scientific discoveries
-- ✅ **Standards-aligned assessments** with automated feedback systems
-
-### 🧠 Adaptive Learning System
-
-- ✅ **Three-track difficulty system** (high/medium/low) for personalized learning
-- ✅ **Automatic performance-based adjustment** to match student capabilities
-- ✅ **Personalized learning paths** within classroom structure
-- ✅ **Built-in support systems** for struggling students
-
-### 👥 Teacher Support Features
-
-- ✅ **Comprehensive lesson plans** with customizable content
-- ✅ **Class management tools** for streamlined administration
-- ✅ **Progress tracking dashboards** with real-time analytics
-- ✅ **Professional development resources** and time-saving automation
-
-### 🔬 Modern Learning Experience
-
-- ✅ **Virtual laboratory simulations** with hands-on experiments
-- ✅ **Interactive content delivery** with engaging multimedia
-- ✅ **Collaborative learning tools** for student engagement
-- ✅ **Real-world experiment integration** connecting theory to practice
-
-## 🎨 Design Philosophy
-
-**Science Advantage** is built with a **classroom-first approach**, ensuring seamless integration into existing school systems while providing teachers with the tools they need to succeed.
-
-### Color Scheme
-
-- **Primary Rose**: Rose 300 `#fda4af` / Rose 800 `#9f1239`
-- **Design Focus**: Clean, modern interface optimized for educational environments
-- **Accessibility**: WCAG 2.1 compliant with screen reader support
-
-## 🏗️ Technical Architecture
-
-### Frontend Stack
-
-- **Next.js 15** with App Router for optimal performance
-- **TypeScript** for type safety and developer experience
-- **Tailwind CSS** with custom Science Advantage theming
-- **shadcn/ui** components for consistent, accessible UI
-
-### Backend Infrastructure
-
-- **Custom Authentication** for secure, role-based authentication
-- **Prisma ORM** with PostgreSQL for robust data management
-- **API-first architecture** for scalability and integration
-- **Real-time collaboration** features for classroom interaction
-
-### AI-Powered Features
-
-- **OpenAI integration** for personalized content recommendations
-- **Adaptive learning algorithms** for student performance optimization
-- **Intelligent assessment generation** aligned with learning objectives
-
-## 🚀 Getting Started
-
-### For Schools and Districts
-
-1. **Contact our team** for a personalized demo and implementation plan
-2. **Schedule a pilot program** for select classrooms or schools
-3. **Professional development** training for teachers and administrators
-4. **Roll out implementation** with dedicated support throughout the process
-
-### For Developers
+## Getting Started
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-org/science-advantage.git
 cd science-advantage
-
-# Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env
+# Environment setup
+cp .env.example .env.local
+# populate Google OAuth, Postgres, Redis, OpenAI credentials
 
-# Set up the database
-npx prisma migrate dev
+# Database
+npx prisma generate
+npx prisma db push
 npx prisma db seed
 
-# Start the development server
+# Development server
 npm run dev
 ```
 
-## 📊 Target Audiences
+### Recommended Tooling
 
-### 👩‍🏫 For Teachers
+- Node 18.x (see `.nvmrc` if present)
+- Docker (optional for local Postgres via `docker-compose.yml`)
+- GitHub CLI (`gh`) for issue and PR workflow
 
-- Lesson planning and management features
-- Assessment and tracking tools
-- Professional development support
-- Time-saving automation
+## Development Workflow
 
-### 🏫 For Administrators
+1. Start with the relevant spec under `docs/specs/`; update it before coding.
+2. Create a GitHub issue (see templates in `.github/ISSUE_TEMPLATE/`) and branch
+   following `feat/<issue>-<slug>` naming.
+3. Implement changes with 2-space TypeScript style, keeping components focused.
+4. Run validation commands prior to PR:
 
-- NGSS compliance tools
-- School-wide implementation support
-- Progress tracking across classes
-- Professional development resources
+```bash
+npm run lint
+npm run test
+npm run test:integration   # when touching API/Prisma
+npm run test:e2e           # before deploys
+```
 
-### 🌍 For Districts
+5. Use the PR template to document spec deltas, implementation notes, and tests.
+6. Enable squash-and-merge once checks pass and review is approved.
 
-- Standardization across schools
-- District-wide analytics
-- Implementation support
-- Training programs
+Additional workflow details live in `CLAUDE.md`.
 
-## 🔧 Technical Requirements
+## Repository Layout
 
-### Device Compatibility
+- `app/` – Next.js App Router routes and API handlers
+- `components/` – Shared UI primitives and feature components
+- `lib/` – Cross-cutting utilities (auth, DB, helpers)
+- `prisma/` – Database schema, migrations, and seeds
+- `docs/` – Product brief, PRD, specs, sprints, and archive of legacy docs
+- `tests/` – Vitest unit/integration specs
+- `public/` – Static assets
 
-- Works on tablets, laptops, and desktop computers
-- Modern web browsers (Chrome, Firefox, Safari, Edge)
-- Responsive design for various screen sizes
+## Contributing
 
-### Internet Connectivity
+- Follow Conventional Commits (`feat:`, `fix:`, `chore:`, etc.).
+- Keep branches short-lived and tied to a single GitHub issue.
+- Update specs and documentation as part of each change; specs are the source of
+  truth for requirements.
+- Do not commit secrets—use `.env.local` for development configuration.
 
-- Standard broadband connection recommended
-- Cloud-based infrastructure with automatic updates
-- Offline capabilities for essential features
-
-### IT Support
-
-- Minimal IT overhead required
-- Dedicated technical support team
-- Comprehensive documentation and training
-
-## 📈 Implementation Timeline
-
-- **Phase 1**: Pilot program with select schools (Q1 2025)
-- **Phase 2**: Beta release with expanded features (Q2 2025)
-- **Phase 3**: Full launch with complete curriculum (Q3 2025)
-- **Phase 4**: Advanced features and AI enhancements (Q4 2025)
-
-## 🤝 Partnership Opportunities
-
-We're seeking partnerships with:
-
-- **School districts** looking to transform science education
-- **Educational technology companies** for integration opportunities
-- **Research institutions** for curriculum validation
-- **Content creators** for expanding our lesson library
+For additional context on strategic goals, market positioning, and historical
+artifacts, consult the archived documentation under `docs/archive/`.
 
 ## 📞 Contact & Information
 
