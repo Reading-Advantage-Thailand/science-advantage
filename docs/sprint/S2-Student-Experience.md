@@ -92,7 +92,7 @@
   - A section on the page clearly lists the specific `Standard(s)` that the lesson fulfills (e.g., "Covers Standard: NGSS 3-LS1-1"). This data is pulled from the lesson's relationship with the `Standard` model.
 
 **Tasks:**
-- #75: Task: BE - Create lesson content API endpoint
+- #75: Task: BE - Create lesson content API endpoint (Status: In Progress, Branch: feat/75-task-be-create-lesson-content-api-endpoi, Started: 2025-10-21)
 - #76: Task: FE - Display lesson content
 
 ### Story: Student Settings Page
