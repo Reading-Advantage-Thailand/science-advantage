@@ -6,7 +6,7 @@
 
 ## In Review
 
-- [ ] *(none currently)*
+- [ ] #74 - Task: FE - Display curriculum - PR: #83 - Submitted: 2025-10-21
 
 ## Completed
 

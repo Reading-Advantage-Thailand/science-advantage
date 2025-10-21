@@ -77,7 +77,7 @@
 
 **Tasks:**
 - #73: Task: BE - Create curriculum API endpoint (Status: Complete ✅, Started: 2025-10-21, Completed: 2025-10-21, PR: #82, Merge: ac2083f)
-- #74: Task: FE - Display curriculum
+- #74: Task: FE - Display curriculum (Status: In Review, Started: 2025-10-21, PR: #83, Submitted: 2025-10-21)
 
 ### Story: View Lesson Content and Standards
 

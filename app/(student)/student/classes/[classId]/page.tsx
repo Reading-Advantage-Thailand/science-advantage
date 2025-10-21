@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 import { requireRole } from '@/lib/auth/server';
+import { StudentCurriculumView } from '@/components/features/student/student-curriculum-view';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface StudentClassPageProps {
   params: Promise<{ classId: string }>;
@@ -23,20 +25,17 @@ export default async function StudentClassPage({
         Back to dashboard
       </Link>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-semibold text-gray-900">
-          Class overview coming soon
-        </h1>
-        <p className="mt-2 text-gray-600">
-          You&apos;re looking at class{' '}
-          <span className="font-semibold text-gray-900">{classId}</span>. The
-          full student curriculum experience will ship with Sprint 2 Story #65.
-        </p>
-        <p className="mt-3 text-sm text-gray-500">
-          Until then, you can head back to your dashboard to join additional
-          classes or review your enrolled courses.
-        </p>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Curriculum</CardTitle>
+          <CardDescription>
+            Explore units and lessons aligned with your class standards
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <StudentCurriculumView classId={classId} />
+        </CardContent>
+      </Card>
     </div>
   );
 }
