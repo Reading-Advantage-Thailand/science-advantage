@@ -11,6 +11,7 @@
 ## Completed
 
 ### Sprint 2: Core Student Experience (S2)
+- [x] #66 - Story: View Lesson Content and Standards - Completed: 2025-10-21 ✅
 - [x] #76 - Task: FE - Display lesson content - PR: #87 - Completed: 2025-10-21 ✅
 - [x] #75 - Task: BE - Create lesson content API endpoint - PR: #84 - Completed: 2025-10-21 ✅
 - [x] #74 - Task: FE - Display curriculum - PR: #83 - Completed: 2025-10-21 ✅

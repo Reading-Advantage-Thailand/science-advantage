@@ -84,12 +84,14 @@
 **Issue**: #66 - Created: 2025-10-19
 **Priority**: P2
 **Labels**: type:feature, area:frontend, area:backend
+**Status**: Completed ✅
+**Completed**: 2025-10-21
 
 - **As a student,** I want to be able to open a lesson and read its content, and also see which educational standards it covers.
 - **Acceptance Criteria:**
-  - Clicking on a lesson title navigates to the lesson viewer page (e.g., `/classes/[classId]/lessons/[lessonSlug]`).
-  - The lesson viewer displays the main content of the lesson (e.g., the reading passage).
-  - A section on the page clearly lists the specific `Standard(s)` that the lesson fulfills (e.g., "Covers Standard: NGSS 3-LS1-1"). This data is pulled from the lesson's relationship with the `Standard` model.
+  - [x] Clicking on a lesson title navigates to the lesson viewer page (e.g., `/classes/[classId]/lessons/[lessonSlug]`).
+  - [x] The lesson viewer displays the main content of the lesson (e.g., the reading passage).
+  - [x] A section on the page clearly lists the specific `Standard(s)` that the lesson fulfills (e.g., "Covers Standard: NGSS 3-LS1-1"). This data is pulled from the lesson's relationship with the `Standard` model.
 
 **Tasks:**
 - #75: Task: BE - Create lesson content API endpoint (Status: Completed ✅, Branch: feat/75-task-be-create-lesson-content-api-endpoi, Started: 2025-10-21, Completed: 2025-10-21, PR: #84, Merge Commit: 9113f16)
