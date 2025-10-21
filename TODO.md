@@ -2,7 +2,7 @@
 
 ## In Progress
 
-*(none currently)*
+- [ ] #68 - Story: Student Settings Page (feat/68-story-student-settings-page) - Started: 2025-10-21
 
 ## In Review
 
