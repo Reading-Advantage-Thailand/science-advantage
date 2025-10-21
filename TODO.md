@@ -6,11 +6,12 @@
 
 ## In Review
 
-- [ ] #74 - Task: FE - Display curriculum - PR: #83 - Submitted: 2025-10-21
+- [ ] *(none currently)*
 
 ## Completed
 
 ### Sprint 2: Core Student Experience (S2)
+- [x] #74 - Task: FE - Display curriculum - PR: #83 - Completed: 2025-10-21 ✅
 - [x] #73 - Task: BE - Create curriculum API endpoint - PR: #82 - Completed: 2025-10-21 ✅
 - [x] #64 - Story: View Enrolled Classes - PR: #80, #81 - Completed: 2025-10-21 ✅
 - [x] #63 - Story: Join a Class - PR: #78, #79 - Completed: 2025-10-21 ✅
