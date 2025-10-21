@@ -76,7 +76,7 @@
   - The UI clearly indicates which lessons have been completed or started (initial implementation can be simple placeholders).
 
 **Tasks:**
-- #73: Task: BE - Create curriculum API endpoint (Branch: feat/73-task-be-create-curriculum-api-endpoint, Status: Complete, Started: 2025-10-21, Completed: 2025-10-21, PR: #82)
+- #73: Task: BE - Create curriculum API endpoint (Status: Complete ✅, Started: 2025-10-21, Completed: 2025-10-21, PR: #82, Merge: ac2083f)
 - #74: Task: FE - Display curriculum
 
 ### Story: View Lesson Content and Standards
