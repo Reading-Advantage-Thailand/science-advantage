@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] *(none currently)*
+- [ ] #75 - Task: BE - Create lesson content API endpoint (feat/75-task-be-create-lesson-content-api-endpoi) - Started: 2025-10-21
 
 ## In Review
 
