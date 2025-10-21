@@ -102,15 +102,18 @@
 **Issue**: #68 - Created: 2025-10-19
 **Priority**: P2
 **Labels**: type:feature, area:frontend
-**Status**: In Progress
-**Branch**: feat/68-story-student-settings-page
+**Status**: Completed ✅
+**Branch**: feat/68-story-student-settings-page (deleted)
 **Started**: 2025-10-21
+**Completed**: 2025-10-21
+**PR**: #88 - https://github.com/Reading-Advantage-Thailand/science-advantage/pull/88
+**Merge Commit**: 03ac8e7
 
 - **As a student,** I want a simple settings page where I can manage my account details.
 - **Acceptance Criteria:**
-  - A "Settings" link in the user menu navigates to `/settings`.
-  - The settings page displays the student's name and email.
-  - The settings page has a placeholder for future settings, such as "Notification Preferences" and "Language Preferences".
+  - [x] A "Settings" link in the user menu navigates to `/settings`.
+  - [x] The settings page displays the student's name and email.
+  - [x] The settings page has a placeholder for future settings, such as "Notification Preferences" and "Language Preferences".
 
 **Note:** This story uses dynamic form views based on Zod schemas; no separate tasks needed.
 

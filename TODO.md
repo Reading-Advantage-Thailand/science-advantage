@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] #68 - Story: Student Settings Page (feat/68-story-student-settings-page) - Started: 2025-10-21
+*(none currently)*
 
 ## In Review
 
@@ -11,6 +11,7 @@
 ## Completed
 
 ### Sprint 2: Core Student Experience (S2)
+- [x] #68 - Story: Student Settings Page - PR: #88 - Completed: 2025-10-21 ✅
 - [x] #66 - Story: View Lesson Content and Standards - Completed: 2025-10-21 ✅
 - [x] #76 - Task: FE - Display lesson content - PR: #87 - Completed: 2025-10-21 ✅
 - [x] #75 - Task: BE - Create lesson content API endpoint - PR: #84 - Completed: 2025-10-21 ✅
