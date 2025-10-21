@@ -2,11 +2,11 @@
 
 ## In Progress
 
-- [ ] #74 - Task: FE - Display curriculum (feat/74-task-fe-display-curriculum) - Started: 2025-10-21
+- [ ] *(none currently)*
 
 ## In Review
 
-- [ ] *(none currently)*
+- [ ] #74 - Task: FE - Display curriculum - PR: #83 - Submitted: 2025-10-21
 
 ## Completed
 
