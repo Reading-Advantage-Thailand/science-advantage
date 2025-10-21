@@ -102,6 +102,9 @@
 **Issue**: #68 - Created: 2025-10-19
 **Priority**: P2
 **Labels**: type:feature, area:frontend
+**Status**: In Progress
+**Branch**: feat/68-story-student-settings-page
+**Started**: 2025-10-21
 
 - **As a student,** I want a simple settings page where I can manage my account details.
 - **Acceptance Criteria:**
