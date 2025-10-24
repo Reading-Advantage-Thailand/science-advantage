@@ -1,0 +1,23 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "units": [
+    {
+      "id": "thai-g3-unit-1",
+      "title": "Unit 1: Introduction to Science & Living Things / หน่วยที่ 1: บทนำสู่วิทยาศาสตร์และสิ่งมีชีวิต",
+      "description": "Explore what science is and learn about living things and their characteristics.",
+      "order": 1,
+      "lessonIds": [
+        "g3-being-a-scientist",
+        "g3-science-safety-tools",
+        "g3-making-observations",
+        "g3-what-makes-alive",
+        "g3-diversity-living-things",
+        "g3-observing-living-things-lab",
+        "g3-life-processes-growth",
+        "g3-life-processes-reproduction",
+        "g3-comparing-living-things"
+      ]
+    }
+  ]
+}

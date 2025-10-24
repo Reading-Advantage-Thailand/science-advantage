@@ -58,6 +58,51 @@ enabling rapid authoring, review, and publishing of new or updated lessons.
 4. The platform records version metadata and deploys the update at the scheduled
    time with rollback available.
 
+### Developer Imports Curriculum Content
+1. Developer creates JSON files for new curriculum content (standards, lessons, units)
+2. Developer runs seed script to import content into database
+3. The system validates JSON structure and creates database records
+4. Content becomes available to teachers and students immediately
+
+### Developer Migrates Content Schema
+1. Database schema changes requiring content updates
+2. Developer runs migration script to update JSON files
+3. Migration script creates backups before modifying files
+4. Developer reviews changes and commits updated JSON files
+
+## Content Management
+
+### Requirement: Support Scalable Content Import
+The system SHALL support importing curriculum content from structured JSON files organized by framework and grade level.
+
+**Scenario: Import Curriculum Content**
+- **WHEN** curriculum content is added or updated in JSON files
+- **THEN** the seed script imports the content and creates/updates database records with proper relationships
+
+### Requirement: Schema Migration for Content
+The system SHALL provide migration scripts that update content files when database schema changes.
+
+**Scenario: Schema Change Affects Content**
+- **WHEN** database schema adds/removes fields that affect content (lessons, questions, standards)
+- **THEN** a migration script updates all JSON files to match new schema with sensible defaults
+- **AND** backup files are created before any modifications
+
+### Requirement: Content Validation
+The system SHALL validate JSON content structure before importing into the database.
+
+**Scenario: Invalid Content Detected**
+- **WHEN** JSON content violates required schema (missing fields, incorrect types)
+- **THEN** the seed process reports validation errors and halts
+- **AND** error messages indicate the specific file and field causing the issue
+
+### Requirement: Selective Content Import
+The system SHALL support importing specific subsets of content by framework and grade level.
+
+**Scenario: Import Single Grade**
+- **WHEN** developer specifies framework and grade filters
+- **THEN** only content matching those filters is imported
+- **AND** other content remains unchanged
+
 ## Open Questions
 
 - Define the minimum viable toolset for authoring (in-app editor vs. external CMS).

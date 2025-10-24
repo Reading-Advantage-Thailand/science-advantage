@@ -1,0 +1,79 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 1,
+  "lessons": [
+    {
+      "id": "g3-being-a-scientist",
+      "title": "Being a Scientist / การเป็นนักวิทยาศาสตร์",
+      "description": "What do scientists do? Learn about observing, questioning, predicting, testing, and concluding.",
+      "content": "This is placeholder content for Being a Scientist / การเป็นนักวิทยาศาสตร์. Full lesson content will be added later.",
+      "order": 1,
+      "standards": ["Sc8.1-G3", "Sc8.2-G3"]
+    },
+    {
+      "id": "g3-science-safety-tools",
+      "title": "Science Safety and Tools / ความปลอดภัยและเครื่องมือทางวิทยาศาสตร์",
+      "description": "Staying safe in science and using basic tools like magnifying glass, ruler, and thermometer.",
+      "content": "This is placeholder content for Science Safety and Tools / ความปลอดภัยและเครื่องมือทางวิทยาศาสตร์. Full lesson content will be added later.",
+      "order": 2,
+      "standards": ["Sc8.2-G3"]
+    },
+    {
+      "id": "g3-making-observations",
+      "title": "Making Observations / การสังเกต",
+      "description": "Using our senses to observe and record what we see in detail.",
+      "content": "This is placeholder content for Making Observations / การสังเกต. Full lesson content will be added later.",
+      "order": 3,
+      "standards": ["Sc8.2-G3", "Sc8.3-G3"]
+    },
+    {
+      "id": "g3-what-makes-alive",
+      "title": "What Makes Something Alive? / อะไรทำให้สิ่งมีชีวิต",
+      "description": "Seven characteristics of living things: movement, growth, reproduction, response, nutrition, respiration, excretion.",
+      "content": "This is placeholder content for What Makes Something Alive? / อะไรทำให้สิ่งมีชีวิต. Full lesson content will be added later.",
+      "order": 4,
+      "standards": ["Sc1.1-G3"]
+    },
+    {
+      "id": "g3-diversity-living-things",
+      "title": "Diversity of Living Things / ความหลากหลายของสิ่งมีชีวิต",
+      "description": "Many types of living things - plants, animals, and more. Basic grouping by observable features.",
+      "content": "This is placeholder content for Diversity of Living Things / ความหลากหลายของสิ่งมีชีวิต. Full lesson content will be added later.",
+      "order": 5,
+      "standards": ["Sc1.3-G3"]
+    },
+    {
+      "id": "g3-observing-living-things-lab",
+      "title": "Lab: Observing Living Things / การสังเกตสิ่งมีชีวิต",
+      "description": "Plant observation study - bean seed planting and initial observations.",
+      "content": "This is placeholder content for Lab: Observing Living Things / การสังเกตสิ่งมีชีวิต. Full lesson content will be added later.",
+      "order": 6,
+      "standards": ["Sc1.2-G3", "Sc8.1-G3", "Sc8.3-G3"]
+    },
+    {
+      "id": "g3-life-processes-growth",
+      "title": "Life Processes - Growth / กระบวนการชีวิต - การเติบโต",
+      "description": "How living things grow and change over time with examples from plants and animals.",
+      "content": "This is placeholder content for Life Processes - Growth / กระบวนการชีวิต - การเติบโต. Full lesson content will be added later.",
+      "order": 7,
+      "standards": ["Sc1.2-G3"]
+    },
+    {
+      "id": "g3-life-processes-reproduction",
+      "title": "Life Processes - Reproduction / กระบวนการชีวิต - การสืบพันธุ์",
+      "description": "How living things make more of their kind with simple examples appropriate for Grade 3.",
+      "content": "This is placeholder content for Life Processes - Reproduction / กระบวนการชีวิต - การสืบพันธุ์. Full lesson content will be added later.",
+      "order": 8,
+      "standards": ["Sc1.2-G3"]
+    },
+    {
+      "id": "g3-comparing-living-things",
+      "title": "Comparing Living Things / การเปรียบเทียบสิ่งมีชีวิต",
+      "description": "Similarities and differences among organisms and how we group living things by features.",
+      "content": "This is placeholder content for Comparing Living Things / การเปรียบเทียบสิ่งมีชีวิต. Full lesson content will be added later.",
+      "order": 9,
+      "standards": ["Sc1.3-G3"]
+    }
+  ]
+}
