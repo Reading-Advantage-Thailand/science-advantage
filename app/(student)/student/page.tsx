@@ -15,65 +15,73 @@ export default async function StudentPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">
-          Welcome, {session.user.name}!
+        <h1 className="text-3xl font-bold edu-title">
+          Welcome, {session.user.name}! 🎓
         </h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-muted-foreground mt-2">
           Your student dashboard - View your classes, assignments, and progress
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <Card>
+        <Card className="edu-card hover-bounce">
           <CardHeader>
-            <CardTitle>My Classes</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              📚 My Classes
+            </CardTitle>
             <CardDescription>Classes you&apos;re enrolled in</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <StudentClassesSection />
-            <div className="space-y-3 rounded-lg border border-dashed border-gray-200 bg-gray-50 p-4">
+            <div className="space-y-3 rounded-2xl border-2 border-dashed border-border bg-muted/30 p-4">
               <div>
-                <h3 className="text-sm font-semibold text-gray-900">
-                  Join another class
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Enter the 6-character code from your teacher.
+                <h3 className="text-sm font-semibold">Join another class</h3>
+                <p className="text-sm text-muted-foreground">
+                  Enter 6-character code from your teacher.
                 </p>
               </div>
-              <div className="rounded-lg bg-white p-4 shadow-sm">
+              <div className="rounded-2xl bg-card p-4 shadow-md">
                 <JoinClassForm />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="edu-card hover-wiggle">
           <CardHeader>
-            <CardTitle>Upcoming Assignments</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              📝 Upcoming Assignments
+            </CardTitle>
             <CardDescription>Your pending work</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">No assignments yet.</p>
+            <p className="text-muted-foreground">No assignments yet.</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="edu-card hover-wiggle">
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              ⭐ Recent Activity
+            </CardTitle>
             <CardDescription>Your latest learning activities</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">No recent activity.</p>
+            <p className="text-muted-foreground">No recent activity.</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="edu-card hover-wiggle">
           <CardHeader>
-            <CardTitle>Progress</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              📈 Progress
+            </CardTitle>
             <CardDescription>Your overall progress</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">Progress tracking coming soon.</p>
+            <p className="text-muted-foreground">
+              Progress tracking coming soon.
+            </p>
           </CardContent>
         </Card>
       </div>
