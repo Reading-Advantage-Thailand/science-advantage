@@ -13,6 +13,7 @@ export const LessonGroupByResultSchema = z.array(z.object({
     title: z.number(),
     description: z.number(),
     content: z.number(),
+    lessonType: z.number(),
     gradeLevel: z.number(),
     order: z.number(),
     standards: z.number(),

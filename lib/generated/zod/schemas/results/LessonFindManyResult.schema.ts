@@ -5,6 +5,7 @@ export const LessonFindManyResultSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   content: z.string().optional(),
+  lessonType: z.unknown(),
   gradeLevel: z.number().int(),
   order: z.number().int(),
   standards: z.array(z.unknown()),

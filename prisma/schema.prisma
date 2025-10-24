@@ -76,6 +76,12 @@ enum StandardsAlignment {
   NGSS
 }
 
+enum LessonType {
+  LESSON      // Regular instructional lesson
+  LAB         // Hands-on laboratory activity
+  ASSESSMENT  // Quiz/test lesson
+}
+
 enum UserRole {
   STUDENT
   TEACHER
@@ -118,19 +124,21 @@ model Standard {
 }
 
 model Lesson {
-  id                String    @id @default(cuid())
+  id                String      @id @default(cuid())
   title             String
   description       String?
   content           String?
+  lessonType        LessonType  @default(LESSON)
   gradeLevel        Int
   order             Int
   standards         Standard[]
   curriculumUnits   CurriculumUnit[]
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 
   @@index([gradeLevel])
   @@index([order])
+  @@index([lessonType])
 }
 
 model CurriculumUnit {

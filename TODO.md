@@ -16,7 +16,13 @@
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
-- [ ] #103 - Story: Standardize Lesson Content Templates & Types (P0) - Created: 2025-10-24
+- [ ] #103 - Story: Standardize Lesson Content Templates & Types (P0) - In Progress
+  - **Started**: 2025-10-25
+  - **Branch**: feat/103-story-standardize-lesson-content-templa
+  - **Specs**: docs/specs/core-science-curriculum-content-management/spec.md (MODIFIED)
+  - **Priority**: P0
+  - **Milestone**: Sprint 3: Interactive Learning
+  - **Review Comments**: 2 (AI Architect + Sprint Reviewer suggestions to incorporate)
 - [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22

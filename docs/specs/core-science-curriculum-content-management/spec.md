@@ -105,6 +105,17 @@ The system SHALL support importing specific subsets of content by framework and 
 
 ## Interactive Lesson Content Delivery
 
+### Requirement: Support Different Lesson Types
+The system SHALL support distinct templates for different types of lessons, including but not limited to instructional lessons, labs, and assessments.
+
+**Scenario: Render a Lab Lesson**
+- **WHEN** a student views a lesson of type "LAB"
+- **THEN** the system MUST render interactive components specific to labs, such as a procedure checklist and a materials list
+
+**Scenario: Render a Regular Lesson**
+- **WHEN** a student views a lesson of type "LESSON"
+- **THEN** the system MUST render interactive components for vocabulary flashcards and reading passages
+
 ### Requirement: Deliver Grade-Appropriate Instructional Content
 The system SHALL provide complete lesson content that is developmentally appropriate for the target grade level.
 
@@ -120,12 +131,18 @@ The system SHALL include reading passages within lessons to support cross-subjec
 - **THEN** it contains a reading passage of appropriate length (300-500 words for Grade 3) that can support comprehension questions
 
 ### Requirement: Define Key Vocabulary in Context
-The system SHALL present key scientific vocabulary with definitions and contextual usage.
+The system SHALL present key scientific vocabulary with definitions and contextual usage in a structured format.
 
 **Scenario: Student Encounters Vocabulary**
 - **WHEN** a student reads lesson content
-- **THEN** key vocabulary terms are highlighted or listed with clear, grade-appropriate definitions (8-12 terms per lesson)
-- **AND** vocabulary includes both English terms and Thai translations
+- **THEN** key vocabulary terms are presented in a structured format (`- **Term** (Thai: translation) - Definition`) to enable interactive components
+- **AND** vocabulary includes 8-12 terms per lesson with clear, grade-appropriate definitions
+- **AND** all vocabulary terms MUST include Thai translations
+
+**Scenario: Interactive Vocabulary Display**
+- **WHEN** a student views lesson vocabulary
+- **THEN** the system SHALL parse structured vocabulary entries and render them as interactive flashcards
+- **AND** flashcards SHALL display the English term, Thai translation, and definition
 
 ## Open Questions
 

@@ -1,4 +1,4 @@
-import { PrismaClient, StandardsAlignment } from '@prisma/client';
+import { PrismaClient, StandardsAlignment, LessonType } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
 import { validateLessonsFile } from './validate-json';
@@ -8,6 +8,7 @@ interface LessonData {
   title: string;
   description: string;
   content: string;
+  lessonType?: LessonType;
   order: number;
   standards: string[];
 }
@@ -58,6 +59,7 @@ export async function seedLessons(
           title: lessonData.title,
           description: lessonData.description,
           content: lessonData.content,
+          lessonType: lessonData.lessonType,
           order: lessonData.order,
           standards: {
             connect: lessonData.standards.map(code => ({
@@ -73,6 +75,7 @@ export async function seedLessons(
           title: lessonData.title,
           description: lessonData.description,
           content: lessonData.content,
+          lessonType: lessonData.lessonType,
           gradeLevel: data.gradeLevel,
           order: lessonData.order,
           standards: {
