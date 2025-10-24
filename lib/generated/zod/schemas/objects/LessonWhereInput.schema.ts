@@ -2,6 +2,8 @@ import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
+import { EnumLessonTypeFilterObjectSchema as EnumLessonTypeFilterObjectSchema } from './EnumLessonTypeFilter.schema';
+import { LessonTypeSchema } from '../enums/LessonType.schema';
 import { IntFilterObjectSchema as IntFilterObjectSchema } from './IntFilter.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
 import { StandardListRelationFilterObjectSchema as StandardListRelationFilterObjectSchema } from './StandardListRelationFilter.schema';
@@ -15,6 +17,7 @@ const lessonwhereinputSchema = z.object({
   title: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   content: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
+  lessonType: z.union([z.lazy(() => EnumLessonTypeFilterObjectSchema), LessonTypeSchema]).optional(),
   gradeLevel: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
   order: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),

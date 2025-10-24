@@ -7,6 +7,7 @@ const makeSchema = () => z.object({
   title: SortOrderSchema.optional(),
   description: SortOrderSchema.optional(),
   content: SortOrderSchema.optional(),
+  lessonType: SortOrderSchema.optional(),
   gradeLevel: SortOrderSchema.optional(),
   order: SortOrderSchema.optional(),
   createdAt: SortOrderSchema.optional(),

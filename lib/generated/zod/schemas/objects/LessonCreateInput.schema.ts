@@ -1,5 +1,6 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
+import { LessonTypeSchema } from '../enums/LessonType.schema';
 import { StandardCreateNestedManyWithoutLessonsInputObjectSchema as StandardCreateNestedManyWithoutLessonsInputObjectSchema } from './StandardCreateNestedManyWithoutLessonsInput.schema';
 import { CurriculumUnitCreateNestedManyWithoutLessonsInputObjectSchema as CurriculumUnitCreateNestedManyWithoutLessonsInputObjectSchema } from './CurriculumUnitCreateNestedManyWithoutLessonsInput.schema'
 
@@ -8,6 +9,7 @@ const makeSchema = () => z.object({
   title: z.string(),
   description: z.string().optional().nullable(),
   content: z.string().optional().nullable(),
+  lessonType: LessonTypeSchema.optional(),
   gradeLevel: z.number().int(),
   order: z.number().int(),
   createdAt: z.coerce.date().optional(),

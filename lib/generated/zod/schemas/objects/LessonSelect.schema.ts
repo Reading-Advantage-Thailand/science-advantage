@@ -9,6 +9,7 @@ const makeSchema = () => z.object({
   title: z.boolean().optional(),
   description: z.boolean().optional(),
   content: z.boolean().optional(),
+  lessonType: z.boolean().optional(),
   gradeLevel: z.boolean().optional(),
   order: z.boolean().optional(),
   standards: z.union([z.boolean(), z.lazy(() => StandardFindManySchema)]).optional(),
