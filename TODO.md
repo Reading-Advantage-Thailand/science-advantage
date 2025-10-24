@@ -16,13 +16,6 @@
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
-- [ ] #103 - Story: Standardize Lesson Content Templates & Types (P0) - In Progress
-  - **Started**: 2025-10-25
-  - **Branch**: feat/103-story-standardize-lesson-content-templa
-  - **Specs**: docs/specs/core-science-curriculum-content-management/spec.md (MODIFIED)
-  - **Priority**: P0
-  - **Milestone**: Sprint 3: Interactive Learning
-  - **Review Comments**: 2 (AI Architect + Sprint Reviewer suggestions to incorporate)
 - [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22
@@ -32,7 +25,7 @@
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
-**Progress**: 2/11 stories (18%)
+**Progress**: 3/11 stories (27%)
 
 ## In Review
 
@@ -42,6 +35,10 @@ _(none currently)_
 
 ### Sprint 3: Interactive Learning (S3) - IN PROGRESS
 
+- [x] #103 - Story: Standardize Lesson Content Templates & Types - PR: #104 - Completed: 2025-10-25 ✅
+  - **Merge Commit**: 9631e1938293ca8e70f8847fffb6b3125c8de56a
+  - **Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md
+  - **Implementation**: LessonType enum (LESSON/LAB/ASSESSMENT), content templates, 4 full lessons, content parsers with tests
 - [x] #91 - Story: Develop Lesson Content for Testing - PR: #102 - Completed: 2025-10-24 ✅
   - **Merge Commit**: c3eebff96ab4aff77dc1e1c3ad49f8b479e5fb64
   - **Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md

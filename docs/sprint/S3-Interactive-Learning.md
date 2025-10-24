@@ -5,7 +5,7 @@
 **Status**: ACTIVE 🚀
 **Created**: 2025-10-22
 **Issues Created**: 11 (1 epic tracker + 10 stories)
-**Completion**: 0% (0/10 stories)
+**Completion**: 30% (3/10 stories)
 
 **Goal**: Introduce formative assessments with multiple auto-gradable question types, granular response tracking, and comprehensive teacher analytics for standards-based instruction and intervention planning.
 
@@ -207,6 +207,53 @@ The system SHALL present key scientific vocabulary with definitions and contextu
 ###### Scenario: Student Encounters Vocabulary
 - **WHEN** a student reads lesson content
 - **THEN** key vocabulary terms are highlighted or listed with clear, grade-appropriate definitions
+
+---
+
+## Story: Standardize Lesson Content Templates & Types
+
+**Issue**: #103 - Closed: 2025-10-25
+**Priority**: P0
+**Labels**: type:feature, area:backend, area:frontend, area:prisma
+**Status**: Completed ✅
+
+**User Story**: As a developer, I need to standardize lesson content structure with formalized templates for different lesson types (Regular Lesson, Lab, Assessment) so that the frontend can render rich interactive components (vocabulary flashcards, procedure checklists, etc.) and the assessment system can reliably extract content for question generation.
+
+**PR**: #104 - Merged: 2025-10-25
+**Merge Commit**: 9631e1938293ca8e70f8847fffb6b3125c8de56a
+**Branch**: feat/103-story-standardize-lesson-content-templa (deleted)
+**Started**: 2025-10-25
+**Completed**: 2025-10-25
+**Duration**: <1 day
+
+**Implementation**:
+- ✅ Added LessonType enum (LESSON, LAB, ASSESSMENT) to Prisma schema
+- ✅ Created comprehensive template documentation (4 files: README + 3 templates)
+- ✅ Wrote full content for lessons 2, 3, 6 (LAB), 9 (4,095 words total)
+- ✅ Standardized vocabulary format to `(Thai: translation)` across all 9 lessons
+- ✅ Implemented content parsing utilities (lib/content-parsers.ts) with 8 unit tests
+- ✅ Updated spec with lesson type requirements and interactive component scenarios
+
+**Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md (MODIFIED)
+
+**Acceptance Criteria**: All met ✅
+- ✅ LessonType enum and field added to schema
+- ✅ Templates created (lesson, lab, assessment + README)
+- ✅ Full content for 4 lessons (2, 3, 6, 9)
+- ✅ All 9 lessons with correct lessonType values
+- ✅ Content parsers with comprehensive unit tests
+- ✅ Spec updated with requirements and scenarios
+
+**Test Results**:
+- ✅ Unit tests: 8/8 passing (content parsers)
+- ✅ Linting: No errors or warnings
+- ✅ Build: Successful
+- ✅ Database seeding: Verified
+
+**Notes**:
+- Implementation completed smoothly with all AI review feedback addressed
+- Content parsers provide foundation for future interactive UI components (vocabulary flashcards, procedure checklists)
+- Unblocks assessment features (#92-94) which depend on structured content extraction
 
 ---
 
