@@ -14,16 +14,20 @@
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
-**Progress**: 0/10 stories (0%)
+**Progress**: 1/10 stories (10%)
 
 ## In Review
 
-- [ ] #90 - Story: Modularize Seed Data Architecture (P0) - PR: #100 - In Review: 2025-10-24
-  - **Branch**: chore/90-modularize-seed-data-architecture
-  - **PR**: https://github.com/Reading-Advantage-Thailand/science-advantage/pull/100
-  - **Specs**: docs/specs/core-science-curriculum-content-management/spec.md
+*(none currently)*
 
 ## Completed
+
+### Sprint 3: Interactive Learning (S3) - IN PROGRESS
+- [x] #90 - Story: Modularize Seed Data Architecture - PR: #100 - Completed: 2025-10-24 ✅
+  - **Merge Commit**: 0fbe6659a734d4271aa57c247453f15c041bed9f
+  - **Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md
+
+## Completed (Previous Sprints)
 
 ### Sprint 2: Core Student Experience (S2) - COMPLETE ✅
 - [x] #67 - Epic: Core Student Experience - Sprint 2 Tracker - Completed: 2025-10-21 ✅
