@@ -103,6 +103,30 @@ The system SHALL support importing specific subsets of content by framework and 
 - **THEN** only content matching those filters is imported
 - **AND** other content remains unchanged
 
+## Interactive Lesson Content Delivery
+
+### Requirement: Deliver Grade-Appropriate Instructional Content
+The system SHALL provide complete lesson content that is developmentally appropriate for the target grade level.
+
+**Scenario: Student Reads Lesson Content**
+- **WHEN** a student opens a lesson
+- **THEN** the content is appropriate for their grade level, engaging, and aligned with curriculum standards
+
+### Requirement: Include Reading Comprehension Passages
+The system SHALL include reading passages within lessons to support cross-subject learning (science + reading).
+
+**Scenario: Lesson Contains Reading Passage**
+- **WHEN** a lesson includes instructional content
+- **THEN** it contains a reading passage of appropriate length (300-500 words for Grade 3) that can support comprehension questions
+
+### Requirement: Define Key Vocabulary in Context
+The system SHALL present key scientific vocabulary with definitions and contextual usage.
+
+**Scenario: Student Encounters Vocabulary**
+- **WHEN** a student reads lesson content
+- **THEN** key vocabulary terms are highlighted or listed with clear, grade-appropriate definitions (8-12 terms per lesson)
+- **AND** vocabulary includes both English terms and Thai translations
+
 ## Open Questions
 
 - Define the minimum viable toolset for authoring (in-app editor vs. external CMS).
