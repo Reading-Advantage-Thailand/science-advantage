@@ -16,7 +16,6 @@
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
-- [ ] #91 - Story: Develop Lesson Content for Testing (P0) - Created: 2025-10-22
 - [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22
@@ -26,7 +25,7 @@
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
-**Progress**: 1/10 stories (10%)
+**Progress**: 2/10 stories (20%)
 
 ## In Review
 
@@ -36,6 +35,10 @@ _(none currently)_
 
 ### Sprint 3: Interactive Learning (S3) - IN PROGRESS
 
+- [x] #91 - Story: Develop Lesson Content for Testing - PR: #102 - Completed: 2025-10-24 ✅
+  - **Merge Commit**: c3eebff96ab4aff77dc1e1c3ad49f8b479e5fb64
+  - **Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md
+  - **Lessons Created**: 5 fully-developed Grade 3 Thai science lessons (Being a Scientist, What Makes Something Alive?, Diversity of Living Things, Life Processes - Growth, Life Processes - Reproduction)
 - [x] #90 - Story: Modularize Seed Data Architecture - PR: #100 - Completed: 2025-10-24 ✅
   - **Merge Commit**: 0fbe6659a734d4271aa57c247453f15c041bed9f
   - **Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md
