@@ -4,11 +4,6 @@
 
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
-- [ ] #90 - Story: Modularize Seed Data Architecture (P0, chore/90-modularize-seed-data-architecture) - Started: 2025-10-24
-  - **Branch**: chore/90-modularize-seed-data-architecture
-  - **Specs**: docs/specs/core-science-curriculum-content-management/spec.md
-  - **Priority**: P0
-  - **Milestone**: Sprint 3: Interactive Learning
 - [ ] #91 - Story: Develop Lesson Content for Testing (P0) - Created: 2025-10-22
 - [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
@@ -23,7 +18,10 @@
 
 ## In Review
 
-*(none currently)*
+- [ ] #90 - Story: Modularize Seed Data Architecture (P0) - PR: #100 - In Review: 2025-10-24
+  - **Branch**: chore/90-modularize-seed-data-architecture
+  - **PR**: https://github.com/Reading-Advantage-Thailand/science-advantage/pull/100
+  - **Specs**: docs/specs/core-science-curriculum-content-management/spec.md
 
 ## Completed
 
