@@ -2,7 +2,17 @@
 
 ## In Progress
 
+### General Improvements
+
+- [ ] #85 - Update UI to be more friendly to K12 students (feat/85-update-ui-to-be-more-friendly-to-k12-stu)
+  - **Started**: 2025-10-24
+  - **Branch**: feat/85-update-ui-to-be-more-friendly-to-k12-stu
+  - **Specs**: None (styling-only issue)
+  - **Priority**: P2
+  - **Milestone**: None
+
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
+
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
 - [ ] #91 - Story: Develop Lesson Content for Testing (P0) - Created: 2025-10-22
 - [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
@@ -18,11 +28,12 @@
 
 ## In Review
 
-*(none currently)*
+_(none currently)_
 
 ## Completed
 
 ### Sprint 3: Interactive Learning (S3) - IN PROGRESS
+
 - [x] #90 - Story: Modularize Seed Data Architecture - PR: #100 - Completed: 2025-10-24 ✅
   - **Merge Commit**: 0fbe6659a734d4271aa57c247453f15c041bed9f
   - **Specs Updated**: docs/specs/core-science-curriculum-content-management/spec.md
@@ -30,6 +41,7 @@
 ## Completed (Previous Sprints)
 
 ### Sprint 2: Core Student Experience (S2) - COMPLETE ✅
+
 - [x] #67 - Epic: Core Student Experience - Sprint 2 Tracker - Completed: 2025-10-21 ✅
 - [x] #68 - Story: Student Settings Page - PR: #88 - Completed: 2025-10-21 ✅
 - [x] #66 - Story: View Lesson Content and Standards - Completed: 2025-10-21 ✅
