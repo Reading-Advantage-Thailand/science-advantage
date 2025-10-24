@@ -16,6 +16,7 @@
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
+- [ ] #103 - Story: Standardize Lesson Content Templates & Types (P0) - Created: 2025-10-24
 - [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22
@@ -25,7 +26,7 @@
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
-**Progress**: 2/10 stories (20%)
+**Progress**: 2/11 stories (18%)
 
 ## In Review
 
