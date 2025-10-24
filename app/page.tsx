@@ -33,7 +33,7 @@ export default async function HomePage() {
               height={40}
               className="rounded-lg"
             />
-            <span className="font-bold text-xl text-rose-800 dark:text-rose-300">
+            <span className="font-bold text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Science Advantage
             </span>
           </div>
@@ -141,7 +141,8 @@ export default async function HomePage() {
                   Standards-Aligned Curriculum
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Full K-12 science curriculum aligned with NGSS disciplinary core ideas and state standards.
+                  Full K-12 science curriculum aligned with NGSS disciplinary
+                  core ideas and state standards.
                 </p>
               </div>
             </div>
@@ -161,7 +162,8 @@ export default async function HomePage() {
                   Adaptive Learning
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Three-track difficulty system that automatically adjusts based on student performance.
+                  Three-track difficulty system that automatically adjusts based
+                  on student performance.
                 </p>
               </div>
             </div>
@@ -181,7 +183,8 @@ export default async function HomePage() {
                   Classroom-First Design
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Built for seamless integration into existing school systems with teacher-centric tools.
+                  Built for seamless integration into existing school systems
+                  with teacher-centric tools.
                 </p>
               </div>
             </div>
@@ -216,146 +219,146 @@ export default async function HomePage() {
             </div>
 
             <div className="lg:w-2/3 grid md:grid-cols-2 gap-8">
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-              <IconBook
-                className="text-rose-600 dark:text-rose-300 mb-4"
-                size={24}
-              />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Comprehensive Curriculum Coverage
-              </h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Full K-12 science curriculum</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>NGSS disciplinary core ideas coverage</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>180 days of structured instruction</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Grade-appropriate content progression</span>
-                </li>
-              </ul>
-            </div>
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <IconBook
+                  className="text-rose-600 dark:text-rose-300 mb-4"
+                  size={24}
+                />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Comprehensive Curriculum Coverage
+                </h3>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Full K-12 science curriculum</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>NGSS disciplinary core ideas coverage</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>180 days of structured instruction</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Grade-appropriate content progression</span>
+                  </li>
+                </ul>
+              </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-              <IconBrain
-                className="text-rose-600 dark:text-rose-300 mb-4"
-                size={24}
-              />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Adaptive Learning System
-              </h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Three-track difficulty system</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Automatic performance-based adjustment</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Personalized learning paths</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Built-in support for struggling students</span>
-                </li>
-              </ul>
-            </div>
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <IconBrain
+                  className="text-rose-600 dark:text-rose-300 mb-4"
+                  size={24}
+                />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Adaptive Learning System
+                </h3>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Three-track difficulty system</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Automatic performance-based adjustment</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Personalized learning paths</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Built-in support for struggling students</span>
+                  </li>
+                </ul>
+              </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-              <IconChartBar
-                className="text-rose-600 dark:text-rose-300 mb-4"
-                size={24}
-              />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Integrated Assessment Tools
-              </h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Multiple assessment types</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Real-time progress tracking</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>NGSS standards alignment</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Automated feedback systems</span>
-                </li>
-              </ul>
-            </div>
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <IconChartBar
+                  className="text-rose-600 dark:text-rose-300 mb-4"
+                  size={24}
+                />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Integrated Assessment Tools
+                </h3>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Multiple assessment types</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Real-time progress tracking</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>NGSS standards alignment</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Automated feedback systems</span>
+                  </li>
+                </ul>
+              </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-              <IconUsers
-                className="text-rose-600 dark:text-rose-300 mb-4"
-                size={24}
-              />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Teacher Support Features
-              </h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Comprehensive lesson plans</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Class management tools</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Customizable assessments</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Progress tracking dashboards</span>
-                </li>
-              </ul>
-            </div>
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <IconUsers
+                  className="text-rose-600 dark:text-rose-300 mb-4"
+                  size={24}
+                />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Teacher Support Features
+                </h3>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Comprehensive lesson plans</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Class management tools</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Customizable assessments</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Progress tracking dashboards</span>
+                  </li>
+                </ul>
+              </div>
 
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-              <IconRocket
-                className="text-rose-600 dark:text-rose-300 mb-4"
-                size={24}
-              />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Modern Learning Experience
-              </h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Current scientific discoveries</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Real-world experiments</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Cross-curricular connections</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <IconCheck className="text-rose-500 mt-0.5" size={16} />
-                  <span>Collaborative learning tools</span>
-                </li>
-              </ul>
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <IconRocket
+                  className="text-rose-600 dark:text-rose-300 mb-4"
+                  size={24}
+                />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Modern Learning Experience
+                </h3>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Current scientific discoveries</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Real-world experiments</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Cross-curricular connections</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <IconCheck className="text-rose-500 mt-0.5" size={16} />
+                    <span>Collaborative learning tools</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </section>
