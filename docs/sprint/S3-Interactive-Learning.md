@@ -764,22 +764,26 @@ The system SHALL aggregate time-spent data at question, quiz, lesson, and studen
 
 ---
 
-## Chore: Upgrade to Next.js 16
+## Chore: Upgrade to Next.js 16 ✅
 
 **Issue**: #106
 **Priority**: P1
 **Labels**: type:chore, area:devex
-**Status**: In Progress
-**Branch**: feat/106-upgrade-to-next-js-16
+**Status**: Completed ✅
+**PR**: #107 - Merged: 2025-10-25
+**Merge Commit**: 30e4bb34c1c5a33c8beeeb4abff393705271263f
+**Branch**: feat/106-upgrade-to-next-js-16 (deleted)
 **Started**: 2025-10-25
+**Completed**: 2025-10-25
+**Duration**: <1 day
 
 **User Story**: As a developer, I want to upgrade the project to Next.js 16 to take advantage of the latest features and performance improvements, and to enable the use of the `next-devtools-mcp` server.
 
-**Acceptance Criteria**:
-- [ ] Next.js and its related packages are upgraded to version 16.
-- [ ] The application builds and runs without errors.
-- [ ] All existing tests pass.
-- [ ] The `next-devtools-mcp` server is accessible and functional.
+**Acceptance Criteria**: All met ✅
+- [x] Next.js and its related packages are upgraded to version 16.
+- [x] The application builds and runs without errors.
+- [x] All existing tests pass.
+- [x] The `next-devtools-mcp` server is accessible and functional.
 
 ---
 

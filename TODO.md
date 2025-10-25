@@ -23,12 +23,7 @@
 - [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
-- [ ] #106 - Upgrade to Next.js 16 (feat/106-upgrade-to-next-js-16)
-  - **Started**: 2025-10-25
-  - **Branch**: feat/106-upgrade-to-next-js-16
-  - **Specs**: None
-  - **Priority**: P1
-  - **Milestone**: Sprint 3: Interactive Learning
+
 
 **Progress**: 4/11 stories (36%)
 
@@ -39,6 +34,11 @@ _(none currently)_
 ## Completed
 
 ### Sprint 3: Interactive Learning (S3) - IN PROGRESS
+
+- [x] #106 - Upgrade to Next.js 16 - PR: #107 - Completed: 2025-10-25 ✅
+  - **Merge Commit**: 30e4bb34c1c5a33c8beeeb4abff393705271263f
+  - **Specs Updated**: None
+  - **Implementation**: Upgraded to Next.js 16 and fixed all related test failures.
 
 - [x] #92 - Story: Assessment Data Schema & Question Bank - PR: #105 - Completed: 2025-10-25 ✅
   - **Merge Commit**: a6284440c78fc1cae510b41f8fc3513da2bab7fe
