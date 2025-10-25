@@ -6,7 +6,10 @@ import { LessonTypeSchema } from '../enums/LessonType.schema';
 import { EnumLessonTypeFieldUpdateOperationsInputObjectSchema as EnumLessonTypeFieldUpdateOperationsInputObjectSchema } from './EnumLessonTypeFieldUpdateOperationsInput.schema';
 import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
-import { CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema as CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema } from './CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInput.schema'
+import { CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema as CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema } from './CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInput.schema';
+import { QuizQuestionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as QuizQuestionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './QuizQuestionUncheckedUpdateManyWithoutLessonNestedInput.schema';
+import { AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './AttemptUncheckedUpdateManyWithoutLessonNestedInput.schema';
+import { LessonCompletionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as LessonCompletionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './LessonCompletionUncheckedUpdateManyWithoutLessonNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -18,7 +21,10 @@ const makeSchema = () => z.object({
   order: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
-  curriculumUnits: z.lazy(() => CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema).optional()
+  curriculumUnits: z.lazy(() => CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema).optional(),
+  quizQuestions: z.lazy(() => QuizQuestionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional(),
+  attempts: z.lazy(() => AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional(),
+  lessonCompletions: z.lazy(() => LessonCompletionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional()
 }).strict();
 export const LessonUncheckedUpdateWithoutStandardsInputObjectSchema: z.ZodType<Prisma.LessonUncheckedUpdateWithoutStandardsInput> = makeSchema() as unknown as z.ZodType<Prisma.LessonUncheckedUpdateWithoutStandardsInput>;
 export const LessonUncheckedUpdateWithoutStandardsInputObjectZodSchema = makeSchema();

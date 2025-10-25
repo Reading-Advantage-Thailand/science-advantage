@@ -4,7 +4,9 @@ import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
 import { accountOrderByRelationAggregateInputObjectSchema as accountOrderByRelationAggregateInputObjectSchema } from './accountOrderByRelationAggregateInput.schema';
 import { sessionOrderByRelationAggregateInputObjectSchema as sessionOrderByRelationAggregateInputObjectSchema } from './sessionOrderByRelationAggregateInput.schema';
-import { ClassOrderByRelationAggregateInputObjectSchema as ClassOrderByRelationAggregateInputObjectSchema } from './ClassOrderByRelationAggregateInput.schema'
+import { ClassOrderByRelationAggregateInputObjectSchema as ClassOrderByRelationAggregateInputObjectSchema } from './ClassOrderByRelationAggregateInput.schema';
+import { AttemptOrderByRelationAggregateInputObjectSchema as AttemptOrderByRelationAggregateInputObjectSchema } from './AttemptOrderByRelationAggregateInput.schema';
+import { LessonCompletionOrderByRelationAggregateInputObjectSchema as LessonCompletionOrderByRelationAggregateInputObjectSchema } from './LessonCompletionOrderByRelationAggregateInput.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -21,7 +23,9 @@ const makeSchema = () => z.object({
   account: z.lazy(() => accountOrderByRelationAggregateInputObjectSchema).optional(),
   session: z.lazy(() => sessionOrderByRelationAggregateInputObjectSchema).optional(),
   taughtClasses: z.lazy(() => ClassOrderByRelationAggregateInputObjectSchema).optional(),
-  enrolledClass: z.lazy(() => ClassOrderByRelationAggregateInputObjectSchema).optional()
+  enrolledClass: z.lazy(() => ClassOrderByRelationAggregateInputObjectSchema).optional(),
+  attempts: z.lazy(() => AttemptOrderByRelationAggregateInputObjectSchema).optional(),
+  lessonCompletions: z.lazy(() => LessonCompletionOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const userOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.userOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.userOrderByWithRelationInput>;
 export const userOrderByWithRelationInputObjectZodSchema = makeSchema();

@@ -19,6 +19,9 @@ export const LessonFindFirstSelectSchema: z.ZodType<Prisma.LessonSelect> = z.obj
     order: z.boolean().optional(),
     standards: z.boolean().optional(),
     curriculumUnits: z.boolean().optional(),
+    quizQuestions: z.boolean().optional(),
+    attempts: z.boolean().optional(),
+    lessonCompletions: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()
@@ -34,6 +37,9 @@ export const LessonFindFirstSelectZodSchema = z.object({
     order: z.boolean().optional(),
     standards: z.boolean().optional(),
     curriculumUnits: z.boolean().optional(),
+    quizQuestions: z.boolean().optional(),
+    attempts: z.boolean().optional(),
+    lessonCompletions: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()

@@ -14,5 +14,7 @@ export const userFindUniqueResultSchema = z.nullable(z.object({
   account: z.array(z.unknown()),
   session: z.array(z.unknown()),
   taughtClasses: z.array(z.unknown()),
-  enrolledClass: z.array(z.unknown())
+  enrolledClass: z.array(z.unknown()),
+  attempts: z.array(z.unknown()),
+  lessonCompletions: z.array(z.unknown())
 }));

@@ -4,7 +4,9 @@ import { UserRoleSchema } from '../enums/UserRole.schema';
 import { accountCreateNestedManyWithoutUserInputObjectSchema as accountCreateNestedManyWithoutUserInputObjectSchema } from './accountCreateNestedManyWithoutUserInput.schema';
 import { sessionCreateNestedManyWithoutUserInputObjectSchema as sessionCreateNestedManyWithoutUserInputObjectSchema } from './sessionCreateNestedManyWithoutUserInput.schema';
 import { ClassCreateNestedManyWithoutTeacherInputObjectSchema as ClassCreateNestedManyWithoutTeacherInputObjectSchema } from './ClassCreateNestedManyWithoutTeacherInput.schema';
-import { ClassCreateNestedManyWithoutStudentsInputObjectSchema as ClassCreateNestedManyWithoutStudentsInputObjectSchema } from './ClassCreateNestedManyWithoutStudentsInput.schema'
+import { ClassCreateNestedManyWithoutStudentsInputObjectSchema as ClassCreateNestedManyWithoutStudentsInputObjectSchema } from './ClassCreateNestedManyWithoutStudentsInput.schema';
+import { AttemptCreateNestedManyWithoutStudentInputObjectSchema as AttemptCreateNestedManyWithoutStudentInputObjectSchema } from './AttemptCreateNestedManyWithoutStudentInput.schema';
+import { LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema as LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema } from './LessonCompletionCreateNestedManyWithoutStudentInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string(),
@@ -21,7 +23,9 @@ const makeSchema = () => z.object({
   account: z.lazy(() => accountCreateNestedManyWithoutUserInputObjectSchema),
   session: z.lazy(() => sessionCreateNestedManyWithoutUserInputObjectSchema),
   taughtClasses: z.lazy(() => ClassCreateNestedManyWithoutTeacherInputObjectSchema),
-  enrolledClass: z.lazy(() => ClassCreateNestedManyWithoutStudentsInputObjectSchema)
+  enrolledClass: z.lazy(() => ClassCreateNestedManyWithoutStudentsInputObjectSchema),
+  attempts: z.lazy(() => AttemptCreateNestedManyWithoutStudentInputObjectSchema),
+  lessonCompletions: z.lazy(() => LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema)
 }).strict();
 export const userCreateInputObjectSchema: z.ZodType<Prisma.userCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.userCreateInput>;
 export const userCreateInputObjectZodSchema = makeSchema();

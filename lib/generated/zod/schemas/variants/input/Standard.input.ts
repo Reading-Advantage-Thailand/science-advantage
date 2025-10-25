@@ -8,7 +8,8 @@ export const StandardInputSchema = z.object({
     code: z.string(),
     description: z.string(),
     gradeLevel: z.number().int().optional().nullable(),
-    lessons: z.array(z.unknown())
+    lessons: z.array(z.unknown()),
+    quizQuestions: z.array(z.unknown())
 }).strict();
 
 export type StandardInputType = z.infer<typeof StandardInputSchema>;

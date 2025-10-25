@@ -16,7 +16,14 @@
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
-- [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - Created: 2025-10-22
+- [ ] #92 - Story: Assessment Data Schema & Question Bank (P0) - **IN PROGRESS** 🚀
+  - **Started**: 2025-10-25
+  - **Branch**: feat/92-assessment-data-schema-question-bank
+  - **Specs**: docs/specs/assessment-system/spec.md (NEW), docs/specs/progress-tracking/spec.md (NEW)
+  - **Priority**: P0
+  - **Milestone**: Sprint 3: Interactive Learning
+  - **Change Type**: ADDED
+  - **Review Comments**: 2 AI reviews with suggestions on versioning, data integrity, authorization
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22
 - [ ] #95 - Story: Lesson Progress Tracking (P1) - Created: 2025-10-22

@@ -3,7 +3,9 @@ import type { Prisma } from '@prisma/client';
 import { UserRoleSchema } from '../enums/UserRole.schema';
 import { accountCreateNestedManyWithoutUserInputObjectSchema as accountCreateNestedManyWithoutUserInputObjectSchema } from './accountCreateNestedManyWithoutUserInput.schema';
 import { sessionCreateNestedManyWithoutUserInputObjectSchema as sessionCreateNestedManyWithoutUserInputObjectSchema } from './sessionCreateNestedManyWithoutUserInput.schema';
-import { ClassCreateNestedManyWithoutTeacherInputObjectSchema as ClassCreateNestedManyWithoutTeacherInputObjectSchema } from './ClassCreateNestedManyWithoutTeacherInput.schema'
+import { ClassCreateNestedManyWithoutTeacherInputObjectSchema as ClassCreateNestedManyWithoutTeacherInputObjectSchema } from './ClassCreateNestedManyWithoutTeacherInput.schema';
+import { AttemptCreateNestedManyWithoutStudentInputObjectSchema as AttemptCreateNestedManyWithoutStudentInputObjectSchema } from './AttemptCreateNestedManyWithoutStudentInput.schema';
+import { LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema as LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema } from './LessonCompletionCreateNestedManyWithoutStudentInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string(),
@@ -19,7 +21,9 @@ const makeSchema = () => z.object({
   updatedAt: z.coerce.date(),
   account: z.lazy(() => accountCreateNestedManyWithoutUserInputObjectSchema).optional(),
   session: z.lazy(() => sessionCreateNestedManyWithoutUserInputObjectSchema).optional(),
-  taughtClasses: z.lazy(() => ClassCreateNestedManyWithoutTeacherInputObjectSchema).optional()
+  taughtClasses: z.lazy(() => ClassCreateNestedManyWithoutTeacherInputObjectSchema).optional(),
+  attempts: z.lazy(() => AttemptCreateNestedManyWithoutStudentInputObjectSchema).optional(),
+  lessonCompletions: z.lazy(() => LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema).optional()
 }).strict();
 export const userCreateWithoutEnrolledClassInputObjectSchema: z.ZodType<Prisma.userCreateWithoutEnrolledClassInput> = makeSchema() as unknown as z.ZodType<Prisma.userCreateWithoutEnrolledClassInput>;
 export const userCreateWithoutEnrolledClassInputObjectZodSchema = makeSchema();
