@@ -629,6 +629,9 @@ The system SHALL record all quiz attempts and display the most recent score prom
 ---
 
 **Issue**: #96 - Created: 2025-10-22
+**Status**: In Progress
+**Branch**: feat/96-story-teacher-analytics-class-overview
+**Started**: 2025-10-25
 
 **User Story**: As a teacher, I want to see an overview of my class's performance across all lessons, so I can identify which lessons students are struggling with and plan my instruction accordingly.
 

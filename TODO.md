@@ -23,6 +23,11 @@
   - **Specs Updated**: docs/specs/progress-tracking/spec.md
   - **Implementation**: Lesson progress tracking API, progress UI components, curriculum progress view
 - [ ] #96 - Story: Teacher Analytics - Class Overview (P1) - Created: 2025-10-22
+  - **Started**: 2025-10-25
+  - **Branch**: feat/96-story-teacher-analytics-class-overview
+  - **Specs**: docs/specs/progress-tracking/spec.md
+  - **Priority**: P1
+  - **Milestone**: Sprint 3: Interactive Learning
 - [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
