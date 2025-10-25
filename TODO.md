@@ -19,6 +19,13 @@
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22
 - [ ] #95 - Story: Lesson Progress Tracking (P1) - Created: 2025-10-22
+  - **Status**: In Progress
+  - **Started**: 2025-10-25
+  - **Branch**: feat/95-lesson-progress-tracking
+  - **Specs**: docs/specs/progress-tracking/spec.md
+  - **Priority**: P1
+  - **Milestone**: Sprint 3: Interactive Learning
+  - **Dependencies**: None
 - [ ] #96 - Story: Teacher Analytics - Class Overview (P1) - Created: 2025-10-22
 - [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22

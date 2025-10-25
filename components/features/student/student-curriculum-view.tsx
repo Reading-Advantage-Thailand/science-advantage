@@ -4,7 +4,21 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Loader2, CheckCircle2, Circle } from 'lucide-react';
+
+type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+
+interface LessonProgress {
+  status: LessonProgressStatus;
+  attemptsCount: number;
+  mostRecentScore: number | null;
+  mostRecentScorePercentage: number | null;
+  bestScore: number | null;
+  bestScorePercentage: number | null;
+  lastAttemptAt: string | null;
+  completedAt: string | null;
+}
 
 interface Lesson {
   id: string;
@@ -14,6 +28,7 @@ interface Lesson {
   order: number;
   completed: boolean;
   started: boolean;
+  progress: LessonProgress;
 }
 
 interface CurriculumUnit {
@@ -37,6 +52,49 @@ interface CurriculumData {
 interface StudentCurriculumViewProps {
   classId: string;
 }
+
+const STATUS_CONFIG: Record<
+  LessonProgressStatus,
+  {
+    label: string;
+    icon: typeof Circle;
+    iconClass: string;
+    badgeClass: string;
+  }
+> = {
+  NOT_STARTED: {
+    label: 'Not Started',
+    icon: Circle,
+    iconClass: 'text-gray-300',
+    badgeClass: 'bg-gray-50 text-gray-600 border-gray-200',
+  },
+  IN_PROGRESS: {
+    label: 'In Progress',
+    icon: Circle,
+    iconClass: 'text-amber-500',
+    badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',
+  },
+  COMPLETED: {
+    label: 'Completed',
+    icon: CheckCircle2,
+    iconClass: 'text-emerald-600',
+    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  },
+};
+
+const getScoreBadgeClass = (percentage: number) => {
+  if (percentage >= 90) return 'bg-blue-100 text-blue-900 border-blue-200';
+  if (percentage >= 80) return 'bg-emerald-100 text-emerald-900 border-emerald-200';
+  if (percentage >= 60) return 'bg-yellow-100 text-yellow-900 border-yellow-200';
+  return 'bg-rose-100 text-rose-900 border-rose-200';
+};
+
+const formatPercentage = (value: number | null) => {
+  if (value === null || value === undefined) {
+    return '—';
+  }
+  return `${Math.round(value)}%`;
+};
 
 export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
   const router = useRouter();
@@ -114,9 +172,10 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
         </div>
       </div>
 
-      <Accordion type="multiple" className="divide-y divide-gray-200">
-        {curriculum.units.map(unit => (
-          <AccordionItem key={unit.id} value={unit.id} className="px-2">
+      <TooltipProvider delayDuration={200}>
+        <Accordion type="multiple" className="divide-y divide-gray-200">
+          {curriculum.units.map(unit => (
+            <AccordionItem key={unit.id} value={unit.id} className="px-2">
             <AccordionTrigger>
               <div className="flex flex-col gap-1 text-left">
                 <span className="text-xs font-semibold uppercase tracking-wide text-rose-600">
@@ -129,58 +188,87 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-1 pb-4">
-              {unit.lessons.length > 0 ? (
-                <ol className="space-y-3">
-                  {unit.lessons.map(lesson => (
-                    <li
-                      key={lesson.id}
-                      onClick={() => router.push(`/student/classes/${classId}/lessons/${lesson.slug}`)}
-                      className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm transition hover:border-rose-200 hover:shadow-md cursor-pointer"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            {lesson.completed ? (
-                              <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                            ) : lesson.started ? (
-                              <Circle className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                            ) : (
-                              <Circle className="h-5 w-5 text-gray-300 flex-shrink-0" />
-                            )}
-                            <div>
-                              <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
-                                Lesson {lesson.order}
-                              </p>
-                              <p className="text-base font-medium text-gray-900">{lesson.title}</p>
-                              {lesson.titleThai !== lesson.title && (
-                                <p className="text-sm text-gray-600">{lesson.titleThai}</p>
-                              )}
+                  {unit.lessons.length > 0 ? (
+                    <ol className="space-y-3">
+                      {unit.lessons.map(lesson => {
+                        const status = lesson.progress?.status ?? 'NOT_STARTED';
+                        const statusConfig = STATUS_CONFIG[status];
+                        const attemptsCount = lesson.progress?.attemptsCount ?? 0;
+                        const scorePercentage = lesson.progress?.mostRecentScorePercentage ?? null;
+                        const bestPercentage = lesson.progress?.bestScorePercentage ?? null;
+                        const hasScoreBadge = attemptsCount > 0 && typeof scorePercentage === 'number';
+
+                        const StatusIcon = statusConfig.icon;
+
+                        return (
+                          <li
+                            key={lesson.id}
+                            onClick={() => router.push(`/student/classes/${classId}/lessons/${lesson.slug}`)}
+                            className="cursor-pointer rounded-lg border border-gray-100 bg-white p-4 shadow-sm transition hover:border-rose-200 hover:shadow-md"
+                          >
+                            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                              <div className="flex flex-1 items-start gap-3">
+                                <StatusIcon className={`h-5 w-5 flex-shrink-0 ${statusConfig.iconClass}`} />
+                                <div>
+                                  <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
+                                    Lesson {lesson.order}
+                                  </p>
+                                  <p className="text-base font-medium text-gray-900">{lesson.title}</p>
+                                  {lesson.titleThai !== lesson.title && (
+                                    <p className="text-sm text-gray-600">{lesson.titleThai}</p>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <Badge variant="outline" className={statusConfig.badgeClass}>
+                                  {statusConfig.label}
+                                </Badge>
+                                {hasScoreBadge && (
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <span
+                                        className={`rounded-full border px-3 py-1 text-sm font-semibold ${getScoreBadgeClass(
+                                          scorePercentage!
+                                        )}`}
+                                      >
+                                        {Math.round(scorePercentage!)}%
+                                      </span>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="left" align="center">
+                                      <div className="space-y-1">
+                                        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                                          Attempt history
+                                        </p>
+                                        <div className="flex items-center justify-between gap-4 text-sm">
+                                          <span className="text-gray-500">Attempts</span>
+                                          <span className="font-semibold text-gray-900">{attemptsCount}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-4 text-sm">
+                                          <span className="text-gray-500">Most recent</span>
+                                          <span className="font-semibold text-gray-900">{formatPercentage(scorePercentage)}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-4 text-sm">
+                                          <span className="text-gray-500">Best</span>
+                                          <span className="font-semibold text-gray-900">{formatPercentage(bestPercentage)}</span>
+                                        </div>
+                                      </div>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          {lesson.completed && (
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                              Completed
-                            </Badge>
-                          )}
-                          {lesson.started && !lesson.completed && (
-                            <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-                              In Progress
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <p className="text-sm text-gray-500">No lessons added yet.</p>
-              )}
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  ) : (
+                    <p className="text-sm text-gray-500">No lessons added yet.</p>
+                  )}
             </AccordionContent>
           </AccordionItem>
-        ))}
-      </Accordion>
+          ))}
+        </Accordion>
+      </TooltipProvider>
     </div>
   );
 }

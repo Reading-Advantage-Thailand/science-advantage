@@ -496,6 +496,9 @@ The system SHALL include reading comprehension questions that reference lesson t
 - E2E test: Full flow from lesson view → quiz → results → curriculum with updated badge
 
 **Labels**: type:feature,area:frontend,area:backend,priority:P1
+**Status**: In Progress
+**Started**: 2025-10-25
+**Branch**: feat/95-lesson-progress-tracking
 **Affected Specs**: docs/specs/progress-tracking/spec.md
 **Change Type**: ADDED
 **Agent Assignment**: dev (Full-stack Developer)

@@ -81,7 +81,23 @@ export async function GET(
       },
     });
 
-    // 6. Format response according to API contract
+    // 6. Gather lesson completions for current student (if applicable)
+    const lessonIds = units.flatMap(unit => unit.lessons.map(lesson => lesson.id));
+    const completions =
+      lessonIds.length === 0
+        ? []
+        : await prisma.lessonCompletion.findMany({
+          where: {
+            studentId: session.user.id,
+            lessonId: { in: lessonIds },
+          },
+        });
+
+    const lessonsProgressMap = new Map(
+      completions.map(completion => [completion.lessonId, completion])
+    );
+
+    // 7. Format response according to API contract
     const response = {
       class: {
         id: classRecord.id,
@@ -94,15 +110,35 @@ export async function GET(
         title: unit.title,
         titleThai: unit.title, // TODO: Add Thai translations when schema supports it
         order: unit.order,
-        lessons: unit.lessons.map(lesson => ({
-          id: lesson.id,
-          slug: lesson.id, // TODO: Use slug field when schema supports it
-          title: lesson.title,
-          titleThai: lesson.title, // TODO: Add Thai translations when schema supports it
-          order: lesson.order,
-          completed: false, // Placeholder - will be implemented with progress tracking
-          started: false,   // Placeholder - will be implemented with progress tracking
-        })),
+        lessons: unit.lessons.map(lesson => {
+          const progress = lessonsProgressMap.get(lesson.id);
+          const status = progress?.status ?? 'NOT_STARTED';
+          const mostRecentScorePercentage = progress?.mostRecentScorePercentage ?? null;
+          const mostRecentScore = progress?.mostRecentScore ?? null;
+          const bestScorePercentage = progress?.bestScorePercentage ?? null;
+          const bestScore = progress?.bestScore ?? null;
+          const attemptsCount = progress?.attemptsCount ?? 0;
+
+          return {
+            id: lesson.id,
+            slug: lesson.id, // TODO: Use slug field when schema supports it
+            title: lesson.title,
+            titleThai: lesson.title, // TODO: Add Thai translations when schema supports it
+            order: lesson.order,
+            completed: status === 'COMPLETED',
+            started: status !== 'NOT_STARTED',
+            progress: {
+              status,
+              attemptsCount,
+              mostRecentScore,
+              mostRecentScorePercentage,
+              bestScore,
+              bestScorePercentage,
+              lastAttemptAt: progress?.lastAttemptAt?.toISOString() ?? null,
+              completedAt: progress?.completedAt?.toISOString() ?? null,
+            },
+          };
+        }),
       })),
     };
 
