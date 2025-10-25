@@ -18,21 +18,16 @@
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22
 - [ ] #93 - Story: Quiz Taking API (P1) - Created: 2025-10-22
 - [ ] #94 - Story: Quiz UI Components (P1) - Created: 2025-10-22
-- [ ] #95 - Story: Lesson Progress Tracking (P1) - Created: 2025-10-22
-  - **Status**: In Progress
-  - **Started**: 2025-10-25
-  - **Branch**: feat/95-lesson-progress-tracking
-  - **Specs**: docs/specs/progress-tracking/spec.md
-  - **Priority**: P1
-  - **Milestone**: Sprint 3: Interactive Learning
-  - **Dependencies**: None
+- [x] #95 - Story: Lesson Progress Tracking (P1) - PR: #110 - Completed: 2025-10-25 ✅
+  - **Merge Commit**: b21469b7ec3755850eda7acd70e1a4413570ea69
+  - **Specs Updated**: docs/specs/progress-tracking/spec.md
+  - **Implementation**: Lesson progress tracking API, progress UI components, curriculum progress view
 - [ ] #96 - Story: Teacher Analytics - Class Overview (P1) - Created: 2025-10-22
 - [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
-
-**Progress**: 4/11 stories (36%)
+**Progress**: 5/11 stories (45%)
 
 ## In Review
 
