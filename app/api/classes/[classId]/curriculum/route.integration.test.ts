@@ -37,6 +37,9 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
     mockCookies.get.mockReturnValue(undefined);
 
     // Clean up in correct order
+    await prisma.questionResponse.deleteMany();
+    await prisma.attempt.deleteMany();
+    await prisma.lessonCompletion.deleteMany();
     await prisma.$executeRaw`DELETE FROM "_CurriculumUnitToLesson"`;
     await prisma.$executeRaw`DELETE FROM "_LessonToStandard"`;
     await prisma.curriculumUnit.deleteMany();
@@ -168,6 +171,9 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
   });
 
   afterEach(async () => {
+    await prisma.questionResponse.deleteMany();
+    await prisma.attempt.deleteMany();
+    await prisma.lessonCompletion.deleteMany();
     await prisma.$executeRaw`DELETE FROM "_CurriculumUnitToLesson"`;
     await prisma.$executeRaw`DELETE FROM "_LessonToStandard"`;
     await prisma.curriculumUnit.deleteMany();
@@ -344,6 +350,15 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
       expect(lesson).toHaveProperty('order');
       expect(lesson).toHaveProperty('completed');
       expect(lesson).toHaveProperty('started');
+      expect(lesson).toHaveProperty('progress');
+      expect(lesson.progress).toMatchObject({
+        status: 'NOT_STARTED',
+        attemptsCount: 0,
+        mostRecentScore: null,
+        mostRecentScorePercentage: null,
+        bestScore: null,
+        bestScorePercentage: null,
+      });
     });
 
     it('should set placeholder progress values', async () => {

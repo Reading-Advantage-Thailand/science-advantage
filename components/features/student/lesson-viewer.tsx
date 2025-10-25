@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2, FileQuestion } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -30,16 +30,81 @@ interface LessonData {
   standards: Standard[];
 }
 
+type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+
+interface LessonProgressSummary {
+  status: LessonProgressStatus;
+  attemptsCount: number;
+  mostRecentScore: number | null;
+  mostRecentScorePercentage: number | null;
+  bestScore: number | null;
+  bestScorePercentage: number | null;
+}
+
 interface LessonViewerProps {
   classId: string;
   lessonSlug: string;
+  progress?: LessonProgressSummary | null;
+  progressLoading?: boolean;
+  onStartQuiz?: () => void;
 }
 
-export function LessonViewer({ classId, lessonSlug }: LessonViewerProps) {
+const PROGRESS_STATUS_META: Record<
+  LessonProgressStatus,
+  { label: string; badgeClass: string; description: string }
+> = {
+  NOT_STARTED: {
+    label: 'Not Started',
+    badgeClass: 'bg-gray-50 text-gray-600 border-gray-200',
+    description: 'Complete the lesson and start the quiz to track your progress.',
+  },
+  IN_PROGRESS: {
+    label: 'In Progress',
+    badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',
+    description: 'You have started working on this lesson. Finish the quiz to see your score.',
+  },
+  COMPLETED: {
+    label: 'Completed',
+    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    description: 'Great work! Retake the quiz anytime to improve your score.',
+  },
+};
+
+const getScoreBadgeClass = (percentage: number) => {
+  if (percentage >= 90) return 'bg-blue-100 text-blue-900 border-blue-200';
+  if (percentage >= 80) return 'bg-emerald-100 text-emerald-900 border-emerald-200';
+  if (percentage >= 60) return 'bg-yellow-100 text-yellow-900 border-yellow-200';
+  return 'bg-rose-100 text-rose-900 border-rose-200';
+};
+
+const formatPercentage = (value: number | null) => {
+  if (value === null || value === undefined) {
+    return '—';
+  }
+  return `${Math.round(value)}%`;
+};
+
+export function LessonViewer({ classId, lessonSlug, progress, progressLoading = false, onStartQuiz }: LessonViewerProps) {
   const router = useRouter();
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const progressSummary = useMemo<LessonProgressSummary>(() => {
+    return (
+      progress ?? {
+        status: 'NOT_STARTED',
+        attemptsCount: 0,
+        mostRecentScore: null,
+        mostRecentScorePercentage: null,
+        bestScore: null,
+        bestScorePercentage: null,
+      }
+    );
+  }, [progress]);
+
+  const statusMeta = PROGRESS_STATUS_META[progressSummary.status];
+  const hasScore = typeof progressSummary.mostRecentScorePercentage === 'number';
+  const ctaLabel = progressSummary.attemptsCount > 0 ? 'Retake Quiz' : 'Start Quiz';
 
   useEffect(() => {
     async function fetchLesson() {
@@ -118,6 +183,12 @@ export function LessonViewer({ classId, lessonSlug }: LessonViewerProps) {
     );
   }
 
+  const handleQuizCta = () => {
+    if (onStartQuiz) {
+      onStartQuiz();
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Button
@@ -187,6 +258,75 @@ export function LessonViewer({ classId, lessonSlug }: LessonViewerProps) {
                 </div>
               </div>
             )}
+          </div>
+      </CardContent>
+      </Card>
+
+      {/* Lesson Progress & Quiz CTA */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Lesson Progress</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <Badge variant="outline" className={statusMeta.badgeClass}>
+                {statusMeta.label}
+              </Badge>
+              <p className="mt-2 text-sm text-gray-600">{statusMeta.description}</p>
+              <div className="mt-3 flex flex-wrap gap-4 text-sm text-gray-700">
+                <span>
+                  Attempts:{' '}
+                  <span className="font-semibold text-gray-900">
+                    {progressSummary.attemptsCount}
+                  </span>
+                </span>
+                {hasScore && (
+                  <>
+                    <span>
+                      Most recent:{' '}
+                      <span className="font-semibold text-gray-900">
+                        {formatPercentage(progressSummary.mostRecentScorePercentage)}
+                      </span>
+                    </span>
+                    <span>
+                      Best:{' '}
+                      <span className="font-semibold text-gray-900">
+                        {formatPercentage(progressSummary.bestScorePercentage ?? progressSummary.mostRecentScorePercentage)}
+                      </span>
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              {hasScore && progressSummary.mostRecentScorePercentage !== null && (
+                <span
+                  className={`rounded-full border px-3 py-1 text-sm font-semibold ${getScoreBadgeClass(
+                    progressSummary.mostRecentScorePercentage
+                  )}`}
+                >
+                  {formatPercentage(progressSummary.mostRecentScorePercentage)}
+                </span>
+              )}
+              <Button
+                onClick={handleQuizCta}
+                disabled={!onStartQuiz || progressLoading}
+                className="gap-2"
+              >
+                {progressLoading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Checking...
+                  </>
+                ) : (
+                  <>
+                    <FileQuestion className="h-4 w-4" />
+                    {ctaLabel}
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>

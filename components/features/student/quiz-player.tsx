@@ -69,9 +69,10 @@ interface QuizResult {
 interface QuizPlayerProps {
   classId: string;
   lessonSlug: string;
+  onQuizCompleted?: (result: QuizResult) => void;
 }
 
-export function QuizPlayer({ classId, lessonSlug }: QuizPlayerProps) {
+export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerProps) {
   const router = useRouter();
 
   // Quiz state
@@ -231,13 +232,14 @@ export function QuizPlayer({ classId, lessonSlug }: QuizPlayerProps) {
       const resultData: QuizResult = await response.json();
       setResult(resultData);
       setShowSubmitDialog(false);
+      onQuizCompleted?.(resultData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       setShowSubmitDialog(false);
     } finally {
       setSubmitting(false);
     }
-  }, [quizData, answers, questionTimes, currentQuestionIndex, lessonSlug, allQuestionsAnswered, recordQuestionTime]);
+  }, [quizData, answers, questionTimes, currentQuestionIndex, lessonSlug, allQuestionsAnswered, recordQuestionTime, onQuizCompleted]);
 
   // Render loading state
   if (loading) {

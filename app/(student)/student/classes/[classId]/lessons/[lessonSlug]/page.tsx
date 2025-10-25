@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, use } from 'react';
+import { useState, useEffect, useCallback, use } from 'react';
 import { LessonViewer } from '@/components/features/student/lesson-viewer';
 import { QuizPlayer } from '@/components/features/student/quiz-player';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,48 @@ interface PageProps {
 
 export default function LessonPage({ params }: PageProps) {
   const [view, setView] = useState<'lesson' | 'quiz'>('lesson');
+  const [progress, setProgress] = useState<LessonProgressResponse | null>(null);
+  const [progressLoading, setProgressLoading] = useState(true);
   const { classId, lessonSlug } = use(params);
+
+  const fetchProgress = useCallback(async () => {
+    try {
+      setProgressLoading(true);
+      const response = await fetch(`/api/students/me/lessons/${lessonSlug}/progress`);
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          setProgress(null);
+          return;
+        }
+        if (response.status === 401) {
+          throw new Error('Please sign in to view progress');
+        }
+        throw new Error('Failed to load lesson progress');
+      }
+
+      const data = (await response.json()) as LessonProgressResponse;
+      setProgress(data);
+    } catch (error) {
+      console.error(error);
+      setProgress(null);
+    } finally {
+      setProgressLoading(false);
+    }
+  }, [lessonSlug]);
+
+  useEffect(() => {
+    fetchProgress();
+  }, [fetchProgress]);
+
+  const handleStartQuiz = useCallback(() => {
+    setView('quiz');
+  }, []);
+
+  const handleQuizCompleted = useCallback(() => {
+    setView('lesson');
+    fetchProgress();
+  }, [fetchProgress]);
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">
@@ -41,10 +82,28 @@ export default function LessonPage({ params }: PageProps) {
 
       {/* Content */}
       {view === 'lesson' ? (
-        <LessonViewer classId={classId} lessonSlug={lessonSlug} />
+        <LessonViewer
+          classId={classId}
+          lessonSlug={lessonSlug}
+          progress={progress}
+          progressLoading={progressLoading}
+          onStartQuiz={handleStartQuiz}
+        />
       ) : (
-        <QuizPlayer classId={classId} lessonSlug={lessonSlug} />
+        <QuizPlayer classId={classId} lessonSlug={lessonSlug} onQuizCompleted={handleQuizCompleted} />
       )}
     </div>
   );
+}
+
+interface LessonProgressResponse {
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+  attemptsCount: number;
+  mostRecentScore: number | null;
+  mostRecentScorePercentage: number | null;
+  bestScore: number | null;
+  bestScorePercentage: number | null;
+  completedAt: string | null;
+  lastAttemptAt: string | null;
+  totalTimeSpentSeconds: number;
 }

@@ -120,7 +120,42 @@ export async function GET(
       },
     });
 
-    // 10. Format response (exclude correctAnswer)
+    // 10. Ensure a lesson completion record exists so curriculum can show "Started"
+    const existingCompletion = await prisma.lessonCompletion.findUnique({
+      where: {
+        studentId_lessonId: {
+          studentId: session.user.id,
+          lessonId: lessonSlug,
+        },
+      },
+    });
+
+    if (!existingCompletion) {
+      await prisma.lessonCompletion.create({
+        data: {
+          studentId: session.user.id,
+          lessonId: lessonSlug,
+          status: 'IN_PROGRESS',
+          attemptsCount: 0,
+          lastAttemptAt: new Date(),
+        },
+      });
+    } else if (existingCompletion.status === 'NOT_STARTED') {
+      await prisma.lessonCompletion.update({
+        where: {
+          studentId_lessonId: {
+            studentId: session.user.id,
+            lessonId: lessonSlug,
+          },
+        },
+        data: {
+          status: 'IN_PROGRESS',
+          lastAttemptAt: new Date(),
+        },
+      });
+    }
+
+    // 11. Format response (exclude correctAnswer)
     const response = {
       quizId: attempt.id,
       lessonId: lessonSlug,
@@ -278,6 +313,14 @@ export async function POST(
       });
     }
 
+    const percentage = (totalScore / attempt.maxScore) * 100;
+
+    // Calculate total time spent on this attempt
+    const attemptTimeSpent = questionResponsesToCreate.reduce(
+      (sum, qr) => sum + qr.timeSpentSeconds,
+      0
+    );
+
     // 8. Use transaction to ensure data consistency
     await prisma.$transaction(async tx => {
       // Update attempt with score and completion time
@@ -295,8 +338,6 @@ export async function POST(
       });
 
       // Update or create LessonCompletion record
-      const percentage = (totalScore / attempt.maxScore) * 100;
-
       const existingCompletion = await tx.lessonCompletion.findUnique({
         where: {
           studentId_lessonId: {
@@ -328,8 +369,9 @@ export async function POST(
                 ? Math.max(existingCompletion.bestScorePercentage, percentage)
                 : percentage,
             lastAttemptAt: new Date(),
-            status: percentage >= 60 ? 'COMPLETED' : 'IN_PROGRESS',
-            completedAt: percentage >= 60 ? new Date() : existingCompletion.completedAt,
+            status: 'COMPLETED',
+            completedAt: new Date(),
+            totalTimeSpentSeconds: existingCompletion.totalTimeSpentSeconds + attemptTimeSpent,
           },
         });
       } else {
@@ -338,22 +380,21 @@ export async function POST(
           data: {
             studentId: session.user.id,
             lessonId: lessonSlug,
-            status: percentage >= 60 ? 'COMPLETED' : 'IN_PROGRESS',
+            status: 'COMPLETED',
             attemptsCount: 1,
             bestScore: totalScore,
             bestScorePercentage: percentage,
             mostRecentScore: totalScore,
             mostRecentScorePercentage: percentage,
             lastAttemptAt: new Date(),
-            completedAt: percentage >= 60 ? new Date() : null,
+            completedAt: new Date(),
+            totalTimeSpentSeconds: attemptTimeSpent,
           },
         });
       }
     });
 
     // 9. Format and return response
-    const percentage = (totalScore / attempt.maxScore) * 100;
-
     return NextResponse.json(
       {
         attemptId,
