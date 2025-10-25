@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { NextRequest, NextResponse } from 'next/server';
-import { middleware } from './middleware';
+import { proxy as middleware } from './proxy';
 
 // Mock NextResponse.redirect/next
 vi.mock('next/server', async () => {
@@ -100,9 +100,9 @@ describe('Middleware - Route Protection and RBAC', () => {
 
   describe('Middleware Configuration', () => {
     it('should have correct matcher configuration', async () => {
-      const { config } = await import('./middleware');
+      const { config } = await import('./proxy');
 
-      expect(config.runtime).toBe('nodejs');
+      
       expect(config.matcher).toContain('/student/:path*');
       expect(config.matcher).toContain('/teacher/:path*');
       expect(config.matcher).toContain('/admin/:path*');

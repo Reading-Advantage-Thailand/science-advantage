@@ -9,7 +9,8 @@ export async function GET() {
       return NextResponse.json({ session: null }, { status: 200 });
     }
 
-    return NextResponse.json({ session });
+    const { id, token, ...safeSession } = session;
+    return NextResponse.json({ session: safeSession });
   } catch (error) {
     console.error('Session error:', error);
     return NextResponse.json(

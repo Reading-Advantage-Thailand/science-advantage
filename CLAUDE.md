@@ -34,6 +34,7 @@ Duplicate `.env.example` into `.env.local` before development and populate crede
 
 ## GitHub-Centric Workflow (gh CLI)
 
+- Location: Complete details at .claude/skills/git-workflow/SKILLS.md
 - Default branch: `main` (trunk-based). Create one short-lived branch per issue. Do not create sprint branches.
 - Sprints: Use GitHub Milestones (recommended) and/or Projects for tracking. Assign every issue to the current milestone.
 - Labels: `type:feature`, `type:fix`, `type:chore`, `area:frontend`, `area:backend`, `area:prisma`, `area:auth`, `priority:P1|P2|P3`.
@@ -117,3 +118,11 @@ Duplicate `.env.example` into `.env.local` before development and populate crede
 - Reviewer checks: scope, tests, security for auth/db changes, migrations reviewed.
 - If changes requested: push fixes to the same branch; auto-merge continues after approval.
 - If the PR is merged: always sync back to `main`; never continue work on a merged branch.
+
+## AI Collaboration Guidelines
+
+- Default to the spec-first workflow documented in `CLAUDE.md`.
+- Reference capability specs in `docs/specs/` before starting implementation and document requirement updates directly in those specs.
+- Use GitHub issues and pull requests as the primary coordination mechanism; avoid role-based agent commands from the legacy process.
+- When delegating to AI tooling, include the relevant spec excerpt, acceptance criteria, and test expectations so work stays aligned with the git-centric flow.
+

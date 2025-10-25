@@ -188,7 +188,7 @@ describe('POST /api/auth/login - Integration Tests', () => {
       const data = await response.json();
 
       expect(response.status).toBe(500);
-      expect(data.error).toBe('Internal server error');
+      expect(data.error).toBe('An error occurred during login');
     });
 
     it('should reject incorrect password', async () => {
@@ -375,7 +375,7 @@ describe('POST /api/auth/login - Integration Tests', () => {
       const data = await response.json();
 
       expect(response.status).toBe(500);
-      expect(data.error).toBe('Internal server error');
+      expect(data.error).toBe('An error occurred during login');
     });
   });
 });

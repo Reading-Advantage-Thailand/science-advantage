@@ -196,7 +196,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
       const data = await response.json();
 
       expect(response.status).toBe(500);
-      expect(data.error).toBe('Internal server error');
+      expect(data.error).toBe('An error occurred while fetching session');
 
       findSpy.mockRestore();
     });
@@ -210,7 +210,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
       const data = await response.json();
 
       expect(response.status).toBe(500);
-      expect(data.error).toBe('Internal server error');
+      expect(data.error).toBe('An error occurred while fetching session');
     });
   });
 

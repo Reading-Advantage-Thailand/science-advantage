@@ -34,6 +34,7 @@ Duplicate `.env.example` into `.env.local` before development and populate crede
 
 ## GitHub-Centric Workflow (gh CLI)
 
+- Location: Complete details at .claude/skills/git-workflow/SKILLS.md
 - Default branch: `main` (trunk-based). Create one short-lived branch per issue. Do not create sprint branches.
 - Sprints: Use GitHub Milestones (recommended) and/or Projects for tracking. Assign every issue to the current milestone.
 - Labels: `type:feature`, `type:fix`, `type:chore`, `area:frontend`, `area:backend`, `area:prisma`, `area:auth`, `priority:P1|P2|P3`.
