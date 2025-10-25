@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
@@ -45,10 +45,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.483.0",
-    "next": "15.5.4",
+    "next": "16.0.0",
     "next-themes": "^0.4.6",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-hook-form": "^7.65.0",
     "recharts": "^2.15.1",
     "sonner": "^2.0.1",
@@ -62,10 +62,10 @@
     "@tailwindcss/postcss": "^4",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.17.25",
-    "@types/react": "19.1.15",
-    "@types/react-dom": "19.1.9",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "@vitest/ui": "^3.2.4",
-    "eslint-config-next": "^15.5.4",
+    "eslint-config-next": "16.0.0",
     "prettier": "^3.6.2",
     "prisma": "^6.17.1",
     "prisma-zod-generator": "^1.29.0",
@@ -75,7 +75,7 @@
     "vitest": "^3.2.4"
   },
   "overrides": {
-    "@types/react": "19.1.15",
-    "@types/react-dom": "19.1.9"
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2"
   }
 }

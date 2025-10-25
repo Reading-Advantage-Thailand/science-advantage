@@ -81,6 +81,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 1. init-spec
 **Purpose**: Create or update specification files before creating issues
 
+**Location**: {.claude/skills/git-workflow/references/init-spec.md
+
 **When to use**:
 - Creating a new capability
 - Documenting existing functionality
@@ -99,6 +101,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 2. seed-sprint
 **Purpose**: Create GitHub issues from sprint markdown files
 
+**Location**: {.claude/skills/git-workflow/references/seed-sprint.md
+
 **When to use**:
 - Starting a new sprint
 - Converting planned stories to tracked issues
@@ -116,6 +120,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 2.5. review-sprint
 **Purpose**: AI-powered quality review of sprint issues for architecture, wording, and planning
+
+**Location**: {.claude/skills/git-workflow/references/review-sprint.md
 
 **When to use**:
 - After running seed-sprint
@@ -136,6 +142,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 3. next-issue
 **Purpose**: Select and start work on next available issue
+
+**Location**: {.claude/skills/git-workflow/references/next-issue.md
 
 **When to use**:
 - Starting work on a new issue
@@ -158,6 +166,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 4. test-issue
 **Purpose**: Run comprehensive testing before submission
 
+**Location**: {.claude/skills/git-workflow/references/test-issue.md
+
 **When to use**:
 - After completing implementation
 - Before creating a pull request
@@ -177,6 +187,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 5. submit-issue
 **Purpose**: Create pull request with spec deltas
+
+**Location**: {.claude/skills/git-workflow/references/submit-issue.md
 
 **When to use**:
 - After implementation complete
@@ -199,6 +211,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 6. update-issue
 **Purpose**: Handle review feedback and PR updates
 
+**Location**: {.claude/skills/git-workflow/references/update-issue.md
+
 **When to use**:
 - After receiving review comments
 - When CI/CD checks fail
@@ -220,6 +234,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 7. close-issue
 **Purpose**: Clean up after PR merge
 
+**Location**: {.claude/skills/git-workflow/references/close-issue.md
+
 **When to use**:
 - After PR is merged
 - Completing issue lifecycle
@@ -239,6 +255,8 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 8. sprint-status
 **Purpose**: Provide sprint progress and analytics
+
+**Location**: {.claude/skills/git-workflow/references/sprint-status.md
 
 **When to use**:
 - Daily standup preparation
