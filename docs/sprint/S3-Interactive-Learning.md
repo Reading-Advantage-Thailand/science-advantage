@@ -764,7 +764,24 @@ The system SHALL aggregate time-spent data at question, quiz, lesson, and studen
 
 ---
 
-## Technical Notes
+## Chore: Upgrade to Next.js 16
+
+**Issue**: #106
+**Priority**: P1
+**Labels**: type:chore, area:devex
+**Status**: In Progress
+**Branch**: feat/106-upgrade-to-next-js-16
+**Started**: 2025-10-25
+
+**User Story**: As a developer, I want to upgrade the project to Next.js 16 to take advantage of the latest features and performance improvements, and to enable the use of the `next-devtools-mcp` server.
+
+**Acceptance Criteria**:
+- [ ] Next.js and its related packages are upgraded to version 16.
+- [ ] The application builds and runs without errors.
+- [ ] All existing tests pass.
+- [ ] The `next-devtools-mcp` server is accessible and functional.
+
+---
 
 ### Database Schema
 - New models: `QuizQuestion`, `Attempt`, `QuestionResponse`, `LessonCompletion`
