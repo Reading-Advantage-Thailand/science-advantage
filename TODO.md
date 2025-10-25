@@ -22,18 +22,15 @@
   - **Merge Commit**: b21469b7ec3755850eda7acd70e1a4413570ea69
   - **Specs Updated**: docs/specs/progress-tracking/spec.md
   - **Implementation**: Lesson progress tracking API, progress UI components, curriculum progress view
-- [ ] #96 - Story: Teacher Analytics - Class Overview (P1, feat/96-teacher-analytics-class-overview)
-  - **Started**: 2025-10-26
-  - **Branch**: feat/96-teacher-analytics-class-overview
-  - **Specs**: docs/specs/progress-tracking/spec.md (Requirement: Report Class Performance by Lesson)
-  - **Priority**: P1
-  - **Milestone**: Sprint 3: Interactive Learning
-  - **Review Comments**: 2 AI reviews - Performance optimization suggestions, authorization checks, empty state handling
+- [x] #96 - Story: Teacher Analytics - Class Overview (P1) - PR: #112 - Completed: 2025-10-26 ✅
+  - **Merge Commit**: 9b66305d0e5f3ed2c8dd3c3a30a2fe8dcfb4e9a7
+  - **Specs Updated**: docs/specs/progress-tracking/spec.md
+  - **Implementation**: Class analytics API endpoint, sortable analytics table, color-coded score badges, tab navigation
 - [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
-**Progress**: 5/11 stories (45%)
+**Progress**: 6/11 stories (55%)
 
 ## In Review
 
