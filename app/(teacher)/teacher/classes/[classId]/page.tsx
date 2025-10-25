@@ -4,6 +4,7 @@ import { notFound, redirect } from 'next/navigation';
 import { hasRole, requireAuth } from '@/lib/auth/server';
 import { getClassDetailWithCurriculum } from '@/lib/services/classes/get-class-detail';
 import { ClassDetailHeader } from '@/components/features/teacher/class-detail/class-detail-header';
+import { ClassTabs } from '@/components/features/teacher/class-detail/class-tabs';
 import { CurriculumAccordion } from '@/components/features/teacher/class-detail/curriculum-accordion';
 import { ClassSnapshotPanel } from '@/components/features/teacher/class-detail/class-snapshot-panel';
 import { JoinCodePanel } from '@/components/features/teacher/class-detail/join-code-panel';
@@ -63,6 +64,8 @@ export default async function TeacherClassDetailPage({ params }: { params: Route
         standardsAlignment={classDetail.standardsAlignment}
         studentCount={classDetail.studentCount}
       />
+
+      <ClassTabs classId={classId} />
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Card>
