@@ -9,7 +9,9 @@ import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUp
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { accountUpdateManyWithoutUserNestedInputObjectSchema as accountUpdateManyWithoutUserNestedInputObjectSchema } from './accountUpdateManyWithoutUserNestedInput.schema';
 import { sessionUpdateManyWithoutUserNestedInputObjectSchema as sessionUpdateManyWithoutUserNestedInputObjectSchema } from './sessionUpdateManyWithoutUserNestedInput.schema';
-import { ClassUpdateManyWithoutTeacherNestedInputObjectSchema as ClassUpdateManyWithoutTeacherNestedInputObjectSchema } from './ClassUpdateManyWithoutTeacherNestedInput.schema'
+import { ClassUpdateManyWithoutTeacherNestedInputObjectSchema as ClassUpdateManyWithoutTeacherNestedInputObjectSchema } from './ClassUpdateManyWithoutTeacherNestedInput.schema';
+import { AttemptUpdateManyWithoutStudentNestedInputObjectSchema as AttemptUpdateManyWithoutStudentNestedInputObjectSchema } from './AttemptUpdateManyWithoutStudentNestedInput.schema';
+import { LessonCompletionUpdateManyWithoutStudentNestedInputObjectSchema as LessonCompletionUpdateManyWithoutStudentNestedInputObjectSchema } from './LessonCompletionUpdateManyWithoutStudentNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -25,7 +27,9 @@ const makeSchema = () => z.object({
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   account: z.lazy(() => accountUpdateManyWithoutUserNestedInputObjectSchema).optional(),
   session: z.lazy(() => sessionUpdateManyWithoutUserNestedInputObjectSchema).optional(),
-  taughtClasses: z.lazy(() => ClassUpdateManyWithoutTeacherNestedInputObjectSchema).optional()
+  taughtClasses: z.lazy(() => ClassUpdateManyWithoutTeacherNestedInputObjectSchema).optional(),
+  attempts: z.lazy(() => AttemptUpdateManyWithoutStudentNestedInputObjectSchema).optional(),
+  lessonCompletions: z.lazy(() => LessonCompletionUpdateManyWithoutStudentNestedInputObjectSchema).optional()
 }).strict();
 export const userUpdateWithoutEnrolledClassInputObjectSchema: z.ZodType<Prisma.userUpdateWithoutEnrolledClassInput> = makeSchema() as unknown as z.ZodType<Prisma.userUpdateWithoutEnrolledClassInput>;
 export const userUpdateWithoutEnrolledClassInputObjectZodSchema = makeSchema();

@@ -258,6 +258,9 @@ The system SHALL present key scientific vocabulary with definitions and contextu
 ---
 
 **Issue**: #92 - Created: 2025-10-22
+**Status**: In Progress 🚀
+**Branch**: feat/92-assessment-data-schema-question-bank
+**Started**: 2025-10-25
 
 **User Story**: As a developer, I need to implement the database schema for standards-tagged assessments with multiple question types and granular response tracking, so that we can support auto-graded quizzes with detailed analytics.
 

@@ -1,13 +1,15 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
-import { StandardsAlignmentSchema } from '../enums/StandardsAlignment.schema'
+import { StandardsAlignmentSchema } from '../enums/StandardsAlignment.schema';
+import { QuizQuestionUncheckedCreateNestedManyWithoutStandardsInputObjectSchema as QuizQuestionUncheckedCreateNestedManyWithoutStandardsInputObjectSchema } from './QuizQuestionUncheckedCreateNestedManyWithoutStandardsInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
   framework: StandardsAlignmentSchema,
   code: z.string(),
   description: z.string(),
-  gradeLevel: z.number().int().optional().nullable()
+  gradeLevel: z.number().int().optional().nullable(),
+  quizQuestions: z.lazy(() => QuizQuestionUncheckedCreateNestedManyWithoutStandardsInputObjectSchema).optional()
 }).strict();
 export const StandardUncheckedCreateWithoutLessonsInputObjectSchema: z.ZodType<Prisma.StandardUncheckedCreateWithoutLessonsInput> = makeSchema() as unknown as z.ZodType<Prisma.StandardUncheckedCreateWithoutLessonsInput>;
 export const StandardUncheckedCreateWithoutLessonsInputObjectZodSchema = makeSchema();

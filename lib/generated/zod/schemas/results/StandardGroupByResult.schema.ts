@@ -10,7 +10,8 @@ export const StandardGroupByResultSchema = z.array(z.object({
     code: z.number(),
     description: z.number(),
     gradeLevel: z.number(),
-    lessons: z.number()
+    lessons: z.number(),
+    quizQuestions: z.number()
   }).optional(),
   _sum: z.object({
     gradeLevel: z.number().nullable()

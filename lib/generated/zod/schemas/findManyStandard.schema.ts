@@ -16,6 +16,7 @@ export const StandardFindManySelectSchema: z.ZodType<Prisma.StandardSelect> = z.
     description: z.boolean().optional(),
     gradeLevel: z.boolean().optional(),
     lessons: z.boolean().optional(),
+    quizQuestions: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.StandardSelect>;
 
@@ -26,6 +27,7 @@ export const StandardFindManySelectZodSchema = z.object({
     description: z.boolean().optional(),
     gradeLevel: z.boolean().optional(),
     lessons: z.boolean().optional(),
+    quizQuestions: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

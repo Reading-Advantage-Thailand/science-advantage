@@ -5,7 +5,8 @@ export const StandardAggregateResultSchema = z.object({  _count: z.object({
     code: z.number(),
     description: z.number(),
     gradeLevel: z.number(),
-    lessons: z.number()
+    lessons: z.number(),
+    quizQuestions: z.number()
   }).optional(),
   _sum: z.object({
     gradeLevel: z.number().nullable()

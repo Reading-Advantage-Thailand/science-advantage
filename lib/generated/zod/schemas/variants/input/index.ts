@@ -11,3 +11,7 @@ export { ClassInputSchema } from './Class.input';
 export { StandardInputSchema } from './Standard.input';
 export { LessonInputSchema } from './Lesson.input';
 export { CurriculumUnitInputSchema } from './CurriculumUnit.input';
+export { QuizQuestionInputSchema } from './QuizQuestion.input';
+export { AttemptInputSchema } from './Attempt.input';
+export { QuestionResponseInputSchema } from './QuestionResponse.input';
+export { LessonCompletionInputSchema } from './LessonCompletion.input';

@@ -7,7 +7,10 @@ import { LessonTypeSchema } from '../enums/LessonType.schema';
 import { IntFilterObjectSchema as IntFilterObjectSchema } from './IntFilter.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
 import { StandardListRelationFilterObjectSchema as StandardListRelationFilterObjectSchema } from './StandardListRelationFilter.schema';
-import { CurriculumUnitListRelationFilterObjectSchema as CurriculumUnitListRelationFilterObjectSchema } from './CurriculumUnitListRelationFilter.schema'
+import { CurriculumUnitListRelationFilterObjectSchema as CurriculumUnitListRelationFilterObjectSchema } from './CurriculumUnitListRelationFilter.schema';
+import { QuizQuestionListRelationFilterObjectSchema as QuizQuestionListRelationFilterObjectSchema } from './QuizQuestionListRelationFilter.schema';
+import { AttemptListRelationFilterObjectSchema as AttemptListRelationFilterObjectSchema } from './AttemptListRelationFilter.schema';
+import { LessonCompletionListRelationFilterObjectSchema as LessonCompletionListRelationFilterObjectSchema } from './LessonCompletionListRelationFilter.schema'
 
 const lessonwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => LessonWhereInputObjectSchema), z.lazy(() => LessonWhereInputObjectSchema).array()]).optional(),
@@ -23,7 +26,10 @@ const lessonwhereinputSchema = z.object({
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   standards: z.lazy(() => StandardListRelationFilterObjectSchema).optional(),
-  curriculumUnits: z.lazy(() => CurriculumUnitListRelationFilterObjectSchema).optional()
+  curriculumUnits: z.lazy(() => CurriculumUnitListRelationFilterObjectSchema).optional(),
+  quizQuestions: z.lazy(() => QuizQuestionListRelationFilterObjectSchema).optional(),
+  attempts: z.lazy(() => AttemptListRelationFilterObjectSchema).optional(),
+  lessonCompletions: z.lazy(() => LessonCompletionListRelationFilterObjectSchema).optional()
 }).strict();
 export const LessonWhereInputObjectSchema: z.ZodType<Prisma.LessonWhereInput> = lessonwhereinputSchema as unknown as z.ZodType<Prisma.LessonWhereInput>;
 export const LessonWhereInputObjectZodSchema = lessonwhereinputSchema;

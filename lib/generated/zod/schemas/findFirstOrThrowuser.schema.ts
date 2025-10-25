@@ -25,6 +25,8 @@ export const userFindFirstOrThrowSelectSchema: z.ZodType<Prisma.userSelect> = z.
     session: z.boolean().optional(),
     taughtClasses: z.boolean().optional(),
     enrolledClass: z.boolean().optional(),
+    attempts: z.boolean().optional(),
+    lessonCompletions: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.userSelect>;
 
@@ -44,6 +46,8 @@ export const userFindFirstOrThrowSelectZodSchema = z.object({
     session: z.boolean().optional(),
     taughtClasses: z.boolean().optional(),
     enrolledClass: z.boolean().optional(),
+    attempts: z.boolean().optional(),
+    lessonCompletions: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

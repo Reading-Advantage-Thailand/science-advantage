@@ -9,6 +9,9 @@ export const LessonFindUniqueResultSchema = z.nullable(z.object({
   order: z.number().int(),
   standards: z.array(z.unknown()),
   curriculumUnits: z.array(z.unknown()),
+  quizQuestions: z.array(z.unknown()),
+  attempts: z.array(z.unknown()),
+  lessonCompletions: z.array(z.unknown()),
   createdAt: z.date(),
   updatedAt: z.date()
 }));

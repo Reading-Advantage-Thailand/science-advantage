@@ -11,3 +11,7 @@ export { ClassResultSchema } from './Class.result';
 export { StandardResultSchema } from './Standard.result';
 export { LessonResultSchema } from './Lesson.result';
 export { CurriculumUnitResultSchema } from './CurriculumUnit.result';
+export { QuizQuestionResultSchema } from './QuizQuestion.result';
+export { AttemptResultSchema } from './Attempt.result';
+export { QuestionResponseResultSchema } from './QuestionResponse.result';
+export { LessonCompletionResultSchema } from './LessonCompletion.result';

@@ -43,21 +43,23 @@ model session {
 }
 
 model user {
-  id            String    @id
-  name          String
-  username      String    @unique
-  displayUsername String  @unique
-  email         String?   @unique
-  emailVerified Boolean   @default(false)
-  image         String?
-  role          UserRole  @default(STUDENT)
-  gradeLevel    Int?
-  createdAt     DateTime
-  updatedAt     DateTime
-  account       account[]
-  session       session[]
-  taughtClasses Class[]   @relation("ClassTeacher")
-  enrolledClass Class[]   @relation("ClassStudents")
+  id                 String             @id
+  name               String
+  username           String             @unique
+  displayUsername    String             @unique
+  email              String?            @unique
+  emailVerified      Boolean            @default(false)
+  image              String?
+  role               UserRole           @default(STUDENT)
+  gradeLevel         Int?
+  createdAt          DateTime
+  updatedAt          DateTime
+  account            account[]
+  session            session[]
+  taughtClasses      Class[]            @relation("ClassTeacher")
+  enrolledClass      Class[]            @relation("ClassStudents")
+  attempts           Attempt[]          @relation("StudentAttempts")
+  lessonCompletions  LessonCompletion[] @relation("StudentLessonCompletions")
 }
 
 model verification {
@@ -111,12 +113,13 @@ model Class {
 }
 
 model Standard {
-  id          String             @id @default(cuid())
-  framework   StandardsAlignment
-  code        String
-  description String
-  gradeLevel  Int?
-  lessons     Lesson[]
+  id            String             @id @default(cuid())
+  framework     StandardsAlignment
+  code          String
+  description   String
+  gradeLevel    Int?
+  lessons       Lesson[]
+  quizQuestions QuizQuestion[]
 
   @@unique([framework, code])
   @@index([framework])
@@ -124,17 +127,20 @@ model Standard {
 }
 
 model Lesson {
-  id                String      @id @default(cuid())
+  id                String             @id @default(cuid())
   title             String
   description       String?
   content           String?
-  lessonType        LessonType  @default(LESSON)
+  lessonType        LessonType         @default(LESSON)
   gradeLevel        Int
   order             Int
   standards         Standard[]
   curriculumUnits   CurriculumUnit[]
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  quizQuestions     QuizQuestion[]
+  attempts          Attempt[]          @relation("LessonAttempts")
+  lessonCompletions LessonCompletion[] @relation("LessonCompletions")
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 
   @@index([gradeLevel])
   @@index([order])
@@ -158,4 +164,107 @@ model CurriculumUnit {
   @@index([classId])
   @@index([framework])
   @@index([gradeLevel])
+}
+
+// Assessment System Models
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  MULTIPLE_SELECT
+  TRUE_FALSE
+  FILL_IN_BLANK
+  VOCABULARY_MATCH
+}
+
+enum LessonCompletionStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+model QuizQuestion {
+  id            String             @id @default(cuid())
+  lessonId      String
+  type          QuestionType
+  text          String
+  /// @zod.custom.use(z.any())
+  options       Json?
+  /// @zod.custom.use(z.any())
+  correctAnswer Json
+  points        Int                @default(1)
+  order         Int
+  version       Int                @default(1)
+  lesson        Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  standards     Standard[]
+  responses     QuestionResponse[]
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  @@index([lessonId])
+  @@index([type])
+  @@index([order])
+}
+
+model Attempt {
+  id                String             @id @default(cuid())
+  studentId         String
+  lessonId          String
+  score             Float              @default(0)
+  maxScore          Float
+  attemptNumber     Int
+  startedAt         DateTime           @default(now())
+  completedAt       DateTime?
+  student           user               @relation("StudentAttempts", fields: [studentId], references: [id], onDelete: Cascade)
+  lesson            Lesson             @relation("LessonAttempts", fields: [lessonId], references: [id], onDelete: Cascade)
+  questionResponses QuestionResponse[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@unique([studentId, lessonId, attemptNumber])
+  @@index([studentId])
+  @@index([lessonId])
+  @@index([completedAt])
+}
+
+model QuestionResponse {
+  id              String       @id @default(cuid())
+  attemptId       String
+  questionId      String
+  /// @zod.custom.use(z.any())
+  studentAnswer   Json
+  isCorrect       Boolean
+  timeSpentSeconds Int         @default(0)
+  answeredAt      DateTime     @default(now())
+  order           Int?
+  attempt         Attempt      @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt       DateTime     @default(now())
+
+  @@index([attemptId])
+  @@index([questionId])
+  @@index([isCorrect])
+}
+
+model LessonCompletion {
+  id                        String                 @id @default(cuid())
+  studentId                 String
+  lessonId                  String
+  status                    LessonCompletionStatus @default(NOT_STARTED)
+  completedAt               DateTime?
+  attemptsCount             Int                    @default(0)
+  bestScore                 Float?
+  bestScorePercentage       Float?
+  mostRecentScore           Float?
+  mostRecentScorePercentage Float?
+  totalTimeSpentSeconds     Int                    @default(0)
+  lastAttemptAt             DateTime?
+  student                   user                   @relation("StudentLessonCompletions", fields: [studentId], references: [id], onDelete: Cascade)
+  lesson                    Lesson                 @relation("LessonCompletions", fields: [lessonId], references: [id], onDelete: Cascade)
+  createdAt                 DateTime               @default(now())
+  updatedAt                 DateTime               @updatedAt
+
+  @@unique([studentId, lessonId])
+  @@index([studentId])
+  @@index([lessonId])
+  @@index([status])
 }
