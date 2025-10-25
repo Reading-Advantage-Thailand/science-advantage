@@ -4,8 +4,8 @@
 **Epic Tracker**: #89
 **Status**: ACTIVE 🚀
 **Created**: 2025-10-22
-**Issues Created**: 11 (1 epic tracker + 10 stories)
-**Completion**: 30% (3/10 stories)
+**Issues Created**: 12 (1 epic tracker + 11 stories)
+**Completion**: 36% (4/11 stories)
 
 **Goal**: Introduce formative assessments with multiple auto-gradable question types, granular response tracking, and comprehensive teacher analytics for standards-based instruction and intervention planning.
 
@@ -258,23 +258,27 @@ The system SHALL present key scientific vocabulary with definitions and contextu
 ---
 
 **Issue**: #92 - Created: 2025-10-22
-**Status**: In Progress 🚀
-**Branch**: feat/92-assessment-data-schema-question-bank
+**Status**: Completed ✅
+**Branch**: feat/92-assessment-data-schema-question-bank (deleted)
+**PR**: #105 - Merged: 2025-10-25
+**Merge Commit**: a6284440c78fc1cae510b41f8fc3513da2bab7fe
 **Started**: 2025-10-25
+**Completed**: 2025-10-25
+**Duration**: <1 day
 
 **User Story**: As a developer, I need to implement the database schema for standards-tagged assessments with multiple question types and granular response tracking, so that we can support auto-graded quizzes with detailed analytics.
 
-**Acceptance Criteria**:
-- [ ] `QuizQuestion` model created with fields: id, lessonId, type (enum), text, options (JSON), correctAnswer (JSON), points, order
-- [ ] `Attempt` model created with fields: id, studentId, lessonId, score, maxScore, attemptNumber, startedAt, completedAt
-- [ ] `QuestionResponse` model created with fields: id, attemptId, questionId, studentAnswer (JSON), isCorrect, timeSpentSeconds, answeredAt
-- [ ] `LessonCompletion` model created with fields: id, studentId, lessonId, status (enum), completedAt, attemptsCount, bestScore, mostRecentScore
-- [ ] Many-to-many relationship `_QuestionToStandard` linking QuizQuestion to Standard
-- [ ] Question types supported: MULTIPLE_CHOICE, MULTIPLE_SELECT, TRUE_FALSE, FILL_IN_BLANK, VOCABULARY_MATCH
-- [ ] Seed script updated to populate 4x question bank for each existing lesson (36 questions per lesson for 9 lessons)
-- [ ] Questions properly tagged to relevant curriculum standards
-- [ ] Mix of science content questions, reading comprehension questions, and vocabulary questions
-- [ ] Idempotency maintained in seed script
+**Acceptance Criteria**: All met ✅
+- [x] `QuizQuestion` model created with fields: id, lessonId, type (enum), text, options (JSON), correctAnswer (JSON), points, order
+- [x] `Attempt` model created with fields: id, studentId, lessonId, score, maxScore, attemptNumber, startedAt, completedAt
+- [x] `QuestionResponse` model created with fields: id, attemptId, questionId, studentAnswer (JSON), isCorrect, timeSpentSeconds, answeredAt
+- [x] `LessonCompletion` model created with fields: id, studentId, lessonId, status (enum), completedAt, attemptsCount, bestScore, mostRecentScore
+- [x] Many-to-many relationship `_QuestionToStandard` linking QuizQuestion to Standard
+- [x] Question types supported: MULTIPLE_CHOICE, MULTIPLE_SELECT, TRUE_FALSE, FILL_IN_BLANK, VOCABULARY_MATCH
+- [x] Seed script updated to populate 4x question bank for each existing lesson (36 questions per lesson for 9 lessons)
+- [x] Questions properly tagged to relevant curriculum standards
+- [x] Mix of science content questions, reading comprehension questions, and vocabulary questions
+- [x] Idempotency maintained in seed script
 
 **Test Plan**:
 - Unit tests for question randomization (select N from 4N pool)
