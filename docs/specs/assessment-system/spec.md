@@ -310,10 +310,11 @@ Many-to-many relationship linking questions to curriculum standards.
 
 ## API Contracts
 
-### GET /api/lessons/{lessonId}/quiz
+### GET /api/lessons/{lessonId}/quiz ✅ IMPLEMENTED
 
 Retrieve a random set of N questions from the lesson's 4N question bank to start a new quiz attempt.
 
+**Implementation:** `app/api/lessons/[lessonId]/quiz/route.ts` (GET handler)
 **Authentication:** Required
 **Authorization:** Student must be enrolled in a class using this lesson OR teacher must own the class
 
@@ -347,10 +348,11 @@ Retrieve a random set of N questions from the lesson's 4N question bank to start
 - `404 Not Found` - Lesson not found
 - `500 Internal Server Error` - Question pool too small or other server error
 
-### POST /api/lessons/{lessonId}/quiz/submit
+### POST /api/lessons/{lessonId}/quiz/submit ✅ IMPLEMENTED
 
 Submit a completed quiz attempt with question responses and timing data.
 
+**Implementation:** `app/api/lessons/[lessonId]/quiz/route.ts` (POST handler)
 **Authentication:** Required
 **Authorization:** Student must be enrolled in class and quiz must belong to them
 
@@ -414,7 +416,7 @@ Submit a completed quiz attempt with question responses and timing data.
 
 ### Depended On By
 - `docs/specs/progress-tracking/spec.md` - Uses Attempt and QuestionResponse for progress tracking
-- Quiz Taking API implementation (Story #93)
+- ✅ Quiz Taking API implementation (Story #93) - **IMPLEMENTED**
 - Quiz UI Components (Story #94)
 - Teacher Analytics features (Stories #96-99)
 
