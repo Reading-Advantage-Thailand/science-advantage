@@ -9,7 +9,7 @@ export async function GET() {
       return NextResponse.json({ session: null }, { status: 200 });
     }
 
-    const { id, token, ...safeSession } = session;
+    const { id, ...safeSession } = session;
     return NextResponse.json({ session: safeSession });
   } catch (error) {
     console.error('Session error:', error);
