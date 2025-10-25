@@ -4,7 +4,7 @@ import { getCurrentSession } from '@/lib/auth/session';
 import prisma from '@/lib/prisma';
 
 /**
- * GET /api/lessons/{lessonId}/quiz
+ * GET /api/lessons/{lessonSlug}/quiz
  * Returns a random set of N questions from the lesson's 4N question bank to start a new quiz attempt.
  *
  * Authentication: Required
@@ -12,7 +12,7 @@ import prisma from '@/lib/prisma';
  */
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ lessonId: string }> }
+  context: { params: Promise<{ lessonSlug: string }> }
 ) {
   try {
     // 1. Authenticate user
@@ -25,12 +25,12 @@ export async function GET(
       );
     }
 
-    // 2. Get lessonId from params
-    const { lessonId } = await context.params;
+    // 2. Get lessonSlug from params
+    const { lessonSlug } = await context.params;
 
     // 3. Fetch the lesson with curriculum units to find associated classes
     const lesson = await prisma.lesson.findUnique({
-      where: { id: lessonId },
+      where: { id: lessonSlug },
       include: {
         curriculumUnits: {
           include: {
@@ -101,7 +101,7 @@ export async function GET(
     const previousAttempts = await prisma.attempt.count({
       where: {
         studentId: session.user.id,
-        lessonId,
+        lessonId: lessonSlug,
       },
     });
     const attemptNumber = previousAttempts + 1;
@@ -113,7 +113,7 @@ export async function GET(
     const attempt = await prisma.attempt.create({
       data: {
         studentId: session.user.id,
-        lessonId,
+        lessonId: lessonSlug,
         maxScore: totalPoints,
         attemptNumber,
         startedAt: new Date(),
@@ -123,7 +123,7 @@ export async function GET(
     // 10. Format response (exclude correctAnswer)
     const response = {
       quizId: attempt.id,
-      lessonId,
+      lessonId: lessonSlug,
       questions: selectedQuestions.map((q, index) => ({
         id: q.id,
         type: q.type,
@@ -148,7 +148,7 @@ export async function GET(
 }
 
 /**
- * POST /api/lessons/{lessonId}/quiz/submit
+ * POST /api/lessons/{lessonSlug}/quiz/submit
  * Submit a completed quiz attempt with question responses and timing data.
  *
  * Authentication: Required
@@ -156,7 +156,7 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  context: { params: Promise<{ lessonId: string }> }
+  context: { params: Promise<{ lessonSlug: string }> }
 ) {
   try {
     // 1. Authenticate user
@@ -169,8 +169,8 @@ export async function POST(
       );
     }
 
-    // 2. Get lessonId from params
-    const { lessonId } = await context.params;
+    // 2. Get lessonSlug from params
+    const { lessonSlug } = await context.params;
 
     // 3. Parse request body
     const body = await request.json();
@@ -301,7 +301,7 @@ export async function POST(
         where: {
           studentId_lessonId: {
             studentId: session.user.id,
-            lessonId,
+            lessonId: lessonSlug,
           },
         },
       });
@@ -312,7 +312,7 @@ export async function POST(
           where: {
             studentId_lessonId: {
               studentId: session.user.id,
-              lessonId,
+              lessonId: lessonSlug,
             },
           },
           data: {
@@ -337,7 +337,7 @@ export async function POST(
         await tx.lessonCompletion.create({
           data: {
             studentId: session.user.id,
-            lessonId,
+            lessonId: lessonSlug,
             status: percentage >= 60 ? 'COMPLETED' : 'IN_PROGRESS',
             attemptsCount: 1,
             bestScore: totalScore,

@@ -136,7 +136,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
     for (let i = 1; i <= 12; i++) {
       const question = await prisma.quizQuestion.create({
         data: {
-          lessonId: testLesson.id,
+          lessonSlug: testLesson.id,
           type: 'MULTIPLE_CHOICE',
           text: `Question ${i}: What is the scientific method step ${i}?`,
           options: ['Observe', 'Predict', 'Test', 'Conclude'],
@@ -169,7 +169,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue(undefined);
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(401);
@@ -183,7 +183,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -196,7 +196,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(403);
@@ -208,7 +208,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -223,7 +223,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest('http://localhost:3000/api/lessons/non-existent-lesson/quiz');
-      const response = await GET(request, { params: Promise.resolve({ lessonId: 'non-existent-lesson' }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: 'non-existent-lesson' }) });
       const data = await response.json();
 
       expect(response.status).toBe(404);
@@ -237,7 +237,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -250,7 +250,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -264,7 +264,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -282,7 +282,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -304,7 +304,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -340,7 +340,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
       await prisma.quizQuestion.create({
         data: {
-          lessonId: smallLesson.id,
+          lessonSlug: smallLesson.id,
           type: 'TRUE_FALSE',
           text: 'Is this a test?',
           options: ['True', 'False'],
@@ -352,7 +352,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
       await prisma.quizQuestion.create({
         data: {
-          lessonId: smallLesson.id,
+          lessonSlug: smallLesson.id,
           type: 'TRUE_FALSE',
           text: 'Is this another test?',
           options: ['True', 'False'],
@@ -366,7 +366,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       mockCookies.get.mockReturnValue({ value: session.id });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${smallLesson.id}/quiz`);
-      const response = await GET(request, { params: Promise.resolve({ lessonId: smallLesson.id }) });
+      const response = await GET(request, { params: Promise.resolve({ lessonSlug: smallLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(500);
@@ -511,7 +511,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     for (let i = 0; i < questionsData.length; i++) {
       const question = await prisma.quizQuestion.create({
         data: {
-          lessonId: testLesson.id,
+          lessonSlug: testLesson.id,
           type: 'MULTIPLE_CHOICE',
           text: questionsData[i].text,
           options: ['Observe', 'Predict', 'Test', 'Conclude'],
@@ -527,7 +527,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     const attempt = await prisma.attempt.create({
       data: {
         studentId: testStudent.id,
-        lessonId: testLesson.id,
+        lessonSlug: testLesson.id,
         maxScore: 3,
         attemptNumber: 1,
         startedAt: new Date(),
@@ -563,7 +563,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           responses: [],
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(401);
@@ -583,7 +583,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           responses: [],
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(403);
@@ -603,7 +603,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           responses: [],
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(400);
@@ -629,7 +629,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           ],
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(404);
@@ -659,7 +659,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(409);
@@ -701,7 +701,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           ],
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -745,7 +745,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           ],
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -775,7 +775,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
 
       expect(response.status).toBe(200);
 
@@ -806,7 +806,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
 
       const attempt = await prisma.attempt.findUnique({
         where: { id: attemptId },
@@ -832,7 +832,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
@@ -841,7 +841,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
         where: {
           studentId_lessonId: {
             studentId: testStudent.id,
-            lessonId: testLesson.id,
+            lessonSlug: testLesson.id,
           },
         },
       });
@@ -869,13 +869,13 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
 
       // Second attempt with high score
       const attempt2 = await prisma.attempt.create({
         data: {
           studentId: testStudent.id,
-          lessonId: testLesson.id,
+          lessonSlug: testLesson.id,
           maxScore: 3,
           attemptNumber: 2,
           startedAt: new Date(),
@@ -895,13 +895,13 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
 
       const completion = await prisma.lessonCompletion.findUnique({
         where: {
           studentId_lessonId: {
             studentId: testStudent.id,
-            lessonId: testLesson.id,
+            lessonSlug: testLesson.id,
           },
         },
       });
@@ -929,7 +929,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      const response = await POST(request, { params: Promise.resolve({ lessonId: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
