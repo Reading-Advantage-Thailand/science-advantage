@@ -80,15 +80,6 @@ Additional workflow details live in `CLAUDE.md`.
 For additional context on strategic goals, market positioning, and historical
 artifacts, consult the archived documentation under `docs/archive/`.
 
-## 📞 Contact & Information
-
-- **Website**: [science-advantage.com](https://science-advantage.com)
-- **Email**: info@science-advantage.com
-- **Phone**: (555) 123-4567
-- **Address**: 123 Education Boulevard, Learning City, LC 12345
-
-## 📄 Resources
-
 - [Sample Lesson Plans](docs/sample-lessons.md)
 - [Implementation Guide](docs/implementation-guide.md)
 - [Research & Validation](docs/research.md)
