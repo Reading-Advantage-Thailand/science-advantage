@@ -19,24 +19,120 @@ spec-first documentation that guides product development.
 git clone https://github.com/your-org/science-advantage.git
 cd science-advantage
 npm install
+```
 
-# Environment setup
+### Database Setup
+
+#### Option 1: Docker PostgreSQL (Recommended for Development)
+
+Start the PostgreSQL container using Docker Compose:
+
+```bash
+docker-compose up -d
+```
+
+The container runs PostgreSQL 16 with the following configuration:
+- **Host**: `localhost`
+- **Port**: `5433` (mapped from container's 5432)
+- **Database**: `science_advantage`
+- **User**: `postgres`
+- **Password**: `postgres`
+
+Update your `.env.local` with the Docker database URL:
+
+```bash
 cp .env.example .env.local
-# populate Google OAuth, Postgres, Redis, OpenAI credentials
+```
 
-# Database
+Then set the `DATABASE_URL` in `.env.local`:
+
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5433/science_advantage?schema=public"
+```
+
+Verify the database is running:
+
+```bash
+docker ps | grep science-advantage-postgres
+```
+
+#### Option 2: External PostgreSQL
+
+If using an external PostgreSQL instance, update the `DATABASE_URL` in `.env.local` with your connection string and ensure the database exists.
+
+### Environment Configuration
+
+Complete the `.env.local` file with remaining credentials:
+
+```bash
+# Google OAuth (required for authentication)
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-here"  # Generate with: openssl rand -base64 32
+
+# Optional: OpenAI, Google Cloud Storage, Redis
+# See .env.example for additional configuration options
+```
+
+### Database Migration and Seeding
+
+Initialize the database schema and seed demo data:
+
+```bash
+# Generate Prisma client
 npx prisma generate
-npx prisma db push
-npx prisma db seed
 
-# Development server
+# Push schema to database
+npx prisma db push
+
+# Seed with standards, lessons, demo users, and activity data
+npm run seed
+```
+
+**Seeding Options:**
+
+- **Full seed** (standards, lessons, demo users, activity data):
+  ```bash
+  npm run seed
+  ```
+
+- **Skip demo data** (only standards and lessons):
+  ```bash
+  npm run seed -- --skip-demo
+  ```
+
+- **Selective seeding** by framework or grade:
+  ```bash
+  npm run seed -- --framework=THAI --grade=3
+  ```
+
+- **Reset and reseed** (⚠️ destroys all data):
+  ```bash
+  npm run dev:reset
+  ```
+
+**Demo Users** (created by default seed):
+- Teacher: Check seeded users in the database
+- Student: Check seeded users in the database
+- _Note: Google OAuth (`bodangren@gmail.com`) is required for localhost authentication_
+
+### Development Server
+
+Start the Next.js development server:
+
+```bash
 npm run dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Recommended Tooling
 
 - Node 18.x (see `.nvmrc` if present)
-- Docker (optional for local Postgres via `docker-compose.yml`)
+- Docker & Docker Compose (for local PostgreSQL)
 - GitHub CLI (`gh`) for issue and PR workflow
 
 ## Development Workflow
