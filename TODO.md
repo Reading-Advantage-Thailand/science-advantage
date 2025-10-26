@@ -26,7 +26,6 @@
   - **Merge Commit**: 9b66305d0e5f3ed2c8dd3c3a30a2fe8dcfb4e9a7
   - **Specs Updated**: docs/specs/progress-tracking/spec.md
   - **Implementation**: Class analytics API endpoint, sortable analytics table, color-coded score badges, tab navigation
-- [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #98 - Story: Teacher Analytics - Student-Lesson Detail (P1) - Created: 2025-10-22
 - [ ] #99 - Story: Teacher Analytics - Student Detail Across Lessons (P1) - Created: 2025-10-22
 
@@ -34,7 +33,10 @@
 
 ## In Review
 
-_(none currently)_
+- [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - PR: #113 - Submitted: 2025-10-25
+  - **Status**: In Review
+  - **PR**: https://github.com/Reading-Advantage-Thailand/science-advantage/pull/113
+  - **Branch**: feat/97-teacher-analytics-lesson-detail
 
 ## Completed
 

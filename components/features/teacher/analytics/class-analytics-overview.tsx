@@ -48,15 +48,15 @@ interface ClassAnalyticsOverviewProps {
 function getScoreColorVariant(colorCode: string) {
   switch (colorCode) {
     case 'blue':
-      return 'default';
+      return 'scoreBlue' as const;
     case 'green':
-      return 'secondary';
+      return 'scoreGreen' as const;
     case 'yellow':
-      return 'outline';
+      return 'scoreYellow' as const;
     case 'red':
-      return 'destructive';
+      return 'scoreRed' as const;
     default:
-      return 'outline';
+      return 'outline' as const;
   }
 }
 
