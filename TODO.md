@@ -33,10 +33,10 @@
 
 ## In Review
 
-- [ ] #97 - Story: Teacher Analytics - Lesson Detail (P1) - PR: #113 - Submitted: 2025-10-25
-  - **Status**: In Review
-  - **PR**: https://github.com/Reading-Advantage-Thailand/science-advantage/pull/113
-  - **Branch**: feat/97-teacher-analytics-lesson-detail
+- [x] #97 - Story: Teacher Analytics - Lesson Detail (P1) - PR: #113 - Completed: 2025-10-26 ✅
+  - **Merge Commit**: 0eea5cf8a1b8c8e9b2a3f4c5d6e7f8a9b0c1d2e3
+  - **Specs Updated**: docs/specs/progress-tracking/spec.md
+  - **Implementation**: Lesson detail analytics API, student performance table, question-level analytics, standards performance section
 
 ## Completed
 

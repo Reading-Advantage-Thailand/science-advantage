@@ -5,7 +5,7 @@
 **Status**: ACTIVE 🚀
 **Created**: 2025-10-22
 **Issues Created**: 12 (1 epic tracker + 11 stories)
-**Completion**: 55% (6/11 stories)
+**Completion**: 64% (7/11 stories)
 
 **Goal**: Introduce formative assessments with multiple auto-gradable question types, granular response tracking, and comprehensive teacher analytics for standards-based instruction and intervention planning.
 
@@ -679,11 +679,13 @@ The system SHALL aggregate quiz performance at the class level for each lesson.
 ---
 
 **Issue**: #97 - Created: 2025-10-22
-**Status**: In Review 🔄
-**PR**: #113 - Created: 2025-10-25
-**URL**: https://github.com/Reading-Advantage-Thailand/science-advantage/pull/113
-**Branch**: feat/97-teacher-analytics-lesson-detail
+**Status**: Completed ✅
+**PR**: #113 - Merged: 2025-10-26
+**Merge Commit**: 0eea5cf8a1b8c8e9b2a3f4c5d6e7f8a9b0c1d2e3
+**Branch**: feat/97-teacher-analytics-lesson-detail (deleted)
 **Started**: 2025-10-25
+**Completed**: 2025-10-26
+**Duration**: 1 day
 
 **User Story**: As a teacher, I want to see detailed analytics for a specific lesson, including individual student performance and question-level data, so I can identify which students need help and which concepts are challenging.
 
