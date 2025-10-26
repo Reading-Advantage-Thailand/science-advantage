@@ -231,9 +231,8 @@ export function LessonDetailAnalytics({
     : [];
 
   const handleStudentClick = (studentId: string) => {
-    router.push(
-      `/teacher/classes/${classId}/students/${studentId}/lessons/${lessonId}`
-    );
+    // Navigate to student detail view showing all lessons for this student
+    router.push(`/teacher/classes/${classId}/students/${studentId}`);
   };
 
   if (loading) {
