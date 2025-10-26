@@ -430,7 +430,7 @@ export function LessonDetailAnalytics({
                   <TableCell className="text-right">
                     {student.mostRecentScorePercentage !== null ? (
                       <Badge variant={getScoreColorVariant(student.colorCode)}>
-                        {student.mostRecentScorePercentage}%
+                        {Math.round(student.mostRecentScorePercentage)}%
                       </Badge>
                     ) : (
                       <span className="text-sm text-gray-500">—</span>
