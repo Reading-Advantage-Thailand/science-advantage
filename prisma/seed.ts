@@ -3,6 +3,7 @@ import { seedStandards } from './seed-functions/seed-standards';
 import { seedLessons } from './seed-functions/seed-lessons';
 import { seedQuestions } from './seed-functions/seed-questions';
 import { seedDemoData } from './seed-functions/seed-demo-data';
+import { seedActivityData } from './seed-functions/seed-activity-data';
 
 const prisma = new PrismaClient();
 
@@ -17,6 +18,7 @@ async function main() {
       ? parseInt(args.find(arg => arg.startsWith('--grade='))!.split('=')[1])
       : undefined,
     skipDemo: args.includes('--skip-demo'),
+    skipActivity: args.includes('--skip-activity'),
   };
 
   if (options.framework || options.gradeLevel) {
@@ -47,6 +49,13 @@ async function main() {
       await seedDemoData(prisma);
     } else {
       console.log('ℹ Skipping demo data (--skip-demo flag provided)\n');
+    }
+
+    // 5. Seed activity data for demo class (unless skipped)
+    if (!options.skipDemo && !options.skipActivity) {
+      await seedActivityData(prisma);
+    } else if (options.skipActivity) {
+      console.log('ℹ Skipping activity data (--skip-activity flag provided)\n');
     }
 
     console.log('\n✅ Seed completed successfully!\n');
