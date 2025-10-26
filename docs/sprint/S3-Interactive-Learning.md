@@ -679,6 +679,11 @@ The system SHALL aggregate quiz performance at the class level for each lesson.
 ---
 
 **Issue**: #97 - Created: 2025-10-22
+**Status**: In Review 🔄
+**PR**: #113 - Created: 2025-10-25
+**URL**: https://github.com/Reading-Advantage-Thailand/science-advantage/pull/113
+**Branch**: feat/97-teacher-analytics-lesson-detail
+**Started**: 2025-10-25
 
 **User Story**: As a teacher, I want to see detailed analytics for a specific lesson, including individual student performance and question-level data, so I can identify which students need help and which concepts are challenging.
 
@@ -696,6 +701,27 @@ The system SHALL aggregate quiz performance at the class level for each lesson.
 - [ ] Standards flagged for reteach if <70% class average
 - [ ] API endpoint `GET /api/classes/{classId}/lessons/{lessonId}/analytics` returns all detail data
 - [ ] Backend calculates: per-student stats, per-question stats, per-standard stats
+
+**Implementation**:
+
+- ✅ Created API endpoint `GET /api/classes/{classId}/lessons/{lessonId}/analytics`
+- ✅ Backend calculations for per-student performance (status, scores, attempts, time, color coding)
+- ✅ Backend calculations for per-question analytics (% correct, avg time, sorted by difficulty)
+- ✅ Backend calculations for per-standard performance with reteach flags (<70% mastery)
+- ✅ Frontend component `LessonDetailAnalytics` with sortable student table
+- ✅ Expandable question cards showing struggling students
+- ✅ Standards performance section with reteach recommendations
+- ✅ Color-coded badges: ≥90% blue, ≥80% green, <80% yellow, <60% red
+- ✅ Comprehensive integration tests (10 tests passing)
+- ✅ Activity data seeding (15 students, 184 quiz attempts across 9 lessons)
+- ✅ Page route created at `/teacher/classes/[classId]/analytics/lessons/[lessonId]`
+
+**Test Results**:
+
+- ✅ Integration tests: 10/10 passing
+- ✅ Build: Successful
+- ✅ Linting: No errors
+- ✅ Demo data: Seeded and verified
 
 **Test Plan**:
 
