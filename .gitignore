@@ -62,3 +62,4 @@ temp/
 # BMAD (local only)
 .bmad-core/
 .bmad-*/
+\n.tmp/
