@@ -36,6 +36,11 @@
 **Affected Specs**: `docs/specs/student-profile/spec.md`
 **Change Type**: `ADDED`
 
+**Status**: In Progress  
+**Branch**: `feat/119-student-profile-data-model`  
+**Started**: 2025-10-28  
+**Assigned**: @me
+
 ---
 
 ## Story: BE - Calculate and Update Student Mastery

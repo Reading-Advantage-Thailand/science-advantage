@@ -27,7 +27,8 @@ export const userGroupByResultSchema = z.array(z.object({
     taughtClasses: z.number(),
     enrolledClass: z.number(),
     attempts: z.number(),
-    lessonCompletions: z.number()
+    lessonCompletions: z.number(),
+    masteryRecords: z.number()
   }).optional(),
   _sum: z.object({
     gradeLevel: z.number().nullable()

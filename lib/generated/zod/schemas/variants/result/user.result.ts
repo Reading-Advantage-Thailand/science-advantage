@@ -19,7 +19,8 @@ export const userResultSchema = z.object({
     taughtClasses: z.array(z.unknown()),
     enrolledClass: z.array(z.unknown()),
     attempts: z.array(z.unknown()),
-    lessonCompletions: z.array(z.unknown())
+    lessonCompletions: z.array(z.unknown()),
+    masteryRecords: z.array(z.unknown())
 }).strict();
 
 export type userResultType = z.infer<typeof userResultSchema>;

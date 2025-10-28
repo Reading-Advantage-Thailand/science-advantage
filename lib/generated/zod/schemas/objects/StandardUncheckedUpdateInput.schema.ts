@@ -5,7 +5,8 @@ import { StandardsAlignmentSchema } from '../enums/StandardsAlignment.schema';
 import { EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema as EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema } from './EnumStandardsAlignmentFieldUpdateOperationsInput.schema';
 import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUpdateOperationsInputObjectSchema } from './NullableIntFieldUpdateOperationsInput.schema';
 import { LessonUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema as LessonUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema } from './LessonUncheckedUpdateManyWithoutStandardsNestedInput.schema';
-import { QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema as QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema } from './QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInput.schema'
+import { QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema as QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema } from './QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInput.schema';
+import { standardMasteryUncheckedUpdateManyWithoutStandardNestedInputObjectSchema as standardMasteryUncheckedUpdateManyWithoutStandardNestedInputObjectSchema } from './standardMasteryUncheckedUpdateManyWithoutStandardNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -14,7 +15,8 @@ const makeSchema = () => z.object({
   description: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gradeLevel: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   lessons: z.lazy(() => LessonUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema).optional(),
-  quizQuestions: z.lazy(() => QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema).optional()
+  quizQuestions: z.lazy(() => QuizQuestionUncheckedUpdateManyWithoutStandardsNestedInputObjectSchema).optional(),
+  masteryRecords: z.lazy(() => standardMasteryUncheckedUpdateManyWithoutStandardNestedInputObjectSchema).optional()
 }).strict();
 export const StandardUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.StandardUncheckedUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.StandardUncheckedUpdateInput>;
 export const StandardUncheckedUpdateInputObjectZodSchema = makeSchema();

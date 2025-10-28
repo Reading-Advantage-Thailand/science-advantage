@@ -9,7 +9,8 @@ export const StandardModelSchema = z.object({
     description: z.string(),
     gradeLevel: z.number().int().nullable(),
     lessons: z.array(z.unknown()),
-    quizQuestions: z.array(z.unknown())
+    quizQuestions: z.array(z.unknown()),
+    masteryRecords: z.array(z.unknown())
 }).strict();
 
 export type StandardPureType = z.infer<typeof StandardModelSchema>;

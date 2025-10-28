@@ -9,6 +9,7 @@ export { userInputSchema } from './user.input';
 export { verificationInputSchema } from './verification.input';
 export { ClassInputSchema } from './Class.input';
 export { StandardInputSchema } from './Standard.input';
+export { standardMasteryInputSchema } from './standardMastery.input';
 export { LessonInputSchema } from './Lesson.input';
 export { CurriculumUnitInputSchema } from './CurriculumUnit.input';
 export { QuizQuestionInputSchema } from './QuizQuestion.input';
