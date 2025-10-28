@@ -9,6 +9,7 @@ export { userModelSchema } from './user.pure';
 export { verificationModelSchema } from './verification.pure';
 export { ClassModelSchema } from './Class.pure';
 export { StandardModelSchema } from './Standard.pure';
+export { standardMasteryModelSchema } from './standardMastery.pure';
 export { LessonModelSchema } from './Lesson.pure';
 export { CurriculumUnitModelSchema } from './CurriculumUnit.pure';
 export { QuizQuestionModelSchema } from './QuizQuestion.pure';

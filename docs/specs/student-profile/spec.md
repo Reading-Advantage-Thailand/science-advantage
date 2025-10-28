@@ -24,18 +24,24 @@ Deliver a personalized mastery profile for each student that surfaces strand-ali
 | `id`             | `String @id`      | `cuid()` primary key                                                 |
 | `studentId`      | `String`          | FK -> `user.id`, relation name `StudentMastery`, `onDelete: Cascade` |
 | `standardId`     | `String`          | FK -> `Standard.id`, `onDelete: Cascade`                             |
-| `masteryLevel`   | `Decimal(3,2)`    | Inclusive range [0.00, 1.00]; values outside range must be clamped   |
-| `evidenceCount`  | `Int`             | Count of graded responses rolled into the row                        |
+| `masteryLevel`   | `Decimal(3,2)`    | Stored as `@db.Decimal(3,2)`; inclusive range [0.00, 1.00] with clamp helper |
+| `evidenceCount`  | `Int`             | Default `0`; count of graded responses rolled into the row           |
 | `lastAssessedAt` | `DateTime`        | ISO timestamp of most recent evidence                                |
 | `createdAt`      | `DateTime`        | Default `now()`                                                       |
 | `updatedAt`      | `DateTime`        | `@updatedAt`                                                         |
 
+**Relations**
+
+- `user` exposes `masteryRecords standardMastery[] @relation("StudentMastery")` with cascade delete to keep orphan rows out of analytics.
+- `Standard` exposes `masteryRecords standardMastery[]` so curriculum reporting can join without custom SQL.
+- Deleting a student or standard cascades to related mastery rows; regression tests must cover both cases.
+
 **Indexes & Constraints**
 
 - `@@unique([studentId, standardId])`
-- `@@index([studentId, masteryLevel])`
+- `@@index([studentId, masteryLevel])` // teacher dashboards sort struggling students quickly
 - `@@index([standardId])`
-- Service-layer validation enforces `0 <= masteryLevel <= 1`.
+- Database-level `CHECK` is not available in Prisma yet, so the mastery write helper clamps to `[0,1]` and rejects invalid precision before persisting.
 
 ### Backfill Strategy
 
@@ -121,6 +127,7 @@ Deliver a personalized mastery profile for each student that surfaces strand-ali
 - Emit metrics: `mastery_profile_requests_total`, `mastery_profile_latency_ms`, `mastery_profile_status_calculating_total`.
 - Log trace IDs that connect mastery API calls to AI recommendations when `includeRecommendations=true`.
 - Dashboard tracks: number of standards per student, API errors, average latency.
+- TODO (observability backlog): add Grafana panel for `standardMastery` row growth + write latency once pipeline (#120) lands.
 
 ## Failure Modes
 

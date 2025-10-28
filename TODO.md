@@ -2,6 +2,17 @@
 
 ## In Progress
 
+### Sprint 4: AI-Powered Personalization (S4) - ACTIVE 🚀
+
+- [ ] #118 - Epic: AI-Powered Personalization & Teacher Intervention - Created: 2025-10-27
+- [ ] #119 - Story: Student Profile Data Model (P1) - Created: 2025-10-27
+  - **Started**: 2025-10-28
+  - **Branch**: feat/119-student-profile-data-model
+  - **Specs**: docs/specs/student-profile/spec.md
+  - **Priority**: P1
+  - **Milestone**: Sprint 4: AI-Powered Personalization
+  - **Dependencies**: Unblocks #120, #121, #122
+
 ### General Improvements
 
 - [x] #85 - Update UI to be more friendly to K12 students (feat/85-update-ui-to-be-more-friendly-to-k12-stu)
