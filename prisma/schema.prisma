@@ -153,7 +153,6 @@ model StandardMastery {
   /// Used by teacher intervention queries to quickly pull struggling students
   @@index([studentId, masteryLevel])
   @@index([standardId])
-  @@map("standardMastery")
 }
 
 model Lesson {

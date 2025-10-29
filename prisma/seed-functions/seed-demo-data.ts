@@ -122,7 +122,60 @@ export async function seedDemoData(prisma: PrismaClient): Promise<void> {
       },
     },
   });
-  console.log(`✓ Enrolled demo student in ${demoClass.name}\n`);
+  console.log(`✓ Enrolled demo student in ${demoClass.name}`);
+
+  // 5. Seed mastery data for demo student
+  console.log('\n📊 Seeding mastery data for demo student...');
+  const standards = await prisma.standard.findMany({
+    where: {
+      framework: 'THAI',
+      gradeLevel: 3,
+    },
+    take: 12, // Get first 12 standards across different strands
+  });
+
+  if (standards.length > 0) {
+    const masteryData = [
+      { level: 0.85, evidence: 10 }, // Proficient
+      { level: 0.92, evidence: 12 }, // Proficient
+      { level: 0.78, evidence: 9 },  // Developing
+      { level: 0.72, evidence: 8 },  // Developing
+      { level: 0.65, evidence: 7 },  // Developing
+      { level: 0.88, evidence: 11 }, // Proficient
+      { level: 0.55, evidence: 6 },  // Needs Support
+      { level: 0.48, evidence: 5 },  // Needs Support
+      { level: 0.75, evidence: 9 },  // Developing
+      { level: 0.82, evidence: 10 }, // Proficient
+      { level: 0.58, evidence: 7 },  // Needs Support
+      { level: 0.91, evidence: 13 }, // Proficient
+    ];
+
+    for (let i = 0; i < Math.min(standards.length, masteryData.length); i++) {
+      const standard = standards[i];
+      const data = masteryData[i];
+
+      await prisma.standardMastery.upsert({
+        where: {
+          studentId_standardId: {
+            studentId: student.id,
+            standardId: standard.id,
+          },
+        },
+        update: {},
+        create: {
+          studentId: student.id,
+          standardId: standard.id,
+          masteryLevel: data.level,
+          evidenceCount: data.evidence,
+          lastAssessedAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000), // Random time within last week
+        },
+      });
+    }
+    console.log(`  ✓ Created ${Math.min(standards.length, masteryData.length)} mastery records for demo student`);
+  } else {
+    console.log('  ⚠ No standards found - skipping mastery data');
+  }
+  console.log('');
 
   // Print demo credentials
   console.log('📝 Demo Credentials:');

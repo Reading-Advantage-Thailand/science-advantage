@@ -1,6 +1,7 @@
 import { requireRole } from '@/lib/auth/server';
 import { JoinClassForm } from '@/components/features/student/join-class-form';
 import { StudentClassesSection } from '@/components/features/student/student-classes-section';
+import { StudentProgressCard } from '@/components/features/student/student-progress-card';
 import {
   Card,
   CardContent,
@@ -76,12 +77,10 @@ export default async function StudentPage() {
             <CardTitle className="flex items-center gap-2">
               📈 Progress
             </CardTitle>
-            <CardDescription>Your overall progress</CardDescription>
+            <CardDescription>Your mastery across all standards</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">
-              Progress tracking coming soon.
-            </p>
+            <StudentProgressCard studentId={session.user.id} />
           </CardContent>
         </Card>
       </div>
