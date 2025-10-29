@@ -5,7 +5,7 @@ import { StandardsAlignmentSchema } from '../enums/StandardsAlignment.schema';
 import { EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema as EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema } from './EnumStandardsAlignmentFieldUpdateOperationsInput.schema';
 import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUpdateOperationsInputObjectSchema } from './NullableIntFieldUpdateOperationsInput.schema';
 import { LessonUpdateManyWithoutStandardsNestedInputObjectSchema as LessonUpdateManyWithoutStandardsNestedInputObjectSchema } from './LessonUpdateManyWithoutStandardsNestedInput.schema';
-import { StandardMasteryUpdateManyWithoutStandardNestedInputObjectSchema as StandardMasteryUpdateManyWithoutStandardNestedInputObjectSchema } from './StandardMasteryUpdateManyWithoutStandardNestedInput.schema'
+import { standardMasteryUpdateManyWithoutStandardNestedInputObjectSchema as standardMasteryUpdateManyWithoutStandardNestedInputObjectSchema } from './standardMasteryUpdateManyWithoutStandardNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -14,7 +14,7 @@ const makeSchema = () => z.object({
   description: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   gradeLevel: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   lessons: z.lazy(() => LessonUpdateManyWithoutStandardsNestedInputObjectSchema).optional(),
-  masteryRecords: z.lazy(() => StandardMasteryUpdateManyWithoutStandardNestedInputObjectSchema).optional()
+  masteryRecords: z.lazy(() => standardMasteryUpdateManyWithoutStandardNestedInputObjectSchema).optional()
 }).strict();
 export const StandardUpdateWithoutQuizQuestionsInputObjectSchema: z.ZodType<Prisma.StandardUpdateWithoutQuizQuestionsInput> = makeSchema() as unknown as z.ZodType<Prisma.StandardUpdateWithoutQuizQuestionsInput>;
 export const StandardUpdateWithoutQuizQuestionsInputObjectZodSchema = makeSchema();

@@ -5,7 +5,7 @@ import { sessionFindManySchema as sessionFindManySchema } from '../findManysessi
 import { ClassFindManySchema as ClassFindManySchema } from '../findManyClass.schema';
 import { AttemptFindManySchema as AttemptFindManySchema } from '../findManyAttempt.schema';
 import { LessonCompletionFindManySchema as LessonCompletionFindManySchema } from '../findManyLessonCompletion.schema';
-import { StandardMasteryFindManySchema as StandardMasteryFindManySchema } from '../findManyStandardMastery.schema';
+import { standardMasteryFindManySchema as standardMasteryFindManySchema } from '../findManystandardMastery.schema';
 import { MasteryRunFindManySchema as MasteryRunFindManySchema } from '../findManyMasteryRun.schema';
 import { UserCountOutputTypeArgsObjectSchema as UserCountOutputTypeArgsObjectSchema } from './UserCountOutputTypeArgs.schema'
 
@@ -16,7 +16,7 @@ const makeSchema = () => z.object({
   enrolledClass: z.union([z.boolean(), z.lazy(() => ClassFindManySchema)]).optional(),
   attempts: z.union([z.boolean(), z.lazy(() => AttemptFindManySchema)]).optional(),
   lessonCompletions: z.union([z.boolean(), z.lazy(() => LessonCompletionFindManySchema)]).optional(),
-  masteryRecords: z.union([z.boolean(), z.lazy(() => StandardMasteryFindManySchema)]).optional(),
+  masteryRecords: z.union([z.boolean(), z.lazy(() => standardMasteryFindManySchema)]).optional(),
   masteryRuns: z.union([z.boolean(), z.lazy(() => MasteryRunFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => UserCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();

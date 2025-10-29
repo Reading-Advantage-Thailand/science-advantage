@@ -2,7 +2,7 @@ import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { StandardsAlignmentSchema } from '../enums/StandardsAlignment.schema';
 import { LessonCreateNestedManyWithoutStandardsInputObjectSchema as LessonCreateNestedManyWithoutStandardsInputObjectSchema } from './LessonCreateNestedManyWithoutStandardsInput.schema';
-import { StandardMasteryCreateNestedManyWithoutStandardInputObjectSchema as StandardMasteryCreateNestedManyWithoutStandardInputObjectSchema } from './StandardMasteryCreateNestedManyWithoutStandardInput.schema'
+import { standardMasteryCreateNestedManyWithoutStandardInputObjectSchema as standardMasteryCreateNestedManyWithoutStandardInputObjectSchema } from './standardMasteryCreateNestedManyWithoutStandardInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
@@ -11,7 +11,7 @@ const makeSchema = () => z.object({
   description: z.string(),
   gradeLevel: z.number().int().optional().nullable(),
   lessons: z.lazy(() => LessonCreateNestedManyWithoutStandardsInputObjectSchema).optional(),
-  masteryRecords: z.lazy(() => StandardMasteryCreateNestedManyWithoutStandardInputObjectSchema).optional()
+  masteryRecords: z.lazy(() => standardMasteryCreateNestedManyWithoutStandardInputObjectSchema).optional()
 }).strict();
 export const StandardCreateWithoutQuizQuestionsInputObjectSchema: z.ZodType<Prisma.StandardCreateWithoutQuizQuestionsInput> = makeSchema() as unknown as z.ZodType<Prisma.StandardCreateWithoutQuizQuestionsInput>;
 export const StandardCreateWithoutQuizQuestionsInputObjectZodSchema = makeSchema();

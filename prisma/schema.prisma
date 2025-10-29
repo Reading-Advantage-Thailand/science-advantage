@@ -3,8 +3,8 @@ generator client {
 }
 
 generator zod {
-  provider        = "prisma-zod-generator"
-  output          = "../lib/generated/zod"
+  provider         = "prisma-zod-generator"
+  output           = "../lib/generated/zod"
   useMultipleFiles = true
 }
 
@@ -43,25 +43,25 @@ model session {
 }
 
 model user {
-  id                 String             @id
-  name               String
-  username           String             @unique
-  displayUsername    String             @unique
-  email              String?            @unique
-  emailVerified      Boolean            @default(false)
-  image              String?
-  role               UserRole           @default(STUDENT)
-  gradeLevel         Int?
-  createdAt          DateTime
-  updatedAt          DateTime
-  account            account[]
-  session            session[]
-  taughtClasses      Class[]            @relation("ClassTeacher")
-  enrolledClass      Class[]            @relation("ClassStudents")
-  attempts           Attempt[]          @relation("StudentAttempts")
-  lessonCompletions  LessonCompletion[] @relation("StudentLessonCompletions")
-  masteryRecords     StandardMastery[]  @relation("StudentMastery")
-  masteryRuns        MasteryRun[]
+  id                String             @id
+  name              String
+  username          String             @unique
+  displayUsername   String             @unique
+  email             String?            @unique
+  emailVerified     Boolean            @default(false)
+  image             String?
+  role              UserRole           @default(STUDENT)
+  gradeLevel        Int?
+  createdAt         DateTime
+  updatedAt         DateTime
+  account           account[]
+  session           session[]
+  taughtClasses     Class[]            @relation("ClassTeacher")
+  enrolledClass     Class[]            @relation("ClassStudents")
+  attempts          Attempt[]          @relation("StudentAttempts")
+  lessonCompletions LessonCompletion[] @relation("StudentLessonCompletions")
+  masteryRecords    standardMastery[]  @relation("StudentMastery")
+  masteryRuns       MasteryRun[]
 }
 
 model verification {
@@ -81,9 +81,9 @@ enum StandardsAlignment {
 }
 
 enum LessonType {
-  LESSON      // Regular instructional lesson
-  LAB         // Hands-on laboratory activity
-  ASSESSMENT  // Quiz/test lesson
+  LESSON // Regular instructional lesson
+  LAB // Hands-on laboratory activity
+  ASSESSMENT // Quiz/test lesson
 }
 
 enum UserRole {
@@ -101,19 +101,19 @@ enum MasteryRunStatus {
 }
 
 model Class {
-  id                  String             @id @default(cuid())
+  id                 String             @id @default(cuid())
   /// @zod.string.min(3).max(100).trim()
-  name                String
+  name               String
   /// @zod.number.int().min(3).max(6)
-  gradeLevel          Int
-  standardsAlignment  StandardsAlignment
-  joinCode            String             @unique
-  teacherId           String
-  teacher             user               @relation("ClassTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
-  students            user[]             @relation("ClassStudents")
-  curriculumUnits     CurriculumUnit[]
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime           @updatedAt
+  gradeLevel         Int
+  standardsAlignment StandardsAlignment
+  joinCode           String             @unique
+  teacherId          String
+  teacher            user               @relation("ClassTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  students           user[]             @relation("ClassStudents")
+  curriculumUnits    CurriculumUnit[]
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
 
   @@index([teacherId])
   @@index([gradeLevel])
@@ -122,18 +122,37 @@ model Class {
 }
 
 model Standard {
-  id            String             @id @default(cuid())
-  framework     StandardsAlignment
-  code          String
-  description   String
-  gradeLevel    Int?
-  lessons       Lesson[]
-  quizQuestions QuizQuestion[]
-  masteryRecords StandardMastery[]
+  id             String             @id @default(cuid())
+  framework      StandardsAlignment
+  code           String
+  description    String
+  gradeLevel     Int?
+  lessons        Lesson[]
+  quizQuestions  QuizQuestion[]
+  masteryRecords standardMastery[]
 
   @@unique([framework, code])
   @@index([framework])
   @@index([gradeLevel])
+}
+
+model standardMastery {
+  id             String   @id @default(cuid())
+  studentId      String
+  standardId     String
+  masteryLevel   Decimal  @db.Decimal(3, 2)
+  evidenceCount  Int      @default(0)
+  lastAssessedAt DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  student  user     @relation("StudentMastery", fields: [studentId], references: [id], onDelete: Cascade)
+  standard Standard @relation(fields: [standardId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, standardId])
+  /// Used by teacher intervention queries to quickly pull struggling students
+  @@index([studentId, masteryLevel])
+  @@index([standardId])
 }
 
 model Lesson {
@@ -238,18 +257,18 @@ model Attempt {
 }
 
 model QuestionResponse {
-  id              String       @id @default(cuid())
-  attemptId       String
-  questionId      String
+  id               String       @id @default(cuid())
+  attemptId        String
+  questionId       String
   /// @zod.custom.use(z.any())
-  studentAnswer   Json
-  isCorrect       Boolean
-  timeSpentSeconds Int         @default(0)
-  answeredAt      DateTime     @default(now())
-  order           Int?
-  attempt         Attempt      @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  createdAt       DateTime     @default(now())
+  studentAnswer    Json
+  isCorrect        Boolean
+  timeSpentSeconds Int          @default(0)
+  answeredAt       DateTime     @default(now())
+  order            Int?
+  attempt          Attempt      @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question         QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt        DateTime     @default(now())
 
   @@index([attemptId])
   @@index([questionId])
@@ -278,24 +297,6 @@ model LessonCompletion {
   @@index([studentId])
   @@index([lessonId])
   @@index([status])
-}
-
-model StandardMastery {
-  id             String    @id @default(cuid())
-  studentId      String
-  standardId     String
-  masteryLevel   Decimal   @db.Decimal(3, 2)
-  evidenceCount  Int       @default(0)
-  lastAssessedAt DateTime
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-
-  student  user     @relation("StudentMastery", fields: [studentId], references: [id], onDelete: Cascade)
-  standard Standard @relation(fields: [standardId], references: [id], onDelete: Cascade)
-
-  @@unique([studentId, standardId])
-  @@index([studentId, masteryLevel])
-  @@index([standardId])
 }
 
 model MasteryRun {
