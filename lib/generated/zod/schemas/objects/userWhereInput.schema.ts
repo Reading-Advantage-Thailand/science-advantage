@@ -12,7 +12,8 @@ import { SessionListRelationFilterObjectSchema as SessionListRelationFilterObjec
 import { ClassListRelationFilterObjectSchema as ClassListRelationFilterObjectSchema } from './ClassListRelationFilter.schema';
 import { AttemptListRelationFilterObjectSchema as AttemptListRelationFilterObjectSchema } from './AttemptListRelationFilter.schema';
 import { LessonCompletionListRelationFilterObjectSchema as LessonCompletionListRelationFilterObjectSchema } from './LessonCompletionListRelationFilter.schema';
-import { StandardMasteryListRelationFilterObjectSchema as StandardMasteryListRelationFilterObjectSchema } from './StandardMasteryListRelationFilter.schema'
+import { StandardMasteryListRelationFilterObjectSchema as StandardMasteryListRelationFilterObjectSchema } from './StandardMasteryListRelationFilter.schema';
+import { MasteryRunListRelationFilterObjectSchema as MasteryRunListRelationFilterObjectSchema } from './MasteryRunListRelationFilter.schema'
 
 const userwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => userWhereInputObjectSchema), z.lazy(() => userWhereInputObjectSchema).array()]).optional(),
@@ -35,7 +36,8 @@ const userwhereinputSchema = z.object({
   enrolledClass: z.lazy(() => ClassListRelationFilterObjectSchema).optional(),
   attempts: z.lazy(() => AttemptListRelationFilterObjectSchema).optional(),
   lessonCompletions: z.lazy(() => LessonCompletionListRelationFilterObjectSchema).optional(),
-  masteryRecords: z.lazy(() => StandardMasteryListRelationFilterObjectSchema).optional()
+  masteryRecords: z.lazy(() => StandardMasteryListRelationFilterObjectSchema).optional(),
+  masteryRuns: z.lazy(() => MasteryRunListRelationFilterObjectSchema).optional()
 }).strict();
 export const userWhereInputObjectSchema: z.ZodType<Prisma.userWhereInput> = userwhereinputSchema as unknown as z.ZodType<Prisma.userWhereInput>;
 export const userWhereInputObjectZodSchema = userwhereinputSchema;

@@ -1,7 +1,8 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { userCreateNestedOneWithoutAttemptsInputObjectSchema as userCreateNestedOneWithoutAttemptsInputObjectSchema } from './userCreateNestedOneWithoutAttemptsInput.schema';
-import { LessonCreateNestedOneWithoutAttemptsInputObjectSchema as LessonCreateNestedOneWithoutAttemptsInputObjectSchema } from './LessonCreateNestedOneWithoutAttemptsInput.schema'
+import { LessonCreateNestedOneWithoutAttemptsInputObjectSchema as LessonCreateNestedOneWithoutAttemptsInputObjectSchema } from './LessonCreateNestedOneWithoutAttemptsInput.schema';
+import { MasteryRunCreateNestedOneWithoutAttemptInputObjectSchema as MasteryRunCreateNestedOneWithoutAttemptInputObjectSchema } from './MasteryRunCreateNestedOneWithoutAttemptInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
@@ -13,7 +14,8 @@ const makeSchema = () => z.object({
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   student: z.lazy(() => userCreateNestedOneWithoutAttemptsInputObjectSchema),
-  lesson: z.lazy(() => LessonCreateNestedOneWithoutAttemptsInputObjectSchema)
+  lesson: z.lazy(() => LessonCreateNestedOneWithoutAttemptsInputObjectSchema),
+  masteryRun: z.lazy(() => MasteryRunCreateNestedOneWithoutAttemptInputObjectSchema).optional()
 }).strict();
 export const AttemptCreateWithoutQuestionResponsesInputObjectSchema: z.ZodType<Prisma.AttemptCreateWithoutQuestionResponsesInput> = makeSchema() as unknown as z.ZodType<Prisma.AttemptCreateWithoutQuestionResponsesInput>;
 export const AttemptCreateWithoutQuestionResponsesInputObjectZodSchema = makeSchema();

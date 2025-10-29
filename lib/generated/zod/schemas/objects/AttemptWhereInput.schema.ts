@@ -9,7 +9,9 @@ import { UserScalarRelationFilterObjectSchema as UserScalarRelationFilterObjectS
 import { userWhereInputObjectSchema as userWhereInputObjectSchema } from './userWhereInput.schema';
 import { LessonScalarRelationFilterObjectSchema as LessonScalarRelationFilterObjectSchema } from './LessonScalarRelationFilter.schema';
 import { LessonWhereInputObjectSchema as LessonWhereInputObjectSchema } from './LessonWhereInput.schema';
-import { QuestionResponseListRelationFilterObjectSchema as QuestionResponseListRelationFilterObjectSchema } from './QuestionResponseListRelationFilter.schema'
+import { QuestionResponseListRelationFilterObjectSchema as QuestionResponseListRelationFilterObjectSchema } from './QuestionResponseListRelationFilter.schema';
+import { MasteryRunNullableScalarRelationFilterObjectSchema as MasteryRunNullableScalarRelationFilterObjectSchema } from './MasteryRunNullableScalarRelationFilter.schema';
+import { MasteryRunWhereInputObjectSchema as MasteryRunWhereInputObjectSchema } from './MasteryRunWhereInput.schema'
 
 const attemptwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => AttemptWhereInputObjectSchema), z.lazy(() => AttemptWhereInputObjectSchema).array()]).optional(),
@@ -27,7 +29,8 @@ const attemptwhereinputSchema = z.object({
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   student: z.union([z.lazy(() => UserScalarRelationFilterObjectSchema), z.lazy(() => userWhereInputObjectSchema)]).optional(),
   lesson: z.union([z.lazy(() => LessonScalarRelationFilterObjectSchema), z.lazy(() => LessonWhereInputObjectSchema)]).optional(),
-  questionResponses: z.lazy(() => QuestionResponseListRelationFilterObjectSchema).optional()
+  questionResponses: z.lazy(() => QuestionResponseListRelationFilterObjectSchema).optional(),
+  masteryRun: z.union([z.lazy(() => MasteryRunNullableScalarRelationFilterObjectSchema), z.lazy(() => MasteryRunWhereInputObjectSchema)]).optional()
 }).strict();
 export const AttemptWhereInputObjectSchema: z.ZodType<Prisma.AttemptWhereInput> = attemptwhereinputSchema as unknown as z.ZodType<Prisma.AttemptWhereInput>;
 export const AttemptWhereInputObjectZodSchema = attemptwhereinputSchema;

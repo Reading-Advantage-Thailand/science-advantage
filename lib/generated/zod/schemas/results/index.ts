@@ -167,3 +167,16 @@ export { LessonCompletionDeleteManyResultSchema } from './LessonCompletionDelete
 export { LessonCompletionAggregateResultSchema } from './LessonCompletionAggregateResult.schema';
 export { LessonCompletionGroupByResultSchema } from './LessonCompletionGroupByResult.schema';
 export { LessonCompletionCountResultSchema } from './LessonCompletionCountResult.schema';
+export { MasteryRunFindUniqueResultSchema } from './MasteryRunFindUniqueResult.schema';
+export { MasteryRunFindFirstResultSchema } from './MasteryRunFindFirstResult.schema';
+export { MasteryRunFindManyResultSchema } from './MasteryRunFindManyResult.schema';
+export { MasteryRunCreateResultSchema } from './MasteryRunCreateResult.schema';
+export { MasteryRunCreateManyResultSchema } from './MasteryRunCreateManyResult.schema';
+export { MasteryRunUpdateResultSchema } from './MasteryRunUpdateResult.schema';
+export { MasteryRunUpdateManyResultSchema } from './MasteryRunUpdateManyResult.schema';
+export { MasteryRunUpsertResultSchema } from './MasteryRunUpsertResult.schema';
+export { MasteryRunDeleteResultSchema } from './MasteryRunDeleteResult.schema';
+export { MasteryRunDeleteManyResultSchema } from './MasteryRunDeleteManyResult.schema';
+export { MasteryRunAggregateResultSchema } from './MasteryRunAggregateResult.schema';
+export { MasteryRunGroupByResultSchema } from './MasteryRunGroupByResult.schema';
+export { MasteryRunCountResultSchema } from './MasteryRunCountResult.schema';

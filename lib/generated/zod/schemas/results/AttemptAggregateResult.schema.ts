@@ -11,6 +11,7 @@ export const AttemptAggregateResultSchema = z.object({  _count: z.object({
     student: z.number(),
     lesson: z.number(),
     questionResponses: z.number(),
+    masteryRun: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

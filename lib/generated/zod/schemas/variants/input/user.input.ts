@@ -20,7 +20,8 @@ export const userInputSchema = z.object({
     enrolledClass: z.array(z.unknown()),
     attempts: z.array(z.unknown()),
     lessonCompletions: z.array(z.unknown()),
-    masteryRecords: z.array(z.unknown())
+    masteryRecords: z.array(z.unknown()),
+    masteryRuns: z.array(z.unknown())
 }).strict();
 
 export type userInputType = z.infer<typeof userInputSchema>;

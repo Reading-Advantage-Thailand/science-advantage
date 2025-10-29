@@ -22,6 +22,7 @@ export const AttemptGroupByResultSchema = z.array(z.object({
     student: z.number(),
     lesson: z.number(),
     questionResponses: z.number(),
+    masteryRun: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

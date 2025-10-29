@@ -6,7 +6,8 @@ import { sessionUncheckedCreateNestedManyWithoutUserInputObjectSchema as session
 import { ClassUncheckedCreateNestedManyWithoutTeacherInputObjectSchema as ClassUncheckedCreateNestedManyWithoutTeacherInputObjectSchema } from './ClassUncheckedCreateNestedManyWithoutTeacherInput.schema';
 import { ClassUncheckedCreateNestedManyWithoutStudentsInputObjectSchema as ClassUncheckedCreateNestedManyWithoutStudentsInputObjectSchema } from './ClassUncheckedCreateNestedManyWithoutStudentsInput.schema';
 import { AttemptUncheckedCreateNestedManyWithoutStudentInputObjectSchema as AttemptUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './AttemptUncheckedCreateNestedManyWithoutStudentInput.schema';
-import { standardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema as standardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './standardMasteryUncheckedCreateNestedManyWithoutStudentInput.schema'
+import { standardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema as standardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './standardMasteryUncheckedCreateNestedManyWithoutStudentInput.schema';
+import { MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema as MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './MasteryRunUncheckedCreateNestedManyWithoutStudentInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string(),
@@ -25,7 +26,8 @@ const makeSchema = () => z.object({
   taughtClasses: z.lazy(() => ClassUncheckedCreateNestedManyWithoutTeacherInputObjectSchema).optional(),
   enrolledClass: z.lazy(() => ClassUncheckedCreateNestedManyWithoutStudentsInputObjectSchema).optional(),
   attempts: z.lazy(() => AttemptUncheckedCreateNestedManyWithoutStudentInputObjectSchema).optional(),
-  masteryRecords: z.lazy(() => standardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema).optional()
+  masteryRecords: z.lazy(() => standardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema).optional(),
+  masteryRuns: z.lazy(() => MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema).optional()
 }).strict();
 export const userUncheckedCreateWithoutLessonCompletionsInputObjectSchema: z.ZodType<Prisma.userUncheckedCreateWithoutLessonCompletionsInput> = makeSchema() as unknown as z.ZodType<Prisma.userUncheckedCreateWithoutLessonCompletionsInput>;
 export const userUncheckedCreateWithoutLessonCompletionsInputObjectZodSchema = makeSchema();

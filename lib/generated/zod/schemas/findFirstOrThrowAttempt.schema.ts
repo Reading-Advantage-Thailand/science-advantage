@@ -21,6 +21,7 @@ export const AttemptFindFirstOrThrowSelectSchema: z.ZodType<Prisma.AttemptSelect
     student: z.boolean().optional(),
     lesson: z.boolean().optional(),
     questionResponses: z.boolean().optional(),
+    masteryRun: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()
@@ -38,6 +39,7 @@ export const AttemptFindFirstOrThrowSelectZodSchema = z.object({
     student: z.boolean().optional(),
     lesson: z.boolean().optional(),
     questionResponses: z.boolean().optional(),
+    masteryRun: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()

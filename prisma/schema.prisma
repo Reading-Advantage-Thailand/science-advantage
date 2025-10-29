@@ -61,6 +61,7 @@ model user {
   attempts          Attempt[]          @relation("StudentAttempts")
   lessonCompletions LessonCompletion[] @relation("StudentLessonCompletions")
   masteryRecords    standardMastery[]  @relation("StudentMastery")
+  masteryRuns       MasteryRun[]
 }
 
 model verification {
@@ -90,6 +91,13 @@ enum UserRole {
   TEACHER
   ADMIN
   SYSTEM
+}
+
+enum MasteryRunStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
 }
 
 model Class {
@@ -238,6 +246,7 @@ model Attempt {
   student           user               @relation("StudentAttempts", fields: [studentId], references: [id], onDelete: Cascade)
   lesson            Lesson             @relation("LessonAttempts", fields: [lessonId], references: [id], onDelete: Cascade)
   questionResponses QuestionResponse[]
+  masteryRun        MasteryRun?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 
@@ -288,4 +297,19 @@ model LessonCompletion {
   @@index([studentId])
   @@index([lessonId])
   @@index([status])
+}
+
+model MasteryRun {
+  attemptId    String           @id
+  studentId    String
+  status       MasteryRunStatus @default(PENDING)
+  updatedCount Int              @default(0)
+  lastError    String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  attempt Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  student user    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
 }

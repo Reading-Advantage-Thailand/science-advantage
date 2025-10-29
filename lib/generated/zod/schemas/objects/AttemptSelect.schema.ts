@@ -3,6 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { userArgsObjectSchema as userArgsObjectSchema } from './userArgs.schema';
 import { LessonArgsObjectSchema as LessonArgsObjectSchema } from './LessonArgs.schema';
 import { QuestionResponseFindManySchema as QuestionResponseFindManySchema } from '../findManyQuestionResponse.schema';
+import { MasteryRunArgsObjectSchema as MasteryRunArgsObjectSchema } from './MasteryRunArgs.schema';
 import { AttemptCountOutputTypeArgsObjectSchema as AttemptCountOutputTypeArgsObjectSchema } from './AttemptCountOutputTypeArgs.schema'
 
 const makeSchema = () => z.object({
@@ -17,6 +18,7 @@ const makeSchema = () => z.object({
   student: z.union([z.boolean(), z.lazy(() => userArgsObjectSchema)]).optional(),
   lesson: z.union([z.boolean(), z.lazy(() => LessonArgsObjectSchema)]).optional(),
   questionResponses: z.union([z.boolean(), z.lazy(() => QuestionResponseFindManySchema)]).optional(),
+  masteryRun: z.union([z.boolean(), z.lazy(() => MasteryRunArgsObjectSchema)]).optional(),
   createdAt: z.boolean().optional(),
   updatedAt: z.boolean().optional(),
   _count: z.union([z.boolean(), z.lazy(() => AttemptCountOutputTypeArgsObjectSchema)]).optional()

@@ -7,7 +7,8 @@ import { sessionOrderByRelationAggregateInputObjectSchema as sessionOrderByRelat
 import { ClassOrderByRelationAggregateInputObjectSchema as ClassOrderByRelationAggregateInputObjectSchema } from './ClassOrderByRelationAggregateInput.schema';
 import { AttemptOrderByRelationAggregateInputObjectSchema as AttemptOrderByRelationAggregateInputObjectSchema } from './AttemptOrderByRelationAggregateInput.schema';
 import { LessonCompletionOrderByRelationAggregateInputObjectSchema as LessonCompletionOrderByRelationAggregateInputObjectSchema } from './LessonCompletionOrderByRelationAggregateInput.schema';
-import { standardMasteryOrderByRelationAggregateInputObjectSchema as standardMasteryOrderByRelationAggregateInputObjectSchema } from './standardMasteryOrderByRelationAggregateInput.schema'
+import { standardMasteryOrderByRelationAggregateInputObjectSchema as standardMasteryOrderByRelationAggregateInputObjectSchema } from './standardMasteryOrderByRelationAggregateInput.schema';
+import { MasteryRunOrderByRelationAggregateInputObjectSchema as MasteryRunOrderByRelationAggregateInputObjectSchema } from './MasteryRunOrderByRelationAggregateInput.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -27,7 +28,8 @@ const makeSchema = () => z.object({
   enrolledClass: z.lazy(() => ClassOrderByRelationAggregateInputObjectSchema).optional(),
   attempts: z.lazy(() => AttemptOrderByRelationAggregateInputObjectSchema).optional(),
   lessonCompletions: z.lazy(() => LessonCompletionOrderByRelationAggregateInputObjectSchema).optional(),
-  masteryRecords: z.lazy(() => standardMasteryOrderByRelationAggregateInputObjectSchema).optional()
+  masteryRecords: z.lazy(() => standardMasteryOrderByRelationAggregateInputObjectSchema).optional(),
+  masteryRuns: z.lazy(() => MasteryRunOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const userOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.userOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.userOrderByWithRelationInput>;
 export const userOrderByWithRelationInputObjectZodSchema = makeSchema();

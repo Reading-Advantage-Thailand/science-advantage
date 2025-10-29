@@ -62,6 +62,13 @@
 **Affected Specs**: `docs/specs/student-profile/spec.md`
 **Change Type**: `MODIFIED`
 
+**Status**: In Progress  
+**Branch**: feat/120-be-calculate-and-update-student-mastery  
+**Started**: 2025-10-29  
+**Issue**: #120  
+**Assigned**: @bodangren  
+**Epic**: #118
+
 ---
 
 ## Story: FE - Student Mastery Profile Page
