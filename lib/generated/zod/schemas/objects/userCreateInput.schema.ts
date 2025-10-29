@@ -7,7 +7,7 @@ import { ClassCreateNestedManyWithoutTeacherInputObjectSchema as ClassCreateNest
 import { ClassCreateNestedManyWithoutStudentsInputObjectSchema as ClassCreateNestedManyWithoutStudentsInputObjectSchema } from './ClassCreateNestedManyWithoutStudentsInput.schema';
 import { AttemptCreateNestedManyWithoutStudentInputObjectSchema as AttemptCreateNestedManyWithoutStudentInputObjectSchema } from './AttemptCreateNestedManyWithoutStudentInput.schema';
 import { LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema as LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema } from './LessonCompletionCreateNestedManyWithoutStudentInput.schema';
-import { standardMasteryCreateNestedManyWithoutStudentInputObjectSchema as standardMasteryCreateNestedManyWithoutStudentInputObjectSchema } from './standardMasteryCreateNestedManyWithoutStudentInput.schema';
+import { StandardMasteryCreateNestedManyWithoutStudentInputObjectSchema as StandardMasteryCreateNestedManyWithoutStudentInputObjectSchema } from './StandardMasteryCreateNestedManyWithoutStudentInput.schema';
 import { MasteryRunCreateNestedManyWithoutStudentInputObjectSchema as MasteryRunCreateNestedManyWithoutStudentInputObjectSchema } from './MasteryRunCreateNestedManyWithoutStudentInput.schema'
 
 const makeSchema = () => z.object({
@@ -28,7 +28,7 @@ const makeSchema = () => z.object({
   enrolledClass: z.lazy(() => ClassCreateNestedManyWithoutStudentsInputObjectSchema),
   attempts: z.lazy(() => AttemptCreateNestedManyWithoutStudentInputObjectSchema),
   lessonCompletions: z.lazy(() => LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema),
-  masteryRecords: z.lazy(() => standardMasteryCreateNestedManyWithoutStudentInputObjectSchema),
+  masteryRecords: z.lazy(() => StandardMasteryCreateNestedManyWithoutStudentInputObjectSchema),
   masteryRuns: z.lazy(() => MasteryRunCreateNestedManyWithoutStudentInputObjectSchema)
 }).strict();
 export const userCreateInputObjectSchema: z.ZodType<Prisma.userCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.userCreateInput>;

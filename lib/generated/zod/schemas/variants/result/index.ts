@@ -9,7 +9,7 @@ export { userResultSchema } from './user.result';
 export { verificationResultSchema } from './verification.result';
 export { ClassResultSchema } from './Class.result';
 export { StandardResultSchema } from './Standard.result';
-export { standardMasteryResultSchema } from './standardMastery.result';
+export { StandardMasteryResultSchema } from './StandardMastery.result';
 export { LessonResultSchema } from './Lesson.result';
 export { CurriculumUnitResultSchema } from './CurriculumUnit.result';
 export { QuizQuestionResultSchema } from './QuizQuestion.result';

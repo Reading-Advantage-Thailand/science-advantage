@@ -6,7 +6,7 @@ import { EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema as EnumSta
 import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUpdateOperationsInputObjectSchema } from './NullableIntFieldUpdateOperationsInput.schema';
 import { LessonUpdateManyWithoutStandardsNestedInputObjectSchema as LessonUpdateManyWithoutStandardsNestedInputObjectSchema } from './LessonUpdateManyWithoutStandardsNestedInput.schema';
 import { QuizQuestionUpdateManyWithoutStandardsNestedInputObjectSchema as QuizQuestionUpdateManyWithoutStandardsNestedInputObjectSchema } from './QuizQuestionUpdateManyWithoutStandardsNestedInput.schema';
-import { standardMasteryUpdateManyWithoutStandardNestedInputObjectSchema as standardMasteryUpdateManyWithoutStandardNestedInputObjectSchema } from './standardMasteryUpdateManyWithoutStandardNestedInput.schema'
+import { StandardMasteryUpdateManyWithoutStandardNestedInputObjectSchema as StandardMasteryUpdateManyWithoutStandardNestedInputObjectSchema } from './StandardMasteryUpdateManyWithoutStandardNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -16,7 +16,7 @@ const makeSchema = () => z.object({
   gradeLevel: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   lessons: z.lazy(() => LessonUpdateManyWithoutStandardsNestedInputObjectSchema).optional(),
   quizQuestions: z.lazy(() => QuizQuestionUpdateManyWithoutStandardsNestedInputObjectSchema).optional(),
-  masteryRecords: z.lazy(() => standardMasteryUpdateManyWithoutStandardNestedInputObjectSchema).optional()
+  masteryRecords: z.lazy(() => StandardMasteryUpdateManyWithoutStandardNestedInputObjectSchema).optional()
 }).strict();
 export const StandardUpdateInputObjectSchema: z.ZodType<Prisma.StandardUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.StandardUpdateInput>;
 export const StandardUpdateInputObjectZodSchema = makeSchema();

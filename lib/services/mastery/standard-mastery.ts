@@ -1,4 +1,4 @@
-import type { PrismaClient, standardMastery } from '@prisma/client';
+import type { PrismaClient, StandardMastery } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 export type StandardMasteryWriteInput = {
@@ -43,7 +43,7 @@ export type StandardMasteryWriter = Pick<PrismaClient, '$transaction'> & {
 export const recordStandardMastery = async (
   prisma: StandardMasteryWriter,
   input: StandardMasteryWriteInput
-): Promise<standardMastery> => {
+): Promise<StandardMastery> => {
   const { studentId, standardId, lastAssessedAt } = input;
   const masteryLevel = clampMasteryLevel(input.masteryLevel);
   const evidenceDelta = resolveEvidenceDelta(input.evidenceDelta);

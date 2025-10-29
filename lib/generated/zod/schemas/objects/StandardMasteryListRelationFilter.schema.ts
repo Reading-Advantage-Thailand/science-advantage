@@ -1,11 +1,11 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
-import { standardMasteryWhereInputObjectSchema as standardMasteryWhereInputObjectSchema } from './standardMasteryWhereInput.schema'
+import { StandardMasteryWhereInputObjectSchema as StandardMasteryWhereInputObjectSchema } from './StandardMasteryWhereInput.schema'
 
 const makeSchema = () => z.object({
-  every: z.lazy(() => standardMasteryWhereInputObjectSchema).optional(),
-  some: z.lazy(() => standardMasteryWhereInputObjectSchema).optional(),
-  none: z.lazy(() => standardMasteryWhereInputObjectSchema).optional()
+  every: z.lazy(() => StandardMasteryWhereInputObjectSchema).optional(),
+  some: z.lazy(() => StandardMasteryWhereInputObjectSchema).optional(),
+  none: z.lazy(() => StandardMasteryWhereInputObjectSchema).optional()
 }).strict();
 export const StandardMasteryListRelationFilterObjectSchema: z.ZodType<Prisma.StandardMasteryListRelationFilter> = makeSchema() as unknown as z.ZodType<Prisma.StandardMasteryListRelationFilter>;
 export const StandardMasteryListRelationFilterObjectZodSchema = makeSchema();

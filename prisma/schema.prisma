@@ -60,7 +60,7 @@ model user {
   enrolledClass     Class[]            @relation("ClassStudents")
   attempts          Attempt[]          @relation("StudentAttempts")
   lessonCompletions LessonCompletion[] @relation("StudentLessonCompletions")
-  masteryRecords    standardMastery[]  @relation("StudentMastery")
+  masteryRecords    StandardMastery[]  @relation("StudentMastery")
   masteryRuns       MasteryRun[]
 }
 
@@ -129,14 +129,14 @@ model Standard {
   gradeLevel     Int?
   lessons        Lesson[]
   quizQuestions  QuizQuestion[]
-  masteryRecords standardMastery[]
+  masteryRecords StandardMastery[]
 
   @@unique([framework, code])
   @@index([framework])
   @@index([gradeLevel])
 }
 
-model standardMastery {
+model StandardMastery {
   id             String   @id @default(cuid())
   studentId      String
   standardId     String
@@ -153,6 +153,7 @@ model standardMastery {
   /// Used by teacher intervention queries to quickly pull struggling students
   @@index([studentId, masteryLevel])
   @@index([standardId])
+  @@map("standardMastery")
 }
 
 model Lesson {
