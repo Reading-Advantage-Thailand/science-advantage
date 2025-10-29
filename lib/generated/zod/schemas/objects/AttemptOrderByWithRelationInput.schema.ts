@@ -4,7 +4,8 @@ import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
 import { userOrderByWithRelationInputObjectSchema as userOrderByWithRelationInputObjectSchema } from './userOrderByWithRelationInput.schema';
 import { LessonOrderByWithRelationInputObjectSchema as LessonOrderByWithRelationInputObjectSchema } from './LessonOrderByWithRelationInput.schema';
-import { QuestionResponseOrderByRelationAggregateInputObjectSchema as QuestionResponseOrderByRelationAggregateInputObjectSchema } from './QuestionResponseOrderByRelationAggregateInput.schema'
+import { QuestionResponseOrderByRelationAggregateInputObjectSchema as QuestionResponseOrderByRelationAggregateInputObjectSchema } from './QuestionResponseOrderByRelationAggregateInput.schema';
+import { MasteryRunOrderByWithRelationInputObjectSchema as MasteryRunOrderByWithRelationInputObjectSchema } from './MasteryRunOrderByWithRelationInput.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -19,7 +20,8 @@ const makeSchema = () => z.object({
   updatedAt: SortOrderSchema.optional(),
   student: z.lazy(() => userOrderByWithRelationInputObjectSchema).optional(),
   lesson: z.lazy(() => LessonOrderByWithRelationInputObjectSchema).optional(),
-  questionResponses: z.lazy(() => QuestionResponseOrderByRelationAggregateInputObjectSchema).optional()
+  questionResponses: z.lazy(() => QuestionResponseOrderByRelationAggregateInputObjectSchema).optional(),
+  masteryRun: z.lazy(() => MasteryRunOrderByWithRelationInputObjectSchema).optional()
 }).strict();
 export const AttemptOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.AttemptOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.AttemptOrderByWithRelationInput>;
 export const AttemptOrderByWithRelationInputObjectZodSchema = makeSchema();

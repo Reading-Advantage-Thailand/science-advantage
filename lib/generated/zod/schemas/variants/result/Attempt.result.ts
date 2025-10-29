@@ -13,6 +13,7 @@ export const AttemptResultSchema = z.object({
     student: z.unknown(),
     lesson: z.unknown(),
     questionResponses: z.array(z.unknown()),
+    masteryRun: z.unknown().nullable(),
     createdAt: z.date(),
     updatedAt: z.date()
 }).strict();

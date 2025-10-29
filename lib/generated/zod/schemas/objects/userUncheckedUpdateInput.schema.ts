@@ -12,7 +12,9 @@ import { sessionUncheckedUpdateManyWithoutUserNestedInputObjectSchema as session
 import { ClassUncheckedUpdateManyWithoutTeacherNestedInputObjectSchema as ClassUncheckedUpdateManyWithoutTeacherNestedInputObjectSchema } from './ClassUncheckedUpdateManyWithoutTeacherNestedInput.schema';
 import { ClassUncheckedUpdateManyWithoutStudentsNestedInputObjectSchema as ClassUncheckedUpdateManyWithoutStudentsNestedInputObjectSchema } from './ClassUncheckedUpdateManyWithoutStudentsNestedInput.schema';
 import { AttemptUncheckedUpdateManyWithoutStudentNestedInputObjectSchema as AttemptUncheckedUpdateManyWithoutStudentNestedInputObjectSchema } from './AttemptUncheckedUpdateManyWithoutStudentNestedInput.schema';
-import { LessonCompletionUncheckedUpdateManyWithoutStudentNestedInputObjectSchema as LessonCompletionUncheckedUpdateManyWithoutStudentNestedInputObjectSchema } from './LessonCompletionUncheckedUpdateManyWithoutStudentNestedInput.schema'
+import { LessonCompletionUncheckedUpdateManyWithoutStudentNestedInputObjectSchema as LessonCompletionUncheckedUpdateManyWithoutStudentNestedInputObjectSchema } from './LessonCompletionUncheckedUpdateManyWithoutStudentNestedInput.schema';
+import { StandardMasteryUncheckedUpdateManyWithoutStudentNestedInputObjectSchema as StandardMasteryUncheckedUpdateManyWithoutStudentNestedInputObjectSchema } from './StandardMasteryUncheckedUpdateManyWithoutStudentNestedInput.schema';
+import { MasteryRunUncheckedUpdateManyWithoutStudentNestedInputObjectSchema as MasteryRunUncheckedUpdateManyWithoutStudentNestedInputObjectSchema } from './MasteryRunUncheckedUpdateManyWithoutStudentNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -31,7 +33,9 @@ const makeSchema = () => z.object({
   taughtClasses: z.lazy(() => ClassUncheckedUpdateManyWithoutTeacherNestedInputObjectSchema).optional(),
   enrolledClass: z.lazy(() => ClassUncheckedUpdateManyWithoutStudentsNestedInputObjectSchema).optional(),
   attempts: z.lazy(() => AttemptUncheckedUpdateManyWithoutStudentNestedInputObjectSchema).optional(),
-  lessonCompletions: z.lazy(() => LessonCompletionUncheckedUpdateManyWithoutStudentNestedInputObjectSchema).optional()
+  lessonCompletions: z.lazy(() => LessonCompletionUncheckedUpdateManyWithoutStudentNestedInputObjectSchema).optional(),
+  masteryRecords: z.lazy(() => StandardMasteryUncheckedUpdateManyWithoutStudentNestedInputObjectSchema).optional(),
+  masteryRuns: z.lazy(() => MasteryRunUncheckedUpdateManyWithoutStudentNestedInputObjectSchema).optional()
 }).strict();
 export const userUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.userUncheckedUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.userUncheckedUpdateInput>;
 export const userUncheckedUpdateInputObjectZodSchema = makeSchema();

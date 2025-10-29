@@ -17,7 +17,9 @@ export const userFindManyResultSchema = z.object({
   taughtClasses: z.array(z.unknown()),
   enrolledClass: z.array(z.unknown()),
   attempts: z.array(z.unknown()),
-  lessonCompletions: z.array(z.unknown())
+  lessonCompletions: z.array(z.unknown()),
+  masteryRecords: z.array(z.unknown()),
+  masteryRuns: z.array(z.unknown())
 })),
   pagination: z.object({
   page: z.number().int().min(1),

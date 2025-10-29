@@ -15,3 +15,5 @@ export { QuizQuestionInputSchema } from './QuizQuestion.input';
 export { AttemptInputSchema } from './Attempt.input';
 export { QuestionResponseInputSchema } from './QuestionResponse.input';
 export { LessonCompletionInputSchema } from './LessonCompletion.input';
+export { StandardMasteryInputSchema } from './StandardMastery.input';
+export { MasteryRunInputSchema } from './MasteryRun.input';

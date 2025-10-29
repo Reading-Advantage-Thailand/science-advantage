@@ -27,6 +27,8 @@ export const userFindManySelectSchema: z.ZodType<Prisma.userSelect> = z.object({
     enrolledClass: z.boolean().optional(),
     attempts: z.boolean().optional(),
     lessonCompletions: z.boolean().optional(),
+    masteryRecords: z.boolean().optional(),
+    masteryRuns: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.userSelect>;
 
@@ -48,6 +50,8 @@ export const userFindManySelectZodSchema = z.object({
     enrolledClass: z.boolean().optional(),
     attempts: z.boolean().optional(),
     lessonCompletions: z.boolean().optional(),
+    masteryRecords: z.boolean().optional(),
+    masteryRuns: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

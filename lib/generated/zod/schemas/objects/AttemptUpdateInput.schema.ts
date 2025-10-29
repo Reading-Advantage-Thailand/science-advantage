@@ -7,7 +7,8 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOp
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema as NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema';
 import { userUpdateOneRequiredWithoutAttemptsNestedInputObjectSchema as userUpdateOneRequiredWithoutAttemptsNestedInputObjectSchema } from './userUpdateOneRequiredWithoutAttemptsNestedInput.schema';
 import { LessonUpdateOneRequiredWithoutAttemptsNestedInputObjectSchema as LessonUpdateOneRequiredWithoutAttemptsNestedInputObjectSchema } from './LessonUpdateOneRequiredWithoutAttemptsNestedInput.schema';
-import { QuestionResponseUpdateManyWithoutAttemptNestedInputObjectSchema as QuestionResponseUpdateManyWithoutAttemptNestedInputObjectSchema } from './QuestionResponseUpdateManyWithoutAttemptNestedInput.schema'
+import { QuestionResponseUpdateManyWithoutAttemptNestedInputObjectSchema as QuestionResponseUpdateManyWithoutAttemptNestedInputObjectSchema } from './QuestionResponseUpdateManyWithoutAttemptNestedInput.schema';
+import { MasteryRunUpdateOneWithoutAttemptNestedInputObjectSchema as MasteryRunUpdateOneWithoutAttemptNestedInputObjectSchema } from './MasteryRunUpdateOneWithoutAttemptNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -20,7 +21,8 @@ const makeSchema = () => z.object({
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   student: z.lazy(() => userUpdateOneRequiredWithoutAttemptsNestedInputObjectSchema).optional(),
   lesson: z.lazy(() => LessonUpdateOneRequiredWithoutAttemptsNestedInputObjectSchema).optional(),
-  questionResponses: z.lazy(() => QuestionResponseUpdateManyWithoutAttemptNestedInputObjectSchema).optional()
+  questionResponses: z.lazy(() => QuestionResponseUpdateManyWithoutAttemptNestedInputObjectSchema).optional(),
+  masteryRun: z.lazy(() => MasteryRunUpdateOneWithoutAttemptNestedInputObjectSchema).optional()
 }).strict();
 export const AttemptUpdateInputObjectSchema: z.ZodType<Prisma.AttemptUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.AttemptUpdateInput>;
 export const AttemptUpdateInputObjectZodSchema = makeSchema();

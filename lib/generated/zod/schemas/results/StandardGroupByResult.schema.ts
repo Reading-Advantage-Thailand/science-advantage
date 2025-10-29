@@ -11,7 +11,8 @@ export const StandardGroupByResultSchema = z.array(z.object({
     description: z.number(),
     gradeLevel: z.number(),
     lessons: z.number(),
-    quizQuestions: z.number()
+    quizQuestions: z.number(),
+    masteryRecords: z.number()
   }).optional(),
   _sum: z.object({
     gradeLevel: z.number().nullable()

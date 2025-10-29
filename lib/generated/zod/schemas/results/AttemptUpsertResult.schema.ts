@@ -11,6 +11,7 @@ export const AttemptUpsertResultSchema = z.object({
   student: z.unknown(),
   lesson: z.unknown(),
   questionResponses: z.array(z.unknown()),
+  masteryRun: z.unknown().optional(),
   createdAt: z.date(),
   updatedAt: z.date()
 });

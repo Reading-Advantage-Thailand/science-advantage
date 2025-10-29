@@ -13,6 +13,16 @@
   - **Milestone**: None
   - **Changes**: Updated color scheme, added playful animations, enhanced cards and buttons
 
+### Sprint 4: AI-Powered Personalization (S4) - ACTIVE 🚀
+
+- [ ] #120 - Story: BE - Calculate and Update Student Mastery (feat/120-be-calculate-and-update-student-mastery)
+  - **Started**: 2025-10-29
+  - **Branch**: feat/120-be-calculate-and-update-student-mastery
+  - **Specs**: docs/specs/student-profile/spec.md
+  - **Priority**: P1
+  - **Milestone**: Sprint 4: AI-Powered Personalization
+  - **Dependencies**: Unblocks #121, #122, #124
+
 ### Sprint 3: Interactive Learning (S3) - ACTIVE 🚀
 
 - [ ] #89 - Epic: Sprint 3 - Interactive Learning & Standards-Tagged Assessments - Created: 2025-10-22

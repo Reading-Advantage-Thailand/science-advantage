@@ -17,6 +17,7 @@ export const StandardFindFirstOrThrowSelectSchema: z.ZodType<Prisma.StandardSele
     gradeLevel: z.boolean().optional(),
     lessons: z.boolean().optional(),
     quizQuestions: z.boolean().optional(),
+    masteryRecords: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.StandardSelect>;
 
@@ -28,6 +29,7 @@ export const StandardFindFirstOrThrowSelectZodSchema = z.object({
     gradeLevel: z.boolean().optional(),
     lessons: z.boolean().optional(),
     quizQuestions: z.boolean().optional(),
+    masteryRecords: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 
