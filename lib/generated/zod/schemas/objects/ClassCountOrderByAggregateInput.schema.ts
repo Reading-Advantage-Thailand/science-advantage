@@ -4,8 +4,8 @@ import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
-  name: SortOrderSchema.optional(),
-  gradeLevel: SortOrderSchema.optional(),
+  name: z.string().min(3).max(100).trim().optional(),
+  gradeLevel: z.number().int().int().min(3).max(6).optional(),
   standardsAlignment: SortOrderSchema.optional(),
   joinCode: SortOrderSchema.optional(),
   teacherId: SortOrderSchema.optional(),

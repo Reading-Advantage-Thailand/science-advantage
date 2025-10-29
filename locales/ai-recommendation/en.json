@@ -1,0 +1,20 @@
+{
+  "heading": "Personalized Next Step",
+  "loadingPrimary": "Finding the best lesson for you...",
+  "loadingSecondary": "Thanks for your patience!",
+  "badgeFallback": "Based on curriculum rules",
+  "reasonHeading": "Why this lesson?",
+  "showMore": "Show more",
+  "showLess": "Show less",
+  "startLesson": "Start Lesson",
+  "seeAllLessons": "See all lessons",
+  "errorTitle": "Continue Learning",
+  "errorBody": "We couldn’t generate a recommendation right now. Continue with the next lesson in your curriculum.",
+  "errorCta": "See All Lessons",
+  "disabledBody": "Keep exploring the next lessons in your class while we finish building AI suggestions.",
+  "completionTitle": "Congratulations! 🎉",
+  "completionBody": "You’ve completed all available lessons! Consider exploring enrichment activities or reviewing previous topics.",
+  "completionCta": "Review Lessons",
+  "toastSlow": "Still preparing your personalized recommendation. Hang tight!",
+  "toastError": "We couldn’t load a recommendation right now. Please try again soon."
+}

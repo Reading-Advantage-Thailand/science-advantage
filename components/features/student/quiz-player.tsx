@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
@@ -21,11 +21,18 @@ import { MultipleSelectQuestion } from './quiz-questions/multiple-select-questio
 import { TrueFalseQuestion } from './quiz-questions/true-false-question';
 import { FillInBlankQuestion } from './quiz-questions/fill-in-blank-question';
 import { VocabularyMatchQuestion } from './quiz-questions/vocabulary-match-question';
+import { AiRecommendation } from './ai-recommendation';
+import { AiRecommendationErrorBoundary } from './ai-recommendation-error-boundary';
 
 // Types
 interface QuizQuestion {
   id: string;
-  type: 'MULTIPLE_CHOICE' | 'MULTIPLE_SELECT' | 'TRUE_FALSE' | 'FILL_IN_BLANK' | 'VOCABULARY_MATCH';
+  type:
+    | 'MULTIPLE_CHOICE'
+    | 'MULTIPLE_SELECT'
+    | 'TRUE_FALSE'
+    | 'FILL_IN_BLANK'
+    | 'VOCABULARY_MATCH';
   text: string;
   options: any;
   points: number;
@@ -72,15 +79,23 @@ interface QuizPlayerProps {
   onQuizCompleted?: (result: QuizResult) => void;
 }
 
-export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerProps) {
+export function QuizPlayer({
+  classId,
+  lessonSlug,
+  onQuizCompleted,
+}: QuizPlayerProps) {
   const router = useRouter();
 
   // Quiz state
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
-  const [questionStartTimes, setQuestionStartTimes] = useState<Record<number, number>>({});
-  const [questionTimes, setQuestionTimes] = useState<Record<string, number>>({});
+  const [questionStartTimes, setQuestionStartTimes] = useState<
+    Record<number, number>
+  >({});
+  const [questionTimes, setQuestionTimes] = useState<Record<string, number>>(
+    {}
+  );
 
   // UI state
   const [loading, setLoading] = useState(true);
@@ -119,7 +134,9 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
         // Initialize timing for first question
         setQuestionStartTimes({ 0: Date.now() });
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+        setError(
+          err instanceof Error ? err.message : 'An unexpected error occurred'
+        );
       } finally {
         setLoading(false);
       }
@@ -129,31 +146,35 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
   }, [lessonSlug]);
 
   // Track timing when question changes
-  const recordQuestionTime = useCallback((questionIndex: number) => {
-    if (!quizData) return;
+  const recordQuestionTime = useCallback(
+    (questionIndex: number) => {
+      if (!quizData) return;
 
-    const question = quizData.questions[questionIndex];
-    const startTime = questionStartTimes[questionIndex];
+      const question = quizData.questions[questionIndex];
+      const startTime = questionStartTimes[questionIndex];
 
-    if (startTime) {
-      const timeSpent = Math.floor((Date.now() - startTime) / 1000);
-      setQuestionTimes(prev => ({
-        ...prev,
-        [question.id]: timeSpent
-      }));
-    }
-  }, [quizData, questionStartTimes]);
+      if (startTime) {
+        const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+        setQuestionTimes((prev) => ({
+          ...prev,
+          [question.id]: timeSpent,
+        }));
+      }
+    },
+    [quizData, questionStartTimes]
+  );
 
   // Navigate to next question
   const handleNext = useCallback(() => {
-    if (!quizData || currentQuestionIndex >= quizData.questions.length - 1) return;
+    if (!quizData || currentQuestionIndex >= quizData.questions.length - 1)
+      return;
 
     recordQuestionTime(currentQuestionIndex);
     const nextIndex = currentQuestionIndex + 1;
     setCurrentQuestionIndex(nextIndex);
-    setQuestionStartTimes(prev => ({
+    setQuestionStartTimes((prev) => ({
       ...prev,
-      [nextIndex]: Date.now()
+      [nextIndex]: Date.now(),
     }));
   }, [currentQuestionIndex, quizData, recordQuestionTime]);
 
@@ -164,24 +185,29 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
     recordQuestionTime(currentQuestionIndex);
     const prevIndex = currentQuestionIndex - 1;
     setCurrentQuestionIndex(prevIndex);
-    setQuestionStartTimes(prev => ({
+    setQuestionStartTimes((prev) => ({
       ...prev,
-      [prevIndex]: Date.now()
+      [prevIndex]: Date.now(),
     }));
   }, [currentQuestionIndex, recordQuestionTime]);
 
   // Handle answer change
   const handleAnswerChange = useCallback((questionId: string, answer: any) => {
-    setAnswers(prev => ({
+    setAnswers((prev) => ({
       ...prev,
-      [questionId]: answer
+      [questionId]: answer,
     }));
   }, []);
 
   // Check if all questions are answered
   const allQuestionsAnswered = useCallback(() => {
     if (!quizData) return false;
-    return quizData.questions.every(q => answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== '');
+    return quizData.questions.every(
+      (q) =>
+        answers[q.id] !== undefined &&
+        answers[q.id] !== null &&
+        answers[q.id] !== ''
+    );
   }, [quizData, answers]);
 
   // Submit quiz
@@ -195,13 +221,15 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
       recordQuestionTime(currentQuestionIndex);
 
       // Prepare responses
-      const responses: QuestionResponse[] = quizData.questions.map((question) => ({
-        questionId: question.id,
-        studentAnswer: answers[question.id],
-        timeSpentSeconds: questionTimes[question.id] || 0,
-        answeredAt: new Date().toISOString(),
-        order: question.order
-      }));
+      const responses: QuestionResponse[] = quizData.questions.map(
+        (question) => ({
+          questionId: question.id,
+          studentAnswer: answers[question.id],
+          timeSpentSeconds: questionTimes[question.id] || 0,
+          answeredAt: new Date().toISOString(),
+          order: question.order,
+        })
+      );
 
       const response = await fetch(`/api/lessons/${lessonSlug}/quiz`, {
         method: 'POST',
@@ -210,7 +238,7 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
         },
         body: JSON.stringify({
           attemptId: quizData.quizId,
-          responses
+          responses,
         }),
       });
 
@@ -234,12 +262,23 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
       setShowSubmitDialog(false);
       onQuizCompleted?.(resultData);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      setError(
+        err instanceof Error ? err.message : 'An unexpected error occurred'
+      );
       setShowSubmitDialog(false);
     } finally {
       setSubmitting(false);
     }
-  }, [quizData, answers, questionTimes, currentQuestionIndex, lessonSlug, allQuestionsAnswered, recordQuestionTime, onQuizCompleted]);
+  }, [
+    quizData,
+    answers,
+    questionTimes,
+    currentQuestionIndex,
+    lessonSlug,
+    allQuestionsAnswered,
+    recordQuestionTime,
+    onQuizCompleted,
+  ]);
 
   // Render loading state
   if (loading) {
@@ -304,8 +343,32 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
               </div>
             </div>
 
-            {/* Retake Button */}
-            <div className="flex justify-center">
+            <AiRecommendationErrorBoundary>
+              <AiRecommendation
+                attemptId={result.attemptId}
+                classId={classId}
+              />
+            </AiRecommendationErrorBoundary>
+
+            {/* Action Buttons */}
+            <div className="flex justify-center gap-4">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setResult(null);
+                  setAnswers({});
+                  setQuestionTimes({});
+                  setCurrentQuestionIndex(0);
+                  setQuestionStartTimes({});
+                  // Navigate to lesson page
+                  router.push(
+                    `/student/classes/${classId}/lessons/${lessonSlug}`
+                  );
+                }}
+                className="gap-2"
+              >
+                Back to Lesson
+              </Button>
               <Button
                 onClick={() => {
                   setResult(null);
@@ -343,7 +406,9 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
                       <Badge variant="destructive">Incorrect</Badge>
                     )}
                   </div>
-                  <p className="mb-3 text-sm text-gray-700">{item.questionText}</p>
+                  <p className="mb-3 text-sm text-gray-700">
+                    {item.questionText}
+                  </p>
                   <div className="space-y-1 text-sm">
                     <div>
                       <span className="font-medium">Your answer:</span>{' '}
@@ -351,8 +416,12 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
                     </div>
                     {!item.isCorrect && (
                       <div>
-                        <span className="font-medium text-green-700">Correct answer:</span>{' '}
-                        <span className="text-green-700">{formatAnswer(item.correctAnswer)}</span>
+                        <span className="font-medium text-green-700">
+                          Correct answer:
+                        </span>{' '}
+                        <span className="text-green-700">
+                          {formatAnswer(item.correctAnswer)}
+                        </span>
                       </div>
                     )}
                     <div className="text-gray-500">
@@ -419,7 +488,10 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
             <CardTitle className="text-lg">
               Question {currentQuestionIndex + 1}
             </CardTitle>
-            <Badge variant="outline">{currentQuestion.points} point{currentQuestion.points !== 1 ? 's' : ''}</Badge>
+            <Badge variant="outline">
+              {currentQuestion.points} point
+              {currentQuestion.points !== 1 ? 's' : ''}
+            </Badge>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -430,35 +502,45 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
             <MultipleChoiceQuestion
               question={currentQuestion}
               value={answers[currentQuestion.id]}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+              onChange={(value) =>
+                handleAnswerChange(currentQuestion.id, value)
+              }
             />
           )}
           {currentQuestion.type === 'MULTIPLE_SELECT' && (
             <MultipleSelectQuestion
               question={currentQuestion}
               value={answers[currentQuestion.id] || []}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+              onChange={(value) =>
+                handleAnswerChange(currentQuestion.id, value)
+              }
             />
           )}
           {currentQuestion.type === 'TRUE_FALSE' && (
             <TrueFalseQuestion
               question={currentQuestion}
               value={answers[currentQuestion.id]}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+              onChange={(value) =>
+                handleAnswerChange(currentQuestion.id, value)
+              }
             />
           )}
           {currentQuestion.type === 'FILL_IN_BLANK' && (
             <FillInBlankQuestion
               question={currentQuestion}
               value={answers[currentQuestion.id] || ''}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+              onChange={(value) =>
+                handleAnswerChange(currentQuestion.id, value)
+              }
             />
           )}
           {currentQuestion.type === 'VOCABULARY_MATCH' && (
             <VocabularyMatchQuestion
               question={currentQuestion}
               value={answers[currentQuestion.id] || {}}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+              onChange={(value) =>
+                handleAnswerChange(currentQuestion.id, value)
+              }
             />
           )}
         </CardContent>
@@ -501,10 +583,7 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
             )}
           </Button>
         ) : (
-          <Button
-            onClick={handleNext}
-            className="gap-2"
-          >
+          <Button onClick={handleNext} className="gap-2">
             Next
             <ArrowRight className="h-4 w-4" />
           </Button>
@@ -518,8 +597,8 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
             <AlertDialogTitle>Submit Quiz?</AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you want to submit your quiz? You have answered{' '}
-              {Object.keys(answers).length} of {quizData.questions.length} questions.
-              Once submitted, you cannot change your answers.
+              {Object.keys(answers).length} of {quizData.questions.length}{' '}
+              questions. Once submitted, you cannot change your answers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

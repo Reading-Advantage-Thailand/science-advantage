@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 // prettier-ignore
 export const accountModelSchema = z.object({
     id: z.string(),

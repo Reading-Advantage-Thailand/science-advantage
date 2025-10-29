@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 import { UserRoleSchema } from '../../enums/UserRole.schema';
 // prettier-ignore
 export const userModelSchema = z.object({

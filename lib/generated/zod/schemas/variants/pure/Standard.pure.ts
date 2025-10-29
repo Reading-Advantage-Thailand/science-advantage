@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 import { StandardsAlignmentSchema } from '../../enums/StandardsAlignment.schema';
 // prettier-ignore
 export const StandardModelSchema = z.object({

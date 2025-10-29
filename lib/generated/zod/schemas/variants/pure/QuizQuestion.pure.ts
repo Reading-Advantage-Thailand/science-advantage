@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 import { QuestionTypeSchema } from '../../enums/QuestionType.schema';
 // prettier-ignore
 export const QuizQuestionModelSchema = z.object({

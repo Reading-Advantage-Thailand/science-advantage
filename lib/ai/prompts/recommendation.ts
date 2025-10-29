@@ -67,18 +67,20 @@ Score: ${attempt.score}/${attempt.maxScore} (${attempt.scorePercentage.toFixed(0
 Questions: ${attempt.correctCount}/${attempt.questionsCount} correct`;
 
   // Format candidate lessons
-  const candidatesText = candidateLessons
-    .filter((l) => !l.completed)
-    .map(
-      (l) =>
-        `- ID: ${l.lessonId}
+  const availableLessons = candidateLessons.filter((l) => !l.completed);
+
+  const candidatesText = availableLessons.length > 0
+    ? availableLessons
+        .map(
+          (l) =>
+            `- ID: ${l.lessonId}
   Title: ${l.lessonTitle}
   Slug: ${l.lessonSlug}
   Standards: ${l.standardsCovered.join(', ') || 'None specified'}
-  Order: ${l.order}
-  Completed: ${l.completed}`
-    )
-    .join('\n');
+  Order: ${l.order}`
+        )
+        .join('\n')
+    : 'No available lessons (all completed)';
 
   return `STUDENT CONTEXT:
 - Alias: ${student.studentAlias} (anonymized)

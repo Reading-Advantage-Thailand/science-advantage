@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 import { LessonTypeSchema } from '../../enums/LessonType.schema';
 // prettier-ignore
 export const LessonInputSchema = z.object({

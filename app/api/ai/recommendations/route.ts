@@ -41,11 +41,13 @@ const rateLimitStore = new Map<string, RateLimitEntry>();
 const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
 type CacheEntry = {
-  recommendation: Recommendation;
+  recommendation: Recommendation | null;
   model: string;
   fallbackUsed: boolean;
   traceId: string;
   generatedAt: string;
+  studentIdHash?: string;
+  latencyMs?: number;
   expiresAt: number;
 };
 
@@ -110,10 +112,12 @@ const getCachedRecommendation = (
 const cacheRecommendation = (
   studentId: string,
   attemptId: string,
-  recommendation: Recommendation,
+  recommendation: Recommendation | null,
   model: string,
   fallbackUsed: boolean,
-  traceId: string
+  traceId: string,
+  studentIdHash?: string,
+  latencyMs?: number
 ): void => {
   const cacheKey = `${studentId}:${attemptId}`;
   cacheStore.set(cacheKey, {
@@ -122,6 +126,8 @@ const cacheRecommendation = (
     fallbackUsed,
     traceId,
     generatedAt: new Date().toISOString(),
+    studentIdHash,
+    latencyMs,
     expiresAt: Date.now() + CACHE_TTL_MS,
   });
 };
@@ -138,6 +144,12 @@ const generateAiRecommendation = async (
   try {
     const { system, user } = buildRecommendationPrompt(context);
     const model = env.AI_RECOMMENDER_MODEL;
+
+    logger.info('ai.recommendation.prompt_built', {
+      traceId,
+      candidateCount: context.candidateLessons.length,
+      availableCount: context.candidateLessons.filter(l => !l.completed).length,
+    });
 
     // Use Vercel AI SDK with timeout
     const controller = new AbortController();
@@ -160,16 +172,31 @@ const generateAiRecommendation = async (
 
       const latencyMs = Date.now() - startTime;
 
+      // Validate with Zod schema instead of type assertion
+      const parseResult = aiModelOutputSchema.safeParse(result.object);
+
+      if (!parseResult.success) {
+        logger.error('ai.recommendation.invalid_schema', {
+          traceId,
+          model,
+          errors: parseResult.error.issues,
+        });
+        return null;
+      }
+
+      const aiOutput = parseResult.data;
+
       // Validate that recommended lesson exists and is not completed
       const recommendedLesson = context.candidateLessons.find(
-        (l) => l.lessonId === result.object.recommendedLessonId
+        (l) => l.lessonId === aiOutput.recommendedLessonId
       );
 
       if (!recommendedLesson || recommendedLesson.completed) {
         logger.warn('ai.recommendation.invalid', {
           traceId,
           model,
-          recommendedLessonId: result.object.recommendedLessonId,
+          recommendedLessonId: aiOutput.recommendedLessonId,
+          candidateLessonIds: context.candidateLessons.map(l => l.lessonId),
           reason: recommendedLesson ? 'already_completed' : 'lesson_not_found',
         });
         return null;
@@ -177,12 +204,12 @@ const generateAiRecommendation = async (
 
       // Map AI output to our internal recommendation schema
       const recommendation: Recommendation = {
-        lessonId: result.object.recommendedLessonId,
-        lessonTitle: result.object.lessonTitle,
-        lessonSlug: result.object.recommendedLessonSlug,
-        focusStandards: result.object.focusStandards,
-        reasoning: result.object.reasoning,
-        confidence: result.object.confidence,
+        lessonId: aiOutput.recommendedLessonId,
+        lessonTitle: aiOutput.lessonTitle,
+        lessonSlug: aiOutput.recommendedLessonSlug,
+        focusStandards: aiOutput.focusStandards,
+        reasoning: aiOutput.reasoning,
+        confidence: aiOutput.confidence,
       };
 
       metrics.increment('ai_recommendation_success_total', 1, {
@@ -297,7 +324,10 @@ export async function POST(request: NextRequest) {
         );
       }
       targetStudentId = session.user.id;
-    } else if (session.user.role === 'TEACHER' || session.user.role === 'ADMIN') {
+    } else if (
+      session.user.role === 'TEACHER' ||
+      session.user.role === 'ADMIN'
+    ) {
       // Teachers/admins can request for any student (dev mode allows impersonation)
       if (requestedStudentId && env.NEXT_PUBLIC_DEV_AUTH) {
         targetStudentId = requestedStudentId;
@@ -354,6 +384,8 @@ export async function POST(request: NextRequest) {
         traceId: cached.traceId,
         model: cached.model,
         generatedAt: cached.generatedAt,
+        studentIdHash: cached.studentIdHash,
+        latencyMs: cached.latencyMs,
       };
 
       return NextResponse.json(response, { status: 200 });
@@ -380,15 +412,25 @@ export async function POST(request: NextRequest) {
     }
 
     // 8. Try AI recommendation first
-    let recommendation: Recommendation;
-    let model: string;
+    let recommendation: Recommendation | null = null;
+    let model: string = 'rules-engine';
     let fallbackUsed = false;
+    const studentIdHash = context.student.studentAlias;
 
     if (!env.OPENAI_API_KEY) {
       logger.warn('ai.recommendation.no_api_key', { traceId });
       fallbackUsed = true;
-      recommendation = selectLessonByRules(context.mastery, context.candidateLessons)!;
-      model = 'rules-engine';
+      const fallback = selectLessonByRules(
+        context.mastery,
+        context.candidateLessons
+      );
+      recommendation = fallback;
+      if (!fallback) {
+        logger.info('ai.recommendation.no_candidates', {
+          traceId,
+          reason: 'no_lessons_available',
+        });
+      }
     } else {
       const aiResult = await generateAiRecommendation(context, traceId);
 
@@ -398,11 +440,11 @@ export async function POST(request: NextRequest) {
       } else {
         // Fallback to rules engine
         fallbackUsed = true;
-        recommendation = selectLessonByRules(
+        const fallback = selectLessonByRules(
           context.mastery,
           context.candidateLessons
-        )!;
-        model = 'rules-engine';
+        );
+        recommendation = fallback;
 
         metrics.increment('ai_recommendation_fallback_total', 1, {
           studentId: targetStudentId,
@@ -416,24 +458,51 @@ export async function POST(request: NextRequest) {
     }
 
     if (!recommendation) {
-      return NextResponse.json(
-        { success: false, error: 'No recommendations available' },
-        { status: 404 }
+      metrics.increment('ai_recommendation_exhausted_total', 1, {
+        studentId: targetStudentId,
+      });
+
+      const latencyMs = Date.now() - startTime;
+
+      const response: AiRecommendationResponse = {
+        success: true,
+        recommendation: null,
+        fallbackUsed: true,
+        traceId,
+        model,
+        generatedAt: new Date().toISOString(),
+        studentIdHash,
+        latencyMs,
+      };
+
+      cacheRecommendation(
+        targetStudentId,
+        attemptId,
+        null,
+        model,
+        true,
+        traceId,
+        studentIdHash,
+        latencyMs
       );
+
+      return NextResponse.json(response, { status: 200 });
     }
 
-    // 9. Cache the recommendation
+    // 9. Record metrics
+    const latencyMs = Date.now() - startTime;
+
+    // 10. Cache the recommendation
     cacheRecommendation(
       targetStudentId,
       attemptId,
       recommendation,
       model,
       fallbackUsed,
-      traceId
+      traceId,
+      studentIdHash,
+      latencyMs
     );
-
-    // 10. Record metrics
-    const latencyMs = Date.now() - startTime;
 
     metrics.observe('ai_recommendation_latency_ms', latencyMs, {
       model,
@@ -449,6 +518,8 @@ export async function POST(request: NextRequest) {
       traceId,
       model,
       generatedAt: new Date().toISOString(),
+      studentIdHash,
+      latencyMs,
     };
 
     // Validate response schema

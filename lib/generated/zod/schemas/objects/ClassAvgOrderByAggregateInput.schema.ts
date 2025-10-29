@@ -3,7 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema'
 
 const makeSchema = () => z.object({
-  gradeLevel: SortOrderSchema.optional()
+  gradeLevel: z.number().int().int().min(3).max(6).optional()
 }).strict();
 export const ClassAvgOrderByAggregateInputObjectSchema: z.ZodType<Prisma.ClassAvgOrderByAggregateInput> = makeSchema() as unknown as z.ZodType<Prisma.ClassAvgOrderByAggregateInput>;
 export const ClassAvgOrderByAggregateInputObjectZodSchema = makeSchema();

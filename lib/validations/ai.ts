@@ -51,11 +51,13 @@ export type Recommendation = z.infer<typeof recommendationSchema>;
  */
 export const aiRecommendationResponseSchema = z.object({
   success: z.boolean(),
-  recommendation: recommendationSchema.optional(),
+  recommendation: recommendationSchema.nullable().optional(),
   fallbackUsed: z.boolean(),
   traceId: z.string(),
   model: z.string().optional(),
   generatedAt: z.string().optional(),
+  studentIdHash: z.string().optional(),
+  latencyMs: z.number().nonnegative().optional(),
 });
 
 export type AiRecommendationResponse = z.infer<typeof aiRecommendationResponseSchema>;

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useCallback, use } from 'react';
 import { LessonViewer } from '@/components/features/student/lesson-viewer';
@@ -22,7 +22,9 @@ export default function LessonPage({ params }: PageProps) {
   const fetchProgress = useCallback(async () => {
     try {
       setProgressLoading(true);
-      const response = await fetch(`/api/students/me/lessons/${lessonSlug}/progress`);
+      const response = await fetch(
+        `/api/students/me/lessons/${lessonSlug}/progress`
+      );
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -54,7 +56,7 @@ export default function LessonPage({ params }: PageProps) {
   }, []);
 
   const handleQuizCompleted = useCallback(() => {
-    setView('lesson');
+    // Don't automatically switch back to lesson - let user see results first
     fetchProgress();
   }, [fetchProgress]);
 
@@ -90,7 +92,11 @@ export default function LessonPage({ params }: PageProps) {
           onStartQuiz={handleStartQuiz}
         />
       ) : (
-        <QuizPlayer classId={classId} lessonSlug={lessonSlug} onQuizCompleted={handleQuizCompleted} />
+        <QuizPlayer
+          classId={classId}
+          lessonSlug={lessonSlug}
+          onQuizCompleted={handleQuizCompleted}
+        />
       )}
     </div>
   );

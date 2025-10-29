@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 import { MasteryRunStatusSchema } from '../../enums/MasteryRunStatus.schema';
 // prettier-ignore
 export const MasteryRunInputSchema = z.object({

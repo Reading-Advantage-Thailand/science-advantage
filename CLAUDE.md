@@ -24,6 +24,63 @@ Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `t
 
 Duplicate `.env.example` into `.env.local` before development and populate credentials for PostgreSQL, NextAuth, Google OAuth, OpenAI, Google Cloud Storage, and Redis. Never commit `.env*` files or production secrets. Rotate keys whenever rotating cloud resources, and confirm that Prisma migrations run cleanly in staging before tagging a release.
 
+## Internationalization (i18n) Strategy
+
+The application supports English and Thai localization for user-facing features. Translations are organized as follows:
+
+### Translation File Structure
+
+```
+locales/
+  <feature-name>/
+    en.json
+    th.json
+```
+
+Each feature has its own translation directory with separate JSON files for each supported language. For example:
+- `locales/ai-recommendation/en.json`
+- `locales/ai-recommendation/th.json`
+
+### Using Translations in Components
+
+```typescript
+import en from '@/locales/<feature-name>/en.json';
+import th from '@/locales/<feature-name>/th.json';
+
+type LocaleKey = 'en' | 'th';
+const translations: Record<LocaleKey, typeof en> = { en, th };
+
+// Detect locale from document.documentElement.lang
+const locale: LocaleKey = useMemo(() => {
+  if (typeof document === 'undefined') return 'en';
+  const lang = document.documentElement.lang?.toLowerCase() ?? 'en';
+  return lang.startsWith('th') ? 'th' : 'en';
+}, []);
+
+const t = translations[locale];
+```
+
+### Translation File Format
+
+Each JSON file should contain flat key-value pairs with descriptive keys:
+
+```json
+{
+  "heading": "Personalized Next Step",
+  "loadingPrimary": "Finding the best lesson for you...",
+  "errorTitle": "Continue Learning",
+  "errorBody": "We couldn't generate a recommendation right now."
+}
+```
+
+### Guidelines
+
+- Keep keys descriptive and scoped to the feature
+- Use present tense for action labels ("Start Lesson", not "Starting Lesson")
+- Provide context in key names (e.g., `toastError` for toast messages, `errorBody` for main error text)
+- Ensure Thai translations are culturally appropriate and maintain tone consistency
+- Always provide fallback to English if locale detection fails
+
 ### Local Auth Configuration Reminder
 
 - Only Google OAuth is enabled.
