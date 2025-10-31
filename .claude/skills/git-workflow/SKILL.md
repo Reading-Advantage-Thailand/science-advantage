@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Use this skill for spec-driven git workflow with GitHub issues. Provides 10 workflow commands including brownfield project migration, sprint management, AI quality reviews, issue tracking, and PR workflows. Triggers include migrating existing projects, creating sprint issues, reviewing sprint quality, starting work on issues, testing implementations, submitting PRs, handling review feedback, closing completed work, checking sprint progress, or creating/updating specs. Use when the user mentions migration, sprints, reviews, issues, PRs, specs, or wants to track development workflow.
+description: Use this skill for spec-driven git workflow with GitHub issues. Provides 12 workflow commands including brownfield project migration, sprint management, AI quality reviews, issue tracking, PR workflows, blocking/splitting issues, and continuous improvement through retrospectives. Triggers include migrating existing projects, creating sprint issues, reviewing sprint quality, starting work on issues, blocking issues, splitting large issues, testing implementations, submitting PRs, handling review feedback, closing completed work with retrospectives, checking sprint progress, or creating/updating specs. Use when the user mentions migration, sprints, reviews, issues, PRs, specs, blockers, or wants to track development workflow.
 ---
 
 # Git Workflow
@@ -9,7 +9,7 @@ Spec-driven development workflow using GitHub issues, pull requests, and specifi
 
 ## Overview
 
-This skill implements a comprehensive spec-driven development workflow that integrates specifications, GitHub issues, and pull requests. It provides 10 workflow commands covering brownfield migration, spec creation, sprint management, quality reviews, and the complete development lifecycle through issue closure.
+This skill implements a comprehensive spec-driven development workflow that integrates specifications, GitHub issues, and pull requests. It provides 12 workflow commands covering brownfield migration, spec creation, sprint management, quality reviews, issue management (including blocking and splitting), and the complete development lifecycle through issue closure with continuous improvement via retrospectives.
 
 **Key Principles:**
 - **Spec-First**: Specifications in `docs/specs/` are the source of truth
@@ -55,7 +55,7 @@ project/
 
 ## Workflow Commands
 
-This skill provides 10 commands that form a complete development lifecycle:
+This skill provides 12 commands that form a complete development lifecycle:
 
 ### 0. migrate-project (Brownfield Migration)
 **Purpose**: Migrate existing project to spec-driven workflow
@@ -81,8 +81,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 1. init-spec
 **Purpose**: Create or update specification files before creating issues
 
-**Location**: {.claude/skills/git-workflow/references/init-spec.md
-
 **When to use**:
 - Creating a new capability
 - Documenting existing functionality
@@ -101,8 +99,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 2. seed-sprint
 **Purpose**: Create GitHub issues from sprint markdown files
 
-**Location**: {.claude/skills/git-workflow/references/seed-sprint.md
-
 **When to use**:
 - Starting a new sprint
 - Converting planned stories to tracked issues
@@ -120,8 +116,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 2.5. review-sprint
 **Purpose**: AI-powered quality review of sprint issues for architecture, wording, and planning
-
-**Location**: {.claude/skills/git-workflow/references/review-sprint.md
 
 **When to use**:
 - After running seed-sprint
@@ -143,8 +137,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 3. next-issue
 **Purpose**: Select and start work on next available issue
 
-**Location**: {.claude/skills/git-workflow/references/next-issue.md
-
 **When to use**:
 - Starting work on a new issue
 - Switching between issues
@@ -156,6 +148,7 @@ This skill provides 10 commands that form a complete development lifecycle:
 - Check for spec conflicts
 - Read affected specs
 - **Read all issue comments (including review suggestions)**
+- **Read development retrospective (learnings from recent issues)**
 - Create feature branch
 - Update TODO.md and sprint file
 
@@ -163,10 +156,50 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ---
 
+### 3.5. block-issue
+**Purpose**: Mark issue as blocked when external dependencies prevent progress
+
+**When to use**:
+- Waiting for external API or documentation
+- Blocked by design decision
+- Dependent on delayed issue
+- Technical blocker discovered
+
+**Key actions**:
+- Add blocked label
+- Document blocker with expected resolution
+- Post blocking comment
+- Update TODO.md and sprint file
+- Pause work cleanly
+- Notify PM/Scrum Master
+
+**Details**: See `references/block-issue.md`
+
+---
+
+### 3.6. split-issue
+**Purpose**: Break large issue into smaller, atomic issues
+
+**When to use**:
+- Issue exceeds ~200K tokens
+- Multiple distinct phases needed
+- Combines unrelated concerns
+- Scope grew during planning
+
+**Key actions**:
+- Analyze original issue
+- Identify split strategy (backend/frontend, phases, etc.)
+- Create parent/child issues or sequential issues
+- Link relationships
+- Update sprint file
+- Start with first child issue
+
+**Details**: See `references/split-issue.md`
+
+---
+
 ### 4. test-issue
 **Purpose**: Run comprehensive testing before submission
-
-**Location**: {.claude/skills/git-workflow/references/test-issue.md
 
 **When to use**:
 - After completing implementation
@@ -187,8 +220,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 5. submit-issue
 **Purpose**: Create pull request with spec deltas
-
-**Location**: {.claude/skills/git-workflow/references/submit-issue.md
 
 **When to use**:
 - After implementation complete
@@ -211,8 +242,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 ### 6. update-issue
 **Purpose**: Handle review feedback and PR updates
 
-**Location**: {.claude/skills/git-workflow/references/update-issue.md
-
 **When to use**:
 - After receiving review comments
 - When CI/CD checks fail
@@ -232,9 +261,7 @@ This skill provides 10 commands that form a complete development lifecycle:
 ---
 
 ### 7. close-issue
-**Purpose**: Clean up after PR merge
-
-**Location**: {.claude/skills/git-workflow/references/close-issue.md
+**Purpose**: Clean up after PR merge and capture learnings
 
 **When to use**:
 - After PR is merged
@@ -248,6 +275,7 @@ This skill provides 10 commands that form a complete development lifecycle:
 - Close GitHub issue
 - Update TODO.md and sprint file
 - Update docs/prd.md if major capability
+- **Update RETROSPECTIVE.md with learnings**
 
 **Details**: See `references/close-issue.md`
 
@@ -255,8 +283,6 @@ This skill provides 10 commands that form a complete development lifecycle:
 
 ### 8. sprint-status
 **Purpose**: Provide sprint progress and analytics
-
-**Location**: {.claude/skills/git-workflow/references/sprint-status.md
 
 **When to use**:
 - Daily standup preparation
@@ -294,16 +320,23 @@ This skill provides 10 commands that form a complete development lifecycle:
 A typical issue follows this lifecycle:
 
 ```
-1. init-spec      → Create spec for new capability
-2. seed-sprint    → Create issue from sprint file
-2.5. review-sprint → AI review issues for quality (NEW)
-3. next-issue     → Start work on issue (read review comments)
-4. test-issue     → Validate implementation
-5. submit-issue   → Create pull request
-6. update-issue   → Address review feedback (if needed)
-7. close-issue    → Clean up after merge
-8. sprint-status  → Track overall progress
+1. init-spec       → Create spec for new capability
+2. seed-sprint     → Create issue from sprint file
+2.5. review-sprint → AI review issues for quality
+3. next-issue      → Start work on issue (read review comments + retrospective)
+3.5. block-issue   → Mark blocked if dependencies prevent progress (optional)
+3.6. split-issue   → Split if issue too large for single chat (optional)
+4. test-issue      → Validate implementation
+5. submit-issue    → Create pull request
+6. update-issue    → Address review feedback (if needed)
+7. close-issue     → Clean up after merge + update retrospective
+8. sprint-status   → Track overall progress
 ```
+
+**Key additions:**
+- **Retrospective loop**: Learnings from close-issue feed back into next-issue
+- **Blocking support**: Handle external dependencies gracefully
+- **Issue splitting**: Maintain manageable scope (~200K tokens per issue)
 
 ## Spec-Driven Development
 
@@ -505,6 +538,53 @@ Closes #123
 - Removes requirements from spec
 - Example: "Remove legacy password reset"
 
+## Continuous Improvement
+
+### Development Retrospective
+
+**Location**: `RETROSPECTIVE.md` or `docs/RETROSPECTIVE.md`
+
+**Purpose**: Living document (~100 lines) that captures learnings and informs future work
+
+**Structure**:
+- **Recent Issues** (50% of file): Detailed learnings from last 3-5 issues
+- **Historical Patterns** (40% of file): Compressed wisdom from earlier issues
+- **Spec Quality Trends** (10% of file): Which specs are good references vs need work
+
+**Workflow integration**:
+- **close-issue**: Adds new learnings, compresses old entries
+- **next-issue**: Reads retrospective to apply proven patterns and avoid past mistakes
+
+**Example entry**:
+```markdown
+### #201 - Curriculum Framework (2025-10-22, 2 days, 1 PR update)
+**Went well**: Spec was complete with clear scenarios
+**Friction**: Missed error handling in initial spec
+**Applied**: Added error scenarios after PR feedback
+**Lesson**: Always include error scenarios in spec.md from the start
+```
+
+### Spec Debt Tracking
+
+Track specifications that need creation or updates:
+
+**In TODO.md, maintain a section**:
+```markdown
+## Spec Debt
+
+**Issues Missing Specs** (need init-spec before implementation):
+- #245 - Payment processing
+- #246 - Email notifications
+
+**Specs Needing Update** (drift from implementation):
+- docs/specs/authentication/spec.md - Missing OAuth scenarios
+- docs/specs/curriculum/spec.md - API contracts incomplete
+
+**Action**: Address before next sprint planning
+```
+
+**Purpose**: Ensures spec-first discipline is maintained as project evolves
+
 ## Best Practices
 
 ### Spec Management
@@ -513,6 +593,7 @@ Closes #123
 - Use SHALL/MUST for requirements
 - Update specs before implementation
 - Review specs before seeding sprints
+- Track spec debt in TODO.md
 
 ### Issue Management
 - Reference affected specs in all issues
@@ -520,6 +601,9 @@ Closes #123
 - Include acceptance criteria
 - Document dependencies
 - Use consistent labels
+- Keep issues sized for single chat (~150-200K tokens)
+- Block issues immediately when dependencies arise
+- Split large issues proactively during planning
 
 ### Branch Management
 - Branch format: `feat/123-description`
@@ -657,12 +741,14 @@ All workflow commands have detailed reference documentation in the `references/`
 - `migrate-project.md` - **Brownfield migration** (first-time setup)
 - `init-spec.md` - Creating specification files
 - `seed-sprint.md` - Creating sprint issues
-- `review-sprint.md` - **AI quality review** of sprint issues (NEW)
-- `next-issue.md` - Starting work on issues
+- `review-sprint.md` - **AI quality review** of sprint issues
+- `next-issue.md` - Starting work on issues (includes retrospective reading)
+- `block-issue.md` - **Blocking issues** when dependencies prevent progress
+- `split-issue.md` - **Splitting large issues** into manageable chunks
 - `test-issue.md` - Testing implementation
 - `submit-issue.md` - Creating pull requests
 - `update-issue.md` - Handling review feedback
-- `close-issue.md` - Closing completed issues
+- `close-issue.md` - Closing completed issues (includes retrospective update)
 - `sprint-status.md` - Sprint progress analytics
 
 Refer to these files for complete workflows, examples, and troubleshooting.
@@ -689,12 +775,14 @@ gh auth login  # if not authenticated
 migrate-project            # Migrate brownfield project (first time)
 init-spec [capability]     # Create spec files
 seed-sprint [sprint-file]  # Create sprint issues
-review-sprint              # AI review sprint issues (NEW)
-next-issue                 # Start next issue (read reviews)
+review-sprint              # AI review sprint issues
+next-issue                 # Start next issue (read reviews + retrospective)
+block-issue                # Mark issue blocked with dependencies
+split-issue                # Split large issue into smaller ones
 test-issue                 # Run tests
 submit-issue               # Create PR
 update-issue               # Update PR
-close-issue                # Clean up after merge
+close-issue                # Clean up after merge + update retrospective
 sprint-status              # Show progress
 
 # Common Git Commands
