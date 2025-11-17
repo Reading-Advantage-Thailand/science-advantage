@@ -63,3 +63,4 @@ temp/
 .bmad-core/
 .bmad-*/
 \n.tmp/
+.claude/
