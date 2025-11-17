@@ -59,6 +59,8 @@ prisma/dev.db
 tmp/
 temp/
 *.local
+# Local AI artifacts
+.claude/
 # BMAD (local only)
 .bmad-core/
 .bmad-*/
