@@ -54,7 +54,6 @@ export default function LessonPage({ params }: PageProps) {
   }, []);
 
   const handleQuizCompleted = useCallback(() => {
-    setView('lesson');
     fetchProgress();
   }, [fetchProgress]);
 
@@ -90,13 +89,20 @@ export default function LessonPage({ params }: PageProps) {
           onStartQuiz={handleStartQuiz}
         />
       ) : (
-        <QuizPlayer classId={classId} lessonSlug={lessonSlug} onQuizCompleted={handleQuizCompleted} />
+        <QuizPlayer
+          classId={classId}
+          lessonSlug={lessonSlug}
+          studentId={progress?.studentId}
+          onQuizCompleted={handleQuizCompleted}
+        />
       )}
     </div>
   );
 }
 
 interface LessonProgressResponse {
+  studentId: string;
+  lessonId: string;
   status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
   attemptsCount: number;
   mostRecentScore: number | null;

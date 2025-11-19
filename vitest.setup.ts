@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { execSync } from 'child_process';
+import '@testing-library/jest-dom/vitest';
 
 const primaryDatabaseUrl =
   process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@localhost:5433/science_advantage';
