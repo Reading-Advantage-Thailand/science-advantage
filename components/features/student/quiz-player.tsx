@@ -6,6 +6,9 @@ import { ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AiRecommendationCard } from '@/components/features/student/ai-recommendation-card';
+import { ContinueLearningCard } from '@/components/features/student/continue-learning-card';
+import { isAiRecommendationEnabled } from '@/lib/config/features';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -69,10 +72,13 @@ interface QuizResult {
 interface QuizPlayerProps {
   classId: string;
   lessonSlug: string;
+  studentId?: string;
   onQuizCompleted?: (result: QuizResult) => void;
 }
 
-export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerProps) {
+const AI_RECOMMENDATION_ENABLED = isAiRecommendationEnabled();
+
+export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: QuizPlayerProps) {
   const router = useRouter();
 
   // Quiz state
@@ -303,6 +309,18 @@ export function QuizPlayer({ classId, lessonSlug, onQuizCompleted }: QuizPlayerP
                 Attempt #{result.attemptNumber}
               </div>
             </div>
+
+            {/* AI Recommendation */}
+            {AI_RECOMMENDATION_ENABLED ? (
+              <AiRecommendationCard
+                attemptId={result.attemptId}
+                classId={classId}
+                lessonSlug={lessonSlug}
+                studentId={studentId}
+              />
+            ) : (
+              <ContinueLearningCard classId={classId} lessonSlug={lessonSlug} />
+            )}
 
             {/* Retake Button */}
             <div className="flex justify-center">

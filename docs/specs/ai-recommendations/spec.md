@@ -105,12 +105,16 @@ When AI fails (timeout, validation error, model unavailable), deterministic rule
 - Provide indicator when deterministic fallback used (e.g., "Based on curriculum rules").
 - CTA must link to lesson slug; open activity in same window.
 - Include optional `Translate` action when user locale `th` and reasoning is English (future enhancement).
+- Copy strings live in `i18n/ai-recommendation.en.json` and `i18n/ai-recommendation.th.json`; UI chooses locale from `<html lang>` and shows English reasoning notice when translation is unavailable.
+- Widget hierarchy: score summary → AI Recommendation card → retake actions → breakdown. Card uses shadcn `Card`, sparkles icon, reasoning clamp with "Show more" toggle, focus-standard chips, primary CTA `Start Lesson`, secondary link `See all lessons`.
+- Loading state uses pulsating gradient shimmer, timeout (>10s) fires toast "Still working" while continuing background polling every 5s for up to 30s before error fallback.
 
 ## Telemetry & Experimentation
 
 - Capture events: `ai_recommendation_generated`, `ai_recommendation_fallback`, `ai_recommendation_clicked`.
 - Attributes: `studentIdHash`, `model`, `fallbackUsed`, `latencyMs`, `attemptId`, `lessonId`.
 - Support AB testing toggles stored in config service; include variant ID in telemetry.
+- FE instrumentation mirrors these events via `lib/analytics/track`: impressions (`ai_recommendation_view`), CTA clicks (`ai_recommendation_start_lesson`), fallback impressions (`ai_recommendation_fallback`). Each payload includes hashed student ID, attemptId, lessonSlug, fallbackUsed, latencyMs to keep epic #118 observability goals intact.
 
 ## Failure Modes
 
