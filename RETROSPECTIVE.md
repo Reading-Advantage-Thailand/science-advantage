@@ -32,3 +32,21 @@ A critical lesson learned involves the need to explicitly stub `Next.js Link` in
 - **Lesson:** Remember to stub Next.js Link interactions in unit tests to avoid jsdom navigation issues
 </details>
 
+
+### #139 - feat/124-be--teacher-intervention-alert-service
+
+## Retrospective Summary
+
+### What Went Well
+The project achieved comprehensive test coverage with all 10 tests passing (4 unit and 6 integration tests), ensuring robust functionality. A clear and effective separation of concerns was maintained across the detection logic, caching, and API layers, contributing to a well-structured and maintainable codebase.
+
+### Lessons Learned
+The implementation of an in-memory TTL cache with Redis-parity semantics proved to be a significant learning. This approach provided a clean abstraction that facilitated rapid development, while simultaneously laying a strong architectural foundation for a seamless migration to a production-grade Redis solution in the future. This strategy effectively balanced development velocity with long-term architectural scalability.
+
+<details>
+<summary>Original inputs</summary>
+
+- **Went well:** Comprehensive test coverage with 10 passing tests (4 unit + 6 integration), clean separation of concerns between detection logic, caching, and API layers
+- **Lesson:** In-memory TTL cache with Redis-parity semantics provides a clean abstraction that enables rapid development while maintaining production-ready architecture for future Redis migration
+</details>
+
