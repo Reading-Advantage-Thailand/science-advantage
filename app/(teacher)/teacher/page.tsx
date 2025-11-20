@@ -7,9 +7,19 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TeacherDashboardClasses } from '@/components/features/teacher/teacher-dashboard-classes';
+import { InterventionAlertsWidget } from '@/components/features/teacher/intervention-alerts-widget';
+import prisma from '@/lib/prisma';
 
 export default async function TeacherPage() {
   const session = await requireRole('TEACHER');
+
+  // Fetch teacher's classes for intervention widget
+  const teacherClasses = await prisma.class.findMany({
+    where: { teacherId: session.user.id },
+    select: { id: true, name: true },
+    orderBy: { createdAt: 'desc' },
+    take: 10,
+  });
 
   return (
     <div className="space-y-8">
@@ -25,6 +35,13 @@ export default async function TeacherPage() {
           และความก้าวหน้าของนักเรียนได้จากที่เดียว
         </p>
       </header>
+
+      {teacherClasses.length > 0 && (
+        <InterventionAlertsWidget
+          initialClassId={teacherClasses[0].id}
+          classes={teacherClasses}
+        />
+      )}
 
       <TeacherDashboardClasses />
 
