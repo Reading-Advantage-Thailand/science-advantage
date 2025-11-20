@@ -133,7 +133,7 @@ export function detectAlerts({
 
   const masteryByStudent = new Map<string, MasteryRecord[]>();
   for (const record of masteryRecords) {
-    if (record.masteryLevel >= interventionConfig.masteryFilterLevel) {
+    if (Number(record.masteryLevel) >= interventionConfig.masteryFilterLevel) {
       continue;
     }
     const list = masteryByStudent.get(record.studentId) ?? [];
