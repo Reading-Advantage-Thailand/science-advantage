@@ -50,3 +50,26 @@ The implementation of an in-memory TTL cache with Redis-parity semantics proved 
 - **Lesson:** In-memory TTL cache with Redis-parity semantics provides a clean abstraction that enables rapid development while maintaining production-ready architecture for future Redis migration
 </details>
 
+
+### #140 - feat/125-fe-teacher-dashboard-intervention-widget
+
+## Retrospective Summary
+
+### What Went Well
+
+- **Smooth Feature Implementation:** The intervention alerts widget was implemented successfully, meeting all acceptance criteria and supported by comprehensive testing.
+- **Effective Feature Flag Usage:** The feature flag pattern proved effective for enabling a gradual and controlled rollout of the new functionality.
+
+### Lessons Learned
+
+- **Prisma Decimal Type Handling:** Explicit conversion of Prisma's Decimal types to numbers is crucial within TypeScript to avoid unexpected type errors. This highlights the importance of thorough type consideration when integrating ORM-generated types.
+- **Pre-Push Build Verification:** Running the full build pipeline locally before pushing changes is essential to proactively catch type errors and ensure code quality, preventing potential CI failures.
+- **Codebase Health Impact on CI:** Pre-existing lint and test errors within the codebase can unexpectedly block CI for unrelated pull requests, emphasizing the need for continuous codebase maintenance and addressing technical debt.
+
+<details>
+<summary>Original inputs</summary>
+
+- **Went well:** Implementation of intervention alerts widget went smoothly with comprehensive testing. All acceptance criteria met. Feature flag pattern worked well for gradual rollout.
+- **Lesson:** TypeScript Decimal types from Prisma require explicit conversion to numbers. Always run full build pipeline before pushing to catch type errors. Pre-existing lint/test errors in codebase can block CI even for unrelated PRs.
+</details>
+
