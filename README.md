@@ -129,6 +129,33 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Developer Utilities
+
+#### Intervention Alerts (Local Testing)
+
+Test the teacher intervention alert detection service locally:
+
+```bash
+# Run for a specific class
+CLASS_ID=<classId> npm run dev:interventions
+
+# Or pass the class ID as an argument
+npm run dev:interventions <classId>
+```
+
+This script:
+- Queries the class roster and StandardMastery data
+- Runs the alert detection algorithm locally
+- Displays alerts sorted by severity with student names, weak standard counts, and average mastery levels
+
+**Example Output:**
+```
+Generated 3 alert(s) for class Science 301:
+1. Alice Student - CRITICAL (weak standards: 3, avg mastery: 0.35)
+2. Bob Student - WARNING (weak standards: 2, avg mastery: 0.48)
+3. Carol Student - MODERATE (weak standards: 1, avg mastery: 0.55)
+```
+
 ### Recommended Tooling
 
 - Node 18.x (see `.nvmrc` if present)
@@ -154,6 +181,23 @@ npm run test:e2e           # before deploys
 6. Enable squash-and-merge once checks pass and review is approved.
 
 Additional workflow details live in `CLAUDE.md`.
+
+### Teacher Intervention Alerts (Local QA)
+
+Use the intervention helper script to generate alerts for a specific class without touching the UI:
+
+```bash
+# Ensure the DB has sample mastery data
+npm run seed
+
+# Optionally top off activity fixtures
+tsx scripts/seed-activity-data.ts
+
+# Run detection for a class
+CLASS_ID=class_alpha_id npm run dev:interventions
+```
+
+The script queries Prisma, runs the same scoring logic as the API, and prints each alert with severity + weak standard counts. Use the `?refresh=true` query string on `/api/teachers/classes/<classId>/intervention-alerts` to bust the five-minute cache when manually testing the dashboard refresh button.
 
 ## Repository Layout
 

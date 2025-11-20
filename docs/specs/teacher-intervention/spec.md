@@ -41,7 +41,7 @@ Thresholds configurable via `lib/interventions/config.ts`.
 | Aspect         | Detail                                                                                       |
 |----------------|----------------------------------------------------------------------------------------------|
 | Auth           | Teacher owning class or admin; others receive 403.                                          |
-| Query Params   | `limit` (default 20, max 50), `severity`, `since` (ISO), `cursor`.                           |
+| Query Params   | `limit` (default 20, max 50), `severity`, `since` (ISO), `cursor`, `refresh=true` (bypass cache on manual refresh). |
 | Response       | `{ classId, generatedAt, alerts: Alert[], nextCursor? }`                                     |
 | Caching        | Cached per `(classId, severity)` for 5 minutes; cache bust on mastery update event or manual refresh. |
 
@@ -76,7 +76,7 @@ Thresholds configurable via `lib/interventions/config.ts`.
 3. Group by student, compute metrics (weak counts, averages, recency).
 4. Score and assign severity; drop alerts below minimum thresholds.
 5. Sort by score descending; limit results; attach trace ID for observability.
-6. Cache serialized response; store metadata for analytics.
+6. Cache serialized response (currently an in-memory TTL store with Redis-parity semantics) and store metadata for analytics. Manual refresh (`refresh=true`) or mastery pipeline events should invalidate the `(classId)` entry.
 
 ## Non-Functional Requirements
 

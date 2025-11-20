@@ -14,7 +14,8 @@
     "test:e2e": "echo 'E2E tests not yet configured'",
     "seed": "tsx prisma/seed.ts",
     "seed:demo-users": "tsx prisma/seed-demo-users.ts",
-    "dev:reset": "npx prisma db push --force-reset && npm run seed"
+    "dev:reset": "npx prisma db push --force-reset && npm run seed",
+    "dev:interventions": "tsx scripts/dev-interventions.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.36",
