@@ -118,12 +118,75 @@ Thresholds configurable via `lib/interventions/config.ts`.
 
 ## Implementation Checklist
 
-- [ ] Implement detection service with scoring + configuration.
-- [ ] Add Redis (or equivalent) cache integration.
-- [ ] Build API route with auth guard, caching, and telemetry.
-- [ ] Create QA seed script populating sample mastery rows for testing.
-- [ ] Update teacher dashboard widget (#125) to consume payload.
+- [x] Implement detection service with scoring + configuration.
+- [x] Add Redis (or equivalent) cache integration.
+- [x] Build API route with auth guard, caching, and telemetry.
+- [x] Create QA seed script populating sample mastery rows for testing.
+- [x] Update teacher dashboard widget (#125) to consume payload.
 - [ ] Add metrics dashboards + alerting thresholds.
+
+## Implementation Notes (Issue #125)
+
+### Frontend Widget Implementation
+
+**Location**: `components/features/teacher/intervention-alerts-widget.tsx`
+
+**Features Implemented**:
+- ✅ Feature flag gating via `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS`
+- ✅ Class selector dropdown with all teacher's classes
+- ✅ Data fetching from `/api/teachers/classes/[classId]/intervention-alerts`
+- ✅ Auto-refresh every 5 minutes (configurable via `AUTO_REFRESH_INTERVAL_MS`)
+- ✅ Manual refresh button with debouncing and optimistic loading
+- ✅ Display top 5 alerts by default (configurable via `DISPLAY_LIMIT`)
+- ✅ Alert rows with:
+  - Avatar initials
+  - Student name
+  - Severity badge (Critical=red, Warning=yellow, Moderate=gray) with icons
+  - First 2 weak standard codes + "+N more" indicator with tooltip
+  - Relative time display (e.g., "5 days ago")
+- ✅ Clickable rows navigating to `/teacher/classes/{classId}/students/{studentId}/analytics?from=intervention-widget`
+- ✅ Loading state with 3 skeleton rows
+- ✅ Empty state with checkmark icon and CTA to class analytics
+- ✅ Error state with retry button
+- ✅ Dual-language support (English/Thai)
+- ✅ "View all alerts" link when totalAlerts > display limit
+- ✅ Responsive design for desktop, tablet, and mobile
+
+**Accessibility**:
+- ✅ Keyboard navigation (Tab/Enter to activate)
+- ✅ ARIA roles (`role="button"`, `role="list"`, `role="alert"`)
+- ✅ ARIA attributes (`aria-describedby` for severity and standards)
+- ✅ Focus visible states with ring
+- ✅ Screen reader friendly labels
+
+**Telemetry**:
+- ✅ `intervention_alerts.widget_impression` - on data load with metadata
+- ✅ `intervention_alerts.refresh_clicked` - on manual refresh
+- ✅ `intervention_alerts.alert_row_clicked` - on alert navigation
+- ✅ `intervention_alerts.fetch_error` - on API failures
+- ✅ Console warning when API latency > 1s
+
+**Integration**:
+- Widget integrated into teacher dashboard page: `app/(teacher)/teacher/page.tsx`
+- Fetches teacher's classes server-side and passes to widget as props
+- Displays below welcome header and above class list
+
+**Testing**:
+- Unit tests: `components/features/teacher/intervention-alerts-widget.test.tsx`
+  - 13 test cases covering all states and interactions
+- E2E tests: `app/(teacher)/teacher/page.e2e.spec.ts`
+  - 11 scenarios including accessibility and keyboard navigation
+- Manual test plan: `scripts/MANUAL_TEST_INTERVENTION_WIDGET.md`
+  - 14 detailed test scenarios with expected outcomes
+
+**Development Tools**:
+- Dev script: `scripts/dev-interventions.ts` (already exists)
+- Usage: `CLASS_ID=<classId> npx tsx scripts/dev-interventions.ts`
+
+**Dependencies**:
+- Backend API from #124 (merged via PR #139)
+- shadcn/ui components: Card, Badge, Button, Select
+- Lucide icons: AlertCircle, AlertTriangle, Clock, RefreshCw, CheckCircle
 
 ## Open Questions
 
