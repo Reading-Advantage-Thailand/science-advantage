@@ -249,7 +249,6 @@ export function InterventionAlertsWidget({
   const [totalAlerts, setTotalAlerts] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
-  const [lastRefresh, setLastRefresh] = React.useState<Date | null>(null);
 
   const fetchAlerts = React.useCallback(
     async (refresh = false) => {
@@ -291,7 +290,6 @@ export function InterventionAlertsWidget({
         const data = (await response.json()) as AlertsResponse;
         setAlerts(data.alerts);
         setTotalAlerts(data.totalAlerts);
-        setLastRefresh(new Date());
 
         // Telemetry: widget_impression
         const latency = Date.now() - startTime;

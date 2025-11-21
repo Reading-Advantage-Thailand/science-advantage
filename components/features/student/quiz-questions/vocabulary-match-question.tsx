@@ -9,14 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-interface QuizQuestion {
-  id: string;
-  type: string;
-  text: string;
-  options: any;
-  points: number;
-  order: number;
-}
+import { QuizQuestion } from './types';
 
 interface VocabularyMatchQuestionProps {
   question: QuizQuestion;
@@ -35,8 +28,14 @@ export function VocabularyMatchQuestion({
   //   definitions: ["Def1", "Def2", "Def3"]
   // }
 
-  const terms: string[] = question.options?.terms || [];
-  const definitions: string[] = question.options?.definitions || [];
+  const vocabOptions = (question.options &&
+    !Array.isArray(question.options) &&
+    'terms' in question.options &&
+    'definitions' in question.options
+  ) ? question.options : { terms: [] as string[], definitions: [] as string[] };
+
+  const terms: string[] = vocabOptions.terms || [];
+  const definitions: string[] = vocabOptions.definitions || [];
 
   const handleSelectionChange = (term: string, definition: string) => {
     onChange({

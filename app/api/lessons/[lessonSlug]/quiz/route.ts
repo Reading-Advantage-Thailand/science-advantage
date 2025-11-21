@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { Prisma } from '@prisma/client';
 
 import { getCurrentSession } from '@/lib/auth/session';
 import prisma from '@/lib/prisma';
@@ -268,8 +269,16 @@ export async function POST(
 
     // 7. Grade each response and create QuestionResponse records
     let totalScore = 0;
-    const breakdown: any[] = [];
-    const questionResponsesToCreate: any[] = [];
+    const breakdown: {
+      questionId: string;
+      questionText: string;
+      studentAnswer: unknown;
+      correctAnswer: unknown;
+      isCorrect: boolean;
+      points: number;
+      timeSpentSeconds: number;
+    }[] = [];
+    const questionResponsesToCreate: Prisma.QuestionResponseCreateManyInput[] = [];
 
     for (const response of responses) {
       const question = questionMap.get(response.questionId);
@@ -294,7 +303,7 @@ export async function POST(
       questionResponsesToCreate.push({
         attemptId,
         questionId: question.id,
-        studentAnswer: response.studentAnswer,
+        studentAnswer: response.studentAnswer as Prisma.InputJsonValue,
         isCorrect,
         timeSpentSeconds: response.timeSpentSeconds || 0,
         answeredAt: response.answeredAt ? new Date(response.answeredAt) : new Date(),
@@ -316,10 +325,10 @@ export async function POST(
     const percentage = (totalScore / attempt.maxScore) * 100;
 
     // Calculate total time spent on this attempt
-    const attemptTimeSpent = questionResponsesToCreate.reduce(
-      (sum, qr) => sum + qr.timeSpentSeconds,
-      0
-    );
+    const attemptTimeSpent = questionResponsesToCreate.reduce((sum, qr) => {
+      const timeSpent = typeof qr.timeSpentSeconds === 'number' ? qr.timeSpentSeconds : 0;
+      return sum + timeSpent;
+    }, 0);
 
     // 8. Use transaction to ensure data consistency
     await prisma.$transaction(async tx => {
@@ -422,8 +431,8 @@ export async function POST(
  */
 function gradeAnswer(
   questionType: string,
-  studentAnswer: any,
-  correctAnswer: any
+  studentAnswer: unknown,
+  correctAnswer: unknown
 ): boolean {
   switch (questionType) {
     case 'MULTIPLE_CHOICE':
@@ -457,16 +466,23 @@ function gradeAnswer(
 
     case 'VOCABULARY_MATCH':
       // Verify each term is matched to correct definition
-      if (typeof studentAnswer !== 'object' || typeof correctAnswer !== 'object') {
+      if (
+        !studentAnswer ||
+        !correctAnswer ||
+        typeof studentAnswer !== 'object' ||
+        typeof correctAnswer !== 'object'
+      ) {
         return false;
       }
-      const studentKeys = Object.keys(studentAnswer);
-      const correctKeys = Object.keys(correctAnswer);
+      const studentRecord = studentAnswer as Record<string, unknown>;
+      const correctRecord = correctAnswer as Record<string, unknown>;
+      const studentKeys = Object.keys(studentRecord);
+      const correctKeys = Object.keys(correctRecord);
       if (studentKeys.length !== correctKeys.length) {
         return false;
       }
       return studentKeys.every(
-        key => studentAnswer[key] === correctAnswer[key]
+        key => studentRecord[key] === correctRecord[key]
       );
 
     default:

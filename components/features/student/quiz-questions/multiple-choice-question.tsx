@@ -3,14 +3,7 @@
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-interface QuizQuestion {
-  id: string;
-  type: string;
-  text: string;
-  options: any;
-  points: number;
-  order: number;
-}
+import { QuizQuestion } from './types';
 
 interface MultipleChoiceQuestionProps {
   question: QuizQuestion;
@@ -23,7 +16,7 @@ export function MultipleChoiceQuestion({
   value,
   onChange
 }: MultipleChoiceQuestionProps) {
-  const options: string[] = question.options || [];
+  const options: string[] = Array.isArray(question.options) ? question.options : [];
 
   return (
     <RadioGroup
