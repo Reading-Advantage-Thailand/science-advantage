@@ -101,7 +101,7 @@ export function AiRecommendationCard({
   const retryTimeoutRef = useRef<number | undefined>(undefined);
   const inflightController = useRef<AbortController | null>(null);
   const firstRequestStartedAt = useRef<number>(0);
-  const copyRef = useRef(translations[locale]);
+  const copy = useMemo(() => translations[locale], [locale]);
 
   const mergedPollOptions = useMemo(() => {
     return {
@@ -109,10 +109,6 @@ export function AiRecommendationCard({
       ...(pollOptions ?? {}),
     } satisfies Required<PollOptions>;
   }, [pollOptions]);
-
-  useEffect(() => {
-    copyRef.current = translations[locale];
-  }, [locale]);
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -211,7 +207,7 @@ export function AiRecommendationCard({
           const latencyMs = Math.round(performance.now() - requestStartedAt);
 
           if (!response.recommendation) {
-            setState({ status: 'empty', message: copyRef.current.emptyBody });
+            setState({ status: 'empty', message: copy.emptyBody });
             return;
           }
 
@@ -252,7 +248,7 @@ export function AiRecommendationCard({
             didTimeout &&
             !toastShown.current
           ) {
-            toast.warning(copyRef.current.toastTimeout);
+            toast.warning(copy.toastTimeout);
             toastShown.current = true;
           }
 
@@ -268,7 +264,7 @@ export function AiRecommendationCard({
             return;
           }
 
-          setState({ status: 'error', message: copyRef.current.errorBody });
+          setState({ status: 'error', message: copy.errorBody });
         });
     };
 
@@ -284,7 +280,7 @@ export function AiRecommendationCard({
       }
       inflightController.current?.abort();
     };
-  }, [attemptId, fetcher, mergedPollOptions.maxDurationMs, mergedPollOptions.requestTimeoutMs, mergedPollOptions.retryDelayMs]);
+  }, [attemptId, copy, fetcher, mergedPollOptions.maxDurationMs, mergedPollOptions.requestTimeoutMs, mergedPollOptions.retryDelayMs]);
 
   useEffect(() => {
     if (state.status !== 'success') {
@@ -314,18 +310,16 @@ export function AiRecommendationCard({
   }, [attemptId, lessonSlug, state, studentHash]);
 
   if (state.status === 'loading') {
-    return <LoadingState polling={state.polling} copy={copyRef.current} />;
+    return <LoadingState polling={state.polling} copy={copy} />;
   }
 
   if (state.status === 'error') {
-    return <ErrorState message={state.message} classId={classId} copy={copyRef.current} />;
+    return <ErrorState message={state.message} classId={classId} copy={copy} />;
   }
 
   if (state.status === 'empty') {
-    return <EmptyState message={state.message} classId={classId} copy={copyRef.current} />;
+    return <EmptyState message={state.message} classId={classId} copy={copy} />;
   }
-
-  const copy = copyRef.current;
 
   const handlePrimaryClick = () => {
     track('ai_recommendation_start_lesson', {
