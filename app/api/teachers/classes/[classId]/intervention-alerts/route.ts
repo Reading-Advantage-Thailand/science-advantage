@@ -126,7 +126,7 @@ export async function GET(
       cacheStatus = 'bypass';
     }
 
-    let payload =
+    const payload =
       cached ??
       (await (async () => {
         const masteryRecords = await prisma.standardMastery.findMany({

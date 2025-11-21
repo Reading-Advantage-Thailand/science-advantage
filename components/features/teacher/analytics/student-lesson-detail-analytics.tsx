@@ -27,14 +27,15 @@ import {
   CheckCircle2,
   XCircle,
 } from 'lucide-react';
+import { StudentAnswer } from '@/components/features/student/quiz-questions/types';
 
 type QuestionBreakdown = {
   questionId: string;
   questionNumber: number;
   questionText: string;
   questionType: string;
-  studentAnswer: any;
-  correctAnswer: any;
+  studentAnswer: StudentAnswer;
+  correctAnswer: StudentAnswer;
   isCorrect: boolean;
   timeSpentSeconds: number;
   points: number;
@@ -123,12 +124,14 @@ function formatDateTime(isoString: string): string {
   });
 }
 
-function formatAnswer(answer: any): string {
+function formatAnswer(answer: StudentAnswer): string {
   if (typeof answer === 'object' && answer !== null) {
-    if (answer.answer) return String(answer.answer);
+    if ('answer' in answer && (answer as Record<string, unknown>).answer) {
+      return String((answer as Record<string, unknown>).answer);
+    }
     return JSON.stringify(answer);
   }
-  return String(answer);
+  return answer === null || typeof answer === 'undefined' ? '' : String(answer);
 }
 
 export function StudentLessonDetailAnalytics({
@@ -169,7 +172,7 @@ export function StudentLessonDetailAnalytics({
         return;
       }
 
-      const analyticsData = await response.json();
+      const analyticsData: StudentLessonAnalyticsData = await response.json();
       setData(analyticsData);
     } catch (err) {
       console.error('Error fetching student-lesson analytics:', err);

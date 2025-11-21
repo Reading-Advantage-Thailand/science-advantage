@@ -24,16 +24,7 @@ import { MultipleSelectQuestion } from './quiz-questions/multiple-select-questio
 import { TrueFalseQuestion } from './quiz-questions/true-false-question';
 import { FillInBlankQuestion } from './quiz-questions/fill-in-blank-question';
 import { VocabularyMatchQuestion } from './quiz-questions/vocabulary-match-question';
-
-// Types
-interface QuizQuestion {
-  id: string;
-  type: 'MULTIPLE_CHOICE' | 'MULTIPLE_SELECT' | 'TRUE_FALSE' | 'FILL_IN_BLANK' | 'VOCABULARY_MATCH';
-  text: string;
-  options: any;
-  points: number;
-  order: number;
-}
+import { QuizQuestion, StudentAnswer } from './quiz-questions/types';
 
 interface QuizData {
   quizId: string;
@@ -45,7 +36,7 @@ interface QuizData {
 
 interface QuestionResponse {
   questionId: string;
-  studentAnswer: any;
+  studentAnswer: StudentAnswer;
   timeSpentSeconds: number;
   answeredAt: string;
   order: number;
@@ -61,8 +52,8 @@ interface QuizResult {
   breakdown: {
     questionId: string;
     questionText: string;
-    studentAnswer: any;
-    correctAnswer: any;
+    studentAnswer: StudentAnswer;
+    correctAnswer: StudentAnswer;
     isCorrect: boolean;
     points: number;
     timeSpentSeconds: number;
@@ -84,7 +75,7 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   // Quiz state
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<Record<string, StudentAnswer>>({});
   const [questionStartTimes, setQuestionStartTimes] = useState<Record<number, number>>({});
   const [questionTimes, setQuestionTimes] = useState<Record<string, number>>({});
 
@@ -177,7 +168,7 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   }, [currentQuestionIndex, recordQuestionTime]);
 
   // Handle answer change
-  const handleAnswerChange = useCallback((questionId: string, answer: any) => {
+  const handleAnswerChange = useCallback((questionId: string, answer: StudentAnswer) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: answer
@@ -407,7 +398,17 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
 
   // Render quiz questions
   const currentQuestion = quizData.questions[currentQuestionIndex];
+  const currentAnswer = answers[currentQuestion.id];
   const isLastQuestion = currentQuestionIndex === quizData.questions.length - 1;
+
+  const currentAnswerString = typeof currentAnswer === 'string' ? currentAnswer : undefined;
+  const currentAnswerArray = Array.isArray(currentAnswer)
+    ? currentAnswer.filter((item): item is string => typeof item === 'string')
+    : [];
+  const currentAnswerRecord =
+    currentAnswer && typeof currentAnswer === 'object' && !Array.isArray(currentAnswer)
+      ? (currentAnswer as Record<string, string>)
+      : {};
 
   return (
     <div className="space-y-6">
@@ -445,37 +446,37 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
 
           {/* Render appropriate question type */}
           {currentQuestion.type === 'MULTIPLE_CHOICE' && (
-            <MultipleChoiceQuestion
+          <MultipleChoiceQuestion
+            question={currentQuestion}
+            value={currentAnswerString}
+            onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+          />
+        )}
+        {currentQuestion.type === 'MULTIPLE_SELECT' && (
+          <MultipleSelectQuestion
               question={currentQuestion}
-              value={answers[currentQuestion.id]}
+              value={currentAnswerArray}
               onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
             />
           )}
-          {currentQuestion.type === 'MULTIPLE_SELECT' && (
-            <MultipleSelectQuestion
+        {currentQuestion.type === 'TRUE_FALSE' && (
+          <TrueFalseQuestion
               question={currentQuestion}
-              value={answers[currentQuestion.id] || []}
+              value={currentAnswerString}
               onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
             />
           )}
-          {currentQuestion.type === 'TRUE_FALSE' && (
-            <TrueFalseQuestion
+        {currentQuestion.type === 'FILL_IN_BLANK' && (
+          <FillInBlankQuestion
               question={currentQuestion}
-              value={answers[currentQuestion.id]}
+              value={currentAnswerString ?? ''}
               onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
             />
           )}
-          {currentQuestion.type === 'FILL_IN_BLANK' && (
-            <FillInBlankQuestion
+        {currentQuestion.type === 'VOCABULARY_MATCH' && (
+          <VocabularyMatchQuestion
               question={currentQuestion}
-              value={answers[currentQuestion.id] || ''}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
-            />
-          )}
-          {currentQuestion.type === 'VOCABULARY_MATCH' && (
-            <VocabularyMatchQuestion
-              question={currentQuestion}
-              value={answers[currentQuestion.id] || {}}
+              value={currentAnswerRecord}
               onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
             />
           )}
@@ -566,14 +567,20 @@ function getScoreBadge(percentage: number) {
 }
 
 // Helper function to format answers for display
-function formatAnswer(answer: any): string {
+function formatAnswer(answer: StudentAnswer): string {
   if (Array.isArray(answer)) {
     return answer.join(', ');
-  } else if (typeof answer === 'object' && answer !== null) {
+  }
+
+  if (typeof answer === 'object' && answer !== null) {
     return Object.entries(answer)
       .map(([key, value]) => `${key}: ${value}`)
       .join(', ');
-  } else {
-    return String(answer);
   }
+
+  if (typeof answer === 'boolean') {
+    return answer ? 'True' : 'False';
+  }
+
+  return answer === null || typeof answer === 'undefined' ? '' : String(answer);
 }

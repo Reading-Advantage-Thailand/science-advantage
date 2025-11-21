@@ -3,14 +3,7 @@
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 
-interface QuizQuestion {
-  id: string;
-  type: string;
-  text: string;
-  options: any;
-  points: number;
-  order: number;
-}
+import { QuizQuestion } from './types';
 
 interface MultipleSelectQuestionProps {
   question: QuizQuestion;
@@ -23,7 +16,7 @@ export function MultipleSelectQuestion({
   value,
   onChange
 }: MultipleSelectQuestionProps) {
-  const options: string[] = question.options || [];
+  const options: string[] = Array.isArray(question.options) ? question.options : [];
 
   const handleCheckboxChange = (option: string, checked: boolean) => {
     if (checked) {
