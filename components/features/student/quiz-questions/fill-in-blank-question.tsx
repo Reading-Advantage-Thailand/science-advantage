@@ -3,14 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-interface QuizQuestion {
-  id: string;
-  type: string;
-  text: string;
-  options: any;
-  points: number;
-  order: number;
-}
+import { QuizQuestion } from './types';
 
 interface FillInBlankQuestionProps {
   question: QuizQuestion;

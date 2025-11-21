@@ -3,14 +3,7 @@
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-interface QuizQuestion {
-  id: string;
-  type: string;
-  text: string;
-  options: any;
-  points: number;
-  order: number;
-}
+import { QuizQuestion } from './types';
 
 interface TrueFalseQuestionProps {
   question: QuizQuestion;
@@ -27,14 +20,13 @@ export function TrueFalseQuestion({
     <RadioGroup
       value={value}
       onValueChange={onChange}
-      aria-label={question.text}
+      aria-label={question.text || 'True or false question'}
       className="space-y-3"
     >
       <div className="flex items-center space-x-3">
         <RadioGroupItem
           value="True"
           id={`${question.id}-true`}
-          aria-label="True"
         />
         <Label
           htmlFor={`${question.id}-true`}
@@ -47,7 +39,6 @@ export function TrueFalseQuestion({
         <RadioGroupItem
           value="False"
           id={`${question.id}-false`}
-          aria-label="False"
         />
         <Label
           htmlFor={`${question.id}-false`}
