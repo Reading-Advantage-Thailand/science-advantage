@@ -13,6 +13,7 @@ const makeSchema = () => z.object({
   title: SortOrderSchema.optional(),
   description: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   content: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  structuredContent: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   lessonType: SortOrderSchema.optional(),
   gradeLevel: SortOrderSchema.optional(),
   order: SortOrderSchema.optional(),

@@ -4,6 +4,7 @@ export const LessonAggregateResultSchema = z.object({  _count: z.object({
     title: z.number(),
     description: z.number(),
     content: z.number(),
+    structuredContent: z.number(),
     lessonType: z.number(),
     gradeLevel: z.number(),
     order: z.number(),

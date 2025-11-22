@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { getCurrentSession } from '@/lib/auth/session';
 import prisma from '@/lib/prisma';
+import { isValidLessonContent } from '@/lib/schemas/lesson-content.schema';
 
 type LessonRouteContext = {
   params: Promise<{
@@ -83,6 +84,10 @@ export async function GET(request: NextRequest, context: LessonRouteContext) {
       );
     }
 
+    // Validate structured content if present
+    const hasStructuredContent =
+      lesson.structuredContent && isValidLessonContent(lesson.structuredContent);
+
     const responsePayload = {
       lesson: {
         id: lesson.id,
@@ -93,6 +98,9 @@ export async function GET(request: NextRequest, context: LessonRouteContext) {
         contentThai: lesson.content ?? '', // TODO: Surface localized content when available
         objectives: lesson.description ? [lesson.description] : [],
         objectivesThai: lesson.description ? [lesson.description] : [],
+        structuredContent: hasStructuredContent ? lesson.structuredContent : undefined,
+        contentType: hasStructuredContent ? 'structured' : 'legacy',
+        contentVersion: hasStructuredContent ? 1 : undefined,
       },
       standards: lesson.standards.map(standard => ({
         id: standard.id,

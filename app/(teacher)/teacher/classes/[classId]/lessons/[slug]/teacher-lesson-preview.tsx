@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Loader2, FileQuestion } from 'lucide-react';
+import { ArrowLeft, Loader2, Languages } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,7 @@ import {
   LessonContentSchema,
   type LessonContent,
 } from '@/lib/schemas/lesson-content.schema';
+import { LanguageProvider, useLanguage } from '@/contexts/language-context';
 
 interface Standard {
   id: string;
@@ -38,64 +39,32 @@ interface LessonData {
   standards: Standard[];
 }
 
-type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
-
-interface LessonProgressSummary {
-  status: LessonProgressStatus;
-  attemptsCount: number;
-  mostRecentScore: number | null;
-  mostRecentScorePercentage: number | null;
-  bestScore: number | null;
-  bestScorePercentage: number | null;
-}
-
-interface LessonViewerProps {
+interface TeacherLessonPreviewProps {
   classId: string;
   lessonSlug: string;
-  progress?: LessonProgressSummary | null;
-  progressLoading?: boolean;
-  onStartQuiz?: () => void;
-  showThai?: boolean;
 }
 
-const PROGRESS_STATUS_META: Record<
-  LessonProgressStatus,
-  { label: string; badgeClass: string; description: string }
-> = {
-  NOT_STARTED: {
-    label: 'Not Started',
-    badgeClass: 'bg-gray-50 text-gray-600 border-gray-200',
-    description: 'Complete the lesson and start the quiz to track your progress.',
-  },
-  IN_PROGRESS: {
-    label: 'In Progress',
-    badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',
-    description: 'You have started working on this lesson. Finish the quiz to see your score.',
-  },
-  COMPLETED: {
-    label: 'Completed',
-    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    description: 'Great work! Retake the quiz anytime to improve your score.',
-  },
-};
-
-const getScoreBadgeClass = (percentage: number) => {
-  if (percentage >= 90) return 'bg-blue-100 text-blue-900 border-blue-200';
-  if (percentage >= 80) return 'bg-emerald-100 text-emerald-900 border-emerald-200';
-  if (percentage >= 60) return 'bg-yellow-100 text-yellow-900 border-yellow-200';
-  return 'bg-rose-100 text-rose-900 border-rose-200';
-};
-
-const formatPercentage = (value: number | null) => {
-  if (value === null || value === undefined) {
-    return '—';
-  }
-  return `${Math.round(value)}%`;
-};
+/**
+ * Language toggle button for switching between English and Thai.
+ */
+function LanguageToggle() {
+  const { language, setLanguage } = useLanguage();
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => setLanguage(language === 'en' ? 'th' : 'en')}
+      className="gap-2"
+      aria-label={language === 'en' ? 'Switch to Thai' : 'Switch to English'}
+    >
+      <Languages className="h-4 w-4" />
+      {language === 'en' ? 'ไทย' : 'English'}
+    </Button>
+  );
+}
 
 /**
  * Feature flag check for structured content.
- * Can be disabled via environment variable.
  * Note: NEXT_PUBLIC_* variables are inlined at build time,
  * so they're available on both server and client.
  */
@@ -112,13 +81,12 @@ function validateStructuredContent(data: unknown): LessonContent | null {
   if (result.success) {
     return result.data;
   }
-  console.warn('[LessonContentRenderer] Structured content validation failed:', result.error);
+  console.warn('[TeacherLessonPreview] Structured content validation failed:', result.error);
   return null;
 }
 
 /**
  * Renders lesson content - either structured (LessonPlayer) or legacy (simple text).
- * Falls back to legacy content if structured content fails validation.
  */
 function LessonContentRenderer({
   lesson,
@@ -127,7 +95,6 @@ function LessonContentRenderer({
   lesson: LessonData['lesson'];
   showThai: boolean;
 }) {
-  // Check if structured content is enabled and available
   const structuredEnabled = isStructuredContentEnabled();
 
   // Validate structured content outside of JSX
@@ -139,7 +106,12 @@ function LessonContentRenderer({
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Lesson Content</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg">Lesson Content</CardTitle>
+            <Badge variant="outline" className="text-xs text-green-600 border-green-200 bg-green-50">
+              Rich Content
+            </Badge>
+          </div>
         </CardHeader>
         <CardContent>
           <LessonPlayer content={validatedContent} showThai={showThai} />
@@ -152,7 +124,12 @@ function LessonContentRenderer({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Lesson Content</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg">Lesson Content</CardTitle>
+          <Badge variant="outline" className="text-xs text-gray-500 border-gray-200">
+            Legacy Content
+          </Badge>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="prose prose-sm max-w-none">
@@ -175,27 +152,21 @@ function LessonContentRenderer({
   );
 }
 
-export function LessonViewer({ classId, lessonSlug, progress, progressLoading = false, onStartQuiz, showThai = false }: LessonViewerProps) {
+/**
+ * Inner preview content that uses the language context.
+ */
+function PreviewContent({
+  classId,
+  lessonSlug,
+}: {
+  classId: string;
+  lessonSlug: string;
+}) {
   const router = useRouter();
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const progressSummary = useMemo<LessonProgressSummary>(() => {
-    return (
-      progress ?? {
-        status: 'NOT_STARTED',
-        attemptsCount: 0,
-        mostRecentScore: null,
-        mostRecentScorePercentage: null,
-        bestScore: null,
-        bestScorePercentage: null,
-      }
-    );
-  }, [progress]);
-
-  const statusMeta = PROGRESS_STATUS_META[progressSummary.status];
-  const hasScore = typeof progressSummary.mostRecentScorePercentage === 'number';
-  const ctaLabel = progressSummary.attemptsCount > 0 ? 'Retake Quiz' : 'Start Quiz';
+  const { showThai } = useLanguage();
 
   useEffect(() => {
     async function fetchLesson() {
@@ -209,7 +180,7 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
           if (response.status === 401) {
             throw new Error('Please sign in to view this lesson');
           } else if (response.status === 403) {
-            throw new Error('You are not enrolled in a class with this lesson');
+            throw new Error('You do not have permission to view this lesson');
           } else if (response.status === 404) {
             throw new Error('Lesson not found');
           } else {
@@ -233,7 +204,7 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
     return (
       <div className="flex items-center justify-center py-12">
         <Loader2 className="h-8 w-8 animate-spin text-rose-600" />
-        <span className="ml-2 text-gray-600">Loading lesson...</span>
+        <span className="ml-2 text-gray-600">Loading lesson preview...</span>
       </div>
     );
   }
@@ -274,28 +245,25 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
     );
   }
 
-  const handleQuizCta = () => {
-    if (onStartQuiz) {
-      onStartQuiz();
-    }
-  };
-
   return (
     <div className="space-y-6">
-      <Button
-        variant="ghost"
-        onClick={() => router.push(`/student/classes/${classId}`)}
-        className="gap-2"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to curriculum
-      </Button>
+      <div className="flex items-center justify-between">
+        <Button
+          variant="ghost"
+          onClick={() => router.push(`/teacher/classes/${classId}`)}
+          className="gap-2"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to curriculum
+        </Button>
+        <LanguageToggle />
+      </div>
 
       {/* Lesson Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900">{lessonData.lesson.title}</h1>
+        <h2 className="text-2xl font-bold text-gray-900">{lessonData.lesson.title}</h2>
         {lessonData.lesson.titleThai !== lessonData.lesson.title && (
-          <p className="text-xl text-gray-600">{lessonData.lesson.titleThai}</p>
+          <p className="text-lg text-gray-600">{lessonData.lesson.titleThai}</p>
         )}
       </div>
 
@@ -317,7 +285,9 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
               (thai, i) => thai !== lessonData.lesson.objectives[i]
             ) && (
               <div className="mt-4 border-t pt-4">
-                <p className="mb-2 text-sm font-semibold text-gray-600">วัตถุประสงค์การเรียนรู้:</p>
+                <p className="mb-2 text-sm font-semibold text-gray-600">
+                  วัตถุประสงค์การเรียนรู้:
+                </p>
                 <ul className="list-disc space-y-2 pl-5">
                   {lessonData.lesson.objectivesThai.map((objective, index) => (
                     <li key={index} className="text-gray-700">
@@ -332,79 +302,7 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
       )}
 
       {/* Lesson Content */}
-      <LessonContentRenderer
-        lesson={lessonData.lesson}
-        showThai={showThai}
-      />
-
-      {/* Lesson Progress & Quiz CTA */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Lesson Progress</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <Badge variant="outline" className={statusMeta.badgeClass}>
-                {statusMeta.label}
-              </Badge>
-              <p className="mt-2 text-sm text-gray-600">{statusMeta.description}</p>
-              <div className="mt-3 flex flex-wrap gap-4 text-sm text-gray-700">
-                <span>
-                  Attempts:{' '}
-                  <span className="font-semibold text-gray-900">
-                    {progressSummary.attemptsCount}
-                  </span>
-                </span>
-                {hasScore && (
-                  <>
-                    <span>
-                      Most recent:{' '}
-                      <span className="font-semibold text-gray-900">
-                        {formatPercentage(progressSummary.mostRecentScorePercentage)}
-                      </span>
-                    </span>
-                    <span>
-                      Best:{' '}
-                      <span className="font-semibold text-gray-900">
-                        {formatPercentage(progressSummary.bestScorePercentage ?? progressSummary.mostRecentScorePercentage)}
-                      </span>
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              {hasScore && progressSummary.mostRecentScorePercentage !== null && (
-                <span
-                  className={`rounded-full border px-3 py-1 text-sm font-semibold ${getScoreBadgeClass(
-                    progressSummary.mostRecentScorePercentage
-                  )}`}
-                >
-                  {formatPercentage(progressSummary.mostRecentScorePercentage)}
-                </span>
-              )}
-              <Button
-                onClick={handleQuizCta}
-                disabled={!onStartQuiz || progressLoading}
-                className="gap-2"
-              >
-                {progressLoading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Checking...
-                  </>
-                ) : (
-                  <>
-                    <FileQuestion className="h-4 w-4" />
-                    {ctaLabel}
-                  </>
-                )}
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <LessonContentRenderer lesson={lessonData.lesson} showThai={showThai} />
 
       {/* Standards Covered */}
       {lessonData.standards.length > 0 && (
@@ -454,5 +352,17 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
         </Card>
       )}
     </div>
+  );
+}
+
+/**
+ * Teacher lesson preview component with language support.
+ * Shows a "Preview Mode" badge and content type indicator (Rich/Legacy).
+ */
+export function TeacherLessonPreview({ classId, lessonSlug }: TeacherLessonPreviewProps) {
+  return (
+    <LanguageProvider>
+      <PreviewContent classId={classId} lessonSlug={lessonSlug} />
+    </LanguageProvider>
   );
 }
