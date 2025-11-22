@@ -96,9 +96,10 @@ const formatPercentage = (value: number | null) => {
 /**
  * Feature flag check for structured content.
  * Can be disabled via environment variable.
+ * Note: NEXT_PUBLIC_* variables are inlined at build time,
+ * so they're available on both server and client.
  */
 const isStructuredContentEnabled = () => {
-  if (typeof window === 'undefined') return true;
   return process.env.NEXT_PUBLIC_STRUCTURED_CONTENT_ENABLED !== 'false';
 };
 
