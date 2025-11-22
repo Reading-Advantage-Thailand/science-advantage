@@ -44,3 +44,27 @@
 - Block components: `components/features/lesson/blocks/`
 - Dependencies added: react-markdown, remark-gfm
 - Placeholder blocks for #147 (Vocabulary) and #148 (Image Gallery)
+
+## PR #154 - Update Lesson Detail Page
+
+**Date**: 2025-11-23
+**Issue**: #151
+**Epic**: #143 - Rich Curriculum and Interactive Content
+
+### What Went Well
+- Clean integration of LessonPlayer into existing pages
+- Feature flag allows safe rollback in production
+- LanguageContext handles hydration correctly with mounted state
+- Backward compatible - legacy content still works
+
+### Lessons Learned
+- NEXT_PUBLIC env vars are inlined at build time - no need for window checks
+- Feature flags need consistent server/client behavior to avoid hydration mismatches
+- safeParse is cleaner than try/catch for Zod validation in React components
+
+### Technical Notes
+- Added structuredContent Json field to Lesson model
+- Created LanguageContext for En/Thai toggle with localStorage persistence
+- API returns contentType: 'legacy' | 'structured' for explicit handling
+- Feature flag: NEXT_PUBLIC_STRUCTURED_CONTENT_ENABLED
+- Teacher preview includes "Preview Mode" badge
