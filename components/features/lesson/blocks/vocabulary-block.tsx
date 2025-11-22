@@ -27,28 +27,27 @@ export function VocabularyBlock({ block, showThai: _showThai = false, className 
       aria-label="Vocabulary terms"
     >
       {block.terms.map((term, index) => (
-        <Card
-          key={`${term.term}-${index}`}
-          className="overflow-hidden"
-        >
-          <CardContent className="p-4">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-baseline gap-2">
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                  {term.term}
-                </h4>
-                {term.thai && (
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    ({term.thai})
-                  </span>
-                )}
+        <div key={`${term.term}-${index}`} role="listitem">
+          <Card className="overflow-hidden">
+            <CardContent className="p-4">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-baseline gap-2">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                    {term.term}
+                  </h4>
+                  {term.thai && (
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      ({term.thai})
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {term.definition}
+                </p>
               </div>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                {term.definition}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       ))}
     </div>
   );

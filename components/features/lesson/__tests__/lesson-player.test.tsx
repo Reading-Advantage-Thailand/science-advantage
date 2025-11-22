@@ -198,6 +198,32 @@ describe('LessonPlayer', () => {
 
       expect(screen.getByText('การสังเคราะห์ด้วยแสงของพืช')).toBeInTheDocument();
     });
+
+    it('uses default 16/9 aspect ratio when aspectRatio is not provided', () => {
+      const imageBlockWithoutAspectRatio = {
+        id: 'image-no-ratio',
+        type: 'image',
+        src: '/images/default.png',
+        alt: 'Test image without aspect ratio',
+        caption: 'Default aspect ratio image',
+        attribution: 'Test',
+        // Note: aspectRatio is intentionally omitted
+      } as unknown as ContentBlock;
+
+      const content = createLessonContent([imageBlockWithoutAspectRatio]);
+      const { container } = render(<LessonPlayer content={content} />);
+
+      // Find the image wrapper div with aspectRatio style
+      const imageWrapper = container.querySelector('[data-block-type="image"] > div');
+      expect(imageWrapper).toBeInTheDocument();
+
+      // Verify the wrapper has aspect-ratio style set to 16/9 (~1.777)
+      const style = imageWrapper?.getAttribute('style');
+      expect(style).toMatch(/aspect-ratio/);
+
+      // The style should contain the default 16/9 ratio (1.777...)
+      expect(style).toMatch(/1\.777/);
+    });
   });
 
   describe('Reading Passage Block Rendering', () => {

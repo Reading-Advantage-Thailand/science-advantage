@@ -91,7 +91,10 @@ function useBlockVisibility(
   const hasBeenViewed = useRef(false);
 
   useEffect(() => {
-    if (!onBlockView || hasBeenViewed.current) return;
+    // Reset hasBeenViewed when block changes
+    hasBeenViewed.current = false;
+
+    if (!onBlockView) return;
 
     const element = ref.current;
     if (!element) return;

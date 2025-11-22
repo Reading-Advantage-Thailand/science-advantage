@@ -19,9 +19,8 @@ export function ImageBlock({ block, showThai = false, className }: ImageBlockPro
   const caption = showThai && block.captionThai ? block.captionThai : block.caption;
 
   // Calculate aspect ratio styles to prevent CLS
-  const aspectStyles = block.aspectRatio
-    ? { aspectRatio: block.aspectRatio }
-    : undefined;
+  // Use 16/9 as default aspect ratio if not provided
+  const aspectStyles = { aspectRatio: block.aspectRatio ?? 16 / 9 };
 
   return (
     <figure
