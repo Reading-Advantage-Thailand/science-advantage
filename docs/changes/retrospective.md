@@ -20,3 +20,27 @@
 - Schema location: `lib/schemas/lesson-content.schema.ts`
 - Block types: text, vocabulary, image, reading_passage, procedure, materials
 - All blocks support optional `id` field for analytics tracking
+
+## PR #153 - Implement Lesson Player Component
+
+**Date**: 2025-11-22
+**Issue**: #146
+**Epic**: #143 - Rich Curriculum and Interactive Content
+
+### What Went Well
+- Clean component architecture with separate block renderers
+- Comprehensive test suite (33 tests covering all scenarios)
+- Good accessibility implementation (ARIA roles, keyboard nav)
+- IntersectionObserver for analytics tracking
+- Error boundaries prevent single block failures from crashing player
+
+### Lessons Learned
+- Default aspect ratios needed for optional image dimensions to prevent CLS
+- useEffect refs need to reset when dependencies change for proper re-triggering
+- ARIA list semantics require both role="list" and role="listitem"
+
+### Technical Notes
+- Main component: `components/features/lesson/lesson-player.tsx`
+- Block components: `components/features/lesson/blocks/`
+- Dependencies added: react-markdown, remark-gfm
+- Placeholder blocks for #147 (Vocabulary) and #148 (Image Gallery)
