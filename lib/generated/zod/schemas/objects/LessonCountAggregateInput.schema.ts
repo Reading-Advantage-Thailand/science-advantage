@@ -7,6 +7,7 @@ const makeSchema = () => z.object({
   title: z.literal(true).optional(),
   description: z.literal(true).optional(),
   content: z.literal(true).optional(),
+  structuredContent: z.literal(true).optional(),
   lessonType: z.literal(true).optional(),
   gradeLevel: z.literal(true).optional(),
   order: z.literal(true).optional(),

@@ -160,6 +160,8 @@ model Lesson {
   title             String
   description       String?
   content           String?
+  /// @zod.custom.use(z.any())
+  structuredContent Json?              // Structured lesson content (LessonContent schema)
   lessonType        LessonType         @default(LESSON)
   gradeLevel        Int
   order             Int

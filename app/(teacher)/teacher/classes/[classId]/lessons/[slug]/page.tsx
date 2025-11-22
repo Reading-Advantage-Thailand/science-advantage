@@ -1,11 +1,6 @@
 import { requireRole } from '@/lib/auth/server';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { TeacherLessonPreview } from './teacher-lesson-preview';
 
 interface TeacherLessonPageProps {
   params: Promise<{ classId: string; slug: string }>;
@@ -17,23 +12,22 @@ export default async function TeacherLessonPage({ params }: TeacherLessonPagePro
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-sm uppercase text-rose-600">Lesson</p>
-        <h1 className="text-3xl font-bold text-gray-900">Lesson Viewer</h1>
-        <p className="mt-2 text-gray-600">
-          Class: {classId} · Lesson: {slug}
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <div className="flex items-center gap-2">
+            <p className="text-sm uppercase text-rose-600">Lesson</p>
+            <Badge variant="secondary" className="text-xs">
+              Preview Mode
+            </Badge>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900">Lesson Viewer</h1>
+          <p className="mt-2 text-gray-600">
+            Class: {classId}
+          </p>
+        </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Lesson Content</CardTitle>
-          <CardDescription>Preview and manage lesson materials</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-500">Lesson content will appear here.</p>
-        </CardContent>
-      </Card>
+      <TeacherLessonPreview classId={classId} lessonSlug={slug} />
     </div>
   );
 }

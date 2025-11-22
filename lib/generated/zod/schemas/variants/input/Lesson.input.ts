@@ -7,6 +7,7 @@ export const LessonInputSchema = z.object({
     title: z.string(),
     description: z.string().optional().nullable(),
     content: z.string().optional().nullable(),
+    structuredContent: z.unknown().optional().nullable(),
     lessonType: LessonTypeSchema,
     gradeLevel: z.number().int(),
     order: z.number().int(),
