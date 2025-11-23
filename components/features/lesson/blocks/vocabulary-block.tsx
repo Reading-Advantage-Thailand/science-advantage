@@ -1,54 +1,46 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Card, CardContent } from '@/components/ui/card';
+import { VocabularyFlashcards } from '@/components/features/lesson/vocabulary-flashcards';
 import type { VocabularyBlock as VocabularyBlockType } from '@/lib/schemas/lesson-content.schema';
 
 interface VocabularyBlockProps {
   block: VocabularyBlockType;
   showThai?: boolean;
   className?: string;
+  mode?: 'carousel' | 'grid';
+  onTermReviewed?: (term: string, recalled: 'easy' | 'hard') => void;
 }
 
 /**
- * VocabularyBlock component displays vocabulary terms in a card list.
- * PLACEHOLDER: Will be replaced by VocabularyFlashcards component in #147.
+ * VocabularyBlock component displays vocabulary terms as interactive flashcards.
+ * Supports both carousel mode (one card at a time) and grid mode (all cards visible).
+ *
+ * Features:
+ * - 3D flip animation (respects prefers-reduced-motion)
+ * - Self-assessment tracking (easy/hard)
+ * - Keyboard navigation (Arrow keys in carousel, Enter/Space to flip)
+ * - Progress indicators
  */
-export function VocabularyBlock({ block, showThai: _showThai = false, className }: VocabularyBlockProps) {
-  // Note: showThai is unused in this placeholder implementation.
-  // Will be used in #147 when VocabularyFlashcards component is implemented.
-  void _showThai;
+export function VocabularyBlock({
+  block,
+  showThai = false,
+  className,
+  mode = 'carousel',
+  onTermReviewed,
+}: VocabularyBlockProps) {
   return (
     <div
-      className={cn('space-y-3', className)}
+      className={cn('', className)}
       data-block-type="vocabulary"
       data-block-id={block.id}
-      role="list"
-      aria-label="Vocabulary terms"
     >
-      {block.terms.map((term, index) => (
-        <div key={`${term.term}-${index}`} role="listitem">
-          <Card className="overflow-hidden">
-            <CardContent className="p-4">
-              <div className="flex flex-col gap-2">
-                <div className="flex items-baseline gap-2">
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    {term.term}
-                  </h4>
-                  {term.thai && (
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
-                      ({term.thai})
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  {term.definition}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      ))}
+      <VocabularyFlashcards
+        terms={block.terms}
+        showThai={showThai}
+        mode={mode}
+        onTermReviewed={onTermReviewed}
+      />
     </div>
   );
 }
