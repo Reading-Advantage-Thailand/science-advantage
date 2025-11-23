@@ -117,3 +117,29 @@
 - Created scripts/fixtures/golden-lesson.md and .expected.json
 - Created vitest.scripts.config.ts for script tests
 - Section mapping: Key Vocabulary→VocabularyBlock, Materials→MaterialsBlock, Procedure→ProcedureBlock, Reading Passage→ReadingPassageBlock, Images→ImageBlock, Unknown→TextBlock
+
+## PR #157 - Author Grade 4 Lesson Content
+
+**Date**: 2025-11-23
+**Issue**: #149
+**Epic**: #143 - Rich Curriculum and Interactive Content
+
+### What Went Well
+- Created 10 comprehensive Grade 4 science lessons covering life, physical, and earth sciences
+- Generated 200 questions (20 per lesson) with difficulty distribution
+- Content validation script ensures quality and schema compliance
+- Thai translations provided for vocabulary and reading passages
+- Reading passages incorporate Thai cultural context (Chiang Mai, elephants, rice farming)
+
+### Lessons Learned
+- Flesch-Kincaid Grade 4-5 reading level requires simple sentences and accessible vocabulary
+- Question difficulty distribution (40% easy, 40% medium, 20% hard) provides good assessment range
+- Standards mapping helps ensure curriculum alignment with Thai and NGSS standards
+
+### Technical Notes
+- Created prisma/data/content/grade-4/ directory structure
+- 10 lesson JSON files following LessonContentSchema
+- 10 question bank JSON files with 20 questions each
+- Standards mapping to Thai and NGSS standards
+- Created scripts/validate-content.ts for content validation
+- Thai translations flagged for native speaker review
