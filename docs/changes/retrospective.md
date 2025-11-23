@@ -92,3 +92,28 @@
 - CSS 3D transforms with perspective and rotateY
 - IntersectionObserver pattern for card visibility
 - Keyboard: Enter/Space to flip, Arrow keys for navigation
+
+## PR #156 - Migration Script for Existing Content
+
+**Date**: 2025-11-23
+**Issue**: #145
+**Epic**: #143 - Rich Curriculum and Interactive Content
+
+### What Went Well
+- Comprehensive CLI with --dry-run, --force, --lesson-id, --validate-only, --output flags
+- Reused existing content parsers from lib/content-parsers.ts
+- Excellent test coverage (46 tests) covering all conversion scenarios
+- MD5 hashing for idempotency - prevents redundant migrations
+- Golden fixtures for regression testing
+
+### Lessons Learned
+- Separate vitest config for scripts avoids database reset issues during tests
+- Unknown markdown sections should always become TextBlocks (never drop content)
+- Word count calculation needed for ReadingPassageBlock creation
+
+### Technical Notes
+- Created scripts/migrate-lesson-content.ts (737 lines)
+- Created scripts/__tests__/migrate-lesson-content.test.ts (626 lines, 46 tests)
+- Created scripts/fixtures/golden-lesson.md and .expected.json
+- Created vitest.scripts.config.ts for script tests
+- Section mapping: Key Vocabulary→VocabularyBlock, Materials→MaterialsBlock, Procedure→ProcedureBlock, Reading Passage→ReadingPassageBlock, Images→ImageBlock, Unknown→TextBlock
