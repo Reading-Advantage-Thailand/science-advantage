@@ -44,8 +44,15 @@ function usePrefersReducedMotion(): boolean {
       setPrefersReducedMotion(event.matches);
     };
 
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
+    // Feature detection for addEventListener (Safari < 14 only has addListener)
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handler);
+      return () => mediaQuery.removeEventListener('change', handler);
+    } else {
+      // Fallback for older browsers that only support addListener
+      mediaQuery.addListener(handler);
+      return () => mediaQuery.removeListener(handler);
+    }
   }, []);
 
   return prefersReducedMotion;
@@ -115,6 +122,7 @@ function Flashcard({
       >
         {/* Front of card - Term */}
         <Card
+          aria-hidden={isFlipped}
           className={cn(
             'absolute inset-0 flex flex-col items-center justify-center p-6',
             prefersReducedMotion
@@ -147,6 +155,7 @@ function Flashcard({
 
         {/* Back of card - Definition */}
         <Card
+          aria-hidden={!isFlipped}
           className={cn(
             'absolute inset-0 flex flex-col items-center justify-center p-6',
             prefersReducedMotion
