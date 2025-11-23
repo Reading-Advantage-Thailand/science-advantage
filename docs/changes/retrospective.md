@@ -68,3 +68,27 @@
 - API returns contentType: 'legacy' | 'structured' for explicit handling
 - Feature flag: NEXT_PUBLIC_STRUCTURED_CONTENT_ENABLED
 - Teacher preview includes "Preview Mode" badge
+
+## PR #155 - Vocabulary Flashcard Component
+
+**Date**: 2025-11-23
+**Issue**: #147
+**Epic**: #143 - Rich Curriculum and Interactive Content
+
+### What Went Well
+- Implemented full 3D flip animation with CSS transforms
+- Carousel and grid modes working with proper keyboard navigation
+- Self-assessment tracking with easy/hard buttons
+- Excellent test coverage (34 tests)
+
+### Lessons Learned
+- Always toggle aria-hidden on flip card sides to prevent screen reader confusion
+- matchMedia.addEventListener needs feature detection for Safari < 14 (use addListener fallback)
+- prefers-reduced-motion should disable transform animations but keep visual flip indication
+
+### Technical Notes
+- Created components/features/lesson/vocabulary-flashcards.tsx (main component)
+- Updated components/features/lesson/blocks/vocabulary-block.tsx to use new component
+- CSS 3D transforms with perspective and rotateY
+- IntersectionObserver pattern for card visibility
+- Keyboard: Enter/Space to flip, Arrow keys for navigation
