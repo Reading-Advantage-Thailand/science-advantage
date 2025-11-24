@@ -371,6 +371,7 @@ function convertSectionToBlock(section: Section, index: number): ContentBlock {
   }
 
   // Default: convert to TextBlock (never drop content)
+  // Reading passages must be explicitly marked with headers like "## Reading Passage"
   const textBlock: TextBlock = {
     id: blockId,
     type: 'text',
