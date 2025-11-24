@@ -11,6 +11,7 @@ interface LessonData {
   lessonType?: LessonType;
   order: number;
   standards: string[];
+  structuredContent?: object;
 }
 
 interface LessonsFile {
@@ -61,6 +62,7 @@ export async function seedLessons(
           content: lessonData.content,
           lessonType: lessonData.lessonType,
           order: lessonData.order,
+          structuredContent: lessonData.structuredContent ?? undefined,
           standards: {
             connect: lessonData.standards.map(code => ({
               framework_code: {
@@ -78,6 +80,7 @@ export async function seedLessons(
           lessonType: lessonData.lessonType,
           gradeLevel: data.gradeLevel,
           order: lessonData.order,
+          structuredContent: lessonData.structuredContent ?? undefined,
           standards: {
             connect: lessonData.standards.map(code => ({
               framework_code: {

@@ -137,14 +137,7 @@ function LessonContentRenderer({
 
   if (validatedContent) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Lesson Content</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <LessonPlayer content={validatedContent} showThai={showThai} />
-        </CardContent>
-      </Card>
+      <LessonPlayer content={validatedContent} showThai={showThai} />
     );
   }
 
