@@ -96,3 +96,25 @@ This iteration saw success in improving code quality and team efficiency.
 - **Lesson:** Centralizing quiz question types and narrowing values per render avoids future type errors from shared components.
 </details>
 
+
+### #158 - fix/g3-structured-content-data
+
+## Retrospective Summary
+
+### What Went Well
+
+- **Source Data Fix Over Migration Heuristics:** Rather than relying on runtime migration heuristics to detect content types, we fixed the Grade 3 source data directly by adding `structuredContent` fields to the seed JSON. This ensures consistent, typed content blocks from the database level.
+- **Reusable Conversion Script:** Created `scripts/convert-md-to-structured.ts` to parse markdown sections into typed JSON blocks (text, vocabulary, reading_passage, procedure, materials), which can be reused for future lesson migrations.
+
+### Lessons Learned
+
+- **Fix Data at the Source:** When structured content isn't displaying correctly, the issue is often in the source data rather than the rendering logic. Investing time to properly structure seed data prevents complex runtime heuristics and ensures reliable content rendering.
+- **Grade-Specific Data Formats:** Different grade levels may have different data formats (Grade 4 had structured JSON while Grade 3 had raw markdown). Always verify the actual data format in seed files before assuming the rendering pipeline is at fault.
+
+<details>
+<summary>Original inputs</summary>
+
+- **Went well:** Fixed Grade 3 lessons at the source by adding structuredContent to seed JSON. Created reusable conversion script for markdown-to-structured-JSON transformation.
+- **Lesson:** When structured content doesn't render correctly, fix the source data rather than adding migration heuristics. Always check seed data format across different grades.
+</details>
+
