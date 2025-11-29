@@ -1,3 +1,12 @@
+---
+title: Primary Instructional Lesson Template
+type: template
+status: active
+created_at: 2025-10-25
+tags: [template, content-authoring, lesson, primary-school, instructional]
+description: Markdown template for creating standard instructional lessons for primary grades, including sections for vocabulary, reading, and summary.
+---
+
 # [Lesson Title]
 
 **Lesson Type:** LESSON

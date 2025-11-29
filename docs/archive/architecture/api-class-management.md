@@ -1,4 +1,13 @@
-# Class Management API Documentation
+---
+title: Class Management API Design
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, api, class-management, endpoints]
+description: Detailed design for the Class Management API endpoints and data flows.
+---
+
+# API Class Management
 
 ## Overview
 

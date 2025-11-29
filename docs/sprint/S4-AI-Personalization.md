@@ -1,3 +1,12 @@
+---
+title: "Sprint 4: AI-Powered Personalization"
+type: sprint-plan
+status: ready
+created_at: 2025-10-28
+tags: [sprint, S4, ai, personalization, intervention, student-profile]
+description: Sprint plan for S4, leveraging assessment data to deliver AI-driven personalized learning paths and teacher intervention alerts.
+---
+
 # Sprint 4: AI-Powered Personalization & Teacher Intervention
 
 **Milestone**: Sprint 4: AI-Powered Personalization

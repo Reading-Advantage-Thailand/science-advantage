@@ -1,3 +1,12 @@
+---
+title: API Specification (Archived)
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, api, openapi, rest]
+description: Legacy OpenAPI 3.0 specification for the Science Advantage platform. Refer to current specs for latest API contracts.
+---
+
 # API Specification
 
 Based on the REST API choice from our Tech Stack, here's the OpenAPI 3.0 specification for the Science Advantage platform:

@@ -1,3 +1,12 @@
+---
+title: Project Overview & Vision
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, overview, vision, strategic-context, success-definition]
+description: Provides an overview of the Science Advantage product vision, strategic context within the Advantage ecosystem, and definitions of success.
+---
+
 # Project Overview
 
 ## 1.1 Product Vision

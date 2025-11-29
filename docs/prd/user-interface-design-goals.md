@@ -1,3 +1,12 @@
+---
+title: User Interface & Experience Design Goals
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [ui, ux, design-system, accessibility, branding]
+description: Outlines the overall UX vision, key interaction paradigms, core screens, and accessibility standards (WCAG AA) for the Science Advantage platform.
+---
+
 # User Interface Design Goals
 
 ## Overall UX Vision

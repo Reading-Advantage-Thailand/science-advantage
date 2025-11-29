@@ -1,3 +1,12 @@
+---
+title: Progress Tracking Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, progress-tracking, analytics, reporting, mastery]
+description: Technical specification for tracking student progress through lessons, calculating completion rates, and aggregating performance by curriculum standards.
+---
+
 # Progress Tracking
 
 ## Overview

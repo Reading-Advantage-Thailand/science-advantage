@@ -1,3 +1,12 @@
+---
+title: Project Success Metrics & KPIs
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, metrics, kpi, revenue, learning-outcomes]
+description: Defines the primary and secondary success metrics for the project, including learning outcomes, business revenue targets, and operational efficiency goals.
+---
+
 # Success Metrics
 
 ## 5.1 Learning Outcome Metrics

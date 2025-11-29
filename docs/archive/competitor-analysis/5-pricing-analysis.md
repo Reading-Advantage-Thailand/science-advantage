@@ -1,3 +1,12 @@
+---
+title: Pricing Strategy Analysis
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, pricing, business-model, bundle-strategy]
+description: Analysis of competitor pricing models and recommendation for Science Advantage's bundled pricing strategy.
+---
+
 # 5. Pricing Analysis
 
 ## 5.1 Current Market Pricing Models

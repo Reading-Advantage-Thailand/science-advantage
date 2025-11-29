@@ -1,3 +1,12 @@
+---
+title: Development Workflow
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, workflow, git, process]
+description: Guide to the software development lifecycle, git workflow, and release process.
+---
+
 # Development Workflow
 
 ## Overview

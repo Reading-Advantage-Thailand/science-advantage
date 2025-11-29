@@ -1,3 +1,12 @@
+---
+title: Lesson Content Templates Guide
+type: guide
+status: active
+created_at: 2025-10-25
+tags: [guide, content-authoring, templates, markdown, validation]
+description: A guide for content authors on using standardized markdown templates for lessons, labs, and assessments, including validation rules.
+---
+
 # Lesson Content Templates
 
 ## Overview

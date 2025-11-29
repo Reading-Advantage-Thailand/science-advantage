@@ -1,3 +1,12 @@
+---
+title: Testing Strategy
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, testing, qa, strategy]
+description: Outline of the testing strategy including unit, integration, and E2E testing approaches.
+---
+
 # Testing Strategy
 
 ## Overview

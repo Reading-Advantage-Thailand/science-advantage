@@ -1,3 +1,12 @@
+---
+title: Project Governance & Success Criteria
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, governance, success-criteria, exit-strategy, steering-committee]
+description: outlines the project governance structure, steering committee roles, decision-making framework, and key success metrics for the Science Advantage project.
+---
+
 # Governance and Success Criteria
 
 ## 9.1 Project Governance

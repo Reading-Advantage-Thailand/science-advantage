@@ -1,3 +1,12 @@
+---
+title: Documentation Index
+type: index
+status: active
+created_at: 2025-10-25
+tags: [index, documentation, navigation, overview]
+description: The central entry point for Science Advantage documentation, indexing core references, specs, sprint plans, and legacy archives.
+---
+
 # Science Advantage Docs
 
 Documentation follows the spec-first workflow. Use this index to locate the source

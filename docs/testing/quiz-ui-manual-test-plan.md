@@ -1,3 +1,12 @@
+---
+title: Quiz UI Manual Test Plan
+type: test-plan
+status: active
+created_at: 2025-10-25
+tags: [testing, qa, manual-test, quiz-ui, frontend]
+description: A comprehensive manual test plan for the Quiz UI components, covering loading, interaction, submission, and accessibility scenarios.
+---
+
 # Quiz UI Manual Test Plan
 
 **Story:** #94 - Quiz UI Components

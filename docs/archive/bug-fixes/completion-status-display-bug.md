@@ -1,3 +1,12 @@
+---
+title: Bug Fix Report: Completion Status Display
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, bug-fix, report, completion-status, ui-bug]
+description: Retrospective report on the fix for the completion status display bug, including root cause and solution.
+---
+
 # Bug Fix: Completion Status Display Bug (GitHub Issue #21)
 
 ## Problem

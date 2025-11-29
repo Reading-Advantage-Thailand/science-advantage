@@ -1,3 +1,12 @@
+---
+title: "Epic 4: User Engagement & Classroom Management"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, teacher-tools, gamification, classroom-management, parent-portal]
+description: Details requirements for teacher dashboards, student progress tracking, gamified learning elements, and family engagement features.
+---
+
 # Epic 4 User Engagement & Classroom Management
 
 Create comprehensive teacher tools, student progress tracking, and gamified learning experiences that drive engagement and enable effective classroom management. This epic delivers the user experience features that make Science Advantage practical for school implementation and engaging for students.

@@ -1,3 +1,12 @@
+---
+title: "Epic 7: Advanced Features & Integrations"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, live-tutoring, ar-vr, integrations, international-curriculum]
+description: Details requirements for advanced features including live tutoring, AR/VR laboratory experiences, and integrations with external school systems.
+---
+
 # Epic 7 Advanced Features & Integrations
 
 Add live tutoring, AR/VR experiences, and third-party system integrations that position Science Advantage as a premium, comprehensive science education platform. This epic delivers the advanced capabilities that differentiate the product in the competitive landscape.

@@ -1,3 +1,12 @@
+---
+title: AI Recommendations Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, ai, recommendations, personalization, next-lesson]
+description: Technical specification for the AI-powered recommendation engine that suggests the next best lesson based on student mastery gaps and curriculum dependencies.
+---
+
 # AI Recommendations for Next Lessons
 
 ## Overview

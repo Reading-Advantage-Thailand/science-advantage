@@ -1,3 +1,12 @@
+---
+title: Foundation & Ecosystem Integration Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, integration, ecosystem, sso, infrastructure]
+description: Technical specification for the platform's foundation, including single sign-on (SSO), shared infrastructure, and cross-product data synchronization.
+---
+
 # Foundation & Ecosystem Integration Spec
 
 ## Capability Summary

@@ -1,3 +1,12 @@
+---
+title: External API Integrations
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, integrations, external-services, third-party]
+description: Documentation of integrations with external APIs and services.
+---
+
 # External APIs
 
 ## Overview

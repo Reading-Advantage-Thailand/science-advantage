@@ -1,3 +1,12 @@
+---
+title: Risk Assessment & Mitigation Strategy
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, risk-analysis, mitigation, market-risks, technical-risks]
+description: Analyzes potential market, technical, and operational risks associated with the Science Advantage project and outlines mitigation strategies.
+---
+
 # Risk Assessment
 
 ## 7.1 Market Risks

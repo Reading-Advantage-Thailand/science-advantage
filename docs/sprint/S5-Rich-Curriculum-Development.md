@@ -1,3 +1,12 @@
+---
+title: "Sprint 5: Rich Curriculum Development"
+type: sprint-plan
+status: active
+created_at: 2025-11-22
+tags: [sprint, S5, curriculum, interactive-content, grade-4, rich-media]
+description: Sprint plan for S5, focusing on building a rich, interactive lesson library aligned with Thai and NGSS standards, specifically for Grade 4.
+---
+
 # Sprint 5: Rich Curriculum Development & Interactive Content
 
 **Goal:** Build out a rich and engaging library of lessons that are tightly aligned with both the Thai and NGSS curriculum standards. This sprint will focus on creating visually appealing, interactive lesson pages with high-quality content and imagery.

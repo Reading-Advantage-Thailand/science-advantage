@@ -1,3 +1,12 @@
+---
+title: Market Overview
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, market-overview, industry-trends, thai-education]
+description: Analysis of the Thai K-12 science education market size, growth trends, and key drivers.
+---
+
 # 2. Market Overview
 
 ## 2.1 Thai EdTech Landscape Size and Growth

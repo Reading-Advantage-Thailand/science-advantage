@@ -1,3 +1,12 @@
+---
+title: "Sprint 2: Core Student Experience"
+type: sprint-plan
+status: completed
+created_at: 2025-10-19
+tags: [sprint, S2, student-experience, enrollment, curriculum-access]
+description: Sprint plan for S2, focusing on enabling students to join classes, view enrollments, and navigate the curriculum structure.
+---
+
 # Sprint 2: Core Student Experience - Enrollment & Structured Lesson Access
 
 **Milestone**: Sprint 2: Core Student Experience

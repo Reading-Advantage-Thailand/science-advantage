@@ -1,3 +1,12 @@
+---
+title: Product Requirements Document (PRD) Index
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [index, table-of-contents, overview]
+description: The central index and table of contents for the Science Advantage Product Requirements Document, linking to all epics, goals, and specs.
+---
+
 # Science Advantage Product Requirements Document (PRD)
 
 ## Table of Contents

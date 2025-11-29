@@ -1,3 +1,12 @@
+---
+title: High-Level Epic List
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epics, overview, roadmap, planning]
+description: A consolidated list of all 7 major epics for the Science Advantage project, summarizing the scope from foundation to advanced integrations.
+---
+
 # Epic List
 
 Epic 1: Foundation & Ecosystem Integration: Establish project infrastructure, authentication integration with Advantage ecosystem, and core platform architecture

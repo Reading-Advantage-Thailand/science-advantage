@@ -1,3 +1,12 @@
+---
+title: Security & Performance Guidelines
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, security, performance, best-practices]
+description: Guidelines and requirements for ensuring application security and optimal performance.
+---
+
 # Security and Performance
 
 ## Overview

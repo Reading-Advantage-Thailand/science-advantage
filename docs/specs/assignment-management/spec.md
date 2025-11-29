@@ -1,3 +1,12 @@
+---
+title: Assignment Management Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, assignments, teacher-tools, scheduling, classroom-management]
+description: Technical specification for the assignment management system, enabling teachers to create, schedule, and track curriculum assignments.
+---
+
 # Assignment Management Spec
 
 ## Capability Summary

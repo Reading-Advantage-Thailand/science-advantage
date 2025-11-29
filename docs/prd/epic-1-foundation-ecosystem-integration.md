@@ -1,3 +1,12 @@
+---
+title: "Epic 1: Foundation & Ecosystem Integration"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, infrastructure, sso, authentication, microservices]
+description: Establishes the technical foundation, authentication system (SSO), and core API architecture for integrating Science Advantage with the wider ecosystem.
+---
+
 # Epic 1 Foundation & Ecosystem Integration
 
 Establish the foundational infrastructure for Science Advantage while seamlessly integrating with the existing Advantage ecosystem. This epic creates the technical foundation, authentication system, and core platform architecture that enables cross-product functionality and unified user experience across all Advantage products.

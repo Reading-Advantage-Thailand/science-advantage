@@ -1,3 +1,12 @@
+---
+title: "Spec Delta: Rich Curriculum & Interactive Content"
+type: spec-delta
+status: draft
+created_at: 2025-11-22
+tags: [spec-delta, curriculum, interactive-content, lesson-player, grade-4]
+description: Defines requirements for the interactive lesson player, rich content data model, and Grade 4 curriculum expansion.
+---
+
 # Spec Delta: Rich Curriculum and Interactive Content
 
 ## Overview

@@ -1,3 +1,12 @@
+---
+title: Student Mastery Profile Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, student-profile, mastery, analytics, data-model]
+description: Technical specification for the student mastery profile, including data models, calculation logic, and API contracts for displaying strengths and gaps.
+---
+
 # Student Mastery Profile
 
 ## Overview

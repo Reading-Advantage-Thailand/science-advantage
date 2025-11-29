@@ -1,3 +1,12 @@
+---
+title: Resource Requirements & Budget Plan
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, resources, budget, staffing, infrastructure]
+description: details the human resources, technology infrastructure, and budget allocation required for the 18-month development and launch phases.
+---
+
 # Resource Requirements
 
 ## 8.1 Human Resources

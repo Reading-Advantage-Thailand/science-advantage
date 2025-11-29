@@ -1,3 +1,12 @@
+---
+title: Ecosystem Competitive Advantage
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, ecosystem, synergy, competitive-moat]
+description: Analysis of how the integrated Advantage ecosystem provides a sustainable competitive advantage over single-point solutions.
+---
+
 # 6. Ecosystem Competitive Advantage
 
 ## 6.1 The Advantage Platform Strategy

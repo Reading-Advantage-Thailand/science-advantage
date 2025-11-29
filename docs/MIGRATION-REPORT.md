@@ -1,3 +1,12 @@
+---
+title: Git Workflow Migration Report
+type: report
+status: final
+created_at: 2025-10-22
+tags: [migration, git-workflow, documentation, legacy]
+description: A report detailing the migration to a spec-first git workflow, including status of legacy docs and completed actions.
+---
+
 # Git Workflow Migration Report
 
 **Date:** 2025-10-22  

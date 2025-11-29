@@ -1,3 +1,12 @@
+---
+title: Unified Project Structure
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, project-structure, file-organization, conventions]
+description: Definition of the standard directory structure and file organization for the project.
+---
+
 # Unified Project Structure
 
 ## Overview

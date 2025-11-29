@@ -1,3 +1,12 @@
+---
+title: "Epic 5: Mobile Applications & Offline Capabilities"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, mobile, offline, react-native, android, ios]
+description: Specifies requirements for native mobile applications (iOS/Android), including offline content synchronization and touch-optimized interfaces.
+---
+
 # Epic 5 Mobile Applications & Offline Capabilities
 
 Develop native mobile applications for iOS and Android with offline synchronization and touch-optimized interfaces. This epic delivers the mobile experience that enables learning anywhere, anytime, addressing the mobile-first preferences of Thai students.

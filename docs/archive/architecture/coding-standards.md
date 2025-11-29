@@ -1,3 +1,12 @@
+---
+title: Coding Standards & Conventions
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, coding-standards, style-guide, best-practices]
+description: Established coding standards, style guidelines, and best practices for the development team.
+---
+
 # Coding Standards
 
 ## Purpose

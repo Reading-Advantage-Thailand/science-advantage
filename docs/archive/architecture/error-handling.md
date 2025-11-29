@@ -1,3 +1,12 @@
+---
+title: Error Handling Strategy
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, error-handling, exceptions, logging]
+description: Strategy for handling errors, exceptions, and logging across the application.
+---
+
 # Error Handling Strategy
 
 ## Purpose

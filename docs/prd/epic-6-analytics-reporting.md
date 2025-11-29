@@ -1,3 +1,12 @@
+---
+title: "Epic 6: Analytics & Reporting"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, analytics, reporting, data-visualization, insights]
+description: Defines requirements for comprehensive analytics dashboards, cross-subject learning insights, and student progress reporting for all stakeholders.
+---
+
 # Epic 6 Analytics & Reporting
 
 Implement comprehensive analytics dashboard and cross-subject learning insights that provide valuable data for students, teachers, parents, and administrators. This epic delivers the data intelligence that demonstrates learning outcomes and informs educational decisions.

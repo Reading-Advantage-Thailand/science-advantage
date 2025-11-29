@@ -1,3 +1,12 @@
+---
+title: Technical Architecture & Assumptions
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [architecture, technology-stack, monorepo, microservices]
+description: Outlines core technical assumptions including the monorepo structure, service architecture (Node.js/Next.js), database choices (PostgreSQL/Redis), and testing requirements.
+---
+
 # Technical Assumptions
 
 ## Repository Structure: Monorepo

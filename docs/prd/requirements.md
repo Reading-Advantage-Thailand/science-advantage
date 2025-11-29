@@ -1,3 +1,12 @@
+---
+title: Functional & Non-Functional Requirements
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [requirements, functional, non-functional, performance, security]
+description: A comprehensive catalog of high-level functional requirements (FRs) and non-functional requirements (NFRs) for the Science Advantage platform.
+---
+
 # Requirements
 
 ## Functional

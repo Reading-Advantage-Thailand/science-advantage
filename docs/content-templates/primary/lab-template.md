@@ -1,3 +1,12 @@
+---
+title: Primary Lab Lesson Template
+type: template
+status: active
+created_at: 2025-10-25
+tags: [template, content-authoring, lab, primary-school, hands-on]
+description: Markdown template for creating hands-on laboratory lessons for primary grades, including sections for materials, safety, and procedure.
+---
+
 # [Lab Title]
 
 **Lesson Type:** LAB

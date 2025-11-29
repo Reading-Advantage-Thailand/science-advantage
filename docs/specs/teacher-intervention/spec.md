@@ -1,3 +1,12 @@
+---
+title: Teacher Intervention Alerts Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, teacher-tools, interventions, alerts, analytics]
+description: Technical specification for the teacher intervention system, including logic for detecting struggling students and generating high-signal alerts.
+---
+
 # Teacher Intervention Alerts
 
 ## Overview

@@ -1,3 +1,12 @@
+---
+title: Primary Assessment Template
+type: template
+status: active
+created_at: 2025-10-25
+tags: [template, content-authoring, assessment, quiz, primary-school]
+description: Markdown template for creating assessment containers (quizzes) for primary grades, including instructions and review topics.
+---
+
 # [Assessment Title]
 
 **Lesson Type:** ASSESSMENT

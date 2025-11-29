@@ -1,3 +1,12 @@
+---
+title: Technical Requirements & Architecture
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, technical-requirements, architecture, integration, science-features]
+description: Outlines the platform architecture, specific science education features, and integration requirements with the wider Advantage ecosystem.
+---
+
 # Technical Requirements
 
 ## 3.1 Platform Architecture

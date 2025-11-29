@@ -1,3 +1,12 @@
+---
+title: "Proposal: Rich Curriculum & Interactive Content"
+type: proposal
+status: approved
+created_at: 2025-11-22
+tags: [proposal, curriculum, interactive-content, rich-media, grade-4]
+description: Proposal to upgrade the lesson experience with an interactive player, structured content blocks, and Grade 4 curriculum expansion.
+---
+
 # Proposal: Rich Curriculum and Interactive Content
 
 ## Problem Statement

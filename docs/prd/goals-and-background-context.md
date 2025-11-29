@@ -1,3 +1,12 @@
+---
+title: Project Goals & Background Context
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [goals, background, market-context, business-objectives]
+description: Defines the high-level business goals, market background, and strategic context for the Science Advantage platform expansion.
+---
+
 # Goals and Background Context
 
 ## Goals

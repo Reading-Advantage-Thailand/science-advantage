@@ -1,3 +1,12 @@
+---
+title: Competitor Analysis Executive Summary
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, executive-summary, market-insights]
+description: High-level summary of the competitor landscape, key market trends, and strategic positioning for Science Advantage.
+---
+
 # Executive Summary
 
 Science Advantage is entering the Thai K-12 science education market as part of the established Advantage ecosystem, which includes Reading Advantage (grades 7-12) and the upcoming Primary Advantage (grades 3-6). This ecosystem approach fundamentally changes our competitive positioning, providing immediate market credibility, existing customer relationships, and cross-product synergies that competitors cannot match.

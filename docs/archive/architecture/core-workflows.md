@@ -1,3 +1,12 @@
+---
+title: Core System Workflows
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, workflows, user-journey, process-flow]
+description: Documentation of key system workflows including user registration, class creation, and lesson completion.
+---
+
 # Core Workflows
 
 This section illustrates key system workflows using sequence diagrams to show component interactions, data flow, and system behavior across the Science Advantage platform. Each workflow includes frontend and backend flows, error handling paths, and async operations.

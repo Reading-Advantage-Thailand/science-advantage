@@ -1,3 +1,12 @@
+---
+title: AI Personalization Data Flow & Architecture
+type: design
+status: draft
+created_at: 2025-11-29
+tags: [design, architecture, ai, personalization, data-flow]
+description: Architectural design document detailing the data flow for AI-powered personalization, including the mastery pipeline, recommendation engine, and intervention alerts.
+---
+
 # AI Personalization Data Flow & Architecture
 
 ## High-Level Architecture

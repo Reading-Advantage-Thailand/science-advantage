@@ -1,3 +1,12 @@
+---
+title: Frontend UI/UX Specification (Legacy)
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, frontend, ui-ux, spec, legacy]
+description: The original monolithic frontend UI/UX specification, defining personas, user flows, and component library requirements.
+---
+
 # Science Advantage UI/UX Specification
 
 ## Introduction

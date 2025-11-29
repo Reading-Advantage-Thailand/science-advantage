@@ -1,3 +1,12 @@
+---
+title: Data Models Reference
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, data-models, entities, types]
+description: Reference guide for core application data models and their attributes.
+---
+
 # Data Models
 
 ## Overview

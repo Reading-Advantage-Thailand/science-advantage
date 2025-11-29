@@ -1,3 +1,12 @@
+---
+title: Competitor Analysis Introduction
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, introduction, market-research]
+description: Introduction to the comprehensive competitor analysis for Science Advantage, outlining purpose, scope, and methodology.
+---
+
 # 1. Introduction
 
 ## 1.1 Purpose

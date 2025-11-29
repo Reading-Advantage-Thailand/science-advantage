@@ -1,3 +1,12 @@
+---
+title: Backend Architecture Overview
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, backend, nodejs, microservices]
+description: Legacy overview of the backend architecture, service layers, and database interactions.
+---
+
 # Backend Architecture
 
 ## Service Architecture

@@ -1,3 +1,12 @@
+---
+title: Database Schema Documentation
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, database, schema, prisma]
+description: Documentation of the database schema, relationships, and data models.
+---
+
 # Database Schema
 
 ## Overview

@@ -1,3 +1,12 @@
+---
+title: "Epic 2: Core Science Curriculum & Content Management"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, curriculum, content-management, virtual-lab, bilingual]
+description: Defines requirements for the science curriculum delivery system, including virtual labs, bilingual support (Thai/English), and content management tools.
+---
+
 # Epic 2 Core Science Curriculum & Content Management
 
 Implement the comprehensive science curriculum delivery system with Thai Ministry of Education alignment, virtual laboratory capabilities, and bilingual content support. This epic delivers the core educational content and interactive learning experiences that differentiate Science Advantage in the market.

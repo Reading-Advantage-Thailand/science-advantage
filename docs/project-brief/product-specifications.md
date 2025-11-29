@@ -1,3 +1,12 @@
+---
+title: Product Specifications & User Personas
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, specifications, personas, features, content-strategy]
+description: detailed product specifications including user personas, feature prioritization (MVP to Phase 3), and content strategy.
+---
+
 # Product Specifications
 
 ## 4.1 User Personas

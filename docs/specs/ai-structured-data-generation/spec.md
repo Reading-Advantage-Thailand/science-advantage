@@ -1,3 +1,12 @@
+---
+title: AI Structured Data Generation Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, ai, llm, structured-data, vercel-ai-sdk]
+description: Technical specification for generating type-safe structured data from LLMs using Vercel AI SDK, Zod, and Prisma integration.
+---
+
 # AI-Powered Structured Data Generation
 
 ## Overview

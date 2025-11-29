@@ -1,4 +1,13 @@
-# Architecture Validation Checklist Results Report
+---
+title: Architecture Checklist Results
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, review, checklist, audit]
+description: Results from the architecture review checklist, assessing compliance with system design standards.
+---
+
+# Architecture Checklist Results Report
 
 ## Executive Summary
 

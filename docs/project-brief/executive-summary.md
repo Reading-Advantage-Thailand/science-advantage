@@ -1,3 +1,12 @@
+---
+title: Executive Summary
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, executive-summary, strategic-overview, market-opportunity]
+description: A high-level executive summary of the Science Advantage project, highlighting strategic advantages, market opportunity, and key financial projections.
+---
+
 # Executive Summary
 
 Science Advantage represents a strategic expansion of the established Advantage ecosystem, targeting the ฿15-20B Thai K-12 science education market. Unlike standalone science education platforms, Science Advantage leverages existing ecosystem assets including 100+ Reading Advantage school partnerships, proven AI technology platform, and documented 40% improvement in student outcomes.

@@ -1,3 +1,12 @@
+---
+title: Monitoring & Observability Strategy
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, monitoring, observability, metrics]
+description: Strategy for system monitoring, metrics collection, and observability.
+---
+
 # Monitoring and Observability
 
 ## Overview

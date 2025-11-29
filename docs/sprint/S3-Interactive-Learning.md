@@ -1,3 +1,12 @@
+---
+title: "Sprint 3: Interactive Learning & Assessments"
+type: sprint-plan
+status: active
+created_at: 2025-10-22
+tags: [sprint, S3, assessment, quiz, analytics, interactive-learning]
+description: Sprint plan for S3, focusing on formative assessments, auto-grading, and teacher analytics for standards-based instruction.
+---
+
 # Sprint 3: Interactive Learning - Standards-Tagged Assessments
 
 **Milestone**: Sprint 3: Interactive Learning

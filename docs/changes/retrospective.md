@@ -1,3 +1,12 @@
+---
+title: Sprint Retrospective Log
+type: retrospective
+status: active
+created_at: 2025-11-22
+tags: [retrospective, lessons-learned, changelog, sprint-review]
+description: A running log of sprint retrospectives, documenting what went well, lessons learned, and technical notes from completed PRs.
+---
+
 # Retrospective Log
 
 ## PR #152 - Design Lesson Content JSON Schema

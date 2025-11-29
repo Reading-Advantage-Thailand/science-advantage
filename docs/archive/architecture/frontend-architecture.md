@@ -1,3 +1,12 @@
+---
+title: Frontend Architecture Overview
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, frontend, react, nextjs]
+description: Legacy overview of the frontend architecture, component hierarchy, and state management strategy.
+---
+
 # Frontend Architecture
 
 ## Component Architecture

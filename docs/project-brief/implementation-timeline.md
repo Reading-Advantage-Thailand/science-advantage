@@ -1,3 +1,12 @@
+---
+title: Implementation Timeline & Roadmap
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, timeline, roadmap, milestones, phases]
+description: Outlines the phased development roadmap, key milestones, and resource allocation plan for the 18-month Science Advantage implementation.
+---
+
 # Implementation Timeline
 
 ## 6.1 Development Phases

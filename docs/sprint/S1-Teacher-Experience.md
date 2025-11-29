@@ -1,3 +1,12 @@
+---
+title: "Sprint 1: Core Teacher Experience"
+type: sprint-plan
+status: completed
+created_at: 2025-10-14
+tags: [sprint, S1, teacher-experience, class-setup, curriculum-view]
+description: Sprint plan for S1, focusing on enabling teachers to create standards-aligned classes and view dynamic curriculum structures.
+---
+
 # Sprint 1: Core Teacher Experience - Standards-Driven Class Setup
 
 **Goal:** Enable teachers to create classes where the curriculum is dynamically configured based on the selected standards alignment. This sprint builds on the foundational schema to deliver the first core piece of teacher-facing functionality.

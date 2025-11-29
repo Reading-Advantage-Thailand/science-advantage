@@ -1,3 +1,12 @@
+---
+title: Next Steps & Expert Prompts
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [planning, prompts, ux-design, architecture]
+description: Contains specific prompts and instructions for the UX Expert and System Architect to initiate the next phases of design and technical specification.
+---
+
 # Next Steps
 
 ## UX Expert Prompt

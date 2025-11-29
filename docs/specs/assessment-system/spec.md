@@ -1,3 +1,12 @@
+---
+title: Assessment System Specification
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, assessment, quiz, grading, analytics]
+description: Technical specification for the formative assessment engine, including support for multiple question types, auto-grading, and standards alignment.
+---
+
 # Assessment System
 
 ## Overview

@@ -1,3 +1,12 @@
+---
+title: Project Brief Index
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, index, table-of-contents]
+description: The central index and table of contents for the Science Advantage Project Brief, linking to all component documents.
+---
+
 # Project Brief: Science Advantage
 
 ## Table of Contents

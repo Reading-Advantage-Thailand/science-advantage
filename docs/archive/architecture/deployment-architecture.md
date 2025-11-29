@@ -1,3 +1,12 @@
+---
+title: Deployment Architecture
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, deployment, infrastructure, devops]
+description: Architecture diagram and specifications for the deployment infrastructure and CI/CD pipeline.
+---
+
 # Deployment Architecture
 
 ## Overview

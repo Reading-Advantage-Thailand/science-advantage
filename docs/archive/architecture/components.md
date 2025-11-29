@@ -1,3 +1,12 @@
+---
+title: Component Architecture
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, architecture, components, design-system, ui]
+description: Detailed breakdown of the UI component architecture and library.
+---
+
 # Components
 
 ## Overview

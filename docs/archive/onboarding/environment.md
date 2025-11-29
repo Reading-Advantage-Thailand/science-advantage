@@ -1,3 +1,12 @@
+---
+title: Environment Setup Guide (Archived)
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, onboarding, environment, setup, dev-guide]
+description: Legacy guide for setting up the development environment. Refer to the root README.md for current instructions.
+---
+
 # Environment Setup Guide
 
 This guide helps you set up your development environment for the Science Advantage platform.

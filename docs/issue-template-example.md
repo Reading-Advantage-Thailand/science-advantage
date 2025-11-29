@@ -1,3 +1,12 @@
+---
+title: Enhanced Issue Template Example
+type: template
+status: active
+created_at: 2025-10-28
+tags: [template, issue-tracking, github, user-story, acceptance-criteria]
+description: An example of a high-quality GitHub issue template for user stories, including acceptance criteria, test plans, and implementation notes.
+---
+
 # Example: Enhanced Issue Template (Based on #119)
 
 ## Story: BE - Student Profile Data Model

@@ -1,3 +1,12 @@
+---
+title: Core Science Curriculum & Content Management Spec
+type: spec
+status: draft
+created_at: 2025-11-29
+tags: [spec, curriculum, content-management, cms, standards]
+description: Technical specification for managing standards-aligned science curriculum, lesson templates, and bilingual content delivery.
+---
+
 # Core Science Curriculum & Content Management Spec
 
 ## Capability Summary

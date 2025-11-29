@@ -1,3 +1,12 @@
+---
+title: "Sprint 0: Foundation & Schema Setup"
+type: sprint-plan
+status: completed
+created_at: 2025-10-07
+tags: [sprint, S0, foundation, schema, setup, ci-cd]
+description: Detailed sprint plan for S0, establishing the project structure, core database schema, authentication, and CI/CD pipeline.
+---
+
 # Sprint 0: Foundation & Advanced Schema Setup
 
 **Milestone:** Sprint 0: Foundation & Advanced Schema Setup

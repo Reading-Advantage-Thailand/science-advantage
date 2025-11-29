@@ -1,3 +1,12 @@
+---
+title: Detailed Competitor Profiles
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, profiles, strengths-weaknesses, swot]
+description: Detailed profiles of key competitors including Learn Education, Twig, and local textbook publishers.
+---
+
 # 3. Competitor Analysis
 
 ## 3.1 Major EdTech Players

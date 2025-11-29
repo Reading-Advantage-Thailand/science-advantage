@@ -1,3 +1,12 @@
+---
+title: "Epic 3: AI-Powered Personalization & Cross-Subject Learning"
+type: prd
+status: draft
+created_at: 2025-11-29
+tags: [epic, ai, personalization, machine-learning, recommendation-engine]
+description: Specifications for the adaptive learning engine, student learning profiles, and cross-subject recommendations connecting science and reading.
+---
+
 # Epic 3 AI-Powered Personalization & Cross-Subject Learning
 
 Develop the adaptive learning engine and cross-subject recommendation system that leverages AI to personalize science education while simultaneously improving reading comprehension. This epic delivers the intelligent differentiation that makes Science Advantage unique in the market.

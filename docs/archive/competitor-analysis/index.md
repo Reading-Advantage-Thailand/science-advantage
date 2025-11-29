@@ -1,4 +1,13 @@
-# Competitive Analysis: Science Advantage
+---
+title: Competitor Analysis Index
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, competitor-analysis, index, table-of-contents]
+description: Table of contents for the comprehensive Competitor Analysis document.
+---
+
+# Competitor Analysis: Science Advantage
 
 ## Table of Contents
 

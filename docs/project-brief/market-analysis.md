@@ -1,3 +1,12 @@
+---
+title: Market Analysis & Competitive Landscape
+type: project-brief
+status: draft
+created_at: 2025-11-29
+tags: [project-brief, market-analysis, competition, target-market, entry-strategy]
+description: detailed analysis of the Thai K-12 science education market, including market size, competitive landscape, and ecosystem advantages.
+---
+
 # Market Analysis
 
 ## 2.1 Target Market Size

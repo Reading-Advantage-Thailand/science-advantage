@@ -1,3 +1,12 @@
+---
+title: Monolithic Project Brief (Legacy)
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, project-brief, legacy, monolithic]
+description: The original monolithic Project Brief document, now superseded by the modular PRD and spec documents.
+---
+
 # Project Brief: Science Advantage
 
 ## Executive Summary
