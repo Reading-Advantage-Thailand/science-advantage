@@ -215,3 +215,63 @@ The file `retro_to_summarize_1859898.md` appears to be empty. However, I found t
 - **Lesson:** Mock Next/Image props explicitly in tests and scope queries to lightbox to avoid duplicate alt matches; prefer defensive preload checks for window availability.
 </details>
 
+## Summarized Sprints (via Gemini)
+
+The file `retro_to_summarize_1965796.md` was empty, so I have summarized the entries from the main `RETROSPECTIVE.md` file instead.
+
+### #137
+- **Went Well:** Implemented spec-compliant LLM flow with observability-wired cached endpoints.
+- **Learning:** Route AI calls through Vercel AI SDK `generateObject` to ensure schema validation and enable multi-model failover.
+
+### #138
+- **Went Well:** Smooth deployment of feature flags and localized cards using reusable `shadcn/ui` primitives.
+- **Learning:** Explicitly stub `Next.js Link` in unit tests to prevent `jsdom` navigation failures.
+
+### #139
+- **Went Well:** Achieved comprehensive test coverage and clean separation of concerns (detection, caching, API).
+- **Learning:** In-memory TTL caching with Redis-parity semantics accelerates development while securing a migration path to production Redis.
+
+### #140
+- **Went Well:** Successfully implemented intervention widget with feature flags for controlled rollout.
+- **Learning:** Prisma `Decimal` types require explicit conversion to numbers in TypeScript. Always run the full build pipeline locally, as existing lint errors can block CI.
+
+### #142
+- **Went Well:** Scoped linting and type tightening merged smoothly via auto-merge.
+- **Learning:** Centralize shared component types (e.g., quiz questions) to prevent recurring type errors.
+
+### #158
+- **Went Well:** Fixed Grade 3 data at the source and created a reusable Markdown-to-JSON conversion script.
+- **Learning:** Fix structured content issues in seed data rather than using runtime heuristics. Always verify data formats (e.g., Markdown vs. JSON) across different grades.
+
+### #160
+- **Went Well:** Efficiently scripted the update of missing frontmatter across documentation.
+- **Learning:** Legacy, monolithic documentation should be consolidated or archived to reduce technical debt.
+
+### #162
+- **Went Well:** Deployed configurable AI diagram generation with prompt guardrails.
+- **Learning:** Robust image handling (key presence, fallbacks, caps) requires enforcement via a dedicated, tested service layer.
+
+### #163
+- **Went Well:** Shipped image gallery with responsive layouts, lightbox, and accessibility features.
+- **Learning:** Mock `Next/Image` props in tests and scope queries to avoid duplicate matches. Use defensive checks for `window` availability when preloading resources.
+
+### #164 - feat/150-source-and-optimize-assets
+
+# Retrospective Summary
+
+## What Went Well
+
+*   **Automated Image Optimization & Validation:** Successfully implemented automated processes for image optimization and validation, ensuring efficient and high-quality asset management.
+*   **Complete Grade 4 Asset Set:** Integrated the full set of Grade 4 assets, contributing to comprehensive content delivery.
+
+## Lessons Learned
+
+*   **In-house SVG Generation for Licensing and Performance:** Generating SVG assets in-house proved critical for maintaining clean licensing and adhering to performance budgets (sub-200KB) and manifest checks. This approach ensures greater control and compliance.
+
+<details>
+<summary>Original inputs</summary>
+
+- **Went well:** Automated image optimization and validation added alongside full Grade 4 asset set.
+- **Lesson:** Generating in-house SVG sources keeps licensing clean while meeting the sub-200KB budget and manifest checks.
+</details>
+
