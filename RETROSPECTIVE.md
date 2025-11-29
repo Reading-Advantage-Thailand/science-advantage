@@ -136,3 +136,21 @@ The project highlighted the need for a consolidated and streamlined documentatio
 - **Lesson:** Legacy documentation organization required consolidation; archiving monolithic docs improves clarity.
 </details>
 
+
+### #162 - feat/161-integrate-nanobanana-pro-for-ai-diagram-generation
+
+## Retrospective Summary
+
+### What Went Well:
+- Successfully implemented a configurable AI diagram generation pipeline, including prompt guardrails and optimization, significantly improving control and efficiency.
+
+### Lessons Learned:
+- It is crucial to enforce robust image call handling. This includes ensuring key presence, defining clear fallback ordering, and establishing post-processing caps. These measures should be implemented via a dedicated service layer with comprehensive test coverage to ensure system stability and reliability.
+
+<details>
+<summary>Original inputs</summary>
+
+- **Went well:** Added configurable AI diagram generation pipeline with prompt guardrails and optimization.
+- **Lesson:** Ensure image calls enforce key presence, fallback ordering, and post-processing caps via dedicated service + tests.
+</details>
+
