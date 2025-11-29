@@ -65,3 +65,5 @@ temp/
 .bmad-core/
 .bmad-*/
 \n.tmp/
+# Asset originals (kept out of git; optimized derivatives committed)
+public/images/lessons/originals/
