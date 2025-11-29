@@ -1,3 +1,10 @@
+---
+title: Component Library Specifications
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, component-library, specifications, archive]
+---
 # Component Library Specifications
 
 ## Science-Specific Components

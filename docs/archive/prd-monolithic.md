@@ -1,3 +1,10 @@
+---
+title: Science Advantage Product Requirements Document (PRD)
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [prd, archive]
+---
 # Science Advantage Product Requirements Document (PRD)
 
 ## Goals and Background Context
@@ -46,7 +53,7 @@ FR15: The platform shall provide content management system for regular curriculu
 
 NFR1: The platform shall achieve 99.5% uptime availability with automated failover and disaster recovery
 NFR2: The platform shall maintain application load times under 2 seconds for all core functions
-NFR3: The platform shall support API response times under 500ms for core educational functions
+NFR3: The platform shall maintain API response times under 500ms for core educational functions
 NFR4: The platform shall scale to support 100,000 concurrent users across the ecosystem without performance degradation
 NFR5: The platform shall comply with Thai data privacy regulations and student data protection requirements
 NFR6: The platform shall provide end-to-end encryption for all student data and communication

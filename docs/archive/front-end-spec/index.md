@@ -1,3 +1,10 @@
+---
+title: Science Advantage UI/UX Specification - Index
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, ui/ux, specification, index, archive]
+---
 # Science Advantage UI/UX Specification
 
 ## Table of Contents

@@ -1,3 +1,10 @@
+---
+title: Responsiveness Strategy
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, responsiveness, mobile, tablet, desktop, archive]
+---
 # Responsiveness Strategy
 
 ## Breakpoints

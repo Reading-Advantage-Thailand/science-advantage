@@ -1,3 +1,11 @@
+---
+title: Science Advantage Web App — UX/UI Style Guide
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, ui/ux, style-guide, archive]
+---
+
 # Science Advantage Web App — UX/UI Style Guide
 
 **Version:** 1.0

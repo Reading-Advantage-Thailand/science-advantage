@@ -1,3 +1,10 @@
+---
+title: Accessibility Requirements
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, accessibility, wcag, thai-language, archive]
+---
 # Accessibility Requirements
 
 ## Compliance Target

@@ -1,3 +1,10 @@
+---
+title: Animation & Micro-interactions
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, animation, micro-interactions, archive]
+---
 # Animation & Micro-interactions
 
 ## Motion Principles

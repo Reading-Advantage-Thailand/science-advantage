@@ -1,3 +1,10 @@
+---
+title: Wireframes & Mockups
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, wireframes, mockups, ux, ui, archive]
+---
 # Wireframes & Mockups
 
 **Primary Design Files:** Figma design system to be created following this specification

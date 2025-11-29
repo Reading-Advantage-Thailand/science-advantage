@@ -1,3 +1,10 @@
+---
+title: Archived Documentation README
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [archive, readme, documentation]
+---
 # Archived Documentation
 
 This directory stores legacy documentation retained from the pre–git-workflow migration.  

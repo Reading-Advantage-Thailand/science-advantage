@@ -1,3 +1,10 @@
+---
+title: Next Steps
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, next-steps, design, development, archive]
+---
 # Next Steps
 
 ## Immediate Actions

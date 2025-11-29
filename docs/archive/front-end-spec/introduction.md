@@ -1,3 +1,10 @@
+---
+title: Introduction
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, introduction, ux, goals, principles, archive]
+---
 # Introduction
 
 This document defines the user experience goals, information architecture, user flows, and visual design specifications for Science Advantage's user interface. It serves as the foundation for visual design and frontend development, ensuring a cohesive and user-centered experience.
@@ -27,7 +34,6 @@ This document defines the user experience goals, information architecture, user 
 - Science teacher at Thai private school
 - Manages 30-40 students per class
 - Limited time for individual student attention
-- Needs efficient classroom management tools
 - Values data-driven insights for student improvement
 - Requires bilingual content for international students
 

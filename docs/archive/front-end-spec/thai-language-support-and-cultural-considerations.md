@@ -1,3 +1,10 @@
+---
+title: Thai Language Support and Cultural Considerations
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, localization, thai, culture, accessibility, archive]
+---
 # Thai Language Support and Cultural Considerations
 
 ## Language Implementation

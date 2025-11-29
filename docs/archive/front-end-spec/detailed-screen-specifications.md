@@ -1,3 +1,10 @@
+---
+title: Detailed Screen Specifications
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, ui, ux, screen-specifications, archive]
+---
 # Detailed Screen Specifications
 
 ## Virtual Laboratory Interface
@@ -134,7 +141,7 @@
 **Layout Structure:**
 
 - **Header (60px):** Child selection, date range, notifications, language
-- **Summary Dashboard (flex):** Key metrics, recent activities, achievements
+- **Summary Dashboard (flex)::** Key metrics, recent activities, achievements
 - **Detailed Views (flex):** Subject-specific progress and insights
 - **Action Panel (280px):** Communication tools, home activities, settings
 

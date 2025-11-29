@@ -1,3 +1,10 @@
+---
+title: Performance Considerations
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, performance, optimization, archive]
+---
 # Performance Considerations
 
 ## Performance Goals

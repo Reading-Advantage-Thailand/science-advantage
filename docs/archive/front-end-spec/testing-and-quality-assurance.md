@@ -1,3 +1,10 @@
+---
+title: Testing and Quality Assurance
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, testing, qa, accessibility, performance, archive]
+---
 # Testing and Quality Assurance
 
 ## Accessibility Testing
