@@ -1,3 +1,10 @@
+---
+title: Component Library / Design System
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, component-library, design-system, archive]
+---
 # Component Library / Design System
 
 **Design System Approach:** Extend existing Advantage ecosystem design system with science-specific components while maintaining consistency across products

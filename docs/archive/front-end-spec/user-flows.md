@@ -1,3 +1,10 @@
+---
+title: User Flows
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, user-flows, ux, student, teacher, parent, archive]
+---
 # User Flows
 
 ## Student Science Experiment Flow

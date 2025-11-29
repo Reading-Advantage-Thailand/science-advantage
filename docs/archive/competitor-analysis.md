@@ -1,3 +1,11 @@
+---
+title: Competitor Analysis
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [competitor-analysis, archive]
+---
+
 # Competitive Analysis: Science Advantage
 
 ## Document Information
@@ -75,7 +83,7 @@ The Thai education technology market has experienced significant acceleration po
 - International school entrance prep
 - Subject-specific tutoring
 
-**Language Learning (฿2-3 billion market):**
+**Language Learning (฿2-3 billion market):
 
 - English language platforms
 - Chinese language learning (growing segment)
@@ -477,7 +485,7 @@ The Thai education technology market has experienced significant acceleration po
 - **Cross-Subject Analytics**: Holistic student performance across reading, science, and primary education
 - **Bundled Pricing**: Cost-effective comprehensive solutions vs. single-subject competitors
 - **Single Sign-On**: One platform for multiple subjects reduces administrative overhead
-- **Established Relationships**: Leverage existing Reading Advantage school partnerships
+- **Established Relationships**: Leverage existing Advantage school partnerships
 
 **Technology Differentiation:**
 
@@ -570,7 +578,7 @@ The Thai education technology market has experienced significant acceleration po
 - **Teacher Training**: Integrated professional development across subjects
 - **Volume-Based Pricing**: Multi-school, multi-product discounts
 
-**B2C Strategy (Parents):**
+**B2C Strategy (Parents):
 
 - **Multi-Child Discounts**: Families with children in different grade levels
 - **Cross-Subject Promotions**: Reading + Science bundle offers

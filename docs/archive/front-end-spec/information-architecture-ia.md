@@ -1,3 +1,10 @@
+---
+title: Information Architecture (IA)
+type: archive
+status: deprecated
+created_at: 2025-11-29
+tags: [front-end, information-architecture, ia, archive]
+---
 # Information Architecture (IA)
 
 ## Site Map / Screen Inventory
