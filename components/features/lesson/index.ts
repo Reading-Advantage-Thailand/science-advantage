@@ -14,3 +14,5 @@ export {
   ProcedureBlock,
   MaterialsBlock,
 } from './blocks';
+export { ImageGallery } from './image-gallery';
+export type { ImageGalleryProps, ImageGalleryLayout } from './image-gallery';
