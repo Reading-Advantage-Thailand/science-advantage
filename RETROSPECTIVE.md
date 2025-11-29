@@ -154,3 +154,64 @@ The project highlighted the need for a consolidated and streamlined documentatio
 - **Lesson:** Ensure image calls enforce key presence, fallback ordering, and post-processing caps via dedicated service + tests.
 </details>
 
+## Summarized Sprints (via Gemini)
+
+The file `retro_to_summarize_1859898.md` appears to be empty. However, I found the retrospective entries in `RETROSPECTIVE.md` and have summarized them below as requested.
+
+### #137
+- **Went Well:** Implemented spec-compliant LLM flow with observability-wired cached endpoints.
+- **Learning:** Route AI calls through Vercel AI SDK `generateObject` to ensure schema validation and enable multi-model failover.
+
+### #138
+- **Went Well:** Smooth deployment of feature flags and localized cards using reusable `shadcn/ui` primitives.
+- **Learning:** Explicitly stub `Next.js Link` in unit tests to prevent `jsdom` navigation failures.
+
+### #139
+- **Went Well:** achieved comprehensive test coverage and clean separation of concerns (detection, caching, API).
+- **Learning:** In-memory TTL caching with Redis-parity semantics accelerates development while securing a migration path to production Redis.
+
+### #140
+- **Went Well:** Successfully implemented intervention widget with feature flags for controlled rollout.
+- **Learning:** Prisma `Decimal` types require explicit conversion to numbers in TypeScript. Always run the full build pipeline locally, as existing lint errors can block CI.
+
+### #142
+- **Went Well:** Scoped linting and type tightening merged smoothly via auto-merge.
+- **Learning:** Centralize shared component types (e.g., quiz questions) to prevent recurring type errors.
+
+### #158
+- **Went Well:** Fixed Grade 3 data at the source and created a reusable Markdown-to-JSON conversion script.
+- **Learning:** Fix structured content issues in seed data rather than using runtime heuristics. Always verify data formats (e.g., Markdown vs. JSON) across different grades.
+
+### #160
+- **Went Well:** Efficiently scripted the update of missing frontmatter across documentation.
+- **Learning:** Legacy, monolithic documentation should be consolidated or archived to reduce technical debt.
+
+### #162
+- **Went Well:** Deployed configurable AI diagram generation with prompt guardrails.
+- **Learning:** Robust image handling (key presence, fallbacks, caps) requires enforcement via a dedicated, tested service layer.
+
+### #163 - feat/148-image-gallery
+
+```markdown
+# Retrospective Summary: Image Gallery Feature
+
+## What Went Well
+
+-   **Image Gallery Delivered:** Successfully shipped the image gallery feature, including responsive layouts, a functional lightbox, and reduced-motion handling for improved accessibility.
+-   **Comprehensive Testing:** Key interactions and functionalities are well-covered by existing tests, ensuring stability.
+
+## Lessons Learned
+
+-   **Testing Best Practices:**
+    -   Explicitly mock `Next/Image` props in tests to prevent unexpected behavior and ensure isolated component testing.
+    -   Scope DOM queries specifically to the lightbox component when testing to avoid encountering duplicate `alt` attribute matches.
+-   **Defensive Client-Side Rendering:** Implement defensive checks for `window` availability (e.g., `typeof window !== 'undefined'`) when performing client-side preload operations, especially for libraries or functionalities that rely on browser APIs. This prevents server-side rendering issues.
+```
+
+<details>
+<summary>Original inputs</summary>
+
+- **Went well:** Image gallery shipped with responsive layouts, lightbox, and reduced-motion handling; tests cover key interactions.
+- **Lesson:** Mock Next/Image props explicitly in tests and scope queries to lightbox to avoid duplicate alt matches; prefer defensive preload checks for window availability.
+</details>
+
