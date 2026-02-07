@@ -4,8 +4,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [ ] Track: Fix and complete the Quiz Taking System (API and UI)
-*Link: [./conductor/tracks/quiz_system_20260114/](./conductor/tracks/quiz_system_20260114/)*
+## [x] Track: Fix and complete the Quiz Taking System (API and UI)
+*Link: [./conductor/archive/quiz_system_20260114/](./conductor/archive/quiz_system_20260114/)*
 
 ## [ ] Track: Authorization Centralization
 *Link: [./conductor/tracks/auth_centralization_20260206/](./conductor/tracks/auth_centralization_20260206/)*
