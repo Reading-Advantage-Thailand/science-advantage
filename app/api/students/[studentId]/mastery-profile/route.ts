@@ -79,7 +79,7 @@ export async function GET(
 
     // Authorization: student can only access self, or teacher/admin with dev impersonation
     const isOwnProfile = session.user.id === studentId;
-    const isDev = env.NEXT_PUBLIC_DEV_AUTH;
+    const isDev = env.DEV_AUTH_ENABLED;
     const isTeacherOrAdmin =
       session.user.role === 'TEACHER' || session.user.role === 'ADMIN';
     const canImpersonate = isDev && isTeacherOrAdmin;

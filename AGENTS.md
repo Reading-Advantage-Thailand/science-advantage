@@ -20,7 +20,7 @@ Tests are organized by scope. Execute `npm run test` for unit coverage, `npm run
 
 ## Commit & Pull Request Guidelines
 
-Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`) to keep history machine-readable. Keep commits scoped to a single concern and include context about affected modules. Pull requests should link to Jira or GitHub issues, describe functional changes, list test commands executed, and attach screenshots or screen recordings for UI updates. Flag any schema or environment changes in the PR summary so reviewers can coordinate migrations.
+Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`) to keep history machine-readable. Keep commits scoped to a single concern and include context about affected modules. The Conductor skill manages commit workflow during implementation (including git notes for auditability), so follow its conventions when working within a track. Pull requests should describe functional changes, list test commands executed, and attach screenshots or screen recordings for UI updates. Flag any schema or environment changes in the PR summary so reviewers can coordinate migrations.
 
 ## Environment & Security Tips
 
@@ -31,100 +31,42 @@ Duplicate `.env.example` into `.env.local` before development and populate crede
 - Only Google OAuth is enabled.
 - Localhost sign-in is restricted to the single Google account `bodangren@gmail.com`.
 - There are no seeded email/password accounts; tests requiring other roles must mock the session layer.
-- A dev-only impersonation toggle is available when `NEXT_PUBLIC_DEV_AUTH=true`. Use the panel on `/signin` to assume teacher or student roles; the override stores an HTTP-only cookie and is automatically cleared on sign out.
+- A dev-only impersonation toggle is available when `DEV_AUTH_ENABLED=true`. Use the panel on `/signin` to assume teacher or student roles; the override stores an HTTP-only cookie and is automatically cleared on sign out.
 - Any new feature must remain production-secure (no dev overrides leaking to prod) while still supporting the dev impersonation flow so manual QA can run locally.
 
-## GitHub-Centric Workflow (gh CLI)
+## Development Workflow (Conductor)
 
-- Location: Complete details at .claude/skills/git-workflow/SKILLS.md
-- Default branch: `main` (trunk-based). Create one short-lived branch per issue. Do not create sprint branches.
-- Sprints: Use GitHub Milestones (recommended) and/or Projects for tracking. Assign every issue to the current milestone.
-- Labels: `type:feature`, `type:fix`, `type:chore`, `area:frontend`, `area:backend`, `area:prisma`, `area:auth`, `priority:P1|P2|P3`.
-- Commit style: Conventional Commits. Prefer squash merge to keep history clean.
+All feature development, bug fixes, and chores follow the **Conductor** spec-driven workflow. Invoke it with the `/conductor` skill command. Conductor manages:
 
-### Prerequisites
+- **Tracks**: Units of work (feature, bug, chore) with a spec (`spec.md`) and phased implementation plan (`plan.md`) stored under `conductor/tracks/`.
+- **TDD enforcement**: Red → Green → Refactor for every task, with >80% coverage targets.
+- **Task lifecycle**: Pending `[ ]` → In Progress `[~]` → Completed `[x]`, with atomic commits and git notes for auditability.
+- **Phase checkpoints**: Automated test runs, manual verification gates, and checkpoint commits between phases.
+- **Status and revert**: Built-in status reporting and safe git-based revert of completed work.
 
-- Install GitHub CLI: `gh auth login` and ensure you have repo scope.
-- Ensure branch protection on `main` requires PR, 1+ approval, and passing checks.
+Conductor configuration and product-level docs live in `conductor/` (product.md, tech-stack.md, workflow.md, tracks.md). Refer to `.claude/skills/conductor/` for full skill documentation.
 
-### Issue → Branch → PR
+### Git Conventions
 
-1. Create issue in current sprint and start a branch
-   - `export SPRINT_MILESTONE="S0 – Skeleton + Auth"`
-   - `TITLE="<short issue title>"`
-   - `DESC="<what/why + acceptance criteria summary>"`
-   - `NUM=$(gh issue create --title "$TITLE" --body "$DESC" --label "type:feature" --milestone "$SPRINT_MILESTONE" --assignee @me --json number --jq .number)`
-   - `BR="feat/${NUM}-$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g;s/^-|-$//g' | cut -c1-40)"`
-   - `git switch -c "$BR"`
+- Default branch: `main` (trunk-based). Each track gets its own branch; merge back into `main` once the track is fully complete.
+- Branch naming: `<type>/<issue-number>-<kebab-title>` where `<type>` is `feat|fix|chore|docs|refactor|test`.
+- Commit style: Conventional Commits. Conductor prefixes its own housekeeping commits with `conductor()`.
+- Prefer squash merge when closing PRs to keep history clean.
+- Use `gh` CLI for PR creation and management. Ensure `gh auth login` is configured with repo scope.
 
-2. Work the todo
-   - Commit with Conventional Commits (`feat:`, `fix:`, `chore:`). Keep changes scoped to the issue.
-   - Run `npm run lint` and relevant tests before pushing.
+### Track Completion
 
-3. Publish branch and open PR
-   - `git push -u origin "$BR"`
-   - `gh pr create --fill --label "type:feature" --milestone "$SPRINT_MILESTONE" --draft=false`
-   - Request review (can target a “review agent” account): `gh pr edit --add-reviewer <github-user>`
-   - Enable auto-merge (squash): `gh pr merge --auto --squash`
+When all tasks and phases in a track are complete:
 
-4. After merge
-   - `git checkout main && git pull --ff-only`
-   - `git branch -d "$BR" && gh branch delete "$BR" -y`
-
-### Branch Naming
-
-- Format: `<type>/<issue-number>-<kebab-title>` where `<type>` ∈ `feat|fix|chore|docs|refactor|test`.
-- Examples: `feat/123-lesson-viewer`, `fix/207-auth-callback`, `chore/319-ci-cache`.
-
-### Sprint Organization
-
-- Milestones: One per sprint (e.g., `S0 – Skeleton + Auth`). Issues must have a milestone.
-- Projects (optional): If using Projects, add issues after creation: `gh project item-add --owner <org-or-user> --number <project-number> --url $(gh issue view $NUM --json url --jq .url)`.
-- No sprint branches: use the milestone to group issues; branches stay per-issue off `main`.
-
-### Sprint Kickoff Automation
-
-- Author stories with user stories + acceptance criteria in `docs/sprint/SX.md` using `##` headers per story.
-- Seed issues (dry-run first): `scripts/seed-issues.sh docs/sprint/S0.md "S0 – Skeleton + Auth"`
-- Apply for real: `ASSIGNEE=@me EXTRA_LABELS="priority:P1" scripts/seed-issues.sh docs/sprint/S0.md "S0 – Skeleton + Auth" --apply`
-- Then work each issue using the Issue → Branch → PR flow above.
-
-### Safety & Automation
-
-- Required checks: CI must run lint, unit tests, and integration tests on PRs.
-- CODEOWNERS: add reviewers by path to enforce relevant approvals.
-- Templates: use Issue/PR templates to capture acceptance criteria and test notes.
-- Auto-labeling (optional): set up a GitHub Action to apply `area:*` labels by path.
-
-### TDD Protocol
-
-- Red → Green → Refactor for every story.
-- Start with tests:
-  - Unit tests for pure functions, hooks, and utilities.
-  - Integration tests for API routes and Prisma flows (`npm run test:integration`).
-  - E2E for the main happy path of the slice (`npm run test:e2e`).
-- Keep tests adjacent to code using `.test.ts`/`.spec.ts`. Seed deterministic fixtures for integration.
-- Mocks: only at boundaries (OpenAI, Google, Auth) using in-repo stubs.
-- PRs must include a Test Plan section and evidence (logs/screenshots) that tests pass.
-- Coverage goal for core modules: ≥80% lines (do not block MVP if it risks delivery; raise post-MVP).
-
-### Quick Aliases (optional)
-
-- Create issue + branch in one command:
-  - `gh alias set start '!f(){ NUM=$(gh issue create --title "$1" --body "${2:-No body}" --label "type:feature" --milestone "$SPRINT_MILESTONE" --assignee @me --json number --jq .number); BR=feat/$NUM-$(echo "$1"|tr A-Z a-z|sed -E "s/[^a-z0-9]+/-/g;s/^-|-$//g"|cut -c1-40); git switch -c "$BR"; echo "$BR"; }; f'`
-- Open PR with auto-merge:
-  - `gh alias set publish 'pr create --fill && pr merge --auto --squash'`
-
-### Review Protocol
-
-- Reviewer checks: scope, tests, security for auth/db changes, migrations reviewed.
-- If changes requested: push fixes to the same branch; auto-merge continues after approval.
-- If the PR is merged: always sync back to `main`; never continue work on a merged branch.
+1. Open a PR from the track branch into `main`.
+2. After merge, archive the track documentation by moving its directory from `conductor/tracks/` to `conductor/archive/`.
+3. Mark the track as `[x]` in `conductor/tracks.md`.
+4. Delete the remote and local track branch.
 
 ## AI Collaboration Guidelines
 
-- Default to the spec-first workflow documented in `CLAUDE.md`.
-- Reference capability specs in `docs/specs/` before starting implementation and document requirement updates directly in those specs.
-- Use GitHub issues and pull requests as the primary coordination mechanism; avoid role-based agent commands from the legacy process.
-- When delegating to AI tooling, include the relevant spec excerpt, acceptance criteria, and test expectations so work stays aligned with the git-centric flow.
+- Default to the Conductor spec-driven workflow. Use `/conductor` to create tracks, implement tasks, check status, or revert work.
+- Reference track specs in `conductor/tracks/` before starting implementation and document requirement updates directly in those specs.
+- Use GitHub issues and pull requests for coordination; Conductor tracks complement issues rather than replacing them.
+- When delegating to AI tooling, include the relevant spec excerpt, acceptance criteria, and test expectations so work stays aligned with the track's plan.
 

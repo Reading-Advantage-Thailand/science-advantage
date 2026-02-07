@@ -178,7 +178,14 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   // Check if all questions are answered
   const allQuestionsAnswered = useCallback(() => {
     if (!quizData) return false;
-    return quizData.questions.every(q => answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== '');
+    return quizData.questions.every(q => {
+      const answer = answers[q.id];
+      if (answer === undefined || answer === null) return false;
+      if (typeof answer === 'string') return answer !== '';
+      if (Array.isArray(answer)) return answer.length > 0;
+      if (typeof answer === 'object') return Object.keys(answer).length > 0;
+      return true; // boolean or number
+    });
   }, [quizData, answers]);
 
   // Submit quiz

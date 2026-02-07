@@ -61,7 +61,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
 
   describe('Valid Session', () => {
     it('should return session for valid session token', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await GET();
       const data = await response.json();
@@ -75,7 +75,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
     });
 
     it('should include expiration time in session', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await GET();
       const data = await response.json();
@@ -87,7 +87,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
     });
 
     it('should return all user fields in session', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await GET();
       const data = await response.json();
@@ -118,7 +118,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
 
         const session = await createSession(user.id);
 
-        mockCookies.get.mockReturnValue({ value: session.id });
+        mockCookies.get.mockReturnValue({ value: session.token });
 
         const response = await GET();
         const data = await response.json();
@@ -186,7 +186,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
 
   describe('Error Handling', () => {
     it('should handle database errors gracefully', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const findSpy = vi
         .spyOn(sessionModule, 'getCurrentSession')
@@ -216,7 +216,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
 
   describe('Response Format', () => {
     it('should return correct response structure with session', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await GET();
       const data = await response.json();
@@ -237,7 +237,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
     });
 
     it('should not expose sensitive session fields', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await GET();
       const data = await response.json();
@@ -252,7 +252,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
       const session2 = await createSession(testUser.id);
 
       // Test first session
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
       const response1 = await GET();
       const data1 = await response1.json();
 
@@ -271,7 +271,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
 
   describe('User Data Updates', () => {
     it('should reflect latest user data from database', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       // Update user data
       await prisma.user.update({
@@ -286,7 +286,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
     });
 
     it('should reflect role changes', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       // Update user role
       await prisma.user.update({
@@ -303,7 +303,7 @@ describe('GET /api/auth/session - Integration Tests', () => {
 
   describe('Edge Cases', () => {
     it('should handle deleted user gracefully', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       // Delete the user
       await prisma.user.delete({ where: { id: testUser.id } });

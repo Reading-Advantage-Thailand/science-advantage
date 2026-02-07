@@ -30,7 +30,7 @@ describe('GET /api/teachers/classes/[classId]/intervention-alerts', () => {
 
   async function authenticate(userId: string) {
     const session = await createSession(userId);
-    mockCookies.get.mockReturnValue({ value: session.id });
+    mockCookies.get.mockReturnValue({ value: session.token });
   }
 
   function buildRequest(query = '') {

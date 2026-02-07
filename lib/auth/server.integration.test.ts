@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 import type { user as UserModel } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { requireAuth, requireRole, hasRole, getSession } from './server';
-import { createSession, setPrismaClient } from './session';
+import { createSession } from './session';
 import type { Session } from './types';
 
 // Mock next/navigation
@@ -23,9 +23,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('Auth Server Helpers', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
   let studentUser: UserModel;
   let teacherUser: UserModel;
   let adminUser: UserModel;
@@ -247,7 +244,7 @@ describe('Auth Server Helpers', () => {
   describe('requireAuth', () => {
     it('should return session when user is authenticated', async () => {
       const session = await createSession(studentUser.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const result = await requireAuth();
       expect(result.user.id).toBe(session.user.id);

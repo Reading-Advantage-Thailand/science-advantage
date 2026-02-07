@@ -166,7 +166,7 @@ describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
 
   it('returns 404 when lesson does not exist', async () => {
     const session = await createSession(testStudent.id);
-    mockCookies.get.mockReturnValue({ value: session.id });
+    mockCookies.get.mockReturnValue({ value: session.token });
 
     const request = new NextRequest('http://localhost:3000/api/lessons/missing-lesson');
     const response = await GET(request, {
@@ -180,7 +180,7 @@ describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
 
   it('returns 403 when user is not connected to a class with the lesson', async () => {
     const session = await createSession(otherStudent.id);
-    mockCookies.get.mockReturnValue({ value: session.id });
+    mockCookies.get.mockReturnValue({ value: session.token });
 
     const request = new NextRequest('http://localhost:3000/api/lessons/lesson-endpoint');
     const response = await GET(request, {
@@ -194,7 +194,7 @@ describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
 
   it('allows an enrolled student to fetch lesson content', async () => {
     const session = await createSession(testStudent.id);
-    mockCookies.get.mockReturnValue({ value: session.id });
+    mockCookies.get.mockReturnValue({ value: session.token });
 
     const request = new NextRequest('http://localhost:3000/api/lessons/lesson-endpoint');
     const response = await GET(request, {
@@ -220,7 +220,7 @@ describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
 
   it('allows the class teacher to fetch lesson content', async () => {
     const session = await createSession(testTeacher.id);
-    mockCookies.get.mockReturnValue({ value: session.id });
+    mockCookies.get.mockReturnValue({ value: session.token });
 
     const request = new NextRequest('http://localhost:3000/api/lessons/lesson-endpoint');
     const response = await GET(request, {

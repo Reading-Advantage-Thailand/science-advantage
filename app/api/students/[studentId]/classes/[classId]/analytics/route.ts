@@ -45,15 +45,6 @@ export async function GET(
       return NextResponse.json({ error: 'Class not found' }, { status: 404 });
     }
 
-    // Check if student is enrolled in this class
-    const student = classRecord.students[0];
-    if (!student) {
-      return NextResponse.json(
-        { error: 'Student not found in this class' },
-        { status: 404 }
-      );
-    }
-
     // Check authorization: teacher must own the class or be admin
     const isTeacherOwner = classRecord.teacherId === session.user.id;
     const isAdmin = session.user.role === 'ADMIN';
@@ -61,6 +52,15 @@ export async function GET(
     if (!isTeacherOwner && !isAdmin) {
       return NextResponse.json(
         { error: 'Unauthorized access to student analytics' },
+        { status: 403 }
+      );
+    }
+
+    // Check if student is enrolled in this class
+    const student = classRecord.students[0];
+    if (!student) {
+      return NextResponse.json(
+        { error: 'Student is not enrolled in this class' },
         { status: 403 }
       );
     }

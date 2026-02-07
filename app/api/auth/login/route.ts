@@ -1,23 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import { verifyPassword } from '@/lib/auth/password';
 import { createSession, setSessionCookie } from '@/lib/auth/session';
+import { LoginRateLimiter } from '@/lib/auth/rate-limit';
+
+const loginSchema = z.object({
+  username: z.string().min(1, 'Username is required').max(100, 'Username too long'),
+  password: z.string().min(1, 'Password is required').max(128, 'Password too long'),
+});
+
+const rateLimiter = new LoginRateLimiter({
+  maxAttempts: 5,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+});
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { username, password } = body;
+    const parsed = loginSchema.safeParse(body);
 
-    if (!username || !password) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Username and password are required' },
+        { error: parsed.error.issues[0].message },
         { status: 400 }
+      );
+    }
+
+    const { username, password } = parsed.data;
+    const normalizedUsername = username.toLowerCase();
+
+    // Check rate limit before any DB/bcrypt work
+    const limitCheck = rateLimiter.checkLimit(normalizedUsername);
+    if (!limitCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many failed login attempts. Please try again later.' },
+        {
+          status: 429,
+          headers: { 'Retry-After': String(limitCheck.retryAfterSeconds) },
+        }
       );
     }
 
     // Find user by username
     const user = await prisma.user.findUnique({
-      where: { username: username.toLowerCase() },
+      where: { username: normalizedUsername },
       include: {
         account: {
           where: { providerId: 'credential' },
@@ -27,6 +54,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (!user || user.account.length === 0 || !user.account[0].password) {
+      rateLimiter.recordFailure(normalizedUsername);
       return NextResponse.json(
         { error: 'Invalid username or password' },
         { status: 401 }
@@ -40,17 +68,21 @@ export async function POST(request: NextRequest) {
     );
 
     if (!isValidPassword) {
+      rateLimiter.recordFailure(normalizedUsername);
       return NextResponse.json(
         { error: 'Invalid username or password' },
         { status: 401 }
       );
     }
 
+    // Successful login - reset rate limit counter
+    rateLimiter.recordSuccess(normalizedUsername);
+
     // Create session
     const session = await createSession(user.id);
 
-    // Set session cookie
-    await setSessionCookie(session.id);
+    // Set session cookie using the token (not the id)
+    await setSessionCookie(session.token!);
 
     return NextResponse.json({
       success: true,
@@ -64,3 +96,13 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+export const _testkit = {
+  resetRateLimiter() {
+    // Recreate the rate limiter to clear state between tests
+    Object.assign(rateLimiter, new LoginRateLimiter({
+      maxAttempts: 5,
+      windowMs: 15 * 60 * 1000,
+    }));
+  },
+};

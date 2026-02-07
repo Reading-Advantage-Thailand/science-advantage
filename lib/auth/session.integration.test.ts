@@ -46,6 +46,8 @@ describe('Session Management', () => {
       expect(session).toBeDefined();
       expect(session.userId).toBe(testUserId);
       expect(session.id).toBeDefined();
+      expect(session.token).toBeDefined();
+      expect(session.id).not.toBe(session.token);
       expect(session.expiresAt).toBeInstanceOf(Date);
       expect(session.user).toBeDefined();
       expect(session.user.id).toBe(testUserId);
@@ -70,6 +72,7 @@ describe('Session Management', () => {
       const session1 = await createSession(testUserId);
       const session2 = await createSession(testUserId);
 
+      expect(session1.token).not.toBe(session2.token);
       expect(session1.id).not.toBe(session2.id);
     });
 
@@ -86,7 +89,7 @@ describe('Session Management', () => {
       const session = await createSession(testUserId);
 
       const dbSession = await prisma.session.findUnique({
-        where: { token: session.id },
+        where: { token: session.token! },
       });
 
       expect(dbSession).toBeDefined();
@@ -103,7 +106,7 @@ describe('Session Management', () => {
       const session1 = await createSession(testUserId);
       const session2 = await createSession(testUserId);
 
-      expect(session1.id).not.toBe(session2.id);
+      expect(session1.token).not.toBe(session2.token);
 
       const sessions = await prisma.session.findMany({
         where: { userId: testUserId },
@@ -116,7 +119,7 @@ describe('Session Management', () => {
   describe('validateSession', () => {
     it('should validate a valid session token', async () => {
       const createdSession = await createSession(testUserId);
-      const validatedSession = await validateSession(createdSession.id);
+      const validatedSession = await validateSession(createdSession.token!);
 
       expect(validatedSession).toBeDefined();
       expect(validatedSession?.id).toBe(createdSession.id);
@@ -144,7 +147,7 @@ describe('Session Management', () => {
         data: { expiresAt: new Date(Date.now() - 1000) }, // 1 second ago
       });
 
-      const validatedSession = await validateSession(session.id);
+      const validatedSession = await validateSession(session.token!);
 
       expect(validatedSession).toBeNull();
 
@@ -158,7 +161,7 @@ describe('Session Management', () => {
 
     it('should include user data in validated session', async () => {
       const createdSession = await createSession(testUserId);
-      const validatedSession = await validateSession(createdSession.id);
+      const validatedSession = await validateSession(createdSession.token!);
 
       expect(validatedSession?.user.name).toBe('Test User');
       expect(validatedSession?.user.username).toBe('testuser');
@@ -174,7 +177,7 @@ describe('Session Management', () => {
         data: { expiresAt: new Date(Date.now() + 1000) },
       });
 
-      const validatedSession = await validateSession(session.id);
+      const validatedSession = await validateSession(session.token!);
 
       expect(validatedSession).toBeDefined();
       expect(validatedSession?.id).toBe(session.id);
@@ -198,7 +201,7 @@ describe('Session Management', () => {
         });
 
         const session = await createSession(user.id);
-        const validated = await validateSession(session.id);
+        const validated = await validateSession(session.token!);
 
         expect(validated?.user.role).toBe(role);
       }
@@ -209,10 +212,10 @@ describe('Session Management', () => {
     it('should delete an existing session', async () => {
       const session = await createSession(testUserId);
 
-      await deleteSession(session.id);
+      await deleteSession(session.token!);
 
       const dbSession = await prisma.session.findUnique({
-        where: { token: session.id },
+        where: { token: session.token! },
       });
 
       expect(dbSession).toBeNull();
@@ -227,9 +230,9 @@ describe('Session Management', () => {
     it('should not throw when deleting already deleted session', async () => {
       const session = await createSession(testUserId);
 
-      await deleteSession(session.id);
+      await deleteSession(session.token!);
       await expect(
-        deleteSession(session.id)
+        deleteSession(session.token!)
       ).resolves.not.toThrow();
     });
 
@@ -237,13 +240,13 @@ describe('Session Management', () => {
       const session1 = await createSession(testUserId);
       const session2 = await createSession(testUserId);
 
-      await deleteSession(session1.id);
+      await deleteSession(session1.token!);
 
       const dbSession1 = await prisma.session.findUnique({
-        where: { token: session1.id },
+        where: { token: session1.token! },
       });
       const dbSession2 = await prisma.session.findUnique({
-        where: { token: session2.id },
+        where: { token: session2.token! },
       });
 
       expect(dbSession1).toBeNull();
@@ -253,9 +256,9 @@ describe('Session Management', () => {
     it('should make deleted session unvalidatable', async () => {
       const session = await createSession(testUserId);
 
-      await deleteSession(session.id);
+      await deleteSession(session.token!);
 
-      const validated = await validateSession(session.id);
+      const validated = await validateSession(session.token!);
       expect(validated).toBeNull();
     });
   });
@@ -266,12 +269,12 @@ describe('Session Management', () => {
       const session2 = await createSession(testUserId);
 
       // Tokens should be hexadecimal strings
-      expect(session1.id).toMatch(/^[0-9a-f]+$/);
-      expect(session2.id).toMatch(/^[0-9a-f]+$/);
+      expect(session1.token).toMatch(/^[0-9a-f]+$/);
+      expect(session2.token).toMatch(/^[0-9a-f]+$/);
 
       // Tokens should be 64 characters (32 bytes * 2 for hex)
-      expect(session1.id.length).toBe(64);
-      expect(session2.id.length).toBe(64);
+      expect(session1.token!.length).toBe(64);
+      expect(session2.token!.length).toBe(64);
     });
 
     it('should generate unique tokens across many sessions', async () => {
@@ -279,7 +282,7 @@ describe('Session Management', () => {
         Array.from({ length: 10 }, () => createSession(testUserId))
       );
 
-      const tokens = sessions.map(s => s.id);
+      const tokens = sessions.map(s => s.token);
       const uniqueTokens = new Set(tokens);
 
       expect(uniqueTokens.size).toBe(10);

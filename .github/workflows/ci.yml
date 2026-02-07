@@ -19,7 +19,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/ci?schema=public
       NEXTAUTH_URL: http://localhost:3000
       NEXTAUTH_SECRET: ci-secret
-      NEXT_PUBLIC_DEV_AUTH: 'false'
+      DEV_AUTH_ENABLED: 'false'
       NEXT_TELEMETRY_DISABLED: '1'
       NODE_ENV: test
     steps:

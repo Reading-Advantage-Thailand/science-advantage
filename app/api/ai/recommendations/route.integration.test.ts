@@ -10,7 +10,7 @@ const prismaMock = {
 const buildRecommendationContextMock = vi.fn();
 const generateRecommendationMock = vi.fn();
 const envMock = {
-  NEXT_PUBLIC_DEV_AUTH: false,
+  DEV_AUTH_ENABLED: false,
 };
 
 const loggerSpies = {
@@ -136,7 +136,7 @@ describe('POST /api/ai/recommendations', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     unstable_recommendationTestkit.reset();
-    envMock.NEXT_PUBLIC_DEV_AUTH = false;
+    envMock.DEV_AUTH_ENABLED = false;
     aiConfigMock.maxRequestsPerWindow = 2;
 
     getCurrentSessionMock.mockResolvedValue({
@@ -169,7 +169,7 @@ describe('POST /api/ai/recommendations', () => {
   });
 
   it('allows teacher impersonation when dev flag enabled', async () => {
-    envMock.NEXT_PUBLIC_DEV_AUTH = true;
+    envMock.DEV_AUTH_ENABLED = true;
     getCurrentSessionMock.mockResolvedValue({
       user: { id: 'teacher-1', role: 'TEACHER' },
     });

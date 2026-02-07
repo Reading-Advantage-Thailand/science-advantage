@@ -61,7 +61,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
 
   describe('Successful Logout', () => {
     it('should logout successfully with valid session', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await POST();
       const data = await response.json();
@@ -71,19 +71,19 @@ describe('POST /api/auth/logout - Integration Tests', () => {
     });
 
     it('should delete session from database', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       await POST();
 
       const session = await prisma.session.findUnique({
-        where: { token: testSession.id },
+        where: { token: testSession.token },
       });
 
       expect(session).toBeNull();
     });
 
     it('should delete session cookie', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       await POST();
 
@@ -135,7 +135,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
 
   describe('Error Handling', () => {
     it('should handle database errors gracefully', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const deleteSpy = vi
         .spyOn(sessionModule, 'deleteSession')
@@ -151,7 +151,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
     });
 
     it('should still delete cookie when session deletion fails', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const deleteSpy = vi
         .spyOn(sessionModule, 'deleteSession')
@@ -185,7 +185,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
 
         const session = await createSession(user.id);
 
-        mockCookies.get.mockReturnValue({ value: session.id });
+        mockCookies.get.mockReturnValue({ value: session.token });
 
         const response = await POST();
         const data = await response.json();
@@ -195,7 +195,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
 
         // Verify session deleted
         const deletedSession = await prisma.session.findUnique({
-          where: { token: session.id },
+          where: { token: session.token },
         });
 
         expect(deletedSession).toBeNull();
@@ -210,7 +210,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
         where: { id: testSession.id },
       });
 
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await POST();
       const data = await response.json();
@@ -242,7 +242,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
 
   describe('Idempotency', () => {
     it('should be idempotent - multiple logout calls should succeed', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       // First logout
       const response1 = await POST();
@@ -262,7 +262,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
 
   describe('Response Format', () => {
     it('should return correct response format', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await POST();
       const data = await response.json();
@@ -272,7 +272,7 @@ describe('POST /api/auth/logout - Integration Tests', () => {
     });
 
     it('should not expose sensitive information in response', async () => {
-      mockCookies.get.mockReturnValue({ value: testSession.id });
+      mockCookies.get.mockReturnValue({ value: testSession.token });
 
       const response = await POST();
       const data = await response.json();

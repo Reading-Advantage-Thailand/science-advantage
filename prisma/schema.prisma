@@ -31,7 +31,7 @@ model account {
 }
 
 model session {
-  id        String   @id
+  id        String   @id @default(cuid())
   expiresAt DateTime
   token     String   @unique
   createdAt DateTime

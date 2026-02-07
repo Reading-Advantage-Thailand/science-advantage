@@ -3,6 +3,7 @@ import type { Prisma } from '@prisma/client';
 
 import { getCurrentSession } from '@/lib/auth/session';
 import prisma from '@/lib/prisma';
+import { gradeAnswer } from '@/lib/quiz/scoring';
 
 /**
  * GET /api/lessons/{lessonSlug}/quiz
@@ -426,66 +427,3 @@ export async function POST(
   }
 }
 
-/**
- * Auto-grade a student's answer based on question type
- */
-function gradeAnswer(
-  questionType: string,
-  studentAnswer: unknown,
-  correctAnswer: unknown
-): boolean {
-  switch (questionType) {
-    case 'MULTIPLE_CHOICE':
-    case 'TRUE_FALSE':
-      // Exact match for single selection
-      return studentAnswer === correctAnswer;
-
-    case 'MULTIPLE_SELECT':
-      // All correct answers must be selected, no incorrect answers
-      if (!Array.isArray(studentAnswer) || !Array.isArray(correctAnswer)) {
-        return false;
-      }
-      if (studentAnswer.length !== correctAnswer.length) {
-        return false;
-      }
-      const sortedStudent = [...studentAnswer].sort();
-      const sortedCorrect = [...correctAnswer].sort();
-      return sortedStudent.every((ans, idx) => ans === sortedCorrect[idx]);
-
-    case 'FILL_IN_BLANK':
-      // Normalize and compare (case-insensitive, trim whitespace)
-      const normalizedStudent = String(studentAnswer || '')
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, ' ');
-      const normalizedCorrect = String(correctAnswer || '')
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, ' ');
-      return normalizedStudent === normalizedCorrect;
-
-    case 'VOCABULARY_MATCH':
-      // Verify each term is matched to correct definition
-      if (
-        !studentAnswer ||
-        !correctAnswer ||
-        typeof studentAnswer !== 'object' ||
-        typeof correctAnswer !== 'object'
-      ) {
-        return false;
-      }
-      const studentRecord = studentAnswer as Record<string, unknown>;
-      const correctRecord = correctAnswer as Record<string, unknown>;
-      const studentKeys = Object.keys(studentRecord);
-      const correctKeys = Object.keys(correctRecord);
-      if (studentKeys.length !== correctKeys.length) {
-        return false;
-      }
-      return studentKeys.every(
-        key => studentRecord[key] === correctRecord[key]
-      );
-
-    default:
-      return false;
-  }
-}

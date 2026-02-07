@@ -110,7 +110,7 @@ function authorizeAttempt(
   const isStudent = session.user.role === 'STUDENT';
   const isTeacherOrAdmin =
     session.user.role === 'TEACHER' || session.user.role === 'ADMIN';
-  const canImpersonate = env.NEXT_PUBLIC_DEV_AUTH && isTeacherOrAdmin;
+  const canImpersonate = env.DEV_AUTH_ENABLED && isTeacherOrAdmin;
 
   if (isStudent && session.user.id !== attempt.studentId) {
     throw new ResponseError({

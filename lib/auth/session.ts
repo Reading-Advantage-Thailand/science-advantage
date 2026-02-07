@@ -3,17 +3,10 @@
  * Copy this entire auth/ folder to any Next.js project
  */
 
-import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
 import { randomBytes } from 'crypto';
+import prisma from '@/lib/prisma';
 import type { Session } from './types';
-
-let prismaClient = new PrismaClient();
-
-// Allow tests to inject a shared Prisma client instance
-export function setPrismaClient(client: PrismaClient) {
-  prismaClient = client;
-}
 
 const SESSION_COOKIE_NAME = 'session_token';
 const SESSION_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
@@ -32,9 +25,8 @@ export async function createSession(userId: string): Promise<Session> {
   const token = generateSessionToken();
   const expiresAt = new Date(Date.now() + SESSION_DURATION);
 
-  const session = await prismaClient.session.create({
+  const session = await prisma.session.create({
     data: {
-      id: token,
       userId,
       expiresAt,
       token,
@@ -57,6 +49,7 @@ export async function createSession(userId: string): Promise<Session> {
 
   return {
     id: session.id,
+    token: session.token,
     userId: session.userId,
     expiresAt: session.expiresAt,
     user: session.user,
@@ -67,7 +60,7 @@ export async function createSession(userId: string): Promise<Session> {
  * Validate a session token and return the session
  */
 export async function validateSession(token: string): Promise<Session | null> {
-  const session = await prismaClient.session.findUnique({
+  const session = await prisma.session.findUnique({
     where: { token },
     include: {
       user: {
@@ -89,7 +82,7 @@ export async function validateSession(token: string): Promise<Session | null> {
 
   // Check if session is expired
   if (session.expiresAt < new Date()) {
-    await prismaClient.session.delete({ where: { id: session.id } });
+    await prisma.session.delete({ where: { id: session.id } });
     return null;
   }
 
@@ -105,7 +98,7 @@ export async function validateSession(token: string): Promise<Session | null> {
  * Delete a session
  */
 export async function deleteSession(token: string): Promise<void> {
-  await prismaClient.session.delete({ where: { token } }).catch(() => {});
+  await prisma.session.delete({ where: { token } }).catch(() => {});
 }
 
 /**

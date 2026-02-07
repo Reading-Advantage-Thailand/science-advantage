@@ -4,7 +4,6 @@ import prisma from '@/lib/prisma';
 import type { user as UserModel, Class, Lesson, QuizQuestion } from '@prisma/client';
 import { GET, POST } from './route';
 import { createSession } from '@/lib/auth/session';
-import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -18,10 +17,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
-
   let testTeacher: UserModel;
   let testStudent: UserModel;
   let otherStudent: UserModel;
@@ -136,7 +131,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
     for (let i = 1; i <= 12; i++) {
       const question = await prisma.quizQuestion.create({
         data: {
-          lessonSlug: testLesson.id,
+          lessonId: testLesson.id,
           type: 'MULTIPLE_CHOICE',
           text: `Question ${i}: What is the scientific method step ${i}?`,
           options: ['Observe', 'Predict', 'Test', 'Conclude'],
@@ -180,7 +175,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
   describe('Authorization', () => {
     it('should allow enrolled student to access quiz', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -193,7 +188,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
     it('should deny non-enrolled student access', async () => {
       const session = await createSession(otherStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -205,7 +200,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
     it('should allow class teacher to access quiz', async () => {
       const session = await createSession(testTeacher.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -220,7 +215,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
   describe('Lesson Not Found', () => {
     it('should return 404 for non-existent lesson', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/lessons/non-existent-lesson/quiz');
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: 'non-existent-lesson' }) });
@@ -234,7 +229,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
   describe('Question Selection', () => {
     it('should return N questions from the question bank', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -247,7 +242,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
     it('should not include correct answers in response', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -261,7 +256,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
     it('should include required question fields', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -279,7 +274,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
     it('should create an attempt record with startedAt timestamp', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -301,7 +296,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
     it('should calculate correct total points', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
@@ -340,7 +335,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
       await prisma.quizQuestion.create({
         data: {
-          lessonSlug: smallLesson.id,
+          lessonId: smallLesson.id,
           type: 'TRUE_FALSE',
           text: 'Is this a test?',
           options: ['True', 'False'],
@@ -352,7 +347,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
       await prisma.quizQuestion.create({
         data: {
-          lessonSlug: smallLesson.id,
+          lessonId: smallLesson.id,
           type: 'TRUE_FALSE',
           text: 'Is this another test?',
           options: ['True', 'False'],
@@ -363,7 +358,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       });
 
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${smallLesson.id}/quiz`);
       const response = await GET(request, { params: Promise.resolve({ lessonSlug: smallLesson.id }) });
@@ -376,10 +371,6 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 });
 
 describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
-
   let testTeacher: UserModel;
   let testStudent: UserModel;
   let otherStudent: UserModel;
@@ -511,7 +502,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     for (let i = 0; i < questionsData.length; i++) {
       const question = await prisma.quizQuestion.create({
         data: {
-          lessonSlug: testLesson.id,
+          lessonId: testLesson.id,
           type: 'MULTIPLE_CHOICE',
           text: questionsData[i].text,
           options: ['Observe', 'Predict', 'Test', 'Conclude'],
@@ -527,7 +518,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     const attempt = await prisma.attempt.create({
       data: {
         studentId: testStudent.id,
-        lessonSlug: testLesson.id,
+        lessonId: testLesson.id,
         maxScore: 3,
         attemptNumber: 1,
         startedAt: new Date(),
@@ -574,7 +565,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
   describe('Authorization', () => {
     it('should prevent student from submitting another student\'s attempt', async () => {
       const session = await createSession(otherStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -594,7 +585,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
   describe('Validation', () => {
     it('should return 400 if responses are missing', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -612,7 +603,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
 
     it('should return 404 for non-existent attempt', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -644,7 +635,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
       });
 
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -670,7 +661,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
   describe('Auto-Grading', () => {
     it('should correctly grade all correct answers', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -714,7 +705,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
 
     it('should correctly grade mixed correct and incorrect answers', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -760,7 +751,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
   describe('Database Records', () => {
     it('should create QuestionResponse records', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -791,7 +782,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
 
     it('should update attempt with score and completedAt', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -817,7 +808,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
 
     it('should create or update LessonCompletion record', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -841,7 +832,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
         where: {
           studentId_lessonId: {
             studentId: testStudent.id,
-            lessonSlug: testLesson.id,
+            lessonId: testLesson.id,
           },
         },
       });
@@ -854,7 +845,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     it('should update best score on multiple attempts', async () => {
       // First attempt with low score
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       let request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
@@ -875,7 +866,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
       const attempt2 = await prisma.attempt.create({
         data: {
           studentId: testStudent.id,
-          lessonSlug: testLesson.id,
+          lessonId: testLesson.id,
           maxScore: 3,
           attemptNumber: 2,
           startedAt: new Date(),
@@ -901,7 +892,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
         where: {
           studentId_lessonId: {
             studentId: testStudent.id,
-            lessonSlug: testLesson.id,
+            lessonId: testLesson.id,
           },
         },
       });
@@ -914,7 +905,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
   describe('Response Format', () => {
     it('should return all required fields in response', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',

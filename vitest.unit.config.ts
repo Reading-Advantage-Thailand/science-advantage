@@ -26,6 +26,7 @@ export default defineConfig({
     },
     // Only run unit tests (exclude integration tests)
     include: [
+      'app/**/*.test.{ts,tsx}',
       'components/**/*.test.{ts,tsx}',
       'lib/**/*.test.{ts,tsx}',
       '!**/*.integration.test.{ts,tsx}',

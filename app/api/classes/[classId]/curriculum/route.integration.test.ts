@@ -200,7 +200,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
   describe('Authorization - Student Access', () => {
     it('should allow enrolled student to access curriculum', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -213,7 +213,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
 
     it('should deny non-enrolled student access', async () => {
       const session = await createSession(otherStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -227,7 +227,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
   describe('Authorization - Teacher Access', () => {
     it('should allow class teacher to access curriculum', async () => {
       const session = await createSession(testTeacher.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -253,7 +253,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
       });
 
       const session = await createSession(otherTeacher.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -267,7 +267,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
   describe('Class Not Found', () => {
     it('should return 404 for non-existent class', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/non-existent-class/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: 'non-existent-class' }) });
@@ -281,7 +281,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
   describe('Response Format', () => {
     it('should return correct class information', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -298,7 +298,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
 
     it('should return units in correct order', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -314,7 +314,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
 
     it('should return lessons in correct order within units', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -335,7 +335,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
 
     it('should include all required lesson fields', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -363,7 +363,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
 
     it('should set placeholder progress values', async () => {
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
@@ -393,7 +393,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
       });
 
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/empty-class/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: emptyClass.id }) });
@@ -416,7 +416,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
       });
 
       const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.id });
+      mockCookies.get.mockReturnValue({ value: session.token });
 
       const request = new NextRequest('http://localhost:3000/api/classes/test-class-curriculum/curriculum');
       const response = await GET(request, { params: Promise.resolve({ classId: testClass.id }) });
