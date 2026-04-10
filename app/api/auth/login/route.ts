@@ -1,13 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { env } from '@/lib/env';
 import prisma from '@/lib/prisma';
 import { verifyPassword } from '@/lib/auth/password';
 import { createSession, setSessionCookie } from '@/lib/auth/session';
 import { LoginRateLimiter } from '@/lib/auth/rate-limit';
 
 const loginSchema = z.object({
-  username: z.string().min(1, 'Username is required').max(100, 'Username too long'),
-  password: z.string().min(1, 'Password is required').max(128, 'Password too long'),
+  username: z
+    .string()
+    .min(1, 'Username is required')
+    .max(100, 'Username too long'),
+  password: z
+    .string()
+    .min(1, 'Password is required')
+    .max(128, 'Password too long'),
 });
 
 const rateLimiter = new LoginRateLimiter({
@@ -16,6 +23,10 @@ const rateLimiter = new LoginRateLimiter({
 });
 
 export async function POST(request: NextRequest) {
+  if (env.NODE_ENV === 'production') {
+    return new NextResponse(null, { status: 405 });
+  }
+
   try {
     const body = await request.json();
     const parsed = loginSchema.safeParse(body);
@@ -100,9 +111,12 @@ export async function POST(request: NextRequest) {
 export const _testkit = {
   resetRateLimiter() {
     // Recreate the rate limiter to clear state between tests
-    Object.assign(rateLimiter, new LoginRateLimiter({
-      maxAttempts: 5,
-      windowMs: 15 * 60 * 1000,
-    }));
+    Object.assign(
+      rateLimiter,
+      new LoginRateLimiter({
+        maxAttempts: 5,
+        windowMs: 15 * 60 * 1000,
+      })
+    );
   },
 };
