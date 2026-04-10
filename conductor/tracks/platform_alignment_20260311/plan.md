@@ -2,9 +2,9 @@
 
 ## Phase 1: Authentication Contract
 
-- [ ] Task: Define failing tests for the Google OAuth plus dev impersonation contract
-  - [ ] Write unit/integration tests that codify production-only Google OAuth and local impersonation behavior
-  - [ ] Confirm the current credential-based flow fails the new contract
+- [x] Task: Define failing tests for the Google OAuth plus dev impersonation contract
+  - [x] Write unit/integration tests that codify production-only Google OAuth and local impersonation behavior
+  - [x] Confirm the current credential-based flow fails the new contract
 - [ ] Task: Replace the user-facing credential login flow
   - [ ] Implement the declared sign-in experience and session handling
   - [ ] Remove or quarantine demo credential UX from production paths
