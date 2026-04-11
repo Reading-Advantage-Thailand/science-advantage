@@ -22,3 +22,5 @@
 - [Roadmapping] Prefer a few dependency-ordered tracks over long epic catalogs.
 - [Testing] vitest.setup.ts runs `prisma db push --force-reset` before ALL tests, requiring a running database even for unit tests. Tests needing DB-free execution require separate config or mocking at a deeper level.
 - [Testing] Auth env behavior (NODE_ENV, DEV_AUTH_ENABLED) must be explicitly mocked per test file since module-level mocks are isolated per file.
+- [Prisma] User model uses `account` (singular) as the relation field name, not `accounts`. When creating users with nested accounts, use `account: { create: {...} }`.
+- [Auth] Google OAuth requires `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, and optionally `GOOGLE_OAUTH_REDIRECT_URI` env vars. Without them, the OAuth flow returns an error message on the signin page.
