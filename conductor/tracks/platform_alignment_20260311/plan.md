@@ -5,9 +5,9 @@
 - [x] Task: Define failing tests for the Google OAuth plus dev impersonation contract
   - [x] Write unit/integration tests that codify production-only Google OAuth and local impersonation behavior
   - [x] Confirm the current credential-based flow fails the new contract
-- [ ] Task: Replace the user-facing credential login flow
-  - [ ] Implement the declared sign-in experience and session handling
-  - [ ] Remove or quarantine demo credential UX from production paths
+- [x] Task: Replace the user-facing credential login flow
+  - [x] Implement the declared sign-in experience and session handling
+  - [x] Remove or quarantine demo credential UX from production paths
 - [ ] Task: Centralize auth and role routing
   - [ ] Consolidate role constants, redirects, and route guards into shared helpers
   - [ ] Refactor protected routes to consume the shared auth layer
