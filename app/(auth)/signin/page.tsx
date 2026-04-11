@@ -1,5 +1,6 @@
-import { SigninForm } from '@/components/features/auth/signin-form';
+import { SigninContainer } from '@/components/features/auth/signin-container';
 import { getSession } from '@/lib/auth/server';
+import { env } from '@/lib/env';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 
@@ -11,10 +12,10 @@ const ROLE_ROUTES = {
 };
 
 export default async function SigninPage() {
-  // Redirect if already logged in
   const session = await getSession();
   if (session) {
-    const redirectTo = ROLE_ROUTES[session.user.role as keyof typeof ROLE_ROUTES] || '/student';
+    const redirectTo =
+      ROLE_ROUTES[session.user.role as keyof typeof ROLE_ROUTES] || '/student';
     redirect(redirectTo);
   }
 
@@ -31,7 +32,7 @@ export default async function SigninPage() {
         <h1 className="text-3xl font-bold text-rose-800">Science Advantage</h1>
       </div>
 
-      <SigninForm />
+      <SigninContainer isDevAuth={env.DEV_AUTH_ENABLED} />
     </div>
   );
 }

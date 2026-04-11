@@ -2,9 +2,14 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z
+    .enum(['development', 'production', 'test'])
+    .default('development'),
   NEXT_PUBLIC_ENABLE_MASTERY_PIPELINE: z.string().optional(),
   DEV_AUTH_ENABLED: z.string().optional(),
+  GOOGLE_OAUTH_CLIENT_ID: z.string().optional(),
+  GOOGLE_OAUTH_CLIENT_SECRET: z.string().optional(),
+  GOOGLE_OAUTH_REDIRECT_URI: z.string().optional(),
 });
 
 const rawEnv = envSchema.parse(process.env);
@@ -19,4 +24,7 @@ export const env = {
     rawEnv.DEV_AUTH_ENABLED !== undefined
       ? rawEnv.DEV_AUTH_ENABLED === 'true'
       : rawEnv.NODE_ENV === 'development',
+  GOOGLE_OAUTH_ENABLED:
+    rawEnv.GOOGLE_OAUTH_CLIENT_ID !== undefined &&
+    rawEnv.GOOGLE_OAUTH_CLIENT_SECRET !== undefined,
 };
