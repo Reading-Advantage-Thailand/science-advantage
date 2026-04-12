@@ -1,7 +1,14 @@
 'use client';
 
 import NextImage from 'next/image';
-import { useEffect, useMemo, useRef, useState, type TouchEvent } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type TouchEvent,
+} from 'react';
 
 import { cn } from '@/lib/utils';
 import type { ImageBlock } from '@/lib/schemas/lesson-content.schema';
@@ -188,7 +195,9 @@ function Lightbox({
           <div className="w-full text-center text-sm text-gray-100">
             {caption && <p>{caption}</p>}
             {image.attribution && (
-              <p className="mt-1 text-xs text-gray-300">Source: {image.attribution}</p>
+              <p className="mt-1 text-xs text-gray-300">
+                Source: {image.attribution}
+              </p>
             )}
           </div>
         )}
@@ -227,6 +236,19 @@ export function ImageGallery({
   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const reducedMotion = usePrefersReducedMotion();
+
+  const handleNavigate = useCallback(
+    (direction: 'next' | 'prev') => {
+      setActiveIndex((current) => {
+        if (direction === 'next') {
+          return (current + 1) % images.length;
+        }
+        return (current - 1 + images.length) % images.length;
+      });
+    },
+    [images.length]
+  );
+
   const touchNav = useTouchNavigation(
     () => handleNavigate('next'),
     () => handleNavigate('prev')
@@ -243,7 +265,8 @@ export function ImageGallery({
       (i) => i >= 0 && i < images.length
     );
     preloadIndices.forEach((i) => {
-      if (typeof window === 'undefined' || typeof window.Image === 'undefined') return;
+      if (typeof window === 'undefined' || typeof window.Image === 'undefined')
+        return;
       const img = new window.Image();
       img.src = images[i]?.src ?? '';
     });
@@ -252,15 +275,6 @@ export function ImageGallery({
   if (!images?.length) return null;
 
   const captionFor = (image: ImageBlock) => getCaption(image, showThai);
-
-  function handleNavigate(direction: 'next' | 'prev') {
-    setActiveIndex((current) => {
-      if (direction === 'next') {
-        return (current + 1) % images.length;
-      }
-      return (current - 1 + images.length) % images.length;
-    });
-  }
 
   function handleImageError(index: number) {
     setFailedImages((prev) => new Set(prev).add(index));
@@ -301,7 +315,11 @@ export function ImageGallery({
     );
   }
 
-  function renderImage(image: ImageBlock, index: number, variant: 'thumb' | 'full') {
+  function renderImage(
+    image: ImageBlock,
+    index: number,
+    variant: 'thumb' | 'full'
+  ) {
     const isFailed = failedImages.has(index);
     const isLoaded = loadedImages.has(index);
 
@@ -424,7 +442,10 @@ export function ImageGallery({
               </button>
             </div>
 
-            <div className="flex items-center gap-2" aria-label="Slide indicators">
+            <div
+              className="flex items-center gap-2"
+              aria-label="Slide indicators"
+            >
               {images.map((_, index) => (
                 <button
                   key={index}
