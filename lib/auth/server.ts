@@ -5,22 +5,8 @@
 
 import { redirect } from 'next/navigation';
 import { getCurrentSession } from './session';
+import { ROLE_HIERARCHY, ROLE_ROUTES } from './constants';
 import type { Session, UserRole } from './types';
-
-// Role hierarchy: higher roles can access lower role routes
-const ROLE_HIERARCHY: Record<UserRole, number> = {
-  STUDENT: 1,
-  TEACHER: 2,
-  ADMIN: 3,
-  SYSTEM: 4,
-};
-
-const ROLE_ROUTES: Record<UserRole, string> = {
-  STUDENT: '/student',
-  TEACHER: '/teacher',
-  ADMIN: '/admin',
-  SYSTEM: '/system',
-};
 
 /**
  * Require authentication - redirect to login if not authenticated
@@ -29,7 +15,7 @@ export async function requireAuth(): Promise<Session> {
   const session = await getCurrentSession();
 
   if (!session) {
-    return redirect('/login');
+    return redirect('/signin');
   }
 
   return session;
@@ -47,7 +33,7 @@ export async function requireRole(requiredRole: UserRole): Promise<Session> {
 
   if (userLevel < requiredLevel) {
     // User doesn't have sufficient permissions - redirect to their dashboard
-    return redirect(ROLE_ROUTES[session.user.role] || '/login');
+    return redirect(ROLE_ROUTES[session.user.role] || '/signin');
   }
 
   return session;

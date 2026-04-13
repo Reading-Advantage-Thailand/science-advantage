@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { env } from '@/lib/env';
 import { createSession, setSessionCookie } from '@/lib/auth/session';
+import { ROLE_ROUTES } from '@/lib/auth/constants';
 import prisma from '@/lib/prisma';
 
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
@@ -163,15 +164,7 @@ export async function GET(request: NextRequest) {
     const session = await createSession(user.id);
     await setSessionCookie(session.token!);
 
-    const ROLE_ROUTES = {
-      STUDENT: '/student',
-      TEACHER: '/teacher',
-      ADMIN: '/admin',
-      SYSTEM: '/system',
-    };
-
-    const redirectTo =
-      ROLE_ROUTES[user.role as keyof typeof ROLE_ROUTES] || '/student';
+    const redirectTo = ROLE_ROUTES[user.role] || '/student';
     return NextResponse.redirect(new URL(redirectTo, request.url));
   } catch (error) {
     console.error('Google OAuth callback error:', error);

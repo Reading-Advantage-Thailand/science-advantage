@@ -4,7 +4,8 @@ import { proxy as middleware } from './proxy';
 
 // Mock NextResponse.redirect/next
 vi.mock('next/server', async () => {
-  const actual = await vi.importActual<typeof import('next/server')>('next/server');
+  const actual =
+    await vi.importActual<typeof import('next/server')>('next/server');
   return {
     ...actual,
     NextResponse: {
@@ -30,22 +31,26 @@ describe('Middleware - Route Protection and RBAC', () => {
   });
 
   describe('Protected Routes - Unauthenticated Users', () => {
-    it('should redirect to login when accessing /student without session', async () => {
+    it('should redirect to signin when accessing /student without session', async () => {
       const request = new NextRequest('http://localhost:3000/student');
 
       const response = await middleware(request);
 
       expect(response.status).toBe(307);
-      expect(response.headers.get('Location')).toBe('http://localhost:3000/login');
+      expect(response.headers.get('Location')).toBe(
+        'http://localhost:3000/signin'
+      );
     });
 
-    it('should redirect to login when accessing /teacher without session', async () => {
+    it('should redirect to signin when accessing /teacher without session', async () => {
       const request = new NextRequest('http://localhost:3000/teacher');
 
       const response = await middleware(request);
 
       expect(response.status).toBe(307);
-      expect(response.headers.get('Location')).toBe('http://localhost:3000/login');
+      expect(response.headers.get('Location')).toBe(
+        'http://localhost:3000/signin'
+      );
     });
   });
 
@@ -63,9 +68,9 @@ describe('Middleware - Route Protection and RBAC', () => {
     });
   });
 
-  describe('Login Route - Authenticated Users', () => {
-    it('should redirect authenticated users from /login to /dashboard', async () => {
-      const request = new NextRequest('http://localhost:3000/login', {
+  describe('Signin Route - Authenticated Users', () => {
+    it('should redirect authenticated users from /signin to /dashboard', async () => {
+      const request = new NextRequest('http://localhost:3000/signin', {
         headers: {
           Cookie: 'session_token=valid-token',
         },
@@ -74,13 +79,15 @@ describe('Middleware - Route Protection and RBAC', () => {
       const response = await middleware(request);
 
       expect(response.status).toBe(307);
-      expect(response.headers.get('Location')).toBe('http://localhost:3000/dashboard');
+      expect(response.headers.get('Location')).toBe(
+        'http://localhost:3000/dashboard'
+      );
     });
   });
 
-  describe('Login Route - Unauthenticated Users', () => {
-    it('should allow unauthenticated users to access /login', async () => {
-      const request = new NextRequest('http://localhost:3000/login');
+  describe('Signin Route - Unauthenticated Users', () => {
+    it('should allow unauthenticated users to access /signin', async () => {
+      const request = new NextRequest('http://localhost:3000/signin');
 
       const response = await middleware(request);
 
@@ -102,13 +109,12 @@ describe('Middleware - Route Protection and RBAC', () => {
     it('should have correct matcher configuration', async () => {
       const { config } = await import('./proxy');
 
-      
       expect(config.matcher).toContain('/student/:path*');
       expect(config.matcher).toContain('/teacher/:path*');
       expect(config.matcher).toContain('/admin/:path*');
       expect(config.matcher).toContain('/system/:path*');
       expect(config.matcher).toContain('/dashboard');
-      expect(config.matcher).toContain('/login');
+      expect(config.matcher).toContain('/signin');
       expect(config.matcher).not.toContain('/signup');
     });
   });

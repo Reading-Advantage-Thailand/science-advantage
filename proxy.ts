@@ -9,16 +9,18 @@ export async function proxy(request: NextRequest) {
 
   // Protected routes that require authentication
   const protectedRoutes = ['/student', '/teacher', '/admin', '/system'];
-  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
 
-  // If accessing protected route without session, redirect to login
+  // If accessing protected route without session, redirect to signin
   if (isProtectedRoute && !hasSession) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/signin', request.url));
   }
 
-  // If accessing login with session, redirect to dashboard
+  // If accessing signin with session, redirect to dashboard
   // The dashboard page will handle role-based redirect
-  if (hasSession && pathname === '/login') {
+  if (hasSession && pathname === '/signin') {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -26,5 +28,12 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/student/:path*', '/teacher/:path*', '/admin/:path*', '/system/:path*', '/dashboard', '/login']
+  matcher: [
+    '/student/:path*',
+    '/teacher/:path*',
+    '/admin/:path*',
+    '/system/:path*',
+    '/dashboard',
+    '/signin',
+  ],
 };
