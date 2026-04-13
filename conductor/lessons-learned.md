@@ -24,3 +24,4 @@
 - [Testing] Auth env behavior (NODE_ENV, DEV_AUTH_ENABLED) must be explicitly mocked per test file since module-level mocks are isolated per file.
 - [Prisma] User model uses `account` (singular) as the relation field name, not `accounts`. When creating users with nested accounts, use `account: { create: {...} }`.
 - [Auth] Google OAuth requires `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, and optionally `GOOGLE_OAUTH_REDIRECT_URI` env vars. Without them, the OAuth flow returns an error message on the signin page.
+- [Platform] Route consistency matters: auth redirects must target actual pages. The proxy and server.ts used `/login` but only `/signin` page existed, causing silent redirect failures.
