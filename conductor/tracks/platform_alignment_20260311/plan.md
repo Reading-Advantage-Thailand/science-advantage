@@ -8,9 +8,9 @@
 - [x] Task: Replace the user-facing credential login flow
   - [x] Implement the declared sign-in experience and session handling
   - [x] Remove or quarantine demo credential UX from production paths
-- [ ] Task: Centralize auth and role routing
-  - [ ] Consolidate role constants, redirects, and route guards into shared helpers
-  - [ ] Refactor protected routes to consume the shared auth layer
+- [x] Task: Centralize auth and role routing
+  - [x] Consolidate role constants, redirects, and route guards into shared helpers
+  - [x] Refactor protected routes to consume the shared auth layer
 - [ ] Task: Conductor - Manual Verification 'Authentication Contract'
   - [ ] Verify Google sign-in, redirect behavior, and dev impersonation locally
 
