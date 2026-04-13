@@ -948,3 +948,131 @@ bash tool terminated command after exceeding timeout 300000 ms
    Start at  13:14:53
    Duration  21.11s (transform 1.26s, setup 215ms, collect 2.46s, tests 16.23s, environment 1.13s, prepare 153ms)
 [0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git add -A && git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   components/features/lesson/image-gallery.tsx
+	modified:   conductor/output.log
+	new file:   conductor/review-output.log
+	modified:   lib/generated/zod/.prisma-zod-generator-manifest.json
+	modified:   next-env.d.ts
+[0m
+Let me commit the lint fixes and provide the review report.
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git diff --cached -- components/features/lesson/image-gallery.tsx
+diff --git a/components/features/lesson/image-gallery.tsx b/components/features/lesson/image-gallery.tsx
+index 872662d..0d05ded 100644
+--- a/components/features/lesson/image-gallery.tsx
++++ b/components/features/lesson/image-gallery.tsx
+@@ -1,7 +1,14 @@
+ 'use client';
+ 
+ import NextImage from 'next/image';
+-import { useEffect, useMemo, useRef, useState, type TouchEvent } from 'react';
++import {
++  useCallback,
++  useEffect,
++  useMemo,
++  useRef,
++  useState,
++  type TouchEvent,
++} from 'react';
+ 
+ import { cn } from '@/lib/utils';
+ import type { ImageBlock } from '@/lib/schemas/lesson-content.schema';
+@@ -188,7 +195,9 @@ function Lightbox({
+           <div className="w-full text-center text-sm text-gray-100">
+             {caption && <p>{caption}</p>}
+             {image.attribution && (
+-              <p className="mt-1 text-xs text-gray-300">Source: {image.attribution}</p>
++              <p className="mt-1 text-xs text-gray-300">
++                Source: {image.attribution}
++              </p>
+             )}
+           </div>
+         )}
+@@ -227,6 +236,19 @@ export function ImageGallery({
+   const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+   const reducedMotion = usePrefersReducedMotion();
++
++  const handleNavigate = useCallback(
++    (direction: 'next' | 'prev') => {
++      setActiveIndex((current) => {
++        if (direction === 'next') {
++          return (current + 1) % images.length;
++        }
++        return (current - 1 + images.length) % images.length;
++      });
++    },
++    [images.length]
++  );
++
+   const touchNav = useTouchNavigation(
+     () => handleNavigate('next'),
+     () => handleNavigate('prev')
+@@ -243,7 +265,8 @@ export function ImageGallery({
+       (i) => i >= 0 && i < images.length
+     );
+     preloadIndices.forEach((i) => {
+-      if (typeof window === 'undefined' || typeof window.Image === 'undefined') return;
++      if (typeof window === 'undefined' || typeof window.Image === 'undefined')
++        return;
+       const img = new window.Image();
+       img.src = images[i]?.src ?? '';
+     });
+@@ -253,15 +276,6 @@ export function ImageGallery({
+ 
+   const captionFor = (image: ImageBlock) => getCaption(image, showThai);
+ 
+-  function handleNavigate(direction: 'next' | 'prev') {
+-    setActiveIndex((current) => {
+-      if (direction === 'next') {
+-        return (current + 1) % images.length;
+-      }
+-      return (current - 1 + images.length) % images.length;
+-    });
+-  }
+-
+   function handleImageError(index: number) {
+     setFailedImages((prev) => new Set(prev).add(index));
+     // Avoid broken icon flash by logging and swapping to placeholder
+@@ -301,7 +315,11 @@ export function ImageGallery({
+     );
+   }
+ 
+-  function renderImage(image: ImageBlock, index: number, variant: 'thumb' | 'full') {
++  function renderImage(
++    image: ImageBlock,
++    index: number,
++    variant: 'thumb' | 'full'
++  ) {
+     const isFailed = failedImages.has(index);
+     const isLoaded = loadedImages.has(index);
+ 
+@@ -424,7 +442,10 @@ export function ImageGallery({
+               </button>
+             </div>
+ 
+-            <div className="flex items-center gap-2" aria-label="Slide indicators">
++            <div
++              className="flex items-center gap-2"
++              aria-label="Slide indicators"
++            >
+               {images.map((_, index) => (
+                 <button
+                   key={index}
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git diff --cached -- app/api/auth/google/callback/route.ts 2>/dev/null || echo "File not in staged changes"
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git diff -- app/api/auth/google/callback/route.ts
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git commit -m "chore(review): fix handleNavigate hoisting issue in image-gallery"
+[main d40193e] chore(review): fix handleNavigate hoisting issue in image-gallery
+ 5 files changed, 1976 insertions(+), 16 deletions(-)
+ create mode 100644 conductor/review-output.log
+[0m
+[0m→ [0mRead conductor/lessons-learned.md
+[91m[1mError: [0mInsufficient balance. Manage your billing here: https://opencode.ai/workspace/wrk_01KMG1AVBEZVRPTASP95SJZYDC/billing
