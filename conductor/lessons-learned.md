@@ -25,3 +25,5 @@
 - [Prisma] User model uses `account` (singular) as the relation field name, not `accounts`. When creating users with nested accounts, use `account: { create: {...} }`.
 - [Auth] Google OAuth requires `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, and optionally `GOOGLE_OAUTH_REDIRECT_URI` env vars. Without them, the OAuth flow returns an error message on the signin page.
 - [Platform] Route consistency matters: auth redirects must target actual pages. The proxy and server.ts used `/login` but only `/signin` page existed, causing silent redirect failures.
+- [Testing] vitest.unit.config.ts runs without DB reset, suitable for pure unit tests. Integration tests require full vitest.setup.ts with running database.
+- [Redis] Redis-backed adapters should throw on connection failure and fall back gracefully to in-memory stores. Mock Redis must persist data correctly between hGet/hSet calls.
