@@ -3,23 +3,19 @@
 [0m
 [0m→ [0mRead conductor/autonomous_prompt.md
 [0m→ [0mSkill "conductor"
+Starting autonomous conductor run. Loading context files:
 [0m→ [0mRead conductor/tracks.md
+[0m→ [0mRead conductor/lessons-learned.md
 [0m→ [0mRead conductor/tech-debt.md
 [0m✗ [0mread failed
 [91m[1mError: [0mFile not found: /home/daniel-bo/Desktop/science-advantage/conductor/current_directive.md
-[0m→ [0mRead conductor/lessons-learned.md
+No directive file. Checking workspace state:
 [0m
-[0m$ [0mgit status
-On branch main
-Your branch is ahead of 'origin/main' by 1 commit.
-  (use "git push" to publish your local commits)
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	modified:   conductor/output.log
-	modified:   conductor/review-output.log
-
-no changes added to commit (use "git add" and/or "git commit -a")
+[0m$ [0mgit branch --show-current
+main
 [0m
-Dirty workspace. Committing and pushing first.
+[0m$ [0mgit status --short
+M conductor/output.log
+ M lib/generated/zod/.prisma-zod-generator-manifest.json
+[0m
+Dirty workspace. Committing first:
