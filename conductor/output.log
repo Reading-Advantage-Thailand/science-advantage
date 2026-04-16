@@ -1258,3 +1258,55 @@ Index: /home/daniel-bo/Desktop/science-advantage/conductor/lessons-learned.md
 +- [Playwright] @playwright/test must be installed separately; `npx playwright install chromium` needed for browsers. Place tests in `e2e/` directory with `playwright.config.ts` at project root.
 
 [0m
+[0m$ [0mgit add -A && git commit -m "feat(platform): wire Redis adapters into app and add Playwright smoke tests
+
+- Add REDIS_URL to env schema with safe default
+- Create redis-client factory with in-memory fallback
+- Wire RedisCacheAdapter into AI recommendation service
+- Wire RedisRateLimitStore into /api/ai/recommendations route
+- Add CacheAdapter interface to cache-adapter.ts
+- Add reset() method to RedisRateLimitStore for testkit
+- Install @playwright/test and chromium
+- Create playwright.config.ts and e2e/smoke.spec.ts
+- Add integration tests for Redis wiring
+
+Co-authored-by: MiniMax-M2.7" --allow-empty
+[main fa45454] feat(platform): wire Redis adapters into app and add Playwright smoke tests
+ 15 files changed, 1698 insertions(+), 49 deletions(-)
+ create mode 100644 e2e/smoke.spec.ts
+ create mode 100644 lib/platform/integration.test.ts
+ create mode 100644 lib/platform/redis-client.ts
+ create mode 100644 playwright.config.ts
+[0m
+[0m$ [0mgit push
+To https://github.com/Reading-Advantage-Thailand/science-advantage.git
+   1f4dd0f..fa45454  main -> main
+[0m
+[0m# [0mTodos
+[x] Phase 2, Task 1: Define failing tests for config, cache, and rate-limit adapters
+[x] Phase 2, Task 2: Implement environment and service adapters
+[x] Phase 2, Task 3: Add browser-level smoke coverage
+[ ] Phase 2, Task 4: Manual verification
+[x] Update tech-debt and lessons-learned, commit checkpoint
+[0m
+**Phase 2 checkpoint complete.** Committed `fa45454`:
+
+**Completed:**
+- **Task 1**: Added `integration.test.ts` with 11 tests validating Redis wiring contract; fixed `CacheAdapter` interface missing from `cache-adapter.ts`
+- **Task 2**: Wired Redis adapters into app:
+  - Added `REDIS_URL` to `lib/env.ts` with safe default
+  - Created `lib/platform/redis-client.ts` factory with in-memory fallback
+  - Wired `RedisCacheAdapter` into AI recommendation service
+  - Wired `RedisRateLimitStore` into `/api/ai/recommendations/route.ts`
+  - Added `reset()` method to `RedisRateLimitStore` for testkit
+- **Task 3**: Set up Playwright smoke tests:
+  - Installed `@playwright/test` and `chromium`
+  - Created `playwright.config.ts` and `e2e/smoke.spec.ts`
+  - 5 smoke tests covering sign-in, student/teacher impersonation flows
+
+**Updated:**
+- `conductor/tech-debt.md`: Redis → Resolved, E2E placeholder → Addressed
+- `conductor/lessons-learned.md`: Added 2 entries on env parsing and Playwright setup
+
+**Pending:**
+- Task 4: Manual verification of auth, cache fallback, and browser smoke setup (requires local QA run)
