@@ -12,17 +12,12 @@ import { env } from '@/lib/env';
 import { logger } from '@/lib/observability/logger';
 import { metrics } from '@/lib/observability/metrics';
 import prisma from '@/lib/prisma';
+import { getRedisClient } from '@/lib/platform/redis-client';
+import { RedisRateLimitStore } from '@/lib/platform/rate-limit-store';
 
 const requestSchema = z.object({
   attemptId: z.string().min(1),
 });
-
-type RateLimitEntry = {
-  count: number;
-  resetAt: number;
-};
-
-const rateLimitStore = new Map<string, RateLimitEntry>();
 
 class RateLimitError extends Error {
   retryAfter: number;
@@ -51,7 +46,9 @@ const recommendationCache = new Map<
 
 type RecommendationSuccess = {
   success: true;
-  recommendation: Awaited<ReturnType<typeof generateRecommendation>>['recommendation'];
+  recommendation: Awaited<
+    ReturnType<typeof generateRecommendation>
+  >['recommendation'];
   model: string;
   fallbackUsed: boolean;
   traceId: string;
@@ -62,24 +59,18 @@ function cacheKey(studentId: string, attemptId: string, version: number) {
   return `${studentId}:${attemptId}:${version}`;
 }
 
-function assertRateLimit(studentId: string) {
-  const now = Date.now();
-  const entry = rateLimitStore.get(studentId);
+const rateLimitStore = new RedisRateLimitStore(getRedisClient(), {
+  maxAttempts: aiConfig.maxRequestsPerWindow,
+  windowMs: aiConfig.rateLimitWindowMs,
+  fallbackEnabled: true,
+});
 
-  if (!entry || now > entry.resetAt) {
-    rateLimitStore.set(studentId, {
-      count: 1,
-      resetAt: now + aiConfig.rateLimitWindowMs,
-    });
-    return;
+async function assertRateLimit(studentId: string) {
+  const allowed = await rateLimitStore.checkLimit(studentId);
+  if (!allowed) {
+    throw new RateLimitError(aiConfig.rateLimitWindowMs);
   }
-
-  if (entry.count >= aiConfig.maxRequestsPerWindow) {
-    throw new RateLimitError(entry.resetAt - now);
-  }
-
-  entry.count += 1;
-  rateLimitStore.set(studentId, entry);
+  await rateLimitStore.recordFailure(studentId);
 }
 
 async function readJson(request: NextRequest) {
@@ -145,7 +136,11 @@ export async function POST(request: NextRequest) {
 
     if (!parse.success) {
       return NextResponse.json(
-        { success: false, error: 'Invalid request', details: parse.error.format() },
+        {
+          success: false,
+          error: 'Invalid request',
+          details: parse.error.format(),
+        },
         { status: 400 }
       );
     }
@@ -213,11 +208,7 @@ export async function POST(request: NextRequest) {
     assertRateLimit(attempt.studentId);
 
     const context = await buildRecommendationContext(prisma, { attempt });
-    const key = cacheKey(
-      attempt.studentId,
-      attempt.id,
-      context.masteryVersion
-    );
+    const key = cacheKey(attempt.studentId, attempt.id, context.masteryVersion);
     const cached = recommendationCache.get(key);
 
     if (cached && cached.expiresAt > Date.now()) {
@@ -280,6 +271,6 @@ export async function POST(request: NextRequest) {
 export const unstable_recommendationTestkit = {
   reset() {
     recommendationCache.clear();
-    rateLimitStore.clear();
+    rateLimitStore.reset();
   },
 };

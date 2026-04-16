@@ -2,9 +2,12 @@ import { z } from 'zod';
 import { generateObject } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { createHash } from 'crypto';
 
 import { aiConfig } from '@/lib/config/ai';
 import { logger } from '@/lib/observability/logger';
+import { getRedisClient } from '@/lib/platform/redis-client';
+import { RedisCacheAdapter } from '@/lib/platform/cache-adapter';
 
 import { buildRecommendationPrompt } from './prompts/recommendation';
 import { generateFallbackRecommendation } from './rules-engine';
@@ -33,6 +36,21 @@ type GenerateResult = {
   modelUsed: string;
   fallbackUsed: boolean;
 };
+
+const recommendationCache = new RedisCacheAdapter(getRedisClient(), {
+  prefix: 'rec:',
+  defaultTtlMs: aiConfig.cacheTtlMs,
+});
+
+function buildCacheKey(context: RecommendationContext): string {
+  const candidateIds = context.candidateLessons
+    .map((l) => l.id)
+    .sort()
+    .join(',');
+  const keyData = `${context.studentId}:${context.masteryVersion}:${candidateIds}`;
+  const hash = createHash('sha256').update(keyData).digest('hex').slice(0, 16);
+  return hash;
+}
 
 const openaiClient = process.env.OPENAI_API_KEY
   ? createOpenAI({ apiKey: process.env.OPENAI_API_KEY })
@@ -70,6 +88,21 @@ async function invokeModel(modelId: string, prompt: string) {
 export async function generateRecommendation(
   context: RecommendationContext
 ): Promise<GenerateResult> {
+  const cacheKey = buildCacheKey(context);
+  const cached = await recommendationCache.get(cacheKey);
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached) as GenerateResult;
+      logger.info('ai.recommendation.cache_hit', {
+        traceId: context.traceId,
+        cacheKey,
+      });
+      return parsed;
+    } catch {
+      // corrupted cache entry, regenerate
+    }
+  }
+
   const prompt = buildRecommendationPrompt(context);
   const modelsToTry = [aiConfig.primaryModel, aiConfig.secondaryModel].filter(
     (value, index, array) => Boolean(value) && array.indexOf(value) === index
@@ -95,11 +128,17 @@ export async function generateRecommendation(
         });
       }
 
-      return {
+      const result: GenerateResult = {
         recommendation,
         modelUsed: modelId,
         fallbackUsed: false,
       };
+
+      await recommendationCache
+        .set(cacheKey, JSON.stringify(result))
+        .catch(() => {});
+
+      return result;
     } catch (error) {
       logger.warn('ai.recommendation.model_error', {
         traceId: context.traceId,
@@ -114,11 +153,17 @@ export async function generateRecommendation(
     traceId: context.traceId,
   });
 
-  return {
+  const result: GenerateResult = {
     recommendation: fallback,
     modelUsed: 'rules-engine',
     fallbackUsed: true,
   };
+
+  await recommendationCache
+    .set(cacheKey, JSON.stringify(result))
+    .catch(() => {});
+
+  return result;
 }
 
 export { recommendationSchema };

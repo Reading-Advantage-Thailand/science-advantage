@@ -2,6 +2,7 @@ interface PrismaSession {
   findMany(args: {
     where: { expiresAt: { lt: Date } };
     select: { id: true; expiresAt: true };
+    take?: number;
   }): Promise<Array<{ id: string; expiresAt: Date }>>;
   deleteMany(args: {
     where: { id: { in: string[] } };

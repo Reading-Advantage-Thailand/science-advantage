@@ -11,7 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:integration": "vitest run --config vitest.integration.config.ts",
-    "test:e2e": "echo 'E2E tests not yet configured'",
+    "test:e2e": "playwright test",
     "seed": "tsx prisma/seed.ts",
     "seed:demo-users": "tsx prisma/seed-demo-users.ts",
     "dev:reset": "npx prisma db push --force-reset && npm run seed",
@@ -67,6 +67,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",

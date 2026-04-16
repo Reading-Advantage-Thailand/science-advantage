@@ -11,6 +11,13 @@ export interface CacheAdapterOptions {
   fallbackStore?: Map<string, { value: string; expiresAt: number }>;
 }
 
+export interface CacheAdapter {
+  get(key: string): Promise<string | null>;
+  set(key: string, value: string, ttlMs?: number): Promise<void>;
+  delete(key: string): Promise<void>;
+  keys(pattern: string): Promise<string[]>;
+}
+
 export class RedisCacheAdapter {
   private redis: RedisLike;
   private prefix: string;
@@ -100,5 +107,3 @@ export class RedisCacheAdapter {
     }
   }
 }
-
-export type { CacheAdapter };

@@ -124,4 +124,8 @@ export class RedisRateLimitStore implements RateLimitStore {
       this.fallbackData.delete(key);
     }
   }
+
+  reset(): void {
+    this.fallbackData.clear();
+  }
 }

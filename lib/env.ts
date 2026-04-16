@@ -1,7 +1,11 @@
 import { z } from 'zod';
 
 const envSchema = z.object({
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z
+    .string()
+    .url()
+    .optional()
+    .default('postgresql://localhost:5432/test'),
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
@@ -10,6 +14,7 @@ const envSchema = z.object({
   GOOGLE_OAUTH_CLIENT_ID: z.string().optional(),
   GOOGLE_OAUTH_CLIENT_SECRET: z.string().optional(),
   GOOGLE_OAUTH_REDIRECT_URI: z.string().optional(),
+  REDIS_URL: z.string().optional(),
 });
 
 const rawEnv = envSchema.parse(process.env);

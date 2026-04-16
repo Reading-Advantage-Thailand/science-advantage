@@ -27,3 +27,5 @@
 - [Platform] Route consistency matters: auth redirects must target actual pages. The proxy and server.ts used `/login` but only `/signin` page existed, causing silent redirect failures.
 - [Testing] vitest.unit.config.ts runs without DB reset, suitable for pure unit tests. Integration tests require full vitest.setup.ts with running database.
 - [Redis] Redis-backed adapters should throw on connection failure and fall back gracefully to in-memory stores. Mock Redis must persist data correctly between hGet/hSet calls.
+- [Redis] Eager env parsing at module load (env.ts) breaks tree-shaking and causes issues in unit tests when required fields like DATABASE_URL aren't set. Make critical env fields optional with safe defaults.
+- [Playwright] @playwright/test must be installed separately; `npx playwright install chromium` needed for browsers. Place tests in `e2e/` directory with `playwright.config.ts` at project root.
