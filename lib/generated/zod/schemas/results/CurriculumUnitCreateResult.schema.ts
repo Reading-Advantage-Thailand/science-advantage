@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const CurriculumUnitCreateResultSchema = z.object({
   id: z.string(),
+  slug: z.string(),
   title: z.string(),
   description: z.string().optional(),
   framework: z.unknown(),

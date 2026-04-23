@@ -15,6 +15,7 @@ const curriculumunitwhereinputSchema = z.object({
   OR: z.lazy(() => CurriculumUnitWhereInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => CurriculumUnitWhereInputObjectSchema), z.lazy(() => CurriculumUnitWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   title: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   framework: z.union([z.lazy(() => EnumStandardsAlignmentFilterObjectSchema), StandardsAlignmentSchema]).optional(),

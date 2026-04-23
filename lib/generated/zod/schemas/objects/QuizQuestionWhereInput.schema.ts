@@ -17,6 +17,7 @@ const quizquestionwhereinputSchema = z.object({
   OR: z.lazy(() => QuizQuestionWhereInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => QuizQuestionWhereInputObjectSchema), z.lazy(() => QuizQuestionWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  slug: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   lessonId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   type: z.union([z.lazy(() => EnumQuestionTypeFilterObjectSchema), QuestionTypeSchema]).optional(),
   text: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),

@@ -12,6 +12,7 @@ const curriculumunitscalarwherewithaggregatesinputSchema = z.object({
   OR: z.lazy(() => CurriculumUnitScalarWhereWithAggregatesInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => CurriculumUnitScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => CurriculumUnitScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  slug: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   title: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringNullableWithAggregatesFilterObjectSchema), z.string()]).optional().nullable(),
   framework: z.union([z.lazy(() => EnumStandardsAlignmentWithAggregatesFilterObjectSchema), StandardsAlignmentSchema]).optional(),

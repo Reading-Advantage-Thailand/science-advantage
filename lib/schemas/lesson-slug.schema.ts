@@ -18,6 +18,15 @@ export const CurriculumUnitSlugSchema = z
     'Unit slug must be a valid kebab-case slug starting with a letter (lowercase letters, numbers, and hyphens only)'
   );
 
+export const QuestionSlugSchema = z
+  .string()
+  .min(2, 'Question slug must be at least 2 characters')
+  .max(100, 'Question slug must be at most 100 characters')
+  .regex(
+    /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/,
+    'Question slug must be a valid kebab-case slug starting with a letter (lowercase letters, numbers, and hyphens only)'
+  );
+
 export function validateLessonSlug(slug: unknown): string {
   try {
     return LessonSlugSchema.parse(slug);
@@ -40,6 +49,17 @@ export function validateCurriculumUnitSlug(slug: unknown): string {
   }
 }
 
+export function validateQuestionSlug(slug: unknown): string {
+  try {
+    return QuestionSlugSchema.parse(slug);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      throw new Error(`Question slug must be a valid kebab-case slug: ${error.errors.map(e => e.message).join(', ')}`);
+    }
+    throw error;
+  }
+}
+
 export function isValidLessonSlug(slug: unknown): slug is string {
   try {
     LessonSlugSchema.parse(slug);
@@ -52,6 +72,15 @@ export function isValidLessonSlug(slug: unknown): slug is string {
 export function isValidCurriculumUnitSlug(slug: unknown): slug is string {
   try {
     CurriculumUnitSlugSchema.parse(slug);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function isValidQuestionSlug(slug: unknown): slug is string {
+  try {
+    QuestionSlugSchema.parse(slug);
     return true;
   } catch {
     return false;
@@ -130,6 +159,20 @@ export function generateCurriculumUnitSlug(title: string): string {
 
   if (!slug.startsWith('unit-')) {
     slug = 'unit-' + slug;
+  }
+
+  return slug;
+}
+
+export function generateQuestionSlug(title: string): string {
+  if (!title || typeof title !== 'string' || title.trim().length === 0) {
+    throw new Error('Question text is required to generate a slug');
+  }
+
+  const slug = generateLessonSlug(title);
+
+  if (!slug.startsWith('q-')) {
+    return 'q-' + slug;
   }
 
   return slug;

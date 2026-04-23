@@ -5,6 +5,7 @@ import { ClassCreateNestedOneWithoutCurriculumUnitsInputObjectSchema as ClassCre
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
+  slug: z.string(),
   title: z.string(),
   description: z.string().optional().nullable(),
   framework: StandardsAlignmentSchema,

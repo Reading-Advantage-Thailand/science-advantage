@@ -2,6 +2,7 @@ import * as z from 'zod';
 export const LessonFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
+  slug: z.string(),
   title: z.string(),
   description: z.string().optional(),
   content: z.string().optional(),

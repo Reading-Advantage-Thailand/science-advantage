@@ -9,6 +9,7 @@ import { LessonCountOutputTypeArgsObjectSchema as LessonCountOutputTypeArgsObjec
 
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
+  slug: z.boolean().optional(),
   title: z.boolean().optional(),
   description: z.boolean().optional(),
   content: z.boolean().optional(),

@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const LessonDeleteResultSchema = z.nullable(z.object({
   id: z.string(),
+  slug: z.string(),
   title: z.string(),
   description: z.string().optional(),
   content: z.string().optional(),

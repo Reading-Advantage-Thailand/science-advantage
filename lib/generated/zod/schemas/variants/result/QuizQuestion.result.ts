@@ -4,6 +4,7 @@ import { QuestionTypeSchema } from '../../enums/QuestionType.schema';
 // prettier-ignore
 export const QuizQuestionResultSchema = z.object({
     id: z.string(),
+    slug: z.string(),
     lessonId: z.string(),
     type: QuestionTypeSchema,
     text: z.string(),

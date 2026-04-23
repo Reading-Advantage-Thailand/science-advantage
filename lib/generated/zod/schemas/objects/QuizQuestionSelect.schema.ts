@@ -7,6 +7,7 @@ import { QuizQuestionCountOutputTypeArgsObjectSchema as QuizQuestionCountOutputT
 
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
+  slug: z.boolean().optional(),
   lessonId: z.boolean().optional(),
   type: z.boolean().optional(),
   text: z.boolean().optional(),

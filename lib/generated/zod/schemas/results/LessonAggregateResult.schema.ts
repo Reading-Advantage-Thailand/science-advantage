@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const LessonAggregateResultSchema = z.object({  _count: z.object({
     id: z.number(),
+    slug: z.number(),
     title: z.number(),
     description: z.number(),
     content: z.number(),
@@ -26,6 +27,7 @@ export const LessonAggregateResultSchema = z.object({  _count: z.object({
   }).nullable().optional(),
   _min: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
     content: z.string().nullable(),
@@ -36,6 +38,7 @@ export const LessonAggregateResultSchema = z.object({  _count: z.object({
   }).nullable().optional(),
   _max: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
     content: z.string().nullable(),

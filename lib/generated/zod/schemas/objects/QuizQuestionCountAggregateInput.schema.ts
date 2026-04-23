@@ -4,6 +4,7 @@ import type { Prisma } from '@prisma/client';
 
 const makeSchema = () => z.object({
   id: z.literal(true).optional(),
+  slug: z.literal(true).optional(),
   lessonId: z.literal(true).optional(),
   type: z.literal(true).optional(),
   text: z.literal(true).optional(),

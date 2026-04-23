@@ -2,6 +2,7 @@ import * as z from 'zod';
 export const QuizQuestionFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.string(),
+  slug: z.string(),
   lessonId: z.string(),
   type: z.unknown(),
   text: z.string(),

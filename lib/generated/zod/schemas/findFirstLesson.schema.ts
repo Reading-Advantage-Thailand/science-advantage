@@ -11,6 +11,7 @@ import { LessonScalarFieldEnumSchema } from './enums/LessonScalarFieldEnum.schem
 
 export const LessonFindFirstSelectSchema: z.ZodType<Prisma.LessonSelect> = z.object({
     id: z.boolean().optional(),
+    slug: z.boolean().optional(),
     title: z.boolean().optional(),
     description: z.boolean().optional(),
     content: z.boolean().optional(),
@@ -30,6 +31,7 @@ export const LessonFindFirstSelectSchema: z.ZodType<Prisma.LessonSelect> = z.obj
 
 export const LessonFindFirstSelectZodSchema = z.object({
     id: z.boolean().optional(),
+    slug: z.boolean().optional(),
     title: z.boolean().optional(),
     description: z.boolean().optional(),
     content: z.boolean().optional(),

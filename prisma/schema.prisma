@@ -84,6 +84,7 @@ enum LessonType {
   LESSON // Regular instructional lesson
   LAB // Hands-on laboratory activity
   ASSESSMENT // Quiz/test lesson
+  REVIEW // Fun review activity
 }
 
 enum UserRole {
@@ -157,6 +158,7 @@ model StandardMastery {
 
 model Lesson {
   id                String             @id @default(cuid())
+  slug              String             @unique
   title             String
   description       String?
   content           String?
@@ -176,10 +178,12 @@ model Lesson {
   @@index([gradeLevel])
   @@index([order])
   @@index([lessonType])
+  @@index([slug])
 }
 
 model CurriculumUnit {
   id          String             @id @default(cuid())
+  slug        String             @unique
   title       String
   description String?
   framework   StandardsAlignment
@@ -195,6 +199,7 @@ model CurriculumUnit {
   @@index([classId])
   @@index([framework])
   @@index([gradeLevel])
+  @@index([slug])
 }
 
 // Assessment System Models
@@ -215,6 +220,7 @@ enum LessonCompletionStatus {
 
 model QuizQuestion {
   id            String             @id @default(cuid())
+  slug          String             @unique
   lessonId      String
   type          QuestionType
   text          String
@@ -234,6 +240,7 @@ model QuizQuestion {
   @@index([lessonId])
   @@index([type])
   @@index([order])
+  @@index([slug])
 }
 
 model Attempt {

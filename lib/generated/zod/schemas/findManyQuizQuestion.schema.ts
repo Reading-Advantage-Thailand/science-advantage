@@ -11,6 +11,7 @@ import { QuizQuestionScalarFieldEnumSchema } from './enums/QuizQuestionScalarFie
 
 export const QuizQuestionFindManySelectSchema: z.ZodType<Prisma.QuizQuestionSelect> = z.object({
     id: z.boolean().optional(),
+    slug: z.boolean().optional(),
     lessonId: z.boolean().optional(),
     type: z.boolean().optional(),
     text: z.boolean().optional(),
@@ -29,6 +30,7 @@ export const QuizQuestionFindManySelectSchema: z.ZodType<Prisma.QuizQuestionSele
 
 export const QuizQuestionFindManySelectZodSchema = z.object({
     id: z.boolean().optional(),
+    slug: z.boolean().optional(),
     lessonId: z.boolean().optional(),
     type: z.boolean().optional(),
     text: z.boolean().optional(),

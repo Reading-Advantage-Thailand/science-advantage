@@ -4,6 +4,7 @@ import { StandardsAlignmentSchema } from '../../enums/StandardsAlignment.schema'
 // prettier-ignore
 export const CurriculumUnitModelSchema = z.object({
     id: z.string(),
+    slug: z.string(),
     title: z.string(),
     description: z.string().nullable(),
     framework: StandardsAlignmentSchema,

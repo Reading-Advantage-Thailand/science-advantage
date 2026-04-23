@@ -3,16 +3,74 @@ import { ZodError } from 'zod';
 import {
   LessonSlugSchema,
   CurriculumUnitSlugSchema,
+  QuestionSlugSchema,
   validateLessonSlug,
   validateCurriculumUnitSlug,
+  validateQuestionSlug,
   isValidLessonSlug,
   isValidCurriculumUnitSlug,
+  isValidQuestionSlug,
   generateLessonSlug,
   generateCurriculumUnitSlug,
+  generateQuestionSlug,
 } from '../lesson-slug.schema';
 import { LessonType, StandardsAlignment } from '@prisma/client';
 
 describe('Curriculum Identifiers Schema', () => {
+  describe('QuestionSlugSchema', () => {
+    it('should accept valid kebab-case question slug', () => {
+      const result = QuestionSlugSchema.parse('what-is-photosynthesis');
+      expect(result).toBe('what-is-photosynthesis');
+    });
+
+    it('should accept question slug with numbers', () => {
+      const result = QuestionSlugSchema.parse('q1-life-cycle');
+      expect(result).toBe('q1-life-cycle');
+    });
+
+    it('should reject slug with uppercase letters', () => {
+      expect(() => QuestionSlugSchema.parse('What-Is-Photosynthesis')).toThrow();
+    });
+
+    it('should reject slug starting with number', () => {
+      expect(() => QuestionSlugSchema.parse('1-what-is-photosynthesis')).toThrow();
+    });
+  });
+
+  describe('validateQuestionSlug', () => {
+    it('should return slug if valid', () => {
+      const result = validateQuestionSlug('what-is-photosynthesis');
+      expect(result).toBe('what-is-photosynthesis');
+    });
+
+    it('should throw descriptive error for invalid slug', () => {
+      expect(() => validateQuestionSlug('Invalid Slug')).toThrow('Question slug must be a valid kebab-case slug');
+    });
+  });
+
+  describe('isValidQuestionSlug', () => {
+    it('should return true for valid slug', () => {
+      expect(isValidQuestionSlug('what-is-photosynthesis')).toBe(true);
+    });
+
+    it('should return false for invalid slug', () => {
+      expect(isValidQuestionSlug('Invalid Slug')).toBe(false);
+    });
+  });
+
+  describe('generateQuestionSlug', () => {
+    it('should generate valid slug from question text', () => {
+      const slug = generateQuestionSlug('What is photosynthesis?');
+      expect(slug).toBe('q-what-is-photosynthesis');
+      expect(isValidQuestionSlug(slug)).toBe(true);
+    });
+
+    it('should handle Thai text by transliterating', () => {
+      const slug = generateQuestionSlug('การสังเคราะห์ด้วยแสงคืออะไร?');
+      expect(isValidQuestionSlug(slug)).toBe(true);
+    });
+  });
+
   describe('LessonSlugSchema', () => {
     it('should accept valid kebab-case lesson slug', () => {
       const result = LessonSlugSchema.parse('being-a-scientist');
@@ -146,7 +204,7 @@ describe('Curriculum Identifiers Schema', () => {
 describe('Lesson Structured Content Contract', () => {
   describe('LessonType enum coverage', () => {
     it('should support all required lesson types from spec', () => {
-      const requiredTypes: LessonType[] = ['LESSON', 'LAB', 'ASSESSMENT'];
+      const requiredTypes: LessonType[] = ['LESSON', 'LAB', 'ASSESSMENT', 'REVIEW'];
       for (const type of requiredTypes) {
         expect(Object.values(LessonType)).toContain(type);
       }
@@ -155,6 +213,10 @@ describe('Lesson Structured Content Contract', () => {
     it('should have explicit instruction lesson type for FR-2', () => {
       expect(LessonType.LESSON).toBeDefined();
       expect(LessonType.LAB).toBeDefined();
+    });
+
+    it('should have REVIEW lesson type for fun review lessons (FR-2)', () => {
+      expect(LessonType.REVIEW).toBeDefined();
     });
   });
 
@@ -225,6 +287,72 @@ describe('Lesson Structured Content Contract', () => {
       const result = validateLessonContent(labLesson);
       expect(result.version).toBe(1);
       expect(result.blocks).toHaveLength(3);
+    });
+
+    it('should validate fun review lesson blocks', async () => {
+      const { validateLessonContent } = await import('@/lib/schemas/lesson-content.schema');
+
+      const reviewLesson = {
+        version: 1,
+        blocks: [
+          {
+            id: 'intro',
+            type: 'text',
+            content: 'Lets review what we learned about plants!',
+          },
+          {
+            id: 'review',
+            type: 'review',
+            title: 'Plant Parts Review',
+            titleThai: 'ทบทวนส่วนต่างๆ ของต้นไม้',
+            questions: [
+              { questionId: 'q1', text: 'What do plants need to grow?', textThai: 'ต้นไม้ต้องการอะไรในการเติบโต?' },
+            ],
+          },
+        ],
+      };
+
+      const result = validateLessonContent(reviewLesson);
+      expect(result.version).toBe(1);
+      expect(result.blocks).toHaveLength(2);
+    });
+
+    it('should validate summative assessment lesson blocks', async () => {
+      const { validateLessonContent } = await import('@/lib/schemas/lesson-content.schema');
+
+      const assessmentLesson = {
+        version: 1,
+        blocks: [
+          {
+            id: 'intro',
+            type: 'text',
+            content: 'Time to show what you have learned!',
+          },
+          {
+            id: 'quiz',
+            type: 'quiz',
+            title: 'Unit 1 Assessment',
+            titleThai: 'แบบทดสอบบทที่ 1',
+            passingScore: 70,
+            questions: [
+              {
+                questionId: 'q1',
+                type: 'multiple_choice',
+                text: 'What is photosynthesis?',
+                textThai: 'การสังเคราะห์ด้วยแสงคืออะไร?',
+                options: [
+                  { id: 'a', text: 'How plants make food', isCorrect: true },
+                  { id: 'b', text: 'How animals breathe', isCorrect: false },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const result = validateLessonContent(assessmentLesson);
+      expect(result.version).toBe(1);
+      expect(result.blocks).toHaveLength(2);
     });
   });
 });

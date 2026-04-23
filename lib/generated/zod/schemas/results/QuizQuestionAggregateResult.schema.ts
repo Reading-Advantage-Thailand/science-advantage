@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const QuizQuestionAggregateResultSchema = z.object({  _count: z.object({
     id: z.number(),
+    slug: z.number(),
     lessonId: z.number(),
     type: z.number(),
     text: z.number(),
@@ -27,6 +28,7 @@ export const QuizQuestionAggregateResultSchema = z.object({  _count: z.object({
   }).nullable().optional(),
   _min: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     lessonId: z.string().nullable(),
     text: z.string().nullable(),
     points: z.number().int().nullable(),
@@ -37,6 +39,7 @@ export const QuizQuestionAggregateResultSchema = z.object({  _count: z.object({
   }).nullable().optional(),
   _max: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     lessonId: z.string().nullable(),
     text: z.string().nullable(),
     points: z.number().int().nullable(),

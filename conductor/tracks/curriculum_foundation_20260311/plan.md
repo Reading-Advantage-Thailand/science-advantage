@@ -5,9 +5,9 @@
 - [x] Task: Define failing tests for curriculum identifiers and structured content contracts
   - [x] Add tests for unit and lesson slugs, lesson types, and required mappings
   - [x] Confirm current seed/content assets expose the expected gaps
-- [ ] Task: Finalize the canonical curriculum schema
-  - [ ] Define stable ID and slug rules across units, lessons, and questions
-  - [ ] Extend the structured content contract to cover all planned lesson types
+- [x] Task: Finalize the canonical curriculum schema
+  - [x] Define stable ID and slug rules across units, lessons, and questions
+  - [x] Extend the structured content contract to cover all planned lesson types
 - [ ] Task: Align Prisma and validation boundaries
   - [ ] Update database and validation layers to match the canonical curriculum contract
   - [ ] Ensure import-time validation can reject malformed content precisely

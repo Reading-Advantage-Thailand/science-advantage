@@ -10,6 +10,7 @@ import { CurriculumUnitSumOrderByAggregateInputObjectSchema as CurriculumUnitSum
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
+  slug: SortOrderSchema.optional(),
   title: SortOrderSchema.optional(),
   description: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   framework: SortOrderSchema.optional(),

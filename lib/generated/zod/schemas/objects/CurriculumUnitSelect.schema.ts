@@ -6,6 +6,7 @@ import { CurriculumUnitCountOutputTypeArgsObjectSchema as CurriculumUnitCountOut
 
 const makeSchema = () => z.object({
   id: z.boolean().optional(),
+  slug: z.boolean().optional(),
   title: z.boolean().optional(),
   description: z.boolean().optional(),
   framework: z.boolean().optional(),

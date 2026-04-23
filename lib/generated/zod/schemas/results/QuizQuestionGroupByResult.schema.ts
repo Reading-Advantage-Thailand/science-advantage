@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const QuizQuestionGroupByResultSchema = z.array(z.object({
   id: z.string(),
+  slug: z.string(),
   lessonId: z.string(),
   text: z.string(),
   options: z.unknown(),
@@ -12,6 +13,7 @@ export const QuizQuestionGroupByResultSchema = z.array(z.object({
   updatedAt: z.date(),
   _count: z.object({
     id: z.number(),
+    slug: z.number(),
     lessonId: z.number(),
     type: z.number(),
     text: z.number(),
@@ -38,6 +40,7 @@ export const QuizQuestionGroupByResultSchema = z.array(z.object({
   }).nullable().optional(),
   _min: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     lessonId: z.string().nullable(),
     text: z.string().nullable(),
     points: z.number().int().nullable(),
@@ -48,6 +51,7 @@ export const QuizQuestionGroupByResultSchema = z.array(z.object({
   }).nullable().optional(),
   _max: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     lessonId: z.string().nullable(),
     text: z.string().nullable(),
     points: z.number().int().nullable(),

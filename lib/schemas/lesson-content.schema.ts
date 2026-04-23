@@ -174,6 +174,59 @@ export const MaterialsBlockSchema = z.object({
   items: z.array(MaterialItemSchema).min(1, 'At least one item is required'),
 });
 
+/**
+ * Review question item for fun review blocks
+ */
+export const ReviewQuestionItemSchema = z.object({
+  questionId: z.string().min(1, 'Question ID is required'),
+  text: z.string().min(1, 'Question text is required'),
+  textThai: z.string().optional(),
+});
+
+/**
+ * Review block for fun review lessons
+ */
+export const ReviewBlockSchema = z.object({
+  id: z.string().optional(),
+  type: z.literal('review'),
+  title: z.string().min(1, 'Review title is required'),
+  titleThai: z.string().optional(),
+  questions: z.array(ReviewQuestionItemSchema).min(1, 'At least one question is required'),
+});
+
+/**
+ * Quiz option for multiple choice questions
+ */
+export const QuizOptionSchema = z.object({
+  id: z.string().min(1, 'Option ID is required'),
+  text: z.string().min(1, 'Option text is required'),
+  textThai: z.string().optional(),
+  isCorrect: z.boolean().optional(),
+});
+
+/**
+ * Quiz question item for quiz/assessment blocks
+ */
+export const QuizQuestionItemSchema = z.object({
+  questionId: z.string().min(1, 'Question ID is required'),
+  type: z.enum(['multiple_choice', 'multiple_select', 'true_false', 'fill_in_blank', 'vocabulary_match']),
+  text: z.string().min(1, 'Question text is required'),
+  textThai: z.string().optional(),
+  options: z.array(QuizOptionSchema).optional(),
+});
+
+/**
+ * Quiz/Assessment block for summative assessments
+ */
+export const QuizBlockSchema = z.object({
+  id: z.string().optional(),
+  type: z.literal('quiz'),
+  title: z.string().min(1, 'Quiz title is required'),
+  titleThai: z.string().optional(),
+  passingScore: z.number().int().min(0).max(100).optional(),
+  questions: z.array(QuizQuestionItemSchema).min(1, 'At least one question is required'),
+});
+
 // =============================================================================
 // Discriminated Union for All Content Blocks
 // =============================================================================
@@ -189,6 +242,8 @@ export const ContentBlockSchema = z.discriminatedUnion('type', [
   ReadingPassageBlockSchema,
   ProcedureBlockSchema,
   MaterialsBlockSchema,
+  ReviewBlockSchema,
+  QuizBlockSchema,
 ]);
 
 // =============================================================================
@@ -218,6 +273,11 @@ export type ImageBlock = z.infer<typeof ImageBlockSchema>;
 export type ReadingPassageBlock = z.infer<typeof ReadingPassageBlockSchema>;
 export type ProcedureBlock = z.infer<typeof ProcedureBlockSchema>;
 export type MaterialsBlock = z.infer<typeof MaterialsBlockSchema>;
+export type ReviewBlock = z.infer<typeof ReviewBlockSchema>;
+export type QuizBlock = z.infer<typeof QuizBlockSchema>;
+export type ReviewQuestionItem = z.infer<typeof ReviewQuestionItemSchema>;
+export type QuizQuestionItem = z.infer<typeof QuizQuestionItemSchema>;
+export type QuizOption = z.infer<typeof QuizOptionSchema>;
 
 export type ContentBlock = z.infer<typeof ContentBlockSchema>;
 export type LessonContent = z.infer<typeof LessonContentSchema>;

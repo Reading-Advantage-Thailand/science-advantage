@@ -10,6 +10,7 @@ import { LessonCompletionOrderByRelationAggregateInputObjectSchema as LessonComp
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
+  slug: SortOrderSchema.optional(),
   title: SortOrderSchema.optional(),
   description: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   content: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),

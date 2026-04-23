@@ -11,6 +11,7 @@ import { CurriculumUnitScalarFieldEnumSchema } from './enums/CurriculumUnitScala
 
 export const CurriculumUnitFindManySelectSchema: z.ZodType<Prisma.CurriculumUnitSelect> = z.object({
     id: z.boolean().optional(),
+    slug: z.boolean().optional(),
     title: z.boolean().optional(),
     description: z.boolean().optional(),
     framework: z.boolean().optional(),
@@ -26,6 +27,7 @@ export const CurriculumUnitFindManySelectSchema: z.ZodType<Prisma.CurriculumUnit
 
 export const CurriculumUnitFindManySelectZodSchema = z.object({
     id: z.boolean().optional(),
+    slug: z.boolean().optional(),
     title: z.boolean().optional(),
     description: z.boolean().optional(),
     framework: z.boolean().optional(),

@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const CurriculumUnitGroupByResultSchema = z.array(z.object({
   id: z.string(),
+  slug: z.string(),
   title: z.string(),
   description: z.string(),
   gradeLevel: z.number().int(),
@@ -10,6 +11,7 @@ export const CurriculumUnitGroupByResultSchema = z.array(z.object({
   updatedAt: z.date(),
   _count: z.object({
     id: z.number(),
+    slug: z.number(),
     title: z.number(),
     description: z.number(),
     framework: z.number(),
@@ -31,6 +33,7 @@ export const CurriculumUnitGroupByResultSchema = z.array(z.object({
   }).nullable().optional(),
   _min: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
     gradeLevel: z.number().int().nullable(),
@@ -41,6 +44,7 @@ export const CurriculumUnitGroupByResultSchema = z.array(z.object({
   }).nullable().optional(),
   _max: z.object({
     id: z.string().nullable(),
+    slug: z.string().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
     gradeLevel: z.number().int().nullable(),

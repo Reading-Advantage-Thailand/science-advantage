@@ -13,6 +13,7 @@ const quizquestionscalarwherewithaggregatesinputSchema = z.object({
   OR: z.lazy(() => QuizQuestionScalarWhereWithAggregatesInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => QuizQuestionScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => QuizQuestionScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
+  slug: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   lessonId: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   type: z.union([z.lazy(() => EnumQuestionTypeWithAggregatesFilterObjectSchema), QuestionTypeSchema]).optional(),
   text: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),

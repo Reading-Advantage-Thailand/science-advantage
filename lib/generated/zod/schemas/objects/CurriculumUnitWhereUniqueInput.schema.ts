@@ -4,6 +4,7 @@ import { CurriculumUnitClassIdFrameworkOrderCompoundUniqueInputObjectSchema as C
 
 const makeSchema = () => z.object({
   id: z.string().optional(),
+  slug: z.string().optional(),
   classId_framework_order: z.lazy(() => CurriculumUnitClassIdFrameworkOrderCompoundUniqueInputObjectSchema).optional()
 }).strict();
 export const CurriculumUnitWhereUniqueInputObjectSchema: z.ZodType<Prisma.CurriculumUnitWhereUniqueInput> = makeSchema() as unknown as z.ZodType<Prisma.CurriculumUnitWhereUniqueInput>;

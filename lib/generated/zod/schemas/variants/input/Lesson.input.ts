@@ -4,6 +4,7 @@ import { LessonTypeSchema } from '../../enums/LessonType.schema';
 // prettier-ignore
 export const LessonInputSchema = z.object({
     id: z.string(),
+    slug: z.string(),
     title: z.string(),
     description: z.string().optional().nullable(),
     content: z.string().optional().nullable(),
