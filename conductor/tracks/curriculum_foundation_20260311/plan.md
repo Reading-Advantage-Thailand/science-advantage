@@ -11,8 +11,10 @@
 - [x] Task: Align Prisma and validation boundaries
   - [x] Update database and validation layers to match the canonical curriculum contract
   - [x] Ensure import-time validation can reject malformed content precisely
-- [ ] Task: Conductor - Manual Verification 'Canonical Curriculum Contract'
-  - [ ] Verify schema examples for explicit instruction, lab, review, and summative lessons
+- [x] Task: Conductor - Manual Verification 'Canonical Curriculum Contract'
+  - [x] Verify schema examples for explicit instruction, lab, review, and summative lessons
+
+## Phase 2: Source-of-Truth Content Migration
 
 ## Phase 2: Source-of-Truth Content Migration
 
