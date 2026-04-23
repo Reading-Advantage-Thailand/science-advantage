@@ -11,27 +11,27 @@
 - [x] Task: Centralize auth and role routing
   - [x] Consolidate role constants, redirects, and route guards into shared helpers
   - [x] Refactor protected routes to consume the shared auth layer
-- [ ] Task: Conductor - Manual Verification 'Authentication Contract'
-  - [ ] Verify Google sign-in, redirect behavior, and dev impersonation locally
+- [x] Task: Conductor - Manual Verification 'Authentication Contract'
+  - [x] Verify Google sign-in, redirect behavior, and dev impersonation locally
 
 ## Phase 2: Shared Platform Services
 
-- [ ] Task: Define failing tests for config, cache, and rate-limit adapters
-  - [ ] Cover Redis-backed and fallback behavior for shared-state services
-  - [ ] Cover stale-session cleanup behavior
-- [ ] Task: Implement environment and service adapters
-  - [ ] Align env parsing with auth, AI, Redis, and storage requirements
-  - [ ] Introduce reusable cache/rate-limit interfaces with safe fallbacks
-- [ ] Task: Add browser-level smoke coverage
-  - [ ] Replace the placeholder E2E command with a real harness
-  - [ ] Cover sign-in, student entry, and teacher entry smoke flows
-- [ ] Task: Conductor - Manual Verification 'Shared Platform Services'
-  - [ ] Verify auth, cache fallback, and browser smoke setup in a local QA run
+- [x] Task: Define failing tests for config, cache, and rate-limit adapters
+  - [x] Cover Redis-backed and fallback behavior for shared-state services
+  - [x] Cover stale-session cleanup behavior
+- [x] Task: Implement environment and service adapters
+  - [x] Align env parsing with auth, AI, Redis, and storage requirements
+  - [x] Introduce reusable cache/rate-limit interfaces with safe fallbacks
+- [x] Task: Add browser-level smoke coverage
+  - [x] Replace the placeholder E2E command with a real harness
+  - [x] Cover sign-in, student entry, and teacher entry smoke flows
+- [x] Task: Conductor - Manual Verification 'Shared Platform Services'
+  - [x] Verify auth, cache fallback, and browser smoke setup in a local QA run
 
 ## Phase 3: Documentation Alignment
 
-- [ ] Task: Update operator and developer docs
-  - [ ] Align README and environment guidance with the implemented platform contract
-  - [ ] Record remaining platform debt in `conductor/tech-debt.md`
-- [ ] Task: Conductor - Manual Verification 'Platform Documentation'
-  - [ ] Verify setup instructions and smoke commands are executable end to end
+- [x] Task: Update operator and developer docs
+  - [x] Align README and environment guidance with the implemented platform contract
+  - [x] Record remaining platform debt in `conductor/tech-debt.md`
+- [x] Task: Conductor - Manual Verification 'Platform Documentation'
+  - [x] Verify setup instructions and smoke commands are executable end to end

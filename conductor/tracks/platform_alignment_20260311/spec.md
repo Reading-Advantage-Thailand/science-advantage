@@ -51,12 +51,12 @@ cache/rate-limit infrastructure, and the first real browser-level smoke tests.
 
 ## Acceptance Criteria
 
-- [ ] `/signin` follows the Google OAuth plus dev impersonation contract
-- [ ] Credential/demo login is no longer the default product auth path
-- [ ] Shared auth helpers are used across protected routes
-- [ ] Redis-backed adapters exist for the services that require shared state
-- [ ] `npm run test:e2e` executes a real smoke suite
-- [ ] Root docs and env guidance match the implemented platform behavior
+- [x] `/signin` follows the Google OAuth plus dev impersonation contract
+- [x] Credential/demo login is no longer the default product auth path
+- [x] Shared auth helpers are used across protected routes
+- [x] Redis-backed adapters exist for the services that require shared state
+- [x] `npm run test:e2e` executes a real smoke suite
+- [x] Root docs and env guidance match the implemented platform behavior
 
 ## Out of Scope
 
