@@ -34,3 +34,4 @@
 - [Redis] Redis-backed adapters should throw on connection failure and fall back gracefully to in-memory stores. Mock Redis must persist data correctly between hGet/hSet calls.
 - [Redis] Eager env parsing at module load (env.ts) breaks tree-shaking and causes issues in unit tests when required fields like DATABASE_URL aren't set. Make critical env fields optional with safe defaults.
 - [Playwright] @playwright/test must be installed separately; `npx playwright install chromium` needed for browsers. Place tests in `e2e/` directory with `playwright.config.ts` at project root.
+- [Curriculum] Lesson slugs must be kebab-case starting with a letter (e.g., `being-a-scientist` not `g3-being-a-scientist`). Use dedicated slug field, not ID reuse. Prisma schema lacks dedicated slug fields for Lesson and CurriculumUnit models (tech-debt).

@@ -2,9 +2,9 @@
 
 ## Phase 1: Canonical Curriculum Contract
 
-- [ ] Task: Define failing tests for curriculum identifiers and structured content contracts
-  - [ ] Add tests for unit and lesson slugs, lesson types, and required mappings
-  - [ ] Confirm current seed/content assets expose the expected gaps
+- [x] Task: Define failing tests for curriculum identifiers and structured content contracts
+  - [x] Add tests for unit and lesson slugs, lesson types, and required mappings
+  - [x] Confirm current seed/content assets expose the expected gaps
 - [ ] Task: Finalize the canonical curriculum schema
   - [ ] Define stable ID and slug rules across units, lessons, and questions
   - [ ] Extend the structured content contract to cover all planned lesson types
