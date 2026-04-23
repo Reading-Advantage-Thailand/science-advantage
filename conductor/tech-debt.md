@@ -2,7 +2,7 @@
 
 | Status    | Severity | Item                                                                                                                                                                         | Target Track                     |
 | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
-| Open      | Critical | Auth: Google OAuth flow implemented (signin page, /api/auth/google, callback); requires GOOGLE_OAUTH_CLIENT_ID/SECRET env vars to function.                                  | `platform_alignment_20260311`    |
+| Addressed | Critical | Auth: Google OAuth flow implemented (signin page, /api/auth/google, callback); requires GOOGLE_OAUTH_CLIENT_ID/SECRET env vars to function.                                  | `platform_alignment_20260311`    |
 | Resolved  | High     | Redis: Adapters wired into AI recommendation service and API routes; RedisCacheAdapter provides caching, RedisRateLimitStore provides rate limiting with in-memory fallback. | `platform_alignment_20260311`    |
 | Resolved  | High     | `npm run test:e2e` now runs Playwright smoke tests covering sign-in, student entry, and teacher entry flows.                                                                 | `platform_alignment_20260311`    |
 | Resolved  | High     | README.md and .env.example updated to reflect actual env vars (GOOGLE_OAUTH_*, no NEXTAUTH_*), Redis configuration, and Google OAuth-only auth contract.                         | `platform_alignment_20260311`    |
@@ -12,4 +12,4 @@
 | Open      | Medium   | Teacher dashboards still contain placeholder activity and assignment surfaces.                                                                                               | `teacher_delivery_20260311`      |
 | Open      | Medium   | Content operations rely on seeds and scripts rather than a governed release workflow.                                                                                        | `curriculum_foundation_20260311` |
 | Open      | Medium   | Observability exists as scaffolding but lacks clear dashboards and operational thresholds.                                                                                   | `mastery_assistance_20260311`    |
-| Open      | Low      | Root README and some legacy docs still describe stale auth and platform behavior.                                                                                            | follow-up docs chore             |
+| Addressed | Low      | Root README and some legacy docs still describe stale auth and platform behavior.                                                                                            | follow-up docs chore             |
