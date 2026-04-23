@@ -66,15 +66,19 @@ Complete the `.env.local` file with remaining credentials:
 
 ```bash
 # Google OAuth (required for authentication)
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
+GOOGLE_OAUTH_CLIENT_ID="your-google-oauth-client-id.apps.googleusercontent.com"
+GOOGLE_OAUTH_CLIENT_SECRET="your-google-oauth-secret"
+GOOGLE_OAUTH_REDIRECT_URI="http://localhost:3000/api/auth/google/callback"
 
-# NextAuth
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-here"  # Generate with: openssl rand -base64 32
+# Redis (optional, falls back to in-memory)
+REDIS_URL="redis://localhost:6379"
 
-# Optional: OpenAI, Google Cloud Storage, Redis
-# See .env.example for additional configuration options
+# OpenAI (for AI features)
+OPENAI_API_KEY="your-openai-api-key"
+
+# Google Cloud Storage (optional)
+GOOGLE_CLOUD_PROJECT_ID="your-gcp-project-id"
+GOOGLE_CLOUD_STORAGE_BUCKET="your-storage-bucket"
 ```
 
 ### Database Migration and Seeding
@@ -114,10 +118,7 @@ npm run seed
   npm run dev:reset
   ```
 
-**Demo Users** (created by default seed):
-- Teacher: Check seeded users in the database
-- Student: Check seeded users in the database
-- _Note: Google OAuth (`bodangren@gmail.com`) is required for localhost authentication_
+**Demo Users:** The application uses Google OAuth exclusively. During local development with `DEV_AUTH_ENABLED=true`, use the impersonation panel on `/signin` to assume teacher or student roles for QA. Production authentication requires Google OAuth credentials configured via `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET`.
 
 ### Development Server
 

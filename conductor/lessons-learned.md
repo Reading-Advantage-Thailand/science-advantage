@@ -17,8 +17,13 @@
   expansive admin tooling.
 - [Auth] Repository guidance and implementation have drifted; auth must be
   treated as a platform-alignment problem, not a side task.
-- [Infra] Do not document Redis, Playwright, Google OAuth, or GCS as fully
+- [Platform] Do not document Redis, Playwright, Google OAuth, or GCS as fully
   delivered if the repo only contains placeholders or drift.
+- [Auth] The codebase uses GOOGLE_OAUTH_CLIENT_ID/SECRET env vars (no NextAuth),
+  supports dev impersonation via DEV_AUTH_ENABLED, and falls back gracefully
+  when Redis is unavailable.
+- [Docs] README.md and .env.example must be updated together when env var
+  contracts change, as they reference each other.
 - [Roadmapping] Prefer a few dependency-ordered tracks over long epic catalogs.
 - [Testing] vitest.setup.ts runs `prisma db push --force-reset` before ALL tests, requiring a running database even for unit tests. Tests needing DB-free execution require separate config or mocking at a deeper level.
 - [Testing] Auth env behavior (NODE_ENV, DEV_AUTH_ENABLED) must be explicitly mocked per test file since module-level mocks are isolated per file.
