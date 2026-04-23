@@ -8,9 +8,9 @@
 - [x] Task: Finalize the canonical curriculum schema
   - [x] Define stable ID and slug rules across units, lessons, and questions
   - [x] Extend the structured content contract to cover all planned lesson types
-- [ ] Task: Align Prisma and validation boundaries
-  - [ ] Update database and validation layers to match the canonical curriculum contract
-  - [ ] Ensure import-time validation can reject malformed content precisely
+- [x] Task: Align Prisma and validation boundaries
+  - [x] Update database and validation layers to match the canonical curriculum contract
+  - [x] Ensure import-time validation can reject malformed content precisely
 - [ ] Task: Conductor - Manual Verification 'Canonical Curriculum Contract'
   - [ ] Verify schema examples for explicit instruction, lab, review, and summative lessons
 

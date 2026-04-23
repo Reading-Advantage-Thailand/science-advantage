@@ -490,6 +490,7 @@ describe('Seed Data Validation', () => {
         lessons: [
           {
             id: 'g3-being-a-scientist',
+            slug: 'being-a-scientist',
             title: 'Being a Scientist',
             description: 'What do scientists do?',
             content: 'Scientists follow steps...',
@@ -524,6 +525,7 @@ describe('Seed Data Validation', () => {
         lessons: [
           {
             id: 'g3-legacy-lesson',
+            slug: 'legacy-lesson',
             title: 'Legacy Lesson',
             description: 'Old format without structured content',
             content: 'Just plain content...',
@@ -547,6 +549,7 @@ describe('Seed Data Validation', () => {
         units: [
           {
             id: 'thai-g3-unit-1',
+            slug: 'unit-1-introduction-to-science',
             title: 'Unit 1: Introduction to Science',
             description: 'Learn about science',
             order: 1,
@@ -567,6 +570,7 @@ describe('Seed Data Validation', () => {
         units: [
           {
             id: 'thai-g3-unit-1',
+            slug: 'unit-1',
             title: 'Unit 1',
             description: 'Test',
             order: 1,
