@@ -21,18 +21,10 @@
 - [x] Task: Define failing tests for Grade 3 and Grade 4 content migration
   - [x] Codify expected unit counts, lesson-type coverage, and standards mapping
   - [x] Confirm archived scope/sequence assumptions against migrated assets
-- [ ] Task: Normalize Grade 3 scope-and-sequence into canonical assets
-  - [ ] Convert the active Grade 3 planning model into validated curriculum data
-  - [ ] Ensure question banks and lesson types line up with the planned rhythm
-- [ ] Task: Normalize Grade 4 rich content into the same contract
-  - [ ] Upgrade lesson files, questions, and mappings to canonical naming and validation rules
-  - [ ] Reconcile media references and translation requirements
-- [ ] Task: Conductor - Manual Verification 'Source-of-Truth Content Migration'
-  - [ ] Seed and inspect representative Grade 3 and Grade 4 curriculum records locally
-- [ ] Task: Normalize Grade 3 scope-and-sequence into canonical assets
-  - [ ] Convert the active Grade 3 planning model into validated curriculum data
-  - [ ] Ensure question banks and lesson types line up with the planned rhythm
-- [ ] Task: Normalize Grade 4 rich content into the same contract
+- [x] Task: Normalize Grade 3 scope-and-sequence into canonical assets
+  - [x] Convert the active Grade 3 planning model into validated curriculum data
+  - [x] Ensure question banks and lesson types line up with the planned rhythm
+- [~] Task: Normalize Grade 4 rich content into the same contract
   - [ ] Upgrade lesson files, questions, and mappings to canonical naming and validation rules
   - [ ] Reconcile media references and translation requirements
 - [ ] Task: Conductor - Manual Verification 'Source-of-Truth Content Migration'

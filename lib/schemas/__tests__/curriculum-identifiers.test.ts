@@ -716,4 +716,91 @@ describe('Seed Data Validation', () => {
       expect(vocabWithThai).toBeGreaterThan(0);
     });
   });
+
+  describe('Grade 4 Rich Content Normalization (Phase 2)', () => {
+    it('should have lesson files for Grade 4 in prisma/data/content/grade-4/lessons/', async () => {
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'lessons');
+      expect(fs.existsSync(lessonsDir)).toBe(true);
+
+      const files = fs.readdirSync(lessonsDir).filter(f => f.endsWith('.json'));
+      expect(files.length).toBeGreaterThan(0);
+    });
+
+    it('should have question bank files for Grade 4 in prisma/data/content/grade-4/questions/', async () => {
+      const questionsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'questions');
+      expect(fs.existsSync(questionsDir)).toBe(true);
+
+      const files = fs.readdirSync(questionsDir).filter(f => f.endsWith('.json'));
+      expect(files.length).toBeGreaterThan(0);
+    });
+
+    it('should have standards mapping for Grade 4', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'standards-mapping.json');
+      expect(fs.existsSync(filePath)).toBe(true);
+
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      expect(data).toHaveProperty('framework', 'THAI');
+      expect(data).toHaveProperty('gradeLevel', 4);
+      expect(Array.isArray(data.lessons)).toBe(true);
+      expect(data.lessons.length).toBeGreaterThan(0);
+    });
+
+    it('should have slug field on Grade 4 lesson file names', async () => {
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'lessons');
+      const files = fs.readdirSync(lessonsDir).filter(f => f.endsWith('.json'));
+
+      for (const file of files) {
+        expect(file).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*\.json$/);
+      }
+    });
+
+    it('should have structuredContent with blocks for Grade 4 lessons', async () => {
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'lessons');
+      const files = fs.readdirSync(lessonsDir).filter(f => f.endsWith('.json'));
+
+      for (const file of files) {
+        const filePath = path.join(lessonsDir, file);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        expect(data).toHaveProperty('version', 1);
+        expect(data).toHaveProperty('blocks');
+        expect(Array.isArray(data.blocks)).toBe(true);
+        expect(data.blocks.length).toBeGreaterThan(0);
+      }
+    });
+
+    it('should have question banks with 20 questions per Grade 4 lesson', async () => {
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'lessons');
+      const questionsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'questions');
+      const lessonFiles = fs.readdirSync(lessonsDir).filter(f => f.endsWith('.json'));
+
+      for (const lessonFile of lessonFiles) {
+        const lessonSlug = lessonFile.replace('.json', '');
+        const questionFile = path.join(questionsDir, `${lessonSlug}.json`);
+        expect(fs.existsSync(questionFile)).toBe(true);
+
+        const qData = JSON.parse(fs.readFileSync(questionFile, 'utf-8'));
+        expect(qData.questions).toHaveLength(20);
+      }
+    });
+
+    it('should have bilingual vocabulary terms in Grade 4 structuredContent', async () => {
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'data', 'content', 'grade-4', 'lessons');
+      const files = fs.readdirSync(lessonsDir).filter(f => f.endsWith('.json'));
+
+      for (const file of files) {
+        const filePath = path.join(lessonsDir, file);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        const vocabBlocks = data.blocks.filter((b: any) => b.type === 'vocabulary');
+        for (const block of vocabBlocks) {
+          if (block.terms && block.terms.length > 0) {
+            for (const term of block.terms) {
+              expect(term).toHaveProperty('thai');
+            }
+          }
+        }
+      }
+    });
+  });
 });
