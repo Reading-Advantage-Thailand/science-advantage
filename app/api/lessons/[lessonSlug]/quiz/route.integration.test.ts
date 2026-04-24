@@ -103,6 +103,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
     testLesson = await prisma.lesson.create({
       data: {
         id: 'lesson-quiz-1',
+        slug: 'intro-to-science-quiz',
         title: 'Introduction to Science',
         description: 'Learn what science is',
         content: 'Science is the study of the natural world',
@@ -115,6 +116,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
     await prisma.curriculumUnit.create({
       data: {
         id: 'unit-quiz-1',
+        slug: 'unit-quiz-1-science-basics',
         title: 'Unit 1: Science Basics',
         framework: 'THAI',
         gradeLevel: 3,
@@ -131,6 +133,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
     for (let i = 1; i <= 12; i++) {
       const question = await prisma.quizQuestion.create({
         data: {
+          slug: `quiz-q-${i}`,
           lessonId: testLesson.id,
           type: 'MULTIPLE_CHOICE',
           text: `Question ${i}: What is the scientific method step ${i}?`,
@@ -313,6 +316,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       const smallLesson = await prisma.lesson.create({
         data: {
           id: 'lesson-small',
+          slug: 'small-lesson',
           title: 'Small Lesson',
           gradeLevel: 3,
           order: 99,
@@ -322,6 +326,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
       await prisma.curriculumUnit.create({
         data: {
           id: 'unit-small',
+          slug: 'unit-small',
           title: 'Small Unit',
           framework: 'THAI',
           gradeLevel: 3,
@@ -335,6 +340,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
       await prisma.quizQuestion.create({
         data: {
+          slug: 'small-q-1',
           lessonId: smallLesson.id,
           type: 'TRUE_FALSE',
           text: 'Is this a test?',
@@ -347,6 +353,7 @@ describe('GET /api/lessons/[lessonId]/quiz - Integration Tests', () => {
 
       await prisma.quizQuestion.create({
         data: {
+          slug: 'small-q-2',
           lessonId: smallLesson.id,
           type: 'TRUE_FALSE',
           text: 'Is this another test?',
@@ -459,6 +466,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     testLesson = await prisma.lesson.create({
       data: {
         id: 'lesson-submit-1',
+        slug: 'lesson-submit-1',
         title: 'Introduction to Science',
         description: 'Learn what science is',
         content: 'Science is the study of the natural world',
@@ -471,6 +479,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     await prisma.curriculumUnit.create({
       data: {
         id: 'unit-submit-1',
+        slug: 'unit-submit-1',
         title: 'Unit 1: Science Basics',
         framework: 'THAI',
         gradeLevel: 3,
@@ -502,6 +511,7 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     for (let i = 0; i < questionsData.length; i++) {
       const question = await prisma.quizQuestion.create({
         data: {
+          slug: `submit-q-${i + 1}`,
           lessonId: testLesson.id,
           type: 'MULTIPLE_CHOICE',
           text: questionsData[i].text,

@@ -82,6 +82,7 @@ export async function POST(request: NextRequest) {
       if (templateLessons.length > 0) {
         await tx.curriculumUnit.create({
           data: {
+            slug: `unit-1-intro-science-${newClass.id.slice(-8)}`,
             title: `Unit 1: Introduction to Science & Living Things`,
             description: 'Explore what science is and learn about living things and their characteristics.',
             framework: validatedData.standardsAlignment,

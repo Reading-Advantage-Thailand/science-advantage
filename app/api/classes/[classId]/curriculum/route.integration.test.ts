@@ -108,6 +108,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
     testLesson1 = await prisma.lesson.create({
       data: {
         id: 'lesson-1',
+        slug: 'intro-to-science',
         title: 'Introduction to Science',
         description: 'Learn what science is',
         content: 'Science is the study of the natural world',
@@ -119,6 +120,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
     testLesson2 = await prisma.lesson.create({
       data: {
         id: 'lesson-2',
+        slug: 'living-things',
         title: 'Living Things',
         description: 'Learn about living organisms',
         content: 'Living things grow, move, and reproduce',
@@ -130,6 +132,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
     testLesson3 = await prisma.lesson.create({
       data: {
         id: 'lesson-3',
+        slug: 'plants-and-animals',
         title: 'Plants and Animals',
         description: 'Compare plants and animals',
         content: 'Plants make their own food, animals do not',
@@ -142,6 +145,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
     await prisma.curriculumUnit.create({
       data: {
         id: 'unit-1',
+        slug: 'unit-1-intro-to-science',
         title: 'Unit 1: Introduction to Science',
         description: 'Basic science concepts',
         framework: 'THAI',
@@ -157,6 +161,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
     await prisma.curriculumUnit.create({
       data: {
         id: 'unit-2',
+        slug: 'unit-2-living-organisms',
         title: 'Unit 2: Living Organisms',
         description: 'Study of life',
         framework: 'THAI',
@@ -407,6 +412,7 @@ describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
       const emptyUnit = await prisma.curriculumUnit.create({
         data: {
           id: 'empty-unit',
+          slug: 'empty-unit-no-lessons',
           title: 'Empty Unit',
           framework: 'THAI',
           gradeLevel: 3,

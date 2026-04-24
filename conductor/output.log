@@ -40,3 +40,468 @@ no changes added to commit (use "git add" and/or "git commit -a")
 [0m→ [0mRead conductor/tracks/mastery_assistance_20260311/metadata.json
 [0m→ [0mRead conductor/tracks/teacher_delivery_20260311/metadata.json
 Dirty workspace - committing first, then starting Curriculum Foundation track.
+[0m
+[0m$ [0mgit add conductor/output.log conductor/review-output.log && git commit -m "conductor: archive previous run outputs"
+[main 8becb8a] conductor: archive previous run outputs
+ 2 files changed, 504 insertions(+), 1022 deletions(-)
+[0m
+[0m→ [0mRead conductor/tracks/curriculum_foundation_20260311/plan.md
+[0m→ [0mRead conductor/tracks/curriculum_foundation_20260311/spec.md
+[0m✱ [0mGlob "**/*grade*3*/**/*.json"[90m 0 matches[0m
+[0m✱ [0mGlob "prisma/seed*"[90m 2 matches[0m
+[0m✱ [0mGlob "**/*grade*4*/**/*.json"[90m 21 matches[0m
+[0m→ [0mRead prisma/seed.ts
+[0m✱ [0mGlob "docs/**/*grade*3*"[90m 1 match[0m
+[0m✱ [0mGlob "docs/**/*scope*sequence*"[90m 4 matches[0m
+[0m→ [0mRead docs/archive/curriculum/grade3_scope_sequence.md
+[0m→ [0mRead prisma/data/content/grade-4/lessons/g4-weather-patterns.json
+[0m→ [0mRead prisma/schema.prisma[90m [limit=200][0m
+[0m✱ [0mGlob "prisma/seed-functions/*.ts"[90m 7 matches[0m
+[0m→ [0mRead prisma/seed-functions/seed-lessons.ts
+[0m
+[0m$ [0mls -la prisma/data/content/
+total 12
+drwxrwxr-x 3 daniel-bo daniel-bo 4096 Nov 23 17:58 .
+drwxrwxr-x 3 daniel-bo daniel-bo 4096 Nov 23 17:58 ..
+drwxrwxr-x 4 daniel-bo daniel-bo 4096 Nov 23 17:58 grade-4
+[0m
+[0m$ [0mls -la prisma/ | head -30
+total 48
+drwxrwxr-x  7 daniel-bo daniel-bo 4096 Feb  7 16:55 .
+drwxrwxr-x 24 daniel-bo daniel-bo 4096 Apr 16 21:08 ..
+drwxrwxr-x  3 daniel-bo daniel-bo 4096 Nov 23 17:58 data
+drwxrwxr-x  4 daniel-bo daniel-bo 4096 Oct 29 16:57 migrations
+-rw-rw-r--  1 daniel-bo daniel-bo 9855 Apr 24 02:34 schema.prisma
+drwxrwxr-x  6 daniel-bo daniel-bo 4096 Oct 25 13:39 seed-data
+-rw-rw-r--  1 daniel-bo daniel-bo 2659 Nov  1 07:54 seed-demo-users.ts
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Nov 24 16:51 seed-functions
+-rw-rw-r--  1 daniel-bo daniel-bo 2500 Nov  1 07:54 seed.ts
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Oct 29 16:57 __tests__
+[0m
+[0m$ [0mls -la prisma/seed-data/
+total 32
+drwxrwxr-x 6 daniel-bo daniel-bo 4096 Oct 25 13:39 .
+drwxrwxr-x 7 daniel-bo daniel-bo 4096 Feb  7 16:55 ..
+drwxrwxr-x 2 daniel-bo daniel-bo 4096 Oct 24 20:04 curriculum-units
+drwxrwxr-x 2 daniel-bo daniel-bo 4096 Nov 24 16:51 lessons
+drwxrwxr-x 2 daniel-bo daniel-bo 4096 Oct 25 13:39 questions
+-rw-rw-r-- 1 daniel-bo daniel-bo 7606 Nov  1 07:54 README.md
+drwxrwxr-x 2 daniel-bo daniel-bo 4096 Oct 24 20:04 standards
+[0m
+[0m✱ [0mGlob "prisma/seed-data/**/*.json"[90m 12 matches[0m
+[0m→ [0mRead prisma/seed-data/lessons/thai-g3-unit-1.json
+[0m→ [0mRead prisma/seed-data/curriculum-units/thai-grade-3.json
+Let me check the typecheck errors mentioned in tech-debt and review what tests exist.
+[0m
+[0m$ [0mnpm run typecheck 2>&1 | head -100
+npm error Missing script: "typecheck"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/daniel-bo/.npm/_logs/2026-04-24T00_32_41_904Z-debug-0.log
+[0m
+[0m$ [0mnpm run
+Lifecycle scripts included in science-advantage@0.1.0:
+  start
+    next start
+  test
+    vitest run
+available via `npm run`:
+  dev
+    next dev
+  build
+    npx prisma generate && next build
+  lint
+    eslint .
+  format
+    prettier --write "**/*.{js,jsx,ts,tsx,json,css,md}"
+  test:watch
+    vitest
+  test:integration
+    vitest run --config vitest.integration.config.ts
+  test:e2e
+    playwright test
+  seed
+    tsx prisma/seed.ts
+  seed:demo-users
+    tsx prisma/seed-demo-users.ts
+  dev:reset
+    npx prisma db push --force-reset && npm run seed
+  dev:interventions
+    tsx scripts/dev-interventions.ts
+  optimize:images
+    tsx scripts/optimize-images.ts
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | head -60
+app/(teacher)/teacher/page.e2e.spec.ts(363,13): error TS18047: 'text' is possibly 'null'.
+app/api/auth/login/auth-contract.test.ts(57,22): error TS2339: Property 'mockResolvedValue' does not exist on type '<T extends userFindUniqueArgs>(args: SelectSubset<T, userFindUniqueArgs<DefaultArgs>>) => Prisma__userClient<GetFindResult<$userPayload<DefaultArgs>, T, PrismaClientOptions> | null, null, DefaultArgs, PrismaClientOptions>'.
+app/api/auth/login/auth-contract.test.ts(61,26): error TS2339: Property 'mockResolvedValue' does not exist on type '(password: string, hash: string) => Promise<boolean>'.
+app/api/auth/login/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/login/route.integration.test.ts(19,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/logout/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/logout/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/logout/route.integration.test.ts(53,5): error TS2739: Type 'Session' is missing the following properties from type '{ id: string; createdAt: Date; updatedAt: Date; userId: string; userAgent: string | null; expiresAt: Date; token: string; ipAddress: string | null; }': createdAt, updatedAt, userAgent, ipAddress
+app/api/auth/session/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/session/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/session/route.integration.test.ts(53,5): error TS2739: Type 'Session' is missing the following properties from type '{ id: string; createdAt: Date; updatedAt: Date; userId: string; userAgent: string | null; expiresAt: Date; token: string; ipAddress: string | null; }': createdAt, updatedAt, userAgent, ipAddress
+app/api/classes/[classId]/curriculum/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(109,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+  Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type 'Without<LessonUncheckedCreateInput, LessonCreateInput> & LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(120,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+  Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type 'Without<LessonUncheckedCreateInput, LessonCreateInput> & LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(131,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+  Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type 'Without<LessonUncheckedCreateInput, LessonCreateInput> & LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(143,7): error TS2322: Type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(158,7): error TS2322: Type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(408,9): error TS2322: Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+app/api/classes/route.ts(84,11): error TS2322: Type '{ title: string; description: string; framework: "THAI" | "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ title: string; description: string; framework: "THAI" | "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; framework: "THAI" | "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(104,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+  Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type 'Without<LessonUncheckedCreateInput, LessonCreateInput> & LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(116,7): error TS2322: Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(133,9): error TS2322: Type '{ lessonId: string; type: "MULTIPLE_CHOICE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+  Type '{ lessonId: string; type: "MULTIPLE_CHOICE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' is not assignable to type 'Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ lessonId: string; type: "MULTIPLE_CHOICE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' but required in type 'QuizQuestionUncheckedCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(314,9): error TS2322: Type '{ id: string; title: string; gradeLevel: number; order: number; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+  Type '{ id: string; title: string; gradeLevel: number; order: number; }' is not assignable to type 'Without<LessonUncheckedCreateInput, LessonCreateInput> & LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(323,9): error TS2322: Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(337,9): error TS2322: Type '{ lessonId: string; type: "TRUE_FALSE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+  Type '{ lessonId: string; type: "TRUE_FALSE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' is not assignable to type 'Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ lessonId: string; type: "TRUE_FALSE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' but required in type 'QuizQuestionUncheckedCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(349,9): error TS2322: Type '{ lessonId: string; type: "TRUE_FALSE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+  Type '{ lessonId: string; type: "TRUE_FALSE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' is not assignable to type 'Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ lessonId: string; type: "TRUE_FALSE"; text: string; options: string[]; correctAnswer: string; points: number; order: number; }' but required in type 'QuizQuestionUncheckedCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(460,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+  Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' is not assignable to type 'Without<LessonUncheckedCreateInput, LessonCreateInput> & LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts(472,7): error TS2322: Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+  Type '{ id: string; title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' is not assignable to type 'Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput'.
+[0m
+The typecheck errors show that the slug field was added to Prisma models but test fixtures weren't updated. This is blocking - I'll fix test fixtures first, then proceed with Phase 2 content migration.
+[0m# [0mTodos
+[ ] Fix typecheck errors: add slug to test fixtures for Lesson, CurriculumUnit, QuizQuestion
+[ ] Verify tests pass after slug fixes
+[ ] Create Grade 3 Units 2-10 seed data from scope-and-sequence
+[ ] Create Grade 3 Units 2-10 lesson JSON files
+[ ] Verify seed runs and validates correctly
+[0m
+[0m→ [0mRead app/api/classes/[classId]/curriculum/route.integration.test.ts
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts[90m [offset=100, limit=80][0m
+[0m→ [0mRead prisma/schema.prisma[90m [offset=200, limit=150][0m
+Now I'll fix the typecheck errors by adding slugs to test fixtures. Let me edit both test files.
+[0m
+[0m← [0mEdit app/api/classes/[classId]/curriculum/route.integration.test.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/classes/[classId]/curriculum/route.integration.test.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/classes/[classId]/curriculum/route.integration.test.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/classes/[classId]/curriculum/route.integration.test.ts
+@@ -107,8 +107,9 @@
+ // Create test lessons
+ testLesson1 = await prisma.lesson.create({
+   data: {
+     id: 'lesson-1',
++    slug: 'intro-to-science',
+     title: 'Introduction to Science',
+     description: 'Learn what science is',
+     content: 'Science is the study of the natural world',
+     gradeLevel: 3,
+@@ -118,8 +119,9 @@
+ 
+ testLesson2 = await prisma.lesson.create({
+   data: {
+     id: 'lesson-2',
++    slug: 'living-things',
+     title: 'Living Things',
+     description: 'Learn about living organisms',
+     content: 'Living things grow, move, and reproduce',
+     gradeLevel: 3,
+@@ -129,8 +131,9 @@
+ 
+ testLesson3 = await prisma.lesson.create({
+   data: {
+     id: 'lesson-3',
++    slug: 'plants-and-animals',
+     title: 'Plants and Animals',
+     description: 'Compare plants and animals',
+     content: 'Plants make their own food, animals do not',
+     gradeLevel: 3,
+@@ -141,8 +144,9 @@
+ // Create curriculum units
+ await prisma.curriculumUnit.create({
+   data: {
+     id: 'unit-1',
++    slug: 'unit-1-intro-to-science',
+     title: 'Unit 1: Introduction to Science',
+     description: 'Basic science concepts',
+     framework: 'THAI',
+     gradeLevel: 3,
+@@ -156,8 +160,9 @@
+ 
+ await prisma.curriculumUnit.create({
+   data: {
+     id: 'unit-2',
++    slug: 'unit-2-living-organisms',
+     title: 'Unit 2: Living Organisms',
+     description: 'Study of life',
+     framework: 'THAI',
+     gradeLevel: 3,
+
+[0m
+[0m← [0mEdit app/api/classes/[classId]/curriculum/route.integration.test.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/classes/[classId]/curriculum/route.integration.test.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/classes/[classId]/curriculum/route.integration.test.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/classes/[classId]/curriculum/route.integration.test.ts
+@@ -411,8 +411,9 @@
+ it('should handle unit with no lessons', async () => {
+   const emptyUnit = await prisma.curriculumUnit.create({
+     data: {
+       id: 'empty-unit',
++      slug: 'empty-unit-no-lessons',
+       title: 'Empty Unit',
+       framework: 'THAI',
+       gradeLevel: 3,
+       order: 3,
+
+[0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts[90m [offset=95, limit=80][0m
+[0m
+[0m← [0mEdit app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+@@ -102,8 +102,9 @@
+ // Create test lesson
+ testLesson = await prisma.lesson.create({
+   data: {
+     id: 'lesson-quiz-1',
++    slug: 'intro-to-science-quiz',
+     title: 'Introduction to Science',
+     description: 'Learn what science is',
+     content: 'Science is the study of the natural world',
+     gradeLevel: 3,
+@@ -114,8 +115,9 @@
+ // Link lesson to class via curriculum unit
+ await prisma.curriculumUnit.create({
+   data: {
+     id: 'unit-quiz-1',
++    slug: 'unit-quiz-1-science-basics',
+     title: 'Unit 1: Science Basics',
+     framework: 'THAI',
+     gradeLevel: 3,
+     order: 1,
+@@ -130,8 +132,9 @@
+ quizQuestions = [];
+ for (let i = 1; i <= 12; i++) {
+   const question = await prisma.quizQuestion.create({
+     data: {
++      slug: `quiz-q-${i}`,
+       lessonId: testLesson.id,
+       type: 'MULTIPLE_CHOICE',
+       text: `Question ${i}: What is the scientific method step ${i}?`,
+       options: ['Observe', 'Predict', 'Test', 'Conclude'],
+
+[0m
+[0m✱ [0mGrep "prisma\.(lesson|curriculumUnit|quizQuestion)\.create"[90m in app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts · 10 matches[0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts[90m [offset=310, limit=70][0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts[90m [offset=455, limit=70][0m
+[0m
+[0m← [0mEdit app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+@@ -315,8 +315,9 @@
+ // Create lesson with only 2 questions (less than 4N for any N > 0)
+ const smallLesson = await prisma.lesson.create({
+   data: {
+     id: 'lesson-small',
++    slug: 'small-lesson',
+     title: 'Small Lesson',
+     gradeLevel: 3,
+     order: 99,
+   },
+@@ -324,8 +325,9 @@
+ 
+ await prisma.curriculumUnit.create({
+   data: {
+     id: 'unit-small',
++    slug: 'unit-small',
+     title: 'Small Unit',
+     framework: 'THAI',
+     gradeLevel: 3,
+     order: 99,
+@@ -337,8 +339,9 @@
+ });
+ 
+ await prisma.quizQuestion.create({
+   data: {
++    slug: 'small-q-1',
+     lessonId: smallLesson.id,
+     type: 'TRUE_FALSE',
+     text: 'Is this a test?',
+     options: ['True', 'False'],
+@@ -349,8 +352,9 @@
+ });
+ 
+ await prisma.quizQuestion.create({
+   data: {
++    slug: 'small-q-2',
+     lessonId: smallLesson.id,
+     type: 'TRUE_FALSE',
+     text: 'Is this another test?',
+     options: ['True', 'False'],
+
+[0m
+[0m← [0mEdit app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.integration.test.ts
+@@ -465,8 +465,9 @@
+ // Create test lesson
+ testLesson = await prisma.lesson.create({
+   data: {
+     id: 'lesson-submit-1',
++    slug: 'lesson-submit-1',
+     title: 'Introduction to Science',
+     description: 'Learn what science is',
+     content: 'Science is the study of the natural world',
+     gradeLevel: 3,
+@@ -477,8 +478,9 @@
+ // Link lesson to class via curriculum unit
+ await prisma.curriculumUnit.create({
+   data: {
+     id: 'unit-submit-1',
++    slug: 'unit-submit-1',
+     title: 'Unit 1: Science Basics',
+     framework: 'THAI',
+     gradeLevel: 3,
+     order: 1,
+@@ -508,8 +510,9 @@
+ 
+ for (let i = 0; i < questionsData.length; i++) {
+   const question = await prisma.quizQuestion.create({
+     data: {
++      slug: `submit-q-${i + 1}`,
+       lessonId: testLesson.id,
+       type: 'MULTIPLE_CHOICE',
+       text: questionsData[i].text,
+       options: ['Observe', 'Predict', 'Test', 'Conclude'],
+
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep -c "slug" || echo "0"
+42
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep "slug" | head -30
+Property 'slug' is missing in type '{ title: string; description: string; framework: "THAI" | "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; standards: { connect: { id: string; }[]; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; lessonType: "LESSON"; gradeLevel: number; order: number; standards: { connect: { id: any; }[]; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; lessonType: "LESSON"; gradeLevel: number; order: number; standards: { connect: { id: any; }[]; }; }' but required in type 'LessonCreateInput'.
+    Type '{ title: string; framework: any; gradeLevel: any; order: number; classId: any; lessons: { connect: { id: any; }[]; }; }' is missing the following properties from type 'CurriculumUnitCreateInput': slug, class
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ title: string; framework: any; gradeLevel: any; order: number; classId: any; lessons: { connect: { id: any; }[]; }; }' is missing the following properties from type 'CurriculumUnitCreateInput': slug, class
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+lib/schemas/__tests__/content-migration.test.ts(10,22): error TS2339: Property 'slug' does not exist on type '{ default: { version: number; blocks: ({ id: string; type: string; content: string; contentThai: string; terms?: undefined; src?: undefined; alt?: undefined; caption?: undefined; captionThai?: undefined; ... 4 more ...; wordCount?: undefined; } | { ...; } | { ...; } | { ...; } | { ...; })[]; }; version: number; bloc...'.
+lib/schemas/__tests__/content-migration.test.ts(11,40): error TS2339: Property 'slug' does not exist on type '{ default: { version: number; blocks: ({ id: string; type: string; content: string; contentThai: string; terms?: undefined; src?: undefined; alt?: undefined; caption?: undefined; captionThai?: undefined; ... 4 more ...; wordCount?: undefined; } | { ...; } | { ...; } | { ...; } | { ...; })[]; }; version: number; bloc...'.
+lib/schemas/__tests__/content-migration.test.ts(12,22): error TS2339: Property 'slug' does not exist on type '{ default: { version: number; blocks: ({ id: string; type: string; content: string; contentThai: string; terms?: undefined; src?: undefined; alt?: undefined; caption?: undefined; captionThai?: undefined; ... 4 more ...; wordCount?: undefined; } | { ...; } | { ...; } | { ...; } | { ...; })[]; }; version: number; bloc...'.
+lib/schemas/__tests__/content-migration.test.ts(41,23): error TS2339: Property 'slug' does not exist on type '{ lessonId: string; title: string; titleThai: string; thaiStandards: { code: string; description: string; }[]; ngssAlignments: { code: string; description: string; }[]; }'.
+lib/schemas/__tests__/content-migration.test.ts(42,41): error TS2339: Property 'slug' does not exist on type '{ lessonId: string; title: string; titleThai: string; thaiStandards: { code: string; description: string; }[]; ngssAlignments: { code: string; description: string; }[]; }'.
+    Argument of type '(l: { slug: string; }) => boolean' is not assignable to parameter of type '(value: { lessonId: string; title: string; titleThai: string; thaiStandards: { code: string; description: string; }[]; ngssAlignments: { code: string; description: string; }[]; }, index: number, obj: { ...; }[]) => value is { ...; }'.
+        Property 'slug' is missing in type '{ lessonId: string; title: string; titleThai: string; thaiStandards: { code: string; description: string; }[]; ngssAlignments: { code: string; description: string; }[]; }' but required in type '{ slug: string; }'.
+    Argument of type '(l: { slug: string; }) => boolean' is not assignable to parameter of type '(value: { lessonId: string; title: string; titleThai: string; thaiStandards: { code: string; description: string; }[]; ngssAlignments: { code: string; description: string; }[]; }, index: number, obj: { ...; }[]) => unknown'.
+        Property 'slug' is missing in type '{ lessonId: string; title: string; titleThai: string; thaiStandards: { code: string; description: string; }[]; ngssAlignments: { code: string; description: string; }[]; }' but required in type '{ slug: string; }'.
+lib/schemas/__tests__/content-migration.test.ts(82,24): error TS2339: Property 'slug' does not exist on type '{ default: { lessonId: string; questions: { id: string; type: string; difficulty: string; question: string; questionThai: string; options: string[]; correctAnswer: number; explanation: string; }[]; }; lessonId: string; questions: { ...; }[]; }'.
+lib/schemas/__tests__/content-migration.test.ts(83,42): error TS2339: Property 'slug' does not exist on type '{ default: { lessonId: string; questions: { id: string; type: string; difficulty: string; question: string; questionThai: string; options: string[]; correctAnswer: number; explanation: string; }[]; }; lessonId: string; questions: { ...; }[]; }'.
+lib/schemas/__tests__/content-migration.test.ts(84,24): error TS2339: Property 'slug' does not exist on type '{ default: { lessonId: string; questions: { id: string; type: string; difficulty: string; question: string; questionThai: string; options: string[]; correctAnswer: number; explanation: string; }[]; }; lessonId: string; questions: { ...; }[]; }'.
+lib/schemas/__tests__/content-migration.test.ts(91,18): error TS2339: Property 'slug' does not exist on type '{ id: string; type: string; difficulty: string; question: string; questionThai: string; options: string[]; correctAnswer: number; explanation: string; }'.
+lib/schemas/__tests__/content-migration.test.ts(92,38): error TS2339: Property 'slug' does not exist on type '{ id: string; type: string; difficulty: string; question: string; questionThai: string; options: string[]; correctAnswer: number; explanation: string; }'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; standards: { connect: { id: string; }; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; lessonType: $Enums.LessonType | undefined; gradeLevel: number; order: number; structuredContent: object | undefined; standards: { ...; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ lessonId: string; type: QuestionType; text: string; options: any; correctAnswer: any; points: number; order: number; version: number; standards: { connect: { id: string; }[]; }; }' but required in type 'QuizQuestionUncheckedCreateInput'.
+[0m
+[0m→ [0mRead lib/schemas/__tests__/content-migration.test.ts
+[0m→ [0mRead prisma/data/content/grade-4/standards-mapping.json[90m [limit=60][0m
+[0m→ [0mRead prisma/data/content/grade-4/questions/g4-weather-patterns.json[90m [limit=50][0m
+[0m→ [0mRead lib/schemas/lesson-slug.schema.ts
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep -E "^app/api|routes" | head -30
+app/api/auth/login/auth-contract.test.ts(57,22): error TS2339: Property 'mockResolvedValue' does not exist on type '<T extends userFindUniqueArgs>(args: SelectSubset<T, userFindUniqueArgs<DefaultArgs>>) => Prisma__userClient<GetFindResult<$userPayload<DefaultArgs>, T, PrismaClientOptions> | null, null, DefaultArgs, PrismaClientOptions>'.
+app/api/auth/login/auth-contract.test.ts(61,26): error TS2339: Property 'mockResolvedValue' does not exist on type '(password: string, hash: string) => Promise<boolean>'.
+app/api/auth/login/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/login/route.integration.test.ts(19,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/logout/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/logout/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/logout/route.integration.test.ts(53,5): error TS2739: Type 'Session' is missing the following properties from type '{ id: string; createdAt: Date; updatedAt: Date; userId: string; userAgent: string | null; expiresAt: Date; token: string; ipAddress: string | null; }': createdAt, updatedAt, userAgent, ipAddress
+app/api/auth/session/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/session/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/session/route.integration.test.ts(53,5): error TS2739: Type 'Session' is missing the following properties from type '{ id: string; createdAt: Date; updatedAt: Date; userId: string; userAgent: string | null; expiresAt: Date; token: string; ipAddress: string | null; }': createdAt, updatedAt, userAgent, ipAddress
+app/api/classes/[classId]/curriculum/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/classes/route.ts(84,11): error TS2322: Type '{ title: string; description: string; framework: "THAI" | "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+app/api/lessons/[lessonSlug]/route.integration.test.ts(6,25): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/lessons/[lessonSlug]/route.integration.test.ts(96,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; standards: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+app/api/lessons/[lessonSlug]/route.integration.test.ts(127,7): error TS2322: Type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(1,59): error TS2307: Cannot find module '@jest/globals' or its corresponding type declarations.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(4,66): error TS2307: Cannot find module '@/lib/test-helpers' or its corresponding type declarations.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(49,7): error TS2322: Type '{ title: string; description: string; lessonType: "LESSON"; gradeLevel: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(62,7): error TS2322: Type '{ title: string; description: string; lessonType: "LESSON"; gradeLevel: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(76,7): error TS2322: Type '{ title: string; framework: any; gradeLevel: any; order: number; classId: any; lessons: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(90,7): error TS2322: Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(105,7): error TS2322: Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts(121,7): error TS2322: Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts(1,59): error TS2307: Cannot find module '@jest/globals' or its corresponding type declarations.
+app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts(4,66): error TS2307: Cannot find module '@/lib/test-helpers' or its corresponding type declarations.
+app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts(45,9): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts(55,7): error TS2322: Type '{ title: string; framework: any; gradeLevel: any; order: number; classId: any; lessons: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<CurriculumUnitCreateInput, CurriculumUnitUncheckedCreateInput> & CurriculumUnitUncheckedCreateInput) | (Without<...> & CurriculumUnitCreateInput)'.
+app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts(69,7): error TS2322: Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts(84,7): error TS2322: Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is not assignable to type '(Without<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput> & QuizQuestionUncheckedCreateInput) | (Without<...> & QuizQuestionCreateInput)'.
+[0m
+[0m✱ [0mGrep "setPrismaClient"[90m 15 matches[0m
+[0m✱ [0mGrep "export.*session"[90m 0 matches[0m
+[0m→ [0mRead lib/auth/session.ts[90m [limit=50][0m
+[0m→ [0mRead app/api/classes/route.ts[90m [offset=75, limit=50][0m
+[0m
+[0m← [0mEdit app/api/classes/route.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/classes/route.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/classes/route.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/classes/route.ts
+@@ -81,8 +81,9 @@
+ // In the future, this could be more sophisticated based on lesson metadata
+ if (templateLessons.length > 0) {
+   await tx.curriculumUnit.create({
+     data: {
++      slug: `unit-1-intro-science-${newClass.id.slice(-8)}`,
+       title: `Unit 1: Introduction to Science & Living Things`,
+       description: 'Explore what science is and learn about living things and their characteristics.',
+       framework: validatedData.standardsAlignment,
+       gradeLevel: validatedData.gradeLevel,
+
+[0m
+[0m→ [0mRead app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts[90m [offset=40, limit=80][0m
+[0m→ [0mRead app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts[90m [offset=115, limit=50][0m
+[0m→ [0mRead app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts[90m [offset=1, limit=100][0m
