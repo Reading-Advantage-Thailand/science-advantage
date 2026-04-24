@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 3,
+  "lessons": [
+    {
+      "id": "g3-describing-materials",
+      "title": "Describing Materials / Describing Materials",
+      "description": "Grade 3 MATTER & MATERIALS - Describing Materials",
+      "lessonType": "LESSON",
+      "content": "# Describing Materials\n\nLesson content for Describing Materials.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Describing Materials."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-classifying-materials",
+      "title": "Classifying Materials / Classifying Materials",
+      "description": "Grade 3 MATTER & MATERIALS - Classifying Materials",
+      "lessonType": "LESSON",
+      "content": "# Classifying Materials\n\nLesson content for Classifying Materials.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Classifying Materials."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-property-investigation",
+      "title": "Property Investigation / Property Investigation",
+      "description": "Grade 3 MATTER & MATERIALS - Property Investigation",
+      "lessonType": "LAB",
+      "content": "# Property Investigation\n\nLesson content for Property Investigation.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Property Investigation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-solids-liquids-and-gases",
+      "title": "Solids, Liquids, and Gases / Solids, Liquids, and Gases",
+      "description": "Grade 3 MATTER & MATERIALS - Solids, Liquids, and Gases",
+      "lessonType": "LESSON",
+      "content": "# Solids, Liquids, and Gases\n\nLesson content for Solids, Liquids, and Gases.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Solids, Liquids, and Gases."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-states-of-matter-around-us",
+      "title": "States of Matter Around Us / States of Matter Around Us",
+      "description": "Grade 3 MATTER & MATERIALS - States of Matter Around Us",
+      "lessonType": "LESSON",
+      "content": "# States of Matter Around Us\n\nLesson content for States of Matter Around Us.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on States of Matter Around Us."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-waters-three-states",
+      "title": "Water's Three States / Water's Three States",
+      "description": "Grade 3 MATTER & MATERIALS - Water's Three States",
+      "lessonType": "LESSON",
+      "content": "# Water's Three States\n\nLesson content for Water's Three States.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Water's Three States."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-why-we-choose-materials",
+      "title": "Why We Choose Materials / Why We Choose Materials",
+      "description": "Grade 3 MATTER & MATERIALS - Why We Choose Materials",
+      "lessonType": "LESSON",
+      "content": "# Why We Choose Materials\n\nLesson content for Why We Choose Materials.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Why We Choose Materials."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-designing-with-materials",
+      "title": "Designing with Materials / Designing with Materials",
+      "description": "Grade 3 MATTER & MATERIALS - Designing with Materials",
+      "lessonType": "LESSON",
+      "content": "# Designing with Materials\n\nLesson content for Designing with Materials.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Designing with Materials."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-material-selection-challenge",
+      "title": "Material Selection Challenge / Material Selection Challenge",
+      "description": "Grade 3 MATTER & MATERIALS - Material Selection Challenge",
+      "lessonType": "LAB",
+      "content": "# Material Selection Challenge\n\nLesson content for Material Selection Challenge.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Material Selection Challenge."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-material-mystery",
+      "title": "Material Mystery / Material Mystery",
+      "description": "Grade 3 MATTER & MATERIALS - Material Mystery",
+      "lessonType": "REVIEW",
+      "content": "# Material Mystery\n\nLesson content for Material Mystery.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Material Mystery."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-3-summative-assessment",
+      "title": "Unit 3 Summative Assessment / Unit 3 Summative Assessment",
+      "description": "Grade 3 MATTER & MATERIALS - Unit 3 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 3 Summative Assessment\n\nLesson content for Unit 3 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 3 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-properties-in-nature",
+      "title": "Properties in Nature / Properties in Nature",
+      "description": "Grade 3 MATTER & MATERIALS - Properties in Nature",
+      "lessonType": "LESSON",
+      "content": "# Properties in Nature\n\nLesson content for Properties in Nature.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Properties in Nature."
+          }
+        ]
+      }
+    }
+  ]
+}

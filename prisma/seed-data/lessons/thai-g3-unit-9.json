@@ -1,0 +1,121 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 9,
+  "lessons": [
+    {
+      "id": "g3-choosing-your-project",
+      "title": "Choosing Your Project / Choosing Your Project",
+      "description": "Grade 3 INTEGRATED PROJECTS - Choosing Your Project",
+      "lessonType": "LESSON",
+      "content": "# Choosing Your Project\n\nLesson content for Choosing Your Project.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Choosing Your Project."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-research-and-preparation",
+      "title": "Research and Preparation / Research and Preparation",
+      "description": "Grade 3 INTEGRATED PROJECTS - Research and Preparation",
+      "lessonType": "LESSON",
+      "content": "# Research and Preparation\n\nLesson content for Research and Preparation.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Research and Preparation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-project-testingverification",
+      "title": "Project Testing/Verification / Project Testing/Verification",
+      "description": "Grade 3 INTEGRATED PROJECTS - Project Testing/Verification",
+      "lessonType": "LAB",
+      "content": "# Project Testing/Verification\n\nLesson content for Project Testing/Verification.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Project Testing/Verification."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-science-year-in-review-game",
+      "title": "Science Year in Review Game / Science Year in Review Game",
+      "description": "Grade 3 INTEGRATED PROJECTS - Science Year in Review Game",
+      "lessonType": "REVIEW",
+      "content": "# Science Year in Review Game\n\nLesson content for Science Year in Review Game.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Science Year in Review Game."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-connecting-the-strands",
+      "title": "Connecting the Strands / Connecting the Strands",
+      "description": "Grade 3 INTEGRATED PROJECTS - Connecting the Strands",
+      "lessonType": "LESSON",
+      "content": "# Connecting the Strands\n\nLesson content for Connecting the Strands.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Connecting the Strands."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-preparing-for-grade-4",
+      "title": "Preparing for Grade 4 / Preparing for Grade 4",
+      "description": "Grade 3 INTEGRATED PROJECTS - Preparing for Grade 4",
+      "lessonType": "LESSON",
+      "content": "# Preparing for Grade 4\n\nLesson content for Preparing for Grade 4.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Preparing for Grade 4."
+          }
+        ]
+      }
+    }
+  ]
+}

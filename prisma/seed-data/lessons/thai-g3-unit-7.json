@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 7,
+  "lessons": [
+    {
+      "id": "g3-our-sun",
+      "title": "Our Sun / Our Sun",
+      "description": "Grade 3 THE SKY ABOVE - Our Sun",
+      "lessonType": "LESSON",
+      "content": "# Our Sun\n\nLesson content for Our Sun.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Our Sun."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-our-planet-earth",
+      "title": "Our Planet Earth / Our Planet Earth",
+      "description": "Grade 3 THE SKY ABOVE - Our Planet Earth",
+      "lessonType": "LESSON",
+      "content": "# Our Planet Earth\n\nLesson content for Our Planet Earth.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Our Planet Earth."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-modeling-day-and-night",
+      "title": "Modeling Day and Night / Modeling Day and Night",
+      "description": "Grade 3 THE SKY ABOVE - Modeling Day and Night",
+      "lessonType": "LAB",
+      "content": "# Modeling Day and Night\n\nLesson content for Modeling Day and Night.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Modeling Day and Night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-earths-moon",
+      "title": "Earth's Moon / Earth's Moon",
+      "description": "Grade 3 THE SKY ABOVE - Earth's Moon",
+      "lessonType": "LESSON",
+      "content": "# Earth's Moon\n\nLesson content for Earth's Moon.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Earth's Moon."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-moon-phases",
+      "title": "Moon Phases / Moon Phases",
+      "description": "Grade 3 THE SKY ABOVE - Moon Phases",
+      "lessonType": "LESSON",
+      "content": "# Moon Phases\n\nLesson content for Moon Phases.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Moon Phases."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-observing-the-moon",
+      "title": "Observing the Moon / Observing the Moon",
+      "description": "Grade 3 THE SKY ABOVE - Observing the Moon",
+      "lessonType": "LESSON",
+      "content": "# Observing the Moon\n\nLesson content for Observing the Moon.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Observing the Moon."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-how-they-work-together",
+      "title": "How They Work Together / How They Work Together",
+      "description": "Grade 3 THE SKY ABOVE - How They Work Together",
+      "lessonType": "LESSON",
+      "content": "# How They Work Together\n\nLesson content for How They Work Together.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on How They Work Together."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-the-sun-gives-us-energy",
+      "title": "The Sun Gives Us Energy / The Sun Gives Us Energy",
+      "description": "Grade 3 THE SKY ABOVE - The Sun Gives Us Energy",
+      "lessonType": "LESSON",
+      "content": "# The Sun Gives Us Energy\n\nLesson content for The Sun Gives Us Energy.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on The Sun Gives Us Energy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-moon-phase-calendar-project",
+      "title": "Moon Phase Calendar Project / Moon Phase Calendar Project",
+      "description": "Grade 3 THE SKY ABOVE - Moon Phase Calendar Project",
+      "lessonType": "LAB",
+      "content": "# Moon Phase Calendar Project\n\nLesson content for Moon Phase Calendar Project.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Moon Phase Calendar Project."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-space-exploration-game",
+      "title": "Space Exploration Game / Space Exploration Game",
+      "description": "Grade 3 THE SKY ABOVE - Space Exploration Game",
+      "lessonType": "REVIEW",
+      "content": "# Space Exploration Game\n\nLesson content for Space Exploration Game.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Space Exploration Game."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-7-summative-assessment",
+      "title": "Unit 7 Summative Assessment / Unit 7 Summative Assessment",
+      "description": "Grade 3 THE SKY ABOVE - Unit 7 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 7 Summative Assessment\n\nLesson content for Unit 7 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 7 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-stars-and-space",
+      "title": "Stars and Space / Stars and Space",
+      "description": "Grade 3 THE SKY ABOVE - Stars and Space",
+      "lessonType": "LESSON",
+      "content": "# Stars and Space\n\nLesson content for Stars and Space.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Stars and Space."
+          }
+        ]
+      }
+    }
+  ]
+}

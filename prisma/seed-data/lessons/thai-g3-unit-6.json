@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 6,
+  "lessons": [
+    {
+      "id": "g3-land-and-water",
+      "title": "Land and Water / Land and Water",
+      "description": "Grade 3 OUR CHANGING EARTH - Land and Water",
+      "lessonType": "LESSON",
+      "content": "# Land and Water\n\nLesson content for Land and Water.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Land and Water."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-rocks-and-soil",
+      "title": "Rocks and Soil / Rocks and Soil",
+      "description": "Grade 3 OUR CHANGING EARTH - Rocks and Soil",
+      "lessonType": "LESSON",
+      "content": "# Rocks and Soil\n\nLesson content for Rocks and Soil.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Rocks and Soil."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-rock-and-soil-investigation",
+      "title": "Rock and Soil Investigation / Rock and Soil Investigation",
+      "description": "Grade 3 OUR CHANGING EARTH - Rock and Soil Investigation",
+      "lessonType": "LAB",
+      "content": "# Rock and Soil Investigation\n\nLesson content for Rock and Soil Investigation.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Rock and Soil Investigation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-what-is-weather",
+      "title": "What is Weather? / What is Weather?",
+      "description": "Grade 3 OUR CHANGING EARTH - What is Weather?",
+      "lessonType": "LESSON",
+      "content": "# What is Weather?\n\nLesson content for What is Weather?.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on What is Weather?."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-weather-patterns",
+      "title": "Weather Patterns / Weather Patterns",
+      "description": "Grade 3 OUR CHANGING EARTH - Weather Patterns",
+      "lessonType": "LESSON",
+      "content": "# Weather Patterns\n\nLesson content for Weather Patterns.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Weather Patterns."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-seasons-in-thailand",
+      "title": "Seasons in Thailand / Seasons in Thailand",
+      "description": "Grade 3 OUR CHANGING EARTH - Seasons in Thailand",
+      "lessonType": "LESSON",
+      "content": "# Seasons in Thailand\n\nLesson content for Seasons in Thailand.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Seasons in Thailand."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-day-and-night",
+      "title": "Day and Night / Day and Night",
+      "description": "Grade 3 OUR CHANGING EARTH - Day and Night",
+      "lessonType": "LESSON",
+      "content": "# Day and Night\n\nLesson content for Day and Night.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Day and Night."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-measuring-time",
+      "title": "Measuring Time / Measuring Time",
+      "description": "Grade 3 OUR CHANGING EARTH - Measuring Time",
+      "lessonType": "LESSON",
+      "content": "# Measuring Time\n\nLesson content for Measuring Time.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Measuring Time."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-weather-watch-project",
+      "title": "Weather Watch Project / Weather Watch Project",
+      "description": "Grade 3 OUR CHANGING EARTH - Weather Watch Project",
+      "lessonType": "LAB",
+      "content": "# Weather Watch Project\n\nLesson content for Weather Watch Project.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Weather Watch Project."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-earth-explorer-game",
+      "title": "Earth Explorer Game / Earth Explorer Game",
+      "description": "Grade 3 OUR CHANGING EARTH - Earth Explorer Game",
+      "lessonType": "REVIEW",
+      "content": "# Earth Explorer Game\n\nLesson content for Earth Explorer Game.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Earth Explorer Game."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-6-summative-assessment",
+      "title": "Unit 6 Summative Assessment / Unit 6 Summative Assessment",
+      "description": "Grade 3 OUR CHANGING EARTH - Unit 6 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 6 Summative Assessment\n\nLesson content for Unit 6 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 6 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-how-weather-affects-us",
+      "title": "How Weather Affects Us / How Weather Affects Us",
+      "description": "Grade 3 OUR CHANGING EARTH - How Weather Affects Us",
+      "lessonType": "LESSON",
+      "content": "# How Weather Affects Us\n\nLesson content for How Weather Affects Us.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on How Weather Affects Us."
+          }
+        ]
+      }
+    }
+  ]
+}

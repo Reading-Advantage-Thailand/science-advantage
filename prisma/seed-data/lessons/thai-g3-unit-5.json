@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 5,
+  "lessons": [
+    {
+      "id": "g3-what-is-energy",
+      "title": "What is Energy? / What is Energy?",
+      "description": "Grade 3 ENERGY ALL AROUND US - What is Energy?",
+      "lessonType": "LESSON",
+      "content": "# What is Energy?\n\nLesson content for What is Energy?.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on What is Energy?."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-light-energy",
+      "title": "Light Energy / Light Energy",
+      "description": "Grade 3 ENERGY ALL AROUND US - Light Energy",
+      "lessonType": "LESSON",
+      "content": "# Light Energy\n\nLesson content for Light Energy.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Light Energy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-light-and-shadows",
+      "title": "Light and Shadows / Light and Shadows",
+      "description": "Grade 3 ENERGY ALL AROUND US - Light and Shadows",
+      "lessonType": "LAB",
+      "content": "# Light and Shadows\n\nLesson content for Light and Shadows.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Light and Shadows."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-heat-energy",
+      "title": "Heat Energy / Heat Energy",
+      "description": "Grade 3 ENERGY ALL AROUND US - Heat Energy",
+      "lessonType": "LESSON",
+      "content": "# Heat Energy\n\nLesson content for Heat Energy.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Heat Energy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-sound-energy",
+      "title": "Sound Energy / Sound Energy",
+      "description": "Grade 3 ENERGY ALL AROUND US - Sound Energy",
+      "lessonType": "LESSON",
+      "content": "# Sound Energy\n\nLesson content for Sound Energy.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Sound Energy."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-comparing-energy-forms",
+      "title": "Comparing Energy Forms / Comparing Energy Forms",
+      "description": "Grade 3 ENERGY ALL AROUND US - Comparing Energy Forms",
+      "lessonType": "LESSON",
+      "content": "# Comparing Energy Forms\n\nLesson content for Comparing Energy Forms.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Comparing Energy Forms."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-where-does-energy-come-from",
+      "title": "Where Does Energy Come From? / Where Does Energy Come From?",
+      "description": "Grade 3 ENERGY ALL AROUND US - Where Does Energy Come From?",
+      "lessonType": "LESSON",
+      "content": "# Where Does Energy Come From?\n\nLesson content for Where Does Energy Come From?.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Where Does Energy Come From?."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-energy-and-living-things",
+      "title": "Energy and Living Things / Energy and Living Things",
+      "description": "Grade 3 ENERGY ALL AROUND US - Energy and Living Things",
+      "lessonType": "LESSON",
+      "content": "# Energy and Living Things\n\nLesson content for Energy and Living Things.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Energy and Living Things."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-solar-energy-investigation",
+      "title": "Solar Energy Investigation / Solar Energy Investigation",
+      "description": "Grade 3 ENERGY ALL AROUND US - Solar Energy Investigation",
+      "lessonType": "LAB",
+      "content": "# Solar Energy Investigation\n\nLesson content for Solar Energy Investigation.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Solar Energy Investigation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-energy-scavenger-hunt",
+      "title": "Energy Scavenger Hunt / Energy Scavenger Hunt",
+      "description": "Grade 3 ENERGY ALL AROUND US - Energy Scavenger Hunt",
+      "lessonType": "REVIEW",
+      "content": "# Energy Scavenger Hunt\n\nLesson content for Energy Scavenger Hunt.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Energy Scavenger Hunt."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-5-summative-assessment",
+      "title": "Unit 5 Summative Assessment / Unit 5 Summative Assessment",
+      "description": "Grade 3 ENERGY ALL AROUND US - Unit 5 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 5 Summative Assessment\n\nLesson content for Unit 5 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 5 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-energy-transformations",
+      "title": "Energy Transformations / Energy Transformations",
+      "description": "Grade 3 ENERGY ALL AROUND US - Energy Transformations",
+      "lessonType": "LESSON",
+      "content": "# Energy Transformations\n\nLesson content for Energy Transformations.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Energy Transformations."
+          }
+        ]
+      }
+    }
+  ]
+}

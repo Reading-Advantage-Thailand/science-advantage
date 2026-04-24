@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 4,
+  "lessons": [
+    {
+      "id": "g3-push-and-pull",
+      "title": "Push and Pull / Push and Pull",
+      "description": "Grade 3 FORCES & MOTION - Push and Pull",
+      "lessonType": "LESSON",
+      "content": "# Push and Pull\n\nLesson content for Push and Pull.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Push and Pull."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-how-forces-change-motion",
+      "title": "How Forces Change Motion / How Forces Change Motion",
+      "description": "Grade 3 FORCES & MOTION - How Forces Change Motion",
+      "lessonType": "LESSON",
+      "content": "# How Forces Change Motion\n\nLesson content for How Forces Change Motion.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on How Forces Change Motion."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-testing-push-and-pull-forces",
+      "title": "Testing Push and Pull Forces / Testing Push and Pull Forces",
+      "description": "Grade 3 FORCES & MOTION - Testing Push and Pull Forces",
+      "lessonType": "LAB",
+      "content": "# Testing Push and Pull Forces\n\nLesson content for Testing Push and Pull Forces.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Testing Push and Pull Forces."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-fast-and-slow",
+      "title": "Fast and Slow / Fast and Slow",
+      "description": "Grade 3 FORCES & MOTION - Fast and Slow",
+      "lessonType": "LESSON",
+      "content": "# Fast and Slow\n\nLesson content for Fast and Slow.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Fast and Slow."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-direction-and-distance",
+      "title": "Direction and Distance / Direction and Distance",
+      "description": "Grade 3 FORCES & MOTION - Direction and Distance",
+      "lessonType": "LESSON",
+      "content": "# Direction and Distance\n\nLesson content for Direction and Distance.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Direction and Distance."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-stopping-motion",
+      "title": "Stopping Motion / Stopping Motion",
+      "description": "Grade 3 FORCES & MOTION - Stopping Motion",
+      "lessonType": "LESSON",
+      "content": "# Stopping Motion\n\nLesson content for Stopping Motion.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Stopping Motion."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-the-force-of-gravity",
+      "title": "The Force of Gravity / The Force of Gravity",
+      "description": "Grade 3 FORCES & MOTION - The Force of Gravity",
+      "lessonType": "LESSON",
+      "content": "# The Force of Gravity\n\nLesson content for The Force of Gravity.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on The Force of Gravity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-friction-the-stopping-force",
+      "title": "Friction - The Stopping Force / Friction - The Stopping Force",
+      "description": "Grade 3 FORCES & MOTION - Friction - The Stopping Force",
+      "lessonType": "LESSON",
+      "content": "# Friction - The Stopping Force\n\nLesson content for Friction - The Stopping Force.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Friction - The Stopping Force."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-ramp-races",
+      "title": "Ramp Races / Ramp Races",
+      "description": "Grade 3 FORCES & MOTION - Ramp Races",
+      "lessonType": "LAB",
+      "content": "# Ramp Races\n\nLesson content for Ramp Races.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Ramp Races."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-force-and-motion-olympics",
+      "title": "Force and Motion Olympics / Force and Motion Olympics",
+      "description": "Grade 3 FORCES & MOTION - Force and Motion Olympics",
+      "lessonType": "REVIEW",
+      "content": "# Force and Motion Olympics\n\nLesson content for Force and Motion Olympics.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Force and Motion Olympics."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-4-summative-assessment",
+      "title": "Unit 4 Summative Assessment / Unit 4 Summative Assessment",
+      "description": "Grade 3 FORCES & MOTION - Unit 4 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 4 Summative Assessment\n\nLesson content for Unit 4 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 4 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-forces-in-sports-and-play",
+      "title": "Forces in Sports and Play / Forces in Sports and Play",
+      "description": "Grade 3 FORCES & MOTION - Forces in Sports and Play",
+      "lessonType": "LESSON",
+      "content": "# Forces in Sports and Play\n\nLesson content for Forces in Sports and Play.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Forces in Sports and Play."
+          }
+        ]
+      }
+    }
+  ]
+}

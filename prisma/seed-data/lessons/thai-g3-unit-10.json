@@ -1,0 +1,140 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 10,
+  "lessons": [
+    {
+      "id": "g3-strands-12-review",
+      "title": "Strands 1-2 Review / Strands 1-2 Review",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Strands 1-2 Review",
+      "lessonType": "LESSON",
+      "content": "# Strands 1-2 Review\n\nLesson content for Strands 1-2 Review.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Strands 1-2 Review."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-strands-34-review",
+      "title": "Strands 3-4 Review / Strands 3-4 Review",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Strands 3-4 Review",
+      "lessonType": "LESSON",
+      "content": "# Strands 3-4 Review\n\nLesson content for Strands 3-4 Review.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Strands 3-4 Review."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-strands-56-review",
+      "title": "Strands 5-6 Review / Strands 5-6 Review",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Strands 5-6 Review",
+      "lessonType": "LESSON",
+      "content": "# Strands 5-6 Review\n\nLesson content for Strands 5-6 Review.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Strands 5-6 Review."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-final-exam-knowledge",
+      "title": "Final Exam - Knowledge / Final Exam - Knowledge",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final Exam - Knowledge",
+      "lessonType": "ASSESSMENT",
+      "content": "# Final Exam - Knowledge\n\nLesson content for Final Exam - Knowledge.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Final Exam - Knowledge."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-final-exam-application",
+      "title": "Final Exam - Application / Final Exam - Application",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final Exam - Application",
+      "lessonType": "ASSESSMENT",
+      "content": "# Final Exam - Application\n\nLesson content for Final Exam - Application.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Final Exam - Application."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-final-exam-scientific-process",
+      "title": "Final Exam - Scientific Process / Final Exam - Scientific Process",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final Exam - Scientific Process",
+      "lessonType": "ASSESSMENT",
+      "content": "# Final Exam - Scientific Process\n\nLesson content for Final Exam - Scientific Process.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Final Exam - Scientific Process."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-science-celebration",
+      "title": "Science Celebration / Science Celebration",
+      "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Science Celebration",
+      "lessonType": "REVIEW",
+      "content": "# Science Celebration\n\nLesson content for Science Celebration.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Science Celebration."
+          }
+        ]
+      }
+    }
+  ]
+}

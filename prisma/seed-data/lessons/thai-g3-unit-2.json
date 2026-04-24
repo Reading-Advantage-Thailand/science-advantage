@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 2,
+  "lessons": [
+    {
+      "id": "g3-basic-needs-of-living-things",
+      "title": "Basic Needs of Living Things / Basic Needs of Living Things",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Basic Needs of Living Things",
+      "lessonType": "LESSON",
+      "content": "# Basic Needs of Living Things\n\nLesson content for Basic Needs of Living Things.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Basic Needs of Living Things."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-habitats-around-the-world",
+      "title": "Habitats Around the World / Habitats Around the World",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Habitats Around the World",
+      "lessonType": "LESSON",
+      "content": "# Habitats Around the World\n\nLesson content for Habitats Around the World.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Habitats Around the World."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-habitat-investigation",
+      "title": "Habitat Investigation / Habitat Investigation",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Habitat Investigation",
+      "lessonType": "LAB",
+      "content": "# Habitat Investigation\n\nLesson content for Habitat Investigation.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Habitat Investigation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-where-does-food-come-from",
+      "title": "Where Does Food Come From? / Where Does Food Come From?",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Where Does Food Come From?",
+      "lessonType": "LESSON",
+      "content": "# Where Does Food Come From?\n\nLesson content for Where Does Food Come From?.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Where Does Food Come From?."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-simple-food-chains",
+      "title": "Simple Food Chains / Simple Food Chains",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Simple Food Chains",
+      "lessonType": "LESSON",
+      "content": "# Simple Food Chains\n\nLesson content for Simple Food Chains.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Simple Food Chains."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-food-webs",
+      "title": "Food Webs / Food Webs",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Food Webs",
+      "lessonType": "LESSON",
+      "content": "# Food Webs\n\nLesson content for Food Webs.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Food Webs."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-why-we-need-to-protect-nature",
+      "title": "Why We Need to Protect Nature / Why We Need to Protect Nature",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Why We Need to Protect Nature",
+      "lessonType": "LESSON",
+      "content": "# Why We Need to Protect Nature\n\nLesson content for Why We Need to Protect Nature.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Why We Need to Protect Nature."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-conservation-in-action",
+      "title": "Conservation in Action / Conservation in Action",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Conservation in Action",
+      "lessonType": "LESSON",
+      "content": "# Conservation in Action\n\nLesson content for Conservation in Action.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Conservation in Action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-design-a-habitat",
+      "title": "Design a Habitat / Design a Habitat",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Design a Habitat",
+      "lessonType": "LAB",
+      "content": "# Design a Habitat\n\nLesson content for Design a Habitat.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Design a Habitat."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-habitat-match-game",
+      "title": "Habitat Match Game / Habitat Match Game",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Habitat Match Game",
+      "lessonType": "REVIEW",
+      "content": "# Habitat Match Game\n\nLesson content for Habitat Match Game.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Habitat Match Game."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-2-summative-assessment",
+      "title": "Unit 2 Summative Assessment / Unit 2 Summative Assessment",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Unit 2 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 2 Summative Assessment\n\nLesson content for Unit 2 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 2 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-plant-growth-final-observation",
+      "title": "Plant Growth Final Observation / Plant Growth Final Observation",
+      "description": "Grade 3 ENVIRONMENTS & HABITATS - Plant Growth Final Observation",
+      "lessonType": "LESSON",
+      "content": "# Plant Growth Final Observation\n\nLesson content for Plant Growth Final Observation.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Plant Growth Final Observation."
+          }
+        ]
+      }
+    }
+  ]
+}

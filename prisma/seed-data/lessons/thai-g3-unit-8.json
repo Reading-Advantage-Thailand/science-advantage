@@ -1,0 +1,235 @@
+{
+  "framework": "THAI",
+  "gradeLevel": 3,
+  "unit": 8,
+  "lessons": [
+    {
+      "id": "g3-asking-scientific-questions",
+      "title": "Asking Scientific Questions / Asking Scientific Questions",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Asking Scientific Questions",
+      "lessonType": "LESSON",
+      "content": "# Asking Scientific Questions\n\nLesson content for Asking Scientific Questions.",
+      "order": 1,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Asking Scientific Questions."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-making-predictions",
+      "title": "Making Predictions / Making Predictions",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Making Predictions",
+      "lessonType": "LESSON",
+      "content": "# Making Predictions\n\nLesson content for Making Predictions.",
+      "order": 2,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Making Predictions."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-design-your-own-investigation",
+      "title": "Design Your Own Investigation / Design Your Own Investigation",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Design Your Own Investigation",
+      "lessonType": "LAB",
+      "content": "# Design Your Own Investigation\n\nLesson content for Design Your Own Investigation.",
+      "order": 3,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Design Your Own Investigation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-measuring-in-science",
+      "title": "Measuring in Science / Measuring in Science",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Measuring in Science",
+      "lessonType": "LESSON",
+      "content": "# Measuring in Science\n\nLesson content for Measuring in Science.",
+      "order": 4,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Measuring in Science."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-recording-data",
+      "title": "Recording Data / Recording Data",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Recording Data",
+      "lessonType": "LESSON",
+      "content": "# Recording Data\n\nLesson content for Recording Data.",
+      "order": 5,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Recording Data."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-communicating-science",
+      "title": "Communicating Science / Communicating Science",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Communicating Science",
+      "lessonType": "LESSON",
+      "content": "# Communicating Science\n\nLesson content for Communicating Science.",
+      "order": 6,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Communicating Science."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-technology-helps-us",
+      "title": "Technology Helps Us / Technology Helps Us",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Technology Helps Us",
+      "lessonType": "LESSON",
+      "content": "# Technology Helps Us\n\nLesson content for Technology Helps Us.",
+      "order": 7,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Technology Helps Us."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-science-and-technology-working-together",
+      "title": "Science and Technology Working Together / Science and Technology Working Together",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Science and Technology Working Together",
+      "lessonType": "LESSON",
+      "content": "# Science and Technology Working Together\n\nLesson content for Science and Technology Working Together.",
+      "order": 8,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Science and Technology Working Together."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-technology-investigation",
+      "title": "Technology Investigation / Technology Investigation",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Technology Investigation",
+      "lessonType": "LAB",
+      "content": "# Technology Investigation\n\nLesson content for Technology Investigation.",
+      "order": 9,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Technology Investigation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-science-fair-preview",
+      "title": "Science Fair Preview / Science Fair Preview",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Science Fair Preview",
+      "lessonType": "REVIEW",
+      "content": "# Science Fair Preview\n\nLesson content for Science Fair Preview.",
+      "order": 10,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Science Fair Preview."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-unit-8-summative-assessment",
+      "title": "Unit 8 Summative Assessment / Unit 8 Summative Assessment",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Unit 8 Summative Assessment",
+      "lessonType": "ASSESSMENT",
+      "content": "# Unit 8 Summative Assessment\n\nLesson content for Unit 8 Summative Assessment.",
+      "order": 11,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Unit 8 Summative Assessment."
+          }
+        ]
+      }
+    },
+    {
+      "id": "g3-scientists-and-their-work",
+      "title": "Scientists and Their Work / Scientists and Their Work",
+      "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Scientists and Their Work",
+      "lessonType": "LESSON",
+      "content": "# Scientists and Their Work\n\nLesson content for Scientists and Their Work.",
+      "order": 12,
+      "standards": [],
+      "structuredContent": {
+        "version": 1,
+        "blocks": [
+          {
+            "id": "intro",
+            "type": "text",
+            "content": "Welcome to the lesson on Scientists and Their Work."
+          }
+        ]
+      }
+    }
+  ]
+}
