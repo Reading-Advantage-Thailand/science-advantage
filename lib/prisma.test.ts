@@ -15,13 +15,13 @@ describe('PrismaClient singleton', () => {
   const originalEnv = process.env.NODE_ENV;
 
   afterEach(() => {
-    process.env.NODE_ENV = originalEnv;
+    (process.env as Record<string, string>).NODE_ENV = originalEnv;
     vi.resetModules();
     delete (global as Record<string, unknown>).prisma;
   });
 
   it('should cache on global in all environments including production', async () => {
-    process.env.NODE_ENV = 'production';
+    (process.env as Record<string, string>).NODE_ENV = 'production';
     delete (global as Record<string, unknown>).prisma;
 
     const { default: prisma } = await import('./prisma');
@@ -30,7 +30,7 @@ describe('PrismaClient singleton', () => {
   });
 
   it('should cache on global in development', async () => {
-    process.env.NODE_ENV = 'development';
+    (process.env as Record<string, string>).NODE_ENV = 'development';
     delete (global as Record<string, unknown>).prisma;
 
     const { default: prisma } = await import('./prisma');

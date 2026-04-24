@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeAll, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import type { user as UserModel, Class, Lesson, Standard } from '@prisma/client';
 import { GET } from './route';
-import { createSession, setPrismaClient } from '@/lib/auth/session';
+import { createSession } from '@/lib/auth/session';
 
 const mockCookies = {
   get: vi.fn(),
@@ -16,10 +16,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
-
   let testTeacher: UserModel;
   let testStudent: UserModel;
   let otherStudent: UserModel;
@@ -95,6 +91,7 @@ describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
     testLesson = await prisma.lesson.create({
       data: {
         id: 'lesson-endpoint',
+        slug: 'plants-and-animals',
         title: 'Plants and Animals',
         description: 'Compare characteristics of plants and animals',
         content: 'Plants make their own food, animals consume food.',
@@ -126,6 +123,7 @@ describe('GET /api/lessons/[lessonSlug] - Integration Tests', () => {
     await prisma.curriculumUnit.create({
       data: {
         id: 'unit-lesson-endpoint',
+        slug: 'living-things',
         title: 'Living Things',
         description: 'Introduction to living organisms',
         framework: 'THAI',

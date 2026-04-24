@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { InterventionAlertsWidget } from './intervention-alerts-widget';
 
 // Mock fetch
-const mockFetch = jest.fn();
+const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
 // Mock environment variable
@@ -75,7 +76,7 @@ describe('InterventionAlertsWidget', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     process.env = {
       ...originalEnv,
       NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS: 'true',

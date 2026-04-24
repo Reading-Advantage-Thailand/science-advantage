@@ -10,7 +10,7 @@ describe("copyToClipboard", () => {
 
   it("uses navigator.clipboard when available", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
-    vi.stubGlobal("navigator", { clipboard: { writeText } } as Navigator);
+    vi.stubGlobal("navigator", { clipboard: { writeText } } as unknown as Navigator);
 
     const result = await copyToClipboard("ABC123");
 
@@ -20,7 +20,7 @@ describe("copyToClipboard", () => {
 
   it("returns false if navigator clipboard throws", async () => {
     const writeText = vi.fn().mockRejectedValue(new Error("clipboard disabled"));
-    vi.stubGlobal("navigator", { clipboard: { writeText } } as Navigator);
+    vi.stubGlobal("navigator", { clipboard: { writeText } } as unknown as Navigator);
 
     const result = await copyToClipboard("XYZ789");
 
@@ -28,7 +28,7 @@ describe("copyToClipboard", () => {
   });
 
   it("returns false when clipboard is unavailable in non-DOM environment", async () => {
-    vi.stubGlobal("navigator", {} as Navigator);
+    vi.stubGlobal("navigator", {} as unknown as Navigator);
 
     const result = await copyToClipboard("HELLO");
 

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from 'vitest';
 import { PrismaClient } from '@prisma/client';
 import {
   generateLessonSlug,
@@ -68,6 +68,7 @@ describe('Curriculum Unit and Lesson Relationships (Integration)', () => {
     const lesson = await prisma.lesson.create({
       data: {
         id: 'test-lesson-slug-validation-' + Math.random().toString(36).substring(7),
+        slug: 'test-lesson-' + Math.random().toString(36).substring(7),
         title: 'Test Lesson',
         description: 'A test lesson',
         content: 'Test content',
@@ -82,6 +83,7 @@ describe('Curriculum Unit and Lesson Relationships (Integration)', () => {
     const unit = await prisma.curriculumUnit.create({
       data: {
         id: 'test-unit-slug-validation-' + Math.random().toString(36).substring(7),
+        slug: 'test-unit-' + Math.random().toString(36).substring(7),
         title: 'Test Unit',
         description: 'A test unit',
         framework: 'THAI',

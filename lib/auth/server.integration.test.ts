@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi, type Mock } from 'vitest';
 import prisma from '@/lib/prisma';
 import type { user as UserModel } from '@prisma/client';
 import { redirect } from 'next/navigation';
@@ -251,7 +251,7 @@ describe('Auth Server Helpers', () => {
     });
 
     it('should redirect to login when no session', async () => {
-      const redirectMock = redirect as unknown as vi.Mock;
+      const redirectMock = redirect as unknown as Mock;
 
       mockCookies.get.mockReturnValue(undefined);
       await expect(requireAuth()).resolves.toBeUndefined();
@@ -280,7 +280,7 @@ describe('Auth Server Helpers', () => {
 
     it('should redirect when user lacks required role', async () => {
       const createdSession = await createSession(studentUser.id);
-      const redirectMock = redirect as unknown as vi.Mock;
+      const redirectMock = redirect as unknown as Mock;
 
       mockCookies.get.mockReturnValue({ value: createdSession.id });
 
@@ -290,7 +290,7 @@ describe('Auth Server Helpers', () => {
 
     it('should redirect to user dashboard when lacking required role', async () => {
       const createdSession = await createSession(adminUser.id);
-      const redirectMock = redirect as unknown as vi.Mock;
+      const redirectMock = redirect as unknown as Mock;
 
       mockCookies.get.mockReturnValue({ value: createdSession.id });
 

@@ -8,7 +8,7 @@ const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 type StudentRosterEntry = Pick<user, 'id' | 'name' | 'gradeLevel'>;
 
-type MasteryRecord = Pick<
+export type MasteryRecord = Pick<
   StandardMastery,
   'studentId' | 'masteryLevel' | 'lastAssessedAt'
 > & {

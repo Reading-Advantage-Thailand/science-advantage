@@ -54,11 +54,11 @@ describe('Auth Contract: Production - Google OAuth Only', () => {
       const mockVerifyPassword = (await import('@/lib/auth/password'))
         .verifyPassword;
 
-      mockFindUnique.mockResolvedValue({
+      (mockFindUnique as any).mockResolvedValue({
         id: 'user-1',
         account: [{ password: 'hashed', providerId: 'credential' }],
       });
-      mockVerifyPassword.mockResolvedValue(true);
+      (mockVerifyPassword as any).mockResolvedValue(true);
 
       const request = new NextRequest('http://localhost:3000/api/auth/login', {
         method: 'POST',

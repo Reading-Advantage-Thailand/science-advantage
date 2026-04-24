@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import prisma from '@/lib/prisma';
-import type { user as UserModel, session as SessionModel } from '@prisma/client';
+import type { user as UserModel } from '@prisma/client';
+import type { Session } from '@/lib/auth/types';
 import { POST } from './route';
 import { createSession } from '@/lib/auth/session';
 import * as sessionModule from '@/lib/auth/session';
-import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -18,11 +18,8 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('POST /api/auth/logout - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
   let testUser: UserModel;
-  let testSession: SessionModel;
+  let testSession: Session;
 
   beforeEach(async () => {
     mockCookies.get.mockReset();

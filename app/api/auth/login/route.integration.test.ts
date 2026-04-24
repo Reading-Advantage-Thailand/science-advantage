@@ -1,10 +1,9 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import type { user as UserModel } from '@prisma/client';
 import { POST } from './route';
 import { hashPassword } from '@/lib/auth/password';
-import { NextRequest } from 'next/server';
-import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers
 vi.mock('next/headers', () => ({
@@ -16,9 +15,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('POST /api/auth/login - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
   let testUser: UserModel;
 
   beforeEach(async () => {

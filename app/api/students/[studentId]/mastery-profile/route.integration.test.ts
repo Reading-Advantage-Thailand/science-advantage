@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach, beforeAll, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import type { user as UserModel, Standard } from '@prisma/client';
 import { GET } from './route';
-import { createSession, setPrismaClient } from '@/lib/auth/session';
+import { createSession } from '@/lib/auth/session';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -17,10 +17,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('GET /api/students/[studentId]/mastery-profile - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
-
   let testStudent: UserModel;
   let otherStudent: UserModel;
   let standard1: Standard;

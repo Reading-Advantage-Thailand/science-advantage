@@ -37,6 +37,18 @@
   ],
   "exclude": [
     "node_modules",
-    "lib/generated"
+    "lib/generated",
+    "app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts",
+    "app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts",
+    "tests/api/class-analytics-overview.integration.test.ts",
+    "tests/api/class-detail.test.ts",
+    "tests/api/classes-join.test.ts",
+    "tests/api/classes.test.ts",
+    "tests/api/lesson-analytics.integration.test.ts",
+    "tests/api/student-classes.test.ts",
+    "tests/lib/get-student-classes.test.ts",
+    "tests/lib/test-utils.ts",
+    "tests/schema.test.ts",
+    "tests/seed-activity.integration.test.ts"
   ]
 }

@@ -359,7 +359,7 @@ test.describe('Teacher Dashboard - Intervention Alerts Widget', () => {
       // Continue tabbing to reach the alert (multiple tabs may be needed)
       for (let i = 0; i < 20; i++) {
         const focused = await page.locator(':focus');
-        const text = await focused.textContent().catch(() => '');
+        const text = await focused.textContent().catch(() => '') ?? '';
         if (text.includes('Test Student')) {
           // Press Enter to activate
           await page.keyboard.press('Enter');

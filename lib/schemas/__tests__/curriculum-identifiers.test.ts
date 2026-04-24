@@ -440,7 +440,7 @@ describe('Media and Localization Requirements', () => {
 
     const result = validateLessonContent(bilingualLesson);
     expect(result.blocks[0]).toHaveProperty('contentThai');
-    expect(result.blocks[0].contentThai).toBe('ยินดีต้อนรับสู่บทเรียน');
+    expect((result.blocks[0] as { contentThai?: string }).contentThai).toBe('ยินดีต้อนรับสู่บทเรียน');
   });
 
   it('should require alt text for images as accessibility requirement', async () => {

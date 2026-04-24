@@ -1,9 +1,9 @@
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 
 import prisma from '@/lib/prisma';
 import { GET } from './route';
-import { createSession, setPrismaClient } from '@/lib/auth/session';
+import { createSession } from '@/lib/auth/session';
 import { interventionCache } from '@/lib/interventions/cache';
 
 const mockCookies = {
@@ -17,10 +17,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('GET /api/teachers/classes/[classId]/intervention-alerts', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
-
   let teacher: { id: string };
   let otherTeacher: { id: string };
   let admin: { id: string };

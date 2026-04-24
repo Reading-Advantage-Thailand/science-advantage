@@ -102,8 +102,10 @@ export async function seedQuestions(
         }
 
         // Create the question
+        const questionSlug = `${lesson.slug}-q${i + 1}`;
         await prisma.quizQuestion.create({
           data: {
+            slug: questionSlug,
             lessonId: lesson.id,
             type: q.type as QuestionType,
             text: q.text,

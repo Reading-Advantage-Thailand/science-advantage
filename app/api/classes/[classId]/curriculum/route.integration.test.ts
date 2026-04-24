@@ -4,7 +4,6 @@ import prisma from '@/lib/prisma';
 import type { user as UserModel, Class, Lesson } from '@prisma/client';
 import { GET } from './route';
 import { createSession } from '@/lib/auth/session';
-import { setPrismaClient } from '@/lib/auth/session';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -18,10 +17,6 @@ vi.mock('next/headers', () => ({
 }));
 
 describe('GET /api/classes/[classId]/curriculum - Integration Tests', () => {
-  beforeAll(() => {
-    setPrismaClient(prisma);
-  });
-
   let testTeacher: UserModel;
   let testStudent: UserModel;
   let otherStudent: UserModel;

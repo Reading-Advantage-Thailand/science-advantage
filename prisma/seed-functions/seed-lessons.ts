@@ -54,6 +54,7 @@ export async function seedLessons(
     console.log(`  Processing ${data.framework} Grade ${data.gradeLevel} Unit ${data.unit} lessons...`);
 
     for (const lessonData of data.lessons) {
+      const slug = lessonData.id.toLowerCase().replace(/\s+/g, '-');
       await prisma.lesson.upsert({
         where: { id: lessonData.id },
         update: {
@@ -74,6 +75,7 @@ export async function seedLessons(
         },
         create: {
           id: lessonData.id,
+          slug,
           title: lessonData.title,
           description: lessonData.description,
           content: lessonData.content,

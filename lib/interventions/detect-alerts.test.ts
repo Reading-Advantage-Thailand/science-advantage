@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 
 import { detectAlerts } from './detect-alerts';
 import { interventionConfig } from './config';
+import type { MasteryRecord } from './detect-alerts';
 
 describe('detectAlerts', () => {
   const classMeta = {
@@ -21,10 +22,10 @@ describe('detectAlerts', () => {
     code: string;
     masteryLevel: number;
     daysAgo: number;
-  }) {
+  }): MasteryRecord {
     return {
       studentId,
-      masteryLevel,
+      masteryLevel: masteryLevel as unknown as MasteryRecord['masteryLevel'],
       lastAssessedAt: new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000),
       standard: {
         code,
