@@ -1,7 +1,5 @@
 # Tech Debt Registry
 
-| Status    | Severity | Item                                                                                                                                                                         | Target Track                     |
-| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
 | Addressed | Critical | Auth: Google OAuth flow implemented (signin page, /api/auth/google, callback); requires GOOGLE_OAUTH_CLIENT_ID/SECRET env vars to function.                                  | `platform_alignment_20260311`    |
 | Resolved  | High     | Redis: Adapters wired into AI recommendation service and API routes; RedisCacheAdapter provides caching, RedisRateLimitStore provides rate limiting with in-memory fallback. | `platform_alignment_20260311`    |
 | Resolved  | High     | `npm run test:e2e` now runs Playwright smoke tests covering sign-in, student entry, and teacher entry flows.                                                                 | `platform_alignment_20260311`    |
@@ -9,7 +7,7 @@
 | Addressed | High     | Lesson, curriculum unit, and quiz question slugs now have dedicated slug fields in Prisma schema with unique constraints and indexes. QuestionSlugSchema added for validation. | `curriculum_foundation_20260311` |
 | Addressed | High     | Typecheck errors: fixed slug issues in integration tests, auth mocking, jest/vitest config, and fixture slugs. Some legacy test files excluded from tsconfig until migrated to Vitest. | `curriculum_foundation_20260311` |
 | Open      | High     | Curriculum source of truth is split across docs, seeds, and archived curriculum notes.                                                                                       | `curriculum_foundation_20260311` |
-| Open      | Medium   | Thai localization is partial and some APIs duplicate English text into Thai placeholders.                                                                                    | `student_learning_loop_20260311` |
+| Open      | Medium   | Thai localization is partial: vocabulary terms have Thai, but text blocks lack contentThai. Grade 3 structuredContent blocks need bilingual expansion.                         | `student_learning_loop_20260311` |
 | Open      | Medium   | Teacher dashboards still contain placeholder activity and assignment surfaces.                                                                                               | `teacher_delivery_20260311`      |
 | Open      | Medium   | Content operations rely on seeds and scripts rather than a governed release workflow.                                                                                        | `curriculum_foundation_20260311` |
 | Open      | Medium   | Observability exists as scaffolding but lacks clear dashboards and operational thresholds.                                                                                   | `mastery_assistance_20260311`    |

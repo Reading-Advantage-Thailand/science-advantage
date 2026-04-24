@@ -42,3 +42,5 @@
 - [TypeScript] When TypeScript complains about incompatible types on mock objects, use `as unknown as TargetType` pattern to force the cast.
 - [TypeScript] `process.env.NODE_ENV` is read-only; cast to `process.env as Record<string, string>` before reassigning in tests.
 - [Vitest] `vi.stubGlobal('navigator', {...} as Navigator)` needs `as unknown as` intermediate cast to satisfy strict type checking.
+- [Curriculum] When adding failing tests to expose gaps, use realistic data paths and check behavior, not implementation details. Test bilingual content by checking vocabulary Thai fields exist, not every text block having contentThai.
+- [Seed Data] Adding slug fields to all units/lessons across multiple JSON files is tedious but straightforward; delegate to a subagent for bulk edits across many files.
