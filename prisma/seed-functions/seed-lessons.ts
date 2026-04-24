@@ -5,6 +5,7 @@ import { validateLessonsFile } from './validate-json';
 
 interface LessonData {
   id: string;
+  slug?: string;
   title: string;
   description: string;
   content: string;
@@ -54,7 +55,7 @@ export async function seedLessons(
     console.log(`  Processing ${data.framework} Grade ${data.gradeLevel} Unit ${data.unit} lessons...`);
 
     for (const lessonData of data.lessons) {
-      const slug = lessonData.id.toLowerCase().replace(/\s+/g, '-');
+      const slug = lessonData.slug || lessonData.id.toLowerCase().replace(/\s+/g, '-');
       await prisma.lesson.upsert({
         where: { id: lessonData.id },
         update: {

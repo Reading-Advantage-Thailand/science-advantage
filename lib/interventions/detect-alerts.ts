@@ -178,7 +178,7 @@ export function detectAlerts({
     }, weakStandards[0].lastAssessedAt);
 
     const daysSinceLastAssessment = computeDaysSince(latestAssessment, now);
-    const lowestMastery = Math.min(...masteryValues);
+    const lowestMastery = masteryValues.reduce((min, v) => (v < min ? v : min), masteryValues[0]);
     const weakCount = weakStandards.length;
 
     const severity = determineSeverity(

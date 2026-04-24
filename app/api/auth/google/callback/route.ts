@@ -70,7 +70,6 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get('code');
   const error = searchParams.get('error');
-  searchParams.get('state');
 
   if (error) {
     return NextResponse.redirect(

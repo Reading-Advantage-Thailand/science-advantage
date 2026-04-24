@@ -1,12 +1,13 @@
-import { PrismaClient, QuestionType } from '@prisma/client';
+import { PrismaClient, Prisma, QuestionType } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
 
 interface QuestionData {
+  slug?: string;
   type: string;
   text: string;
-  options?: any;
-  correctAnswer: any;
+  options?: Prisma.InputJsonValue;
+  correctAnswer: Prisma.InputJsonValue;
   points: number;
   standards: string[];
 }
@@ -102,14 +103,14 @@ export async function seedQuestions(
         }
 
         // Create the question
-        const questionSlug = `${lesson.slug}-q${i + 1}`;
+        const questionSlug = q.slug || `${lesson.slug}-q${i + 1}`;
         await prisma.quizQuestion.create({
           data: {
             slug: questionSlug,
             lessonId: lesson.id,
             type: q.type as QuestionType,
             text: q.text,
-            options: q.options || null,
+            options: q.options ?? undefined,
             correctAnswer: q.correctAnswer,
             points: q.points,
             order: i + 1,
