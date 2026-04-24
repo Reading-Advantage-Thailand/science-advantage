@@ -20,3 +20,10 @@ tracks were archived to `conductor/archive/replan_20260311/` on 2026-03-11.
 
 ## [ ] Track: Mastery, Recommendations & Intervention Signals
 *Link: [./conductor/tracks/mastery_assistance_20260311/](./conductor/tracks/mastery_assistance_20260311/)*
+
+## Upcoming Tracks
+
+- [ ] **Track: Teacher Dashboard Surfaces** *Link: [./tracks/teacher_dashboard_surfaces_20260425/](./tracks/teacher_dashboard_surfaces_20260425/)*
+- [ ] **Track: Thai Localization Expansion** *Link: [./tracks/thai_localization_expand_20260425/](./tracks/thai_localization_expand_20260425/)*
+- [ ] **Track: Content Release Workflow** *Link: [./tracks/content_release_workflow_20260425/](./tracks/content_release_workflow_20260425/)*
+- [ ] **Track: Redis Actual Integration** *Link: [./tracks/redis_actual_integration_20260425/](./tracks/redis_actual_integration_20260425/)*
