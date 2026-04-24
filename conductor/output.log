@@ -505,3 +505,309 @@ Index: /home/daniel-bo/Desktop/science-advantage/app/api/classes/route.ts
 [0m→ [0mRead app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts[90m [offset=40, limit=80][0m
 [0m→ [0mRead app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts[90m [offset=115, limit=50][0m
 [0m→ [0mRead app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts[90m [offset=1, limit=100][0m
+[0m
+[0m$ [0mgit add -A && git commit -m "fix: add slug fields to curriculum and quiz test fixtures"
+[main ea4f830] fix: add slug fields to curriculum and quiz test fixtures
+ 4 files changed, 482 insertions(+)
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep -c "error TS" || echo "0"
+189
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep -c "slug" || echo "0"
+41
+[0m
+[0m→ [0mRead lib/schemas/__tests__/content-migration.test.ts
+The content-migration tests expect slugs in JSON files that currently use `lessonId`. I need to add slugs to the JSON files. Let me update the Grade 4 content files.
+[0m
+[0m← [0mEdit prisma/data/content/grade-4/lessons/g4-weather-patterns.json
+Index: /home/daniel-bo/Desktop/science-advantage/prisma/data/content/grade-4/lessons/g4-weather-patterns.json
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/prisma/data/content/grade-4/lessons/g4-weather-patterns.json
++++ /home/daniel-bo/Desktop/science-advantage/prisma/data/content/grade-4/lessons/g4-weather-patterns.json
+@@ -1,5 +1,6 @@
+ {
++  "slug": "weather-patterns",
+   "version": 1,
+   "blocks": [
+     {
+       "id": "intro",
+
+[0m
+[0m→ [0mRead prisma/data/content/grade-4/standards-mapping.json[90m [limit=80][0m
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && node -e "
+const fs = require('fs');
+const data = JSON.parse(fs.readFileSync('prisma/data/content/grade-4/standards-mapping.json', 'utf-8'));
+data.lessons.forEach(l => {
+  if (l.lessonId && l.lessonId.startsWith('g4-')) {
+    l.slug = l.lessonId.slice(3);
+  }
+});
+fs.writeFileSync('prisma/data/content/grade-4/standards-mapping.json', JSON.stringify(data, null, 2));
+console.log('Updated standards-mapping.json with slugs');
+"
+Updated standards-mapping.json with slugs
+[0m
+[0m$ [0mnode -e "
+const fs = require('fs');
+const data = JSON.parse(fs.readFileSync('prisma/data/content/grade-4/questions/g4-weather-patterns.json', 'utf-8'));
+// Add slug at top level derived from lessonId
+if (data.lessonId && data.lessonId.startsWith('g4-')) {
+  data.slug = data.lessonId.slice(3);
+}
+// Add slug to each question
+data.questions.forEach((q, i) => {
+  if (!q.slug) {
+    q.slug = 'q-' + (i + 1);
+  }
+});
+fs.writeFileSync('prisma/data/content/grade-4/questions/g4-weather-patterns.json', JSON.stringify(data, null, 2));
+console.log('Updated question file with slugs');
+"
+Updated question file with slugs
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep "content-migration.test.ts" | head -10
+(no output)
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep -c "error TS" && npx tsc --noEmit 2>&1 | grep -c "slug"
+178
+27
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep "slug" | head -30
+Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; standards: { connect: { id: string; }[]; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; lessonType: "LESSON"; gradeLevel: number; order: number; standards: { connect: { id: any; }[]; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; lessonType: "LESSON"; gradeLevel: number; order: number; standards: { connect: { id: any; }[]; }; }' but required in type 'LessonCreateInput'.
+    Type '{ title: string; framework: any; gradeLevel: any; order: number; classId: any; lessons: { connect: { id: any; }[]; }; }' is missing the following properties from type 'CurriculumUnitCreateInput': slug, class
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ title: string; framework: any; gradeLevel: any; order: number; classId: any; lessons: { connect: { id: any; }[]; }; }' is missing the following properties from type 'CurriculumUnitCreateInput': slug, class
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Type '{ lessonId: any; type: "MULTIPLE_CHOICE"; text: string; options: { choices: string[]; }; correctAnswer: { answer: string; }; points: number; order: number; standards: { connect: { id: any; }[]; }; }' is missing the following properties from type 'QuizQuestionCreateInput': slug, lesson
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; standards: { connect: { id: string; }; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ id: string; title: string; description: string; content: string; lessonType: $Enums.LessonType | undefined; gradeLevel: number; order: number; structuredContent: object | undefined; standards: { ...; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ lessonId: string; type: QuestionType; text: string; options: any; correctAnswer: any; points: number; order: number; version: number; standards: { connect: { id: string; }[]; }; }' but required in type 'QuizQuestionUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; framework: "THAI"; gradeLevel: number; order: number; classId: string; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; content: string; gradeLevel: number; order: number; curriculumUnits: { connect: { id: string; }; }; standards: { connect: { id: string; }[]; } | undefined; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ lessonId: string; order: number; text: string; type: $Enums.QuestionType; options: any; correctAnswer: any; points: number; standards: { connect: { id: string; }[]; } | undefined; }' but required in type 'QuizQuestionUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; framework: "NGSS"; gradeLevel: number; order: number; classId: string; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; gradeLevel: number; order: number; standards: { connect: { id: string; }[]; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; gradeLevel: number; order: number; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; framework: "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; description: string; gradeLevel: number; order: number; standards: { connect: { id: string; }[]; }; }' but required in type 'LessonCreateInput'.
+    Property 'slug' is missing in type '{ title: string; framework: "NGSS"; gradeLevel: number; order: number; classId: string; lessons: { connect: { id: string; }[]; }; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+    Property 'slug' is missing in type '{ title: string; framework: "NGSS"; gradeLevel: number; order: number; classId: string; }' but required in type 'CurriculumUnitUncheckedCreateInput'.
+[0m
+[0m$ [0mnpx tsc --noEmit 2>&1 | grep -E "^\s*" | grep "error TS" | head -15
+app/(teacher)/teacher/page.e2e.spec.ts(363,13): error TS18047: 'text' is possibly 'null'.
+app/api/auth/login/auth-contract.test.ts(57,22): error TS2339: Property 'mockResolvedValue' does not exist on type '<T extends userFindUniqueArgs>(args: SelectSubset<T, userFindUniqueArgs<DefaultArgs>>) => Prisma__userClient<GetFindResult<$userPayload<DefaultArgs>, T, PrismaClientOptions> | null, null, DefaultArgs, PrismaClientOptions>'.
+app/api/auth/login/auth-contract.test.ts(61,26): error TS2339: Property 'mockResolvedValue' does not exist on type '(password: string, hash: string) => Promise<boolean>'.
+app/api/auth/login/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/login/route.integration.test.ts(19,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/logout/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/logout/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/logout/route.integration.test.ts(53,5): error TS2739: Type 'Session' is missing the following properties from type '{ id: string; createdAt: Date; updatedAt: Date; userId: string; userAgent: string | null; expiresAt: Date; token: string; ipAddress: string | null; }': createdAt, updatedAt, userAgent, ipAddress
+app/api/auth/session/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/auth/session/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/auth/session/route.integration.test.ts(53,5): error TS2739: Type 'Session' is missing the following properties from type '{ id: string; createdAt: Date; updatedAt: Date; userId: string; userAgent: string | null; expiresAt: Date; token: string; ipAddress: string | null; }': createdAt, updatedAt, userAgent, ipAddress
+app/api/classes/[classId]/curriculum/route.integration.test.ts(7,10): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/classes/[classId]/curriculum/route.integration.test.ts(21,3): error TS2304: Cannot find name 'beforeAll'.
+app/api/lessons/[lessonSlug]/route.integration.test.ts(6,25): error TS2305: Module '"@/lib/auth/session"' has no exported member 'setPrismaClient'.
+app/api/lessons/[lessonSlug]/route.integration.test.ts(96,7): error TS2322: Type '{ id: string; title: string; description: string; content: string; gradeLevel: number; order: number; standards: { connect: { id: string; }[]; }; }' is not assignable to type '(Without<LessonCreateInput, LessonUncheckedCreateInput> & LessonUncheckedCreateInput) | (Without<...> & LessonCreateInput)'.
+[0m
+[0m$ [0mnpm run test:unit 2>&1 | head -50
+npm error Missing script: "test:unit"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/daniel-bo/.npm/_logs/2026-04-24T00_45_19_346Z-debug-0.log
+[0m
+[0m$ [0mnpm run 2>&1 | grep test
+test
+    vitest run
+  test:watch
+    vitest
+  test:integration
+    vitest run --config vitest.integration.config.ts
+  test:e2e
+    playwright test
+[0m
+[0m$ [0mnpm test -- --run 2>&1 | head -80
+> science-advantage@0.1.0 test
+> vitest run --run
+
+
+ RUN  v3.2.4 /home/daniel-bo/Desktop/science-advantage
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+Error: P1001: Can't reach database server at `localhost:5433`
+
+Please make sure your database server is running at `localhost:5433`.
+Loaded Prisma config from prisma.config.ts.
+[0m
+[0m✱ [0mGlob "vitest*.config.ts"[90m 4 matches[0m
+[0m
+[0m$ [0mnpx vitest run --config vitest.unit.config.ts 2>&1 | head -50
+RUN  v3.2.4 /home/daniel-bo/Desktop/science-advantage
+
+stderr | components/features/lesson/__tests__/lesson-player.test.tsx > LessonPlayer > Image Block Rendering > renders image block with required alt text
+Received `true` for a non-boolean attribute `fill`.
+
+If you want to write it to the DOM, pass a string instead: fill="true" or fill={value.toString()}.
+
+ ❯ components/features/lesson/__tests__/lesson-player.test.tsx (33 tests | 4 failed) 3547ms
+   ✓ LessonPlayer > Text Block Rendering > renders text block with markdown processed  394ms
+   ✓ LessonPlayer > Text Block Rendering > shows Thai content when showThai is true and Thai content available 105ms
+   ✓ LessonPlayer > Text Block Rendering > falls back to English when Thai content not available 69ms
+   × LessonPlayer > Vocabulary Block Rendering > renders vocabulary block with terms 57ms
+     → Found multiple elements with the text: Photosynthesis
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<h3[39m
+  [33mclass[39m=[32m"text-2xl font-bold text-center text-gray-900 dark:text-gray-100"[39m
+[36m>[39m
+  [0mPhotosynthesis[0m
+[36m</h3>[39m
+
+Ignored nodes: comments, script, style
+[36m<h3[39m
+  [33mclass[39m=[32m"text-xl font-semibold text-center text-gray-900 dark:text-gray-100 mb-2"[39m
+[36m>[39m
+  [0mPhotosynthesis[0m
+[36m</h3>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"Lesson content"[39m
+      [33mclass[39m=[32m"space-y-6"[39m
+      [33mdata-testid[39m=[32m"lesson-player"[39m
+      [33mrole[39m=[32m"article"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mdata-block-index[39m=[32m"0"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m""[39m
+          [33mdata-block-id[39m=[32m"vocab-1"[39m
+          [33mdata-block-type[39m=[32m"vocabulary"[39m
+        [36m>[39m
+[0m
+[0m$ [0mnpx vitest run --config vitest.unit.config.ts 2>&1 | tail -40
+[33mfill[39m=[32m"none"[39m
+                  [33mstroke[39m=[32m"currentColor"[39m
+                  [33mstroke-linecap[39m=[32m"round"[39m
+                  [33mstroke-linejoin[39m=[32m"round"[39m
+                  [33mstroke-width[39m=[32m"2"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                  [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M9 18l6-6-6-6"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ components/features/lesson/__tests__/lesson-player.test.tsx:497:21
+    495|       render(<LessonPlayer content={content} />);
+    496| 
+    497|       expect(screen.getByRole('list', { name: 'Vocabulary terms' })).t…
+       |                     ^
+    498|     });
+    499| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed | 28 passed (30)
+      Tests  4 failed | 359 passed (363)
+   Start at  08:47:02
+   Duration  24.14s (transform 1.40s, setup 206ms, collect 2.62s, tests 19.21s, environment 1.03s, prepare 147ms)
+[0m
