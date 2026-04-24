@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-land-and-water",
+      "slug": "land-and-water",
       "title": "Land and Water / Land and Water",
       "description": "Grade 3 OUR CHANGING EARTH - Land and Water",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-rocks-and-soil",
+      "slug": "rocks-and-soil",
       "title": "Rocks and Soil / Rocks and Soil",
       "description": "Grade 3 OUR CHANGING EARTH - Rocks and Soil",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-rock-and-soil-investigation",
+      "slug": "rock-and-soil-investigation",
       "title": "Rock and Soil Investigation / Rock and Soil Investigation",
       "description": "Grade 3 OUR CHANGING EARTH - Rock and Soil Investigation",
       "lessonType": "LAB",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-what-is-weather",
+      "slug": "what-is-weather",
       "title": "What is Weather? / What is Weather?",
       "description": "Grade 3 OUR CHANGING EARTH - What is Weather?",
       "lessonType": "LESSON",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-weather-patterns",
+      "slug": "weather-patterns",
       "title": "Weather Patterns / Weather Patterns",
       "description": "Grade 3 OUR CHANGING EARTH - Weather Patterns",
       "lessonType": "LESSON",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-seasons-in-thailand",
+      "slug": "seasons-in-thailand",
       "title": "Seasons in Thailand / Seasons in Thailand",
       "description": "Grade 3 OUR CHANGING EARTH - Seasons in Thailand",
       "lessonType": "LESSON",
@@ -119,6 +125,7 @@
     },
     {
       "id": "g3-day-and-night",
+      "slug": "day-and-night",
       "title": "Day and Night / Day and Night",
       "description": "Grade 3 OUR CHANGING EARTH - Day and Night",
       "lessonType": "LESSON",
@@ -138,6 +145,7 @@
     },
     {
       "id": "g3-measuring-time",
+      "slug": "measuring-time",
       "title": "Measuring Time / Measuring Time",
       "description": "Grade 3 OUR CHANGING EARTH - Measuring Time",
       "lessonType": "LESSON",
@@ -157,6 +165,7 @@
     },
     {
       "id": "g3-weather-watch-project",
+      "slug": "weather-watch-project",
       "title": "Weather Watch Project / Weather Watch Project",
       "description": "Grade 3 OUR CHANGING EARTH - Weather Watch Project",
       "lessonType": "LAB",
@@ -176,6 +185,7 @@
     },
     {
       "id": "g3-earth-explorer-game",
+      "slug": "earth-explorer-game",
       "title": "Earth Explorer Game / Earth Explorer Game",
       "description": "Grade 3 OUR CHANGING EARTH - Earth Explorer Game",
       "lessonType": "REVIEW",
@@ -195,6 +205,7 @@
     },
     {
       "id": "g3-unit-6-summative-assessment",
+      "slug": "unit-6-summative-assessment",
       "title": "Unit 6 Summative Assessment / Unit 6 Summative Assessment",
       "description": "Grade 3 OUR CHANGING EARTH - Unit 6 Summative Assessment",
       "lessonType": "ASSESSMENT",
@@ -214,6 +225,7 @@
     },
     {
       "id": "g3-how-weather-affects-us",
+      "slug": "how-weather-affects-us",
       "title": "How Weather Affects Us / How Weather Affects Us",
       "description": "Grade 3 OUR CHANGING EARTH - How Weather Affects Us",
       "lessonType": "LESSON",

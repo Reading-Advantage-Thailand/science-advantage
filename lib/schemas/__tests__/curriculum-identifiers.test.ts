@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { ZodError } from 'zod';
+import * as fs from 'fs';
+import * as path from 'path';
 import {
   LessonSlugSchema,
   CurriculumUnitSlugSchema,
@@ -579,6 +581,139 @@ describe('Seed Data Validation', () => {
       };
 
       expect(() => validateCurriculumUnitsFile(invalidUnit)).toThrow('Unit at index 0 must have a "lessonIds" array');
+    });
+  });
+
+  describe('Grade 3 Scope-and-Sequence Normalization (Phase 2)', () => {
+    it('should have 10 curriculum units for Grade 3', async () => {
+      const { validateCurriculumUnitsFile } = await import('@/lib/schemas/validate-json');
+
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'curriculum-units', 'thai-grade-3.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      expect(() => validateCurriculumUnitsFile(data)).not.toThrow();
+      expect(data.units).toHaveLength(10);
+    });
+
+    it('should have 9 lessons in Unit 1 (intro to science)', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'curriculum-units', 'thai-grade-3.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      const unit1 = data.units.find((u: any) => u.order === 1);
+      expect(unit1).toBeDefined();
+      expect(unit1.lessonIds).toHaveLength(9);
+    });
+
+    it('should have 12 lessons in Unit 2 (environments & habitats)', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'curriculum-units', 'thai-grade-3.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      const unit2 = data.units.find((u: any) => u.order === 2);
+      expect(unit2).toBeDefined();
+      expect(unit2.lessonIds).toHaveLength(12);
+    });
+
+    it('should have 12 lessons in Unit 4 (forces & motion)', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'curriculum-units', 'thai-grade-3.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      const unit4 = data.units.find((u: any) => u.order === 4);
+      expect(unit4).toBeDefined();
+      expect(unit4.lessonIds).toHaveLength(12);
+    });
+
+    it('should have slug field on all curriculum units', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'curriculum-units', 'thai-grade-3.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      for (const unit of data.units) {
+        expect(unit).toHaveProperty('slug');
+        expect(typeof unit.slug).toBe('string');
+        expect(unit.slug.length).toBeGreaterThan(0);
+      }
+    });
+
+    it('should have slug field on all Grade 3 lessons', async () => {
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'seed-data', 'lessons');
+      const files = fs.readdirSync(lessonsDir).filter(f => f.startsWith('thai-g3-unit') && f.endsWith('.json'));
+
+      for (const file of files) {
+        const filePath = path.join(lessonsDir, file);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        for (const lesson of data.lessons) {
+          expect(lesson).toHaveProperty('slug');
+          expect(typeof lesson.slug).toBe('string');
+          expect(lesson.slug.length).toBeGreaterThan(0);
+        }
+      }
+    });
+
+    it('should have valid lessonType for all Grade 3 lessons', async () => {
+      const { LessonType } = await import('@prisma/client');
+      const lessonsDir = path.join(process.cwd(), 'prisma', 'seed-data', 'lessons');
+      const files = fs.readdirSync(lessonsDir).filter(f => f.startsWith('thai-g3-unit') && f.endsWith('.json'));
+
+      for (const file of files) {
+        const filePath = path.join(lessonsDir, file);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        for (const lesson of data.lessons) {
+          if (lesson.lessonType) {
+            expect(Object.values(LessonType)).toContain(lesson.lessonType);
+          }
+        }
+      }
+    });
+
+    it('should have question bank files for Grade 3 lessons', async () => {
+      const questionsDir = path.join(process.cwd(), 'prisma', 'seed-data', 'questions');
+      const files = fs.readdirSync(questionsDir).filter(f => f.startsWith('g3-') && f.endsWith('.json'));
+
+      expect(files.length).toBeGreaterThan(0);
+    });
+
+    it('should have standards mapping for Grade 3', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'standards', 'thai-grade-3.json');
+      expect(fs.existsSync(filePath)).toBe(true);
+
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      expect(data.framework).toBe('THAI');
+      expect(data.gradeLevel).toBe(3);
+      expect(Array.isArray(data.standards)).toBe(true);
+      expect(data.standards.length).toBeGreaterThan(0);
+    });
+
+    it('should have structuredContent with blocks for Grade 3 Unit 1 lessons', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'lessons', 'thai-g3-unit-1.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      for (const lesson of data.lessons) {
+        expect(lesson).toHaveProperty('structuredContent');
+        expect(lesson.structuredContent).toHaveProperty('version', 1);
+        expect(lesson.structuredContent).toHaveProperty('blocks');
+        expect(Array.isArray(lesson.structuredContent.blocks)).toBe(true);
+        expect(lesson.structuredContent.blocks.length).toBeGreaterThan(0);
+      }
+    });
+
+    it('should have bilingual content (Thai) for Grade 3 lessons with structuredContent', async () => {
+      const filePath = path.join(process.cwd(), 'prisma', 'seed-data', 'lessons', 'thai-g3-unit-1.json');
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+      const lesson1 = data.lessons[0];
+      expect(lesson1.structuredContent).toHaveProperty('blocks');
+
+      const vocabBlocks = lesson1.structuredContent.blocks.filter((b: any) => b.type === 'vocabulary');
+      let vocabWithThai = 0;
+      for (const block of vocabBlocks) {
+        if (block.terms && block.terms.length > 0) {
+          for (const term of block.terms) {
+            if (term.thai) vocabWithThai++;
+          }
+        }
+      }
+      expect(vocabWithThai).toBeGreaterThan(0);
     });
   });
 });

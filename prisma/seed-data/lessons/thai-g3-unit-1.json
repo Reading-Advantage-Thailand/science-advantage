@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-being-a-scientist",
+      "slug": "being-a-scientist",
       "title": "Being a Scientist / การเป็นนักวิทยาศาสตร์",
       "description": "What do scientists do? Learn about observing, questioning, predicting, testing, and concluding.",
       "lessonType": "LESSON",
@@ -100,6 +101,7 @@
     },
     {
       "id": "g3-science-safety-tools",
+      "slug": "science-safety-tools",
       "title": "Science Safety and Tools / ความปลอดภัยและเครื่องมือทางวิทยาศาสตร์",
       "description": "Staying safe in science and using basic tools like magnifying glass, ruler, and thermometer.",
       "lessonType": "LESSON",
@@ -204,6 +206,7 @@
     },
     {
       "id": "g3-making-observations",
+      "slug": "making-observations",
       "title": "Making Observations / การสังเกต",
       "description": "Using our senses to observe and record what we see in detail.",
       "lessonType": "LESSON",
@@ -299,6 +302,7 @@
     },
     {
       "id": "g3-what-makes-alive",
+      "slug": "what-makes-alive",
       "lessonType": "LESSON",
       "title": "What Makes Something Alive? / อะไรทำให้สิ่งมีชีวิต",
       "description": "Seven characteristics of living things: movement, growth, reproduction, response, nutrition, respiration, excretion.",
@@ -403,6 +407,7 @@
     },
     {
       "id": "g3-diversity-living-things",
+      "slug": "diversity-living-things",
       "lessonType": "LESSON",
       "title": "Diversity of Living Things / ความหลากหลายของสิ่งมีชีวิต",
       "description": "Many types of living things - plants, animals, and more. Basic grouping by observable features.",
@@ -502,6 +507,7 @@
     },
     {
       "id": "g3-observing-living-things-lab",
+      "slug": "observing-living-things-lab",
       "title": "Lab: Observing Living Things / การสังเกตสิ่งมีชีวิต",
       "description": "Plant observation study - bean seed planting and initial observations.",
       "lessonType": "LAB",
@@ -642,6 +648,7 @@
     },
     {
       "id": "g3-life-processes-growth",
+      "slug": "life-processes-growth",
       "lessonType": "LESSON",
       "title": "Life Processes - Growth / กระบวนการชีวิต - การเติบโต",
       "description": "How living things grow and change over time with examples from plants and animals.",
@@ -741,6 +748,7 @@
     },
     {
       "id": "g3-life-processes-reproduction",
+      "slug": "life-processes-reproduction",
       "lessonType": "LESSON",
       "title": "Life Processes - Reproduction / กระบวนการชีวิต - การสืบพันธุ์",
       "description": "How living things make more of their kind with simple examples appropriate for Grade 3.",
@@ -840,6 +848,7 @@
     },
     {
       "id": "g3-comparing-living-things",
+      "slug": "comparing-living-things",
       "title": "Comparing Living Things / การเปรียบเทียบสิ่งมีชีวิต",
       "description": "Similarities and differences among organisms and how we group living things by features.",
       "lessonType": "LESSON",

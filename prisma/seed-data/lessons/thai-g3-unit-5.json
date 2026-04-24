@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-what-is-energy",
+      "slug": "what-is-energy",
       "title": "What is Energy? / What is Energy?",
       "description": "Grade 3 ENERGY ALL AROUND US - What is Energy?",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-light-energy",
+      "slug": "light-energy",
       "title": "Light Energy / Light Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Light Energy",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-light-and-shadows",
+      "slug": "light-and-shadows",
       "title": "Light and Shadows / Light and Shadows",
       "description": "Grade 3 ENERGY ALL AROUND US - Light and Shadows",
       "lessonType": "LAB",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-heat-energy",
+      "slug": "heat-energy",
       "title": "Heat Energy / Heat Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Heat Energy",
       "lessonType": "LESSON",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-sound-energy",
+      "slug": "sound-energy",
       "title": "Sound Energy / Sound Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Sound Energy",
       "lessonType": "LESSON",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-comparing-energy-forms",
+      "slug": "comparing-energy-forms",
       "title": "Comparing Energy Forms / Comparing Energy Forms",
       "description": "Grade 3 ENERGY ALL AROUND US - Comparing Energy Forms",
       "lessonType": "LESSON",
@@ -119,6 +125,7 @@
     },
     {
       "id": "g3-where-does-energy-come-from",
+      "slug": "where-does-energy-come-from",
       "title": "Where Does Energy Come From? / Where Does Energy Come From?",
       "description": "Grade 3 ENERGY ALL AROUND US - Where Does Energy Come From?",
       "lessonType": "LESSON",
@@ -138,6 +145,7 @@
     },
     {
       "id": "g3-energy-and-living-things",
+      "slug": "energy-and-living-things",
       "title": "Energy and Living Things / Energy and Living Things",
       "description": "Grade 3 ENERGY ALL AROUND US - Energy and Living Things",
       "lessonType": "LESSON",
@@ -157,6 +165,7 @@
     },
     {
       "id": "g3-solar-energy-investigation",
+      "slug": "solar-energy-investigation",
       "title": "Solar Energy Investigation / Solar Energy Investigation",
       "description": "Grade 3 ENERGY ALL AROUND US - Solar Energy Investigation",
       "lessonType": "LAB",
@@ -176,6 +185,7 @@
     },
     {
       "id": "g3-energy-scavenger-hunt",
+      "slug": "energy-scavenger-hunt",
       "title": "Energy Scavenger Hunt / Energy Scavenger Hunt",
       "description": "Grade 3 ENERGY ALL AROUND US - Energy Scavenger Hunt",
       "lessonType": "REVIEW",
@@ -195,6 +205,7 @@
     },
     {
       "id": "g3-unit-5-summative-assessment",
+      "slug": "unit-5-summative-assessment",
       "title": "Unit 5 Summative Assessment / Unit 5 Summative Assessment",
       "description": "Grade 3 ENERGY ALL AROUND US - Unit 5 Summative Assessment",
       "lessonType": "ASSESSMENT",
@@ -214,6 +225,7 @@
     },
     {
       "id": "g3-energy-transformations",
+      "slug": "energy-transformations",
       "title": "Energy Transformations / Energy Transformations",
       "description": "Grade 3 ENERGY ALL AROUND US - Energy Transformations",
       "lessonType": "LESSON",

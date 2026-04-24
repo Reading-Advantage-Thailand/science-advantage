@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-basic-needs-of-living-things",
+      "slug": "basic-needs-of-living-things",
       "title": "Basic Needs of Living Things / Basic Needs of Living Things",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Basic Needs of Living Things",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-habitats-around-the-world",
+      "slug": "habitats-around-the-world",
       "title": "Habitats Around the World / Habitats Around the World",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Habitats Around the World",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-habitat-investigation",
+      "slug": "habitat-investigation",
       "title": "Habitat Investigation / Habitat Investigation",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Habitat Investigation",
       "lessonType": "LAB",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-where-does-food-come-from",
+      "slug": "where-does-food-come-from",
       "title": "Where Does Food Come From? / Where Does Food Come From?",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Where Does Food Come From?",
       "lessonType": "LESSON",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-simple-food-chains",
+      "slug": "simple-food-chains",
       "title": "Simple Food Chains / Simple Food Chains",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Simple Food Chains",
       "lessonType": "LESSON",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-food-webs",
+      "slug": "food-webs",
       "title": "Food Webs / Food Webs",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Food Webs",
       "lessonType": "LESSON",
@@ -119,6 +125,7 @@
     },
     {
       "id": "g3-why-we-need-to-protect-nature",
+      "slug": "why-we-need-to-protect-nature",
       "title": "Why We Need to Protect Nature / Why We Need to Protect Nature",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Why We Need to Protect Nature",
       "lessonType": "LESSON",
@@ -138,6 +145,7 @@
     },
     {
       "id": "g3-conservation-in-action",
+      "slug": "conservation-in-action",
       "title": "Conservation in Action / Conservation in Action",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Conservation in Action",
       "lessonType": "LESSON",
@@ -157,6 +165,7 @@
     },
     {
       "id": "g3-design-a-habitat",
+      "slug": "design-a-habitat",
       "title": "Design a Habitat / Design a Habitat",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Design a Habitat",
       "lessonType": "LAB",
@@ -176,6 +185,7 @@
     },
     {
       "id": "g3-habitat-match-game",
+      "slug": "habitat-match-game",
       "title": "Habitat Match Game / Habitat Match Game",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Habitat Match Game",
       "lessonType": "REVIEW",
@@ -195,6 +205,7 @@
     },
     {
       "id": "g3-unit-2-summative-assessment",
+      "slug": "unit-2-summative-assessment",
       "title": "Unit 2 Summative Assessment / Unit 2 Summative Assessment",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Unit 2 Summative Assessment",
       "lessonType": "ASSESSMENT",
@@ -214,6 +225,7 @@
     },
     {
       "id": "g3-plant-growth-final-observation",
+      "slug": "plant-growth-final-observation",
       "title": "Plant Growth Final Observation / Plant Growth Final Observation",
       "description": "Grade 3 ENVIRONMENTS & HABITATS - Plant Growth Final Observation",
       "lessonType": "LESSON",

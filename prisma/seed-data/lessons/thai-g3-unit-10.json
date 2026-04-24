@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-strands-12-review",
+      "slug": "strands-12-review",
       "title": "Strands 1-2 Review / Strands 1-2 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Strands 1-2 Review",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-strands-34-review",
+      "slug": "strands-34-review",
       "title": "Strands 3-4 Review / Strands 3-4 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Strands 3-4 Review",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-strands-56-review",
+      "slug": "strands-56-review",
       "title": "Strands 5-6 Review / Strands 5-6 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Strands 5-6 Review",
       "lessonType": "LESSON",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-final-exam-knowledge",
+      "slug": "final-exam-knowledge",
       "title": "Final Exam - Knowledge / Final Exam - Knowledge",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final Exam - Knowledge",
       "lessonType": "ASSESSMENT",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-final-exam-application",
+      "slug": "final-exam-application",
       "title": "Final Exam - Application / Final Exam - Application",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final Exam - Application",
       "lessonType": "ASSESSMENT",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-final-exam-scientific-process",
+      "slug": "final-exam-scientific-process",
       "title": "Final Exam - Scientific Process / Final Exam - Scientific Process",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final Exam - Scientific Process",
       "lessonType": "ASSESSMENT",
@@ -119,6 +125,7 @@
     },
     {
       "id": "g3-science-celebration",
+      "slug": "science-celebration",
       "title": "Science Celebration / Science Celebration",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Science Celebration",
       "lessonType": "REVIEW",

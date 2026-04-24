@@ -4,6 +4,7 @@
   "units": [
     {
       "id": "thai-g3-unit-1",
+      "slug": "unit-1-introduction-to-science",
       "title": "Unit 1: Introduction to Science & Living Things / หน่วยที่ 1: บทนำสู่วิทยาศาสตร์และสิ่งมีชีวิต",
       "description": "Explore what science is and learn about living things and their characteristics.",
       "order": 1,
@@ -21,6 +22,7 @@
     },
     {
       "id": "thai-g3-unit-2",
+      "slug": "unit-2-environments-habitats",
       "title": "Unit 2: ENVIRONMENTS & HABITATS / หน่วยที่ 2: ENVIRONMENTS & HABITATS",
       "description": "Grade 3 Unit 2 covering 2",
       "order": 2,
@@ -41,6 +43,7 @@
     },
     {
       "id": "thai-g3-unit-3",
+      "slug": "unit-3-matter-materials",
       "title": "Unit 3: MATTER & MATERIALS / หน่วยที่ 3: MATTER & MATERIALS",
       "description": "Grade 3 Unit 3 covering 3",
       "order": 3,
@@ -61,6 +64,7 @@
     },
     {
       "id": "thai-g3-unit-4",
+      "slug": "unit-4-forces-motion",
       "title": "Unit 4: FORCES & MOTION / หน่วยที่ 4: FORCES & MOTION",
       "description": "Grade 3 Unit 4 covering 4",
       "order": 4,
@@ -81,6 +85,7 @@
     },
     {
       "id": "thai-g3-unit-5",
+      "slug": "unit-5-energy-all-around-us",
       "title": "Unit 5: ENERGY ALL AROUND US / หน่วยที่ 5: ENERGY ALL AROUND US",
       "description": "Grade 3 Unit 5 covering 5",
       "order": 5,
@@ -101,6 +106,7 @@
     },
     {
       "id": "thai-g3-unit-6",
+      "slug": "unit-6-our-changing-earth",
       "title": "Unit 6: OUR CHANGING EARTH / หน่วยที่ 6: OUR CHANGING EARTH",
       "description": "Grade 3 Unit 6 covering 6",
       "order": 6,
@@ -121,6 +127,7 @@
     },
     {
       "id": "thai-g3-unit-7",
+      "slug": "unit-7-the-sky-above",
       "title": "Unit 7: THE SKY ABOVE / หน่วยที่ 7: THE SKY ABOVE",
       "description": "Grade 3 Unit 7 covering 7",
       "order": 7,
@@ -141,6 +148,7 @@
     },
     {
       "id": "thai-g3-unit-8",
+      "slug": "unit-8-integrated-science-applications",
       "title": "Unit 8: INTEGRATED SCIENCE APPLICATIONS / หน่วยที่ 8: INTEGRATED SCIENCE APPLICATIONS",
       "description": "Grade 3 Unit 8 covering 8",
       "order": 8,
@@ -161,6 +169,7 @@
     },
     {
       "id": "thai-g3-unit-9",
+      "slug": "unit-9-integrated-projects",
       "title": "Unit 9: INTEGRATED PROJECTS / หน่วยที่ 9: INTEGRATED PROJECTS",
       "description": "Grade 3 Unit 9 covering ",
       "order": 9,
@@ -175,6 +184,7 @@
     },
     {
       "id": "thai-g3-unit-10",
+      "slug": "unit-10-final-assessment-closure",
       "title": "Unit 10: FINAL ASSESSMENT & CLOSURE / หน่วยที่ 10: FINAL ASSESSMENT & CLOSURE",
       "description": "Grade 3 Unit 10 covering ",
       "order": 10,

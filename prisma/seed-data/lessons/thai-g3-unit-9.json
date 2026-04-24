@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-choosing-your-project",
+      "slug": "choosing-your-project",
       "title": "Choosing Your Project / Choosing Your Project",
       "description": "Grade 3 INTEGRATED PROJECTS - Choosing Your Project",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-research-and-preparation",
+      "slug": "research-and-preparation",
       "title": "Research and Preparation / Research and Preparation",
       "description": "Grade 3 INTEGRATED PROJECTS - Research and Preparation",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-project-testingverification",
+      "slug": "project-testingverification",
       "title": "Project Testing/Verification / Project Testing/Verification",
       "description": "Grade 3 INTEGRATED PROJECTS - Project Testing/Verification",
       "lessonType": "LAB",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-science-year-in-review-game",
+      "slug": "science-year-in-review-game",
       "title": "Science Year in Review Game / Science Year in Review Game",
       "description": "Grade 3 INTEGRATED PROJECTS - Science Year in Review Game",
       "lessonType": "REVIEW",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-connecting-the-strands",
+      "slug": "connecting-the-strands",
       "title": "Connecting the Strands / Connecting the Strands",
       "description": "Grade 3 INTEGRATED PROJECTS - Connecting the Strands",
       "lessonType": "LESSON",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-preparing-for-grade-4",
+      "slug": "preparing-for-grade-4",
       "title": "Preparing for Grade 4 / Preparing for Grade 4",
       "description": "Grade 3 INTEGRATED PROJECTS - Preparing for Grade 4",
       "lessonType": "LESSON",

@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-push-and-pull",
+      "slug": "push-and-pull",
       "title": "Push and Pull / Push and Pull",
       "description": "Grade 3 FORCES & MOTION - Push and Pull",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-how-forces-change-motion",
+      "slug": "how-forces-change-motion",
       "title": "How Forces Change Motion / How Forces Change Motion",
       "description": "Grade 3 FORCES & MOTION - How Forces Change Motion",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-testing-push-and-pull-forces",
+      "slug": "testing-push-and-pull-forces",
       "title": "Testing Push and Pull Forces / Testing Push and Pull Forces",
       "description": "Grade 3 FORCES & MOTION - Testing Push and Pull Forces",
       "lessonType": "LAB",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-fast-and-slow",
+      "slug": "fast-and-slow",
       "title": "Fast and Slow / Fast and Slow",
       "description": "Grade 3 FORCES & MOTION - Fast and Slow",
       "lessonType": "LESSON",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-direction-and-distance",
+      "slug": "direction-and-distance",
       "title": "Direction and Distance / Direction and Distance",
       "description": "Grade 3 FORCES & MOTION - Direction and Distance",
       "lessonType": "LESSON",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-stopping-motion",
+      "slug": "stopping-motion",
       "title": "Stopping Motion / Stopping Motion",
       "description": "Grade 3 FORCES & MOTION - Stopping Motion",
       "lessonType": "LESSON",
@@ -119,6 +125,7 @@
     },
     {
       "id": "g3-the-force-of-gravity",
+      "slug": "the-force-of-gravity",
       "title": "The Force of Gravity / The Force of Gravity",
       "description": "Grade 3 FORCES & MOTION - The Force of Gravity",
       "lessonType": "LESSON",
@@ -138,6 +145,7 @@
     },
     {
       "id": "g3-friction-the-stopping-force",
+      "slug": "friction-the-stopping-force",
       "title": "Friction - The Stopping Force / Friction - The Stopping Force",
       "description": "Grade 3 FORCES & MOTION - Friction - The Stopping Force",
       "lessonType": "LESSON",
@@ -157,6 +165,7 @@
     },
     {
       "id": "g3-ramp-races",
+      "slug": "ramp-races",
       "title": "Ramp Races / Ramp Races",
       "description": "Grade 3 FORCES & MOTION - Ramp Races",
       "lessonType": "LAB",
@@ -176,6 +185,7 @@
     },
     {
       "id": "g3-force-and-motion-olympics",
+      "slug": "force-and-motion-olympics",
       "title": "Force and Motion Olympics / Force and Motion Olympics",
       "description": "Grade 3 FORCES & MOTION - Force and Motion Olympics",
       "lessonType": "REVIEW",
@@ -195,6 +205,7 @@
     },
     {
       "id": "g3-unit-4-summative-assessment",
+      "slug": "unit-4-summative-assessment",
       "title": "Unit 4 Summative Assessment / Unit 4 Summative Assessment",
       "description": "Grade 3 FORCES & MOTION - Unit 4 Summative Assessment",
       "lessonType": "ASSESSMENT",
@@ -214,6 +225,7 @@
     },
     {
       "id": "g3-forces-in-sports-and-play",
+      "slug": "forces-in-sports-and-play",
       "title": "Forces in Sports and Play / Forces in Sports and Play",
       "description": "Grade 3 FORCES & MOTION - Forces in Sports and Play",
       "lessonType": "LESSON",

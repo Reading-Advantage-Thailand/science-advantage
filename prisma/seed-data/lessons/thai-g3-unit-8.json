@@ -5,6 +5,7 @@
   "lessons": [
     {
       "id": "g3-asking-scientific-questions",
+      "slug": "asking-scientific-questions",
       "title": "Asking Scientific Questions / Asking Scientific Questions",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Asking Scientific Questions",
       "lessonType": "LESSON",
@@ -24,6 +25,7 @@
     },
     {
       "id": "g3-making-predictions",
+      "slug": "making-predictions",
       "title": "Making Predictions / Making Predictions",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Making Predictions",
       "lessonType": "LESSON",
@@ -43,6 +45,7 @@
     },
     {
       "id": "g3-design-your-own-investigation",
+      "slug": "design-your-own-investigation",
       "title": "Design Your Own Investigation / Design Your Own Investigation",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Design Your Own Investigation",
       "lessonType": "LAB",
@@ -62,6 +65,7 @@
     },
     {
       "id": "g3-measuring-in-science",
+      "slug": "measuring-in-science",
       "title": "Measuring in Science / Measuring in Science",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Measuring in Science",
       "lessonType": "LESSON",
@@ -81,6 +85,7 @@
     },
     {
       "id": "g3-recording-data",
+      "slug": "recording-data",
       "title": "Recording Data / Recording Data",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Recording Data",
       "lessonType": "LESSON",
@@ -100,6 +105,7 @@
     },
     {
       "id": "g3-communicating-science",
+      "slug": "communicating-science",
       "title": "Communicating Science / Communicating Science",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Communicating Science",
       "lessonType": "LESSON",
@@ -119,6 +125,7 @@
     },
     {
       "id": "g3-technology-helps-us",
+      "slug": "technology-helps-us",
       "title": "Technology Helps Us / Technology Helps Us",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Technology Helps Us",
       "lessonType": "LESSON",
@@ -138,6 +145,7 @@
     },
     {
       "id": "g3-science-and-technology-working-together",
+      "slug": "science-and-technology-working-together",
       "title": "Science and Technology Working Together / Science and Technology Working Together",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Science and Technology Working Together",
       "lessonType": "LESSON",
@@ -157,6 +165,7 @@
     },
     {
       "id": "g3-technology-investigation",
+      "slug": "technology-investigation",
       "title": "Technology Investigation / Technology Investigation",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Technology Investigation",
       "lessonType": "LAB",
@@ -176,6 +185,7 @@
     },
     {
       "id": "g3-science-fair-preview",
+      "slug": "science-fair-preview",
       "title": "Science Fair Preview / Science Fair Preview",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Science Fair Preview",
       "lessonType": "REVIEW",
@@ -195,6 +205,7 @@
     },
     {
       "id": "g3-unit-8-summative-assessment",
+      "slug": "unit-8-summative-assessment",
       "title": "Unit 8 Summative Assessment / Unit 8 Summative Assessment",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Unit 8 Summative Assessment",
       "lessonType": "ASSESSMENT",
@@ -214,6 +225,7 @@
     },
     {
       "id": "g3-scientists-and-their-work",
+      "slug": "scientists-and-their-work",
       "title": "Scientists and Their Work / Scientists and Their Work",
       "description": "Grade 3 INTEGRATED SCIENCE APPLICATIONS - Scientists and Their Work",
       "lessonType": "LESSON",
