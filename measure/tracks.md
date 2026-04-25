@@ -1,0 +1,33 @@
+# Project Tracks
+
+This file tracks the active replan roadmap. The prior root docs and active
+tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
+
+---
+
+## [x] Track: Platform Alignment & Access Model
+*Link: [./measure/tracks/platform_alignment_20260311/](./measure/tracks/platform_alignment_20260311/)*
+*Completed: 2026-04-23*
+
+## [ ] Track: Curriculum Data Foundation
+*Link: [./measure/tracks/curriculum_foundation_20260311/](./measure/tracks/curriculum_foundation_20260311/)*
+
+## [ ] Track: Student Learning Loop
+*Link: [./measure/tracks/student_learning_loop_20260311/](./measure/tracks/student_learning_loop_20260311/)*
+
+## [ ] Track: Teacher Delivery & Classroom Visibility
+*Link: [./measure/tracks/teacher_delivery_20260311/](./measure/tracks/teacher_delivery_20260311/)*
+
+## [ ] Track: Mastery, Recommendations & Intervention Signals
+*Link: [./measure/tracks/mastery_assistance_20260311/](./measure/tracks/mastery_assistance_20260311/)*
+
+## Upcoming Tracks
+
+- [ ] **Track: Teacher Dashboard Surfaces** *Link: [./tracks/teacher_dashboard_surfaces_20260425/](./tracks/teacher_dashboard_surfaces_20260425/)*
+- [ ] **Track: Thai Localization Expansion** *Link: [./tracks/thai_localization_expand_20260425/](./tracks/thai_localization_expand_20260425/)*
+- [ ] **Track: Content Release Workflow** *Link: [./tracks/content_release_workflow_20260425/](./tracks/content_release_workflow_20260425/)*
+- [ ] **Track: Redis Actual Integration** *Link: [./tracks/redis_actual_integration_20260425/](./tracks/redis_actual_integration_20260425/)*
+
+- [x] **Track: Visual Refresh: Define Unique Identity**
+  *Link: [./archive/visual_refresh_20260425/](./archive/visual_refresh_20260425/)*
+  *Status: Complete*
