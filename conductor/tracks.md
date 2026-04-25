@@ -27,3 +27,5 @@ tracks were archived to `conductor/archive/replan_20260311/` on 2026-03-11.
 - [ ] **Track: Thai Localization Expansion** *Link: [./tracks/thai_localization_expand_20260425/](./tracks/thai_localization_expand_20260425/)*
 - [ ] **Track: Content Release Workflow** *Link: [./tracks/content_release_workflow_20260425/](./tracks/content_release_workflow_20260425/)*
 - [ ] **Track: Redis Actual Integration** *Link: [./tracks/redis_actual_integration_20260425/](./tracks/redis_actual_integration_20260425/)*
+
+- [~] [Visual Refresh: Define Unique Identity](tracks/visual_refresh_20260425/index.md)
