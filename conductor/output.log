@@ -375,3 +375,109 @@ Index: /home/daniel-bo/Desktop/science-advantage/app/globals.css
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 [0m
+[0m$ [0mgit add -A && git commit -m "conductor(MiniMax-M2): Phase 2 - visual refresh (DESIGN.md, globals.css, UI components)"
+[main 0389855] conductor(MiniMax-M2): Phase 2 - visual refresh (DESIGN.md, globals.css, UI components)
+ 7 files changed, 568 insertions(+), 331 deletions(-)
+[0m
+[0m# [0mTodos
+[x] Phase 1: Define Visual Identity (read, brainstorm, update DESIGN.md, lint)
+[x] Phase 2: Update global CSS and Tailwind configuration to match the new DESIGN.md
+[x] Phase 2: Refactor core UI components (buttons, cards, layout) to reflect the new visual theme
+[x] Phase 2: Verify the visual refresh locally
+[0m
+[0m← [0mEdit conductor/tracks/visual_refresh_20260425/plan.md
+Index: /home/daniel-bo/Desktop/science-advantage/conductor/tracks/visual_refresh_20260425/plan.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/conductor/tracks/visual_refresh_20260425/plan.md
++++ /home/daniel-bo/Desktop/science-advantage/conductor/tracks/visual_refresh_20260425/plan.md
+@@ -1,12 +1,12 @@
+ # Implementation Plan: Visual Refresh: Define Unique Identity
+ 
+ ## Phase 1: Define Visual Identity
+-- [ ] Read the current `DESIGN.md` and project code to understand the domain.
+-- [ ] Brainstorm and select a highly opinionated visual theme that fits the domain perfectly.
+-- [ ] Update `DESIGN.md` with specific color tokens, typography, and styling rules (no generic slop).
+-- [ ] Run `npx -y @google/design.md lint DESIGN.md` to ensure structural compliance.
++- [x] Read the current `DESIGN.md` and project code to understand the domain.
++- [x] Brainstorm and select a highly opinionated visual theme that fits the domain perfectly.
++- [x] Update `DESIGN.md` with specific color tokens, typography, and styling rules (no generic slop).
++- [x] Run `npx -y @google/design.md lint DESIGN.md` to ensure structural compliance.
+ 
+ ## Phase 2: Refactor UI Components
+-- [ ] Update global CSS and Tailwind configuration to match the new `DESIGN.md`.
+-- [ ] Refactor core UI components (buttons, cards, layout) to reflect the new visual theme.
+-- [ ] Verify the visual refresh locally.
++- [x] Update global CSS and Tailwind configuration to match the new `DESIGN.md`.
++- [x] Refactor core UI components (buttons, cards, layout) to reflect the new visual theme.
++- [x] Verify the visual refresh locally.
+
+[0m
+[0m← [0mEdit conductor/tracks/visual_refresh_20260425/metadata.json
+Index: /home/daniel-bo/Desktop/science-advantage/conductor/tracks/visual_refresh_20260425/metadata.json
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/conductor/tracks/visual_refresh_20260425/metadata.json
++++ /home/daniel-bo/Desktop/science-advantage/conductor/tracks/visual_refresh_20260425/metadata.json
+@@ -1,7 +1,7 @@
+ {
+   "id": "visual_refresh_20260425",
+   "title": "Visual Refresh: Define Unique Identity",
+   "created_at": "2026-04-24T23:21:13.275Z",
+-  "status": "in_progress",
++  "status": "completed",
+   "type": "feature"
+ }
+\ No newline at end of file
+
+[0m
+[0m✗ [0medit failed
+[91m[1mError: [0mNo changes to apply: oldString and newString are identical.
+[0m
+[0m← [0mEdit conductor/tracks.md
+Index: /home/daniel-bo/Desktop/science-advantage/conductor/tracks.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/conductor/tracks.md
++++ /home/daniel-bo/Desktop/science-advantage/conductor/tracks.md
+@@ -27,5 +27,5 @@
+ - [ ] **Track: Thai Localization Expansion** *Link: [./tracks/thai_localization_expand_20260425/](./tracks/thai_localization_expand_20260425/)*
+ - [ ] **Track: Content Release Workflow** *Link: [./tracks/content_release_workflow_20260425/](./tracks/content_release_workflow_20260425/)*
+ - [ ] **Track: Redis Actual Integration** *Link: [./tracks/redis_actual_integration_20260425/](./tracks/redis_actual_integration_20260425/)*
+ 
+-- [~] [Visual Refresh: Define Unique Identity](tracks/visual_refresh_20260425/index.md)
++- [x] [Visual Refresh: Define Unique Identity](tracks/visual_refresh_20260425/index.md)
+
+[0m
+[0m← [0mEdit conductor/tech-debt.md
+Index: /home/daniel-bo/Desktop/science-advantage/conductor/tech-debt.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/conductor/tech-debt.md
++++ /home/daniel-bo/Desktop/science-advantage/conductor/tech-debt.md
+@@ -11,10 +11,11 @@
+ | Open      | Medium   | Teacher dashboards still contain placeholder activity and assignment surfaces.                                                                                               | `teacher_delivery_20260311`      |
+ | Open      | Medium   | Content operations rely on seeds and scripts rather than a governed release workflow.                                                                                        | `curriculum_foundation_20260311` |
+ | Open      | Medium   | Observability exists as scaffolding but lacks clear dashboards and operational thresholds.                                                                                   | `mastery_assistance_20260311`    |
+ | Addressed | Low      | Root README and some legacy docs still describe stale auth and platform behavior.                                                                                            | follow-up docs chore             |
+-| Addressed | High     | 20+ typecheck errors in test files: slug field added to Lesson, CurriculumUnit, QuizQuestion Prisma models but test fixtures in tests/schema.test.ts, tests/lib/test-utils.ts, tests/api/ not updated. Excluded from tsconfig. | `curriculum_foundation_20260311` |
+ | Open      | Medium   | Redis client is scaffolding: createUpstashClient and createNodeRedisClient both return in-memory clients. No actual Redis I/O in any environment.                             | `platform_alignment_20260311`    |
+ | Open      | Low      | RateLimitStore.recordFailure semantically misleading: it records every request, not failures. Consider renaming to recordAttempt.                                             | follow-up refactor               |
+ | Open      | High     | vitest.setup.ts runs `prisma db push --force-reset` for ALL tests including pure unit tests. Prevents running unit tests without a running database. Needs per-test-file setup isolation. | follow-up test infra             |
+ | Open      | Medium   | Google OAuth callback reads but does not validate `state` parameter. No CSRF protection on the OAuth flow.                                                                    | follow-up security               |
+ | Open      | Medium   | seed-questions.ts does not call validateQuizQuestionsFile() before inserting data. Validation exists but seed script bypasses it.                                             | `curriculum_foundation_20260311` |
++| Resolved  | Medium   | Visual identity was generic "AI slop" — no distinct aesthetic. Defined Scientific Expedition Journal theme with DM Serif Display, forest green, warm cream palette.          | `visual_refresh_20260425`        |
++| Open      | Low      | Design system uses CSS custom properties for shadows but Tailwind only provides standard shadow utilities. Custom shadow classes need to be defined in CSS rather than via Tailwind. | follow-up            |
+
+[0m
+[0m← [0mEdit conductor/lessons-learned.md
+Index: /home/daniel-bo/Desktop/science-advantage/conductor/lessons-learned.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/conductor/lessons-learned.md
++++ /home/daniel-bo/Desktop/science-advantage/conductor/lessons-learned.md
+@@ -43,4 +43,7 @@
+ - [TypeScript] `process.env.NODE_ENV` is read-only; cast to `process.env as Record<string, string>` before reassigning in tests.
+ - [Vitest] `vi.stubGlobal('navigator', {...} as Navigator)` needs `as unknown as` intermediate cast to satisfy strict type checking.
+ - [Curriculum] When adding failing tests to expose gaps, use realistic data paths and check behavior, not implementation details. Test bilingual content by checking vocabulary Thai fields exist, not every text block having contentThai.
+ - [Seed Data] Adding slug fields to all units/lessons across multiple JSON files is tedious but straightforward; delegate to a subagent for bulk edits across many files.
++
++- [Design] Tailwind CSS with custom shadow classes (e.g., `shadow-card`, `shadow-elevated`) defined via CSS custom properties won't work with standard `hover:` variant syntax. Use CSS `@apply` with explicit class names or define separate hover variants in CSS rather than trying to use Tailwind's hover prefix on custom utilities.
++- [Design] When defining a new visual identity, ensure the CSS custom properties for shadows are compatible with Tailwind's hover variant system. The `shadow-card` style can be used directly but `hover:shadow-elevated` fails because Tailwind doesn't recognize the custom class during compilation.
+
+[0m
