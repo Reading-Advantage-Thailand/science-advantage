@@ -29,7 +29,7 @@ export default async function SigninPage() {
           height={50}
           className="rounded-lg"
         />
-        <h1 className="text-3xl font-bold text-rose-800">Science Advantage</h1>
+        <h1 className="text-3xl font-serif text-primary">Science Advantage</h1>
       </div>
 
       <SigninContainer isDevAuth={env.DEV_AUTH_ENABLED} />
