@@ -6,7 +6,7 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 ---
 
 ## [x] Track: Platform Alignment & Access Model
-*Link: [./measure/tracks/platform_alignment_20260311/](./measure/tracks/platform_alignment_20260311/)*
+*Link: [./measure/archive/platform_alignment_20260311/](./measure/archive/platform_alignment_20260311/)*
 *Completed: 2026-04-23*
 
 ## [ ] Track: Curriculum Data Foundation
