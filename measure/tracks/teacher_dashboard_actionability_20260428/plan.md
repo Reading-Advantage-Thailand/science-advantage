@@ -2,22 +2,22 @@
 
 ## Phase 1: Dashboard Data Surfaces
 
-- [ ] Task: Define failing tests for dashboard data endpoints
-  - [ ] Write tests for class progress aggregation (completion rate, average score, active students)
-  - [ ] Write tests for students-needing-attention count (mastery < 0.6 across classes)
-  - [ ] Write tests for recent completions feed (5 most recent LessonCompletion records)
-- [ ] Task: Implement dashboard data API
-  - [ ] Create `/api/teachers/dashboard` endpoint aggregating class progress, attention count, and recent completions
-  - [ ] Implement efficient queries (avoid N+1 — aggregate in Prisma, not in application code)
-  - [ ] Add loading states and error handling
-- [ ] Task: Replace placeholder dashboard cards
-  - [ ] Build `ClassProgressCard` component with color-coded completion rates
-  - [ ] Build `StudentsNeedAttentionCard` with count and link to intervention details
-  - [ ] Build `RecentCompletionsFeed` with student name, lesson title, score, timestamp
-  - [ ] Remove the three placeholder cards ("No recent activity", "No upcoming deadlines" x2)
-- [ ] Task: Measure - Manual Verification 'Dashboard Data'
-  - [ ] Verify class progress shows real completion percentages
-  - [ ] Verify students-needing-attention shows accurate count
+- [x] Task: Define failing tests for dashboard data endpoints
+  - [x] Write tests for class progress aggregation (completion rate, average score, active students)
+  - [x] Write tests for students-needing-attention count (mastery < 0.6 across classes)
+  - [x] Write tests for recent completions feed (5 most recent LessonCompletion records)
+- [x] Task: Implement dashboard data API
+  - [x] Create `/api/teachers/dashboard` endpoint aggregating class progress, attention count, and recent completions
+  - [x] Implement efficient queries (avoid N+1 — aggregate in Prisma, not in application code)
+  - [x] Add loading states and error handling
+- [x] Task: Replace placeholder dashboard cards
+  - [x] Build `ClassProgressCard` component with color-coded completion rates
+  - [x] Build `StudentsNeedAttentionCard` with count and link to intervention details
+  - [x] Build `RecentCompletionsFeed` with student name, lesson title, score, timestamp
+  - [x] Remove the three placeholder cards ("No recent activity", "No upcoming deadlines" x2)
+- [x] Task: Measure - Manual Verification 'Dashboard Data'
+  - [x] Verify class progress shows real completion percentages
+  - [x] Verify students-needing-attention shows accurate count
 
 ## Phase 2: Curriculum Accordion and Class Management
 

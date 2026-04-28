@@ -1,13 +1,9 @@
 import { requireRole } from '@/lib/auth/server';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { TeacherDashboardClasses } from '@/components/features/teacher/teacher-dashboard-classes';
 import { InterventionAlertsWidget } from '@/components/features/teacher/intervention-alerts-widget';
+import { ClassProgressCard } from '@/components/features/teacher/class-progress-card';
+import { StudentsNeedAttentionCard } from '@/components/features/teacher/students-need-attention-card';
+import { RecentCompletionsFeed } from '@/components/features/teacher/recent-completions-feed';
 import prisma from '@/lib/prisma';
 
 export default async function TeacherPage() {
@@ -46,70 +42,11 @@ export default async function TeacherPage() {
       <TeacherDashboardClasses />
 
       <section className="grid gap-6 md:grid-cols-2">
-        <Card className="edu-card hover-wiggle">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              📊 Recent Activity
-            </CardTitle>
-            <CardDescription>
-              Latest student submissions and progress
-              <span className="block text-xs text-muted-foreground">
-                กิจกรรมล่าสุดและความก้าวหน้าของนักเรียน
-              </span>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              No recent activity.
-              <span className="block text-xs text-muted-foreground">
-                ยังไม่มีกิจกรรมล่าสุด
-              </span>
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="edu-card hover-wiggle">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              📅 Upcoming Assignments
-            </CardTitle>
-            <CardDescription>
-              Assignment due dates and deadlines
-              <span className="block text-xs text-muted-foreground">
-                กำหนดส่งงานและเดดไลน์สำคัญ
-              </span>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              No upcoming deadlines.
-              <span className="block text-xs text-muted-foreground">
-                ยังไม่มีกำหนดส่งงานที่ใกล้ถึง
-              </span>
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Assignments</CardTitle>
-            <CardDescription>
-              Assignment due dates and deadlines
-              <span className="block text-xs text-gray-500">
-                กำหนดส่งงานและเดดไลน์สำคัญ
-              </span>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-500">
-              No upcoming deadlines.
-              <span className="block text-xs text-gray-400">
-                ยังไม่มีกำหนดส่งงานที่ใกล้ถึง
-              </span>
-            </p>
-          </CardContent>
-        </Card>
+        <ClassProgressCard />
+        <StudentsNeedAttentionCard />
       </section>
+
+      <RecentCompletionsFeed />
     </div>
   );
 }
