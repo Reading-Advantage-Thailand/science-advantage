@@ -22,14 +22,14 @@
 
 ## Phase 2: Achievement Badges
 
-- [ ] Task: Define badge rules and unlock conditions
-  - [ ] Write tests for each badge type unlock logic
-  - [ ] Implement badge evaluation service (check conditions against user's completion data)
-  - [ ] Define 8-12 badge types with thematic names and descriptions
-- [ ] Task: Wire badge unlocks to lesson/quiz completion
-  - [ ] Write tests for badge check triggered on completion events
-  - [ ] Add badge evaluation call to quiz submission endpoint
-  - [ ] Return newly unlocked badges in quiz response
+- [x] Task: Define badge rules and unlock conditions
+  - [x] Write tests for each badge type unlock logic
+  - [x] Implement badge evaluation service (check conditions against user's completion data)
+  - [x] Define 8-12 badge types with thematic names and descriptions (10 badges; BILINGUAL_SCHOLAR deferred)
+- [x] Task: Wire badge unlocks to lesson/quiz completion
+  - [x] Write tests for badge check triggered on completion events
+  - [x] Add badge evaluation call to quiz submission endpoint
+  - [x] Return newly unlocked badges in quiz response
 - [ ] Task: Measure - Manual Verification 'Badge Unlocks'
   - [ ] Verify "First Steps" badge unlocks on first lesson completion
   - [ ] Verify "Perfect Score" badge unlocks on 100% quiz score

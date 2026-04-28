@@ -6,6 +6,7 @@ import prisma from '@/lib/prisma';
 import { gradeAnswer } from '@/lib/quiz/scoring';
 import { calculateXpForQuiz, awardXp } from '@/lib/gamification/xp';
 import { updateStreakForProfile } from '@/lib/gamification/streak';
+import { checkBadgeConditions } from '@/lib/gamification/badges';
 
 /**
  * GET /api/lessons/{lessonSlug}/quiz
@@ -440,7 +441,16 @@ export async function POST(
     // Calculate total XP including streak milestone bonus
     const totalXpAwarded = totalXp + streakResult.milestoneBonus;
 
-    // 10. Format and return response
+    // 10. Check badge unlock conditions
+    const badgeResult = await checkBadgeConditions(session.user.id, {
+      type: 'quiz_completed',
+      score: percentage,
+      attemptNumber: attempt.attemptNumber,
+      lessonId: lessonSlug,
+      studentId: session.user.id,
+    });
+
+    // 11. Format and return response
     return NextResponse.json(
       {
         attemptId,
@@ -460,6 +470,8 @@ export async function POST(
           levelName: xpResult.levelName,
           levelUp: xpResult.levelUp,
           totalXp: xpResult.xp,
+          badgesUnlocked: badgeResult.newlyUnlocked,
+          achievements: badgeResult.achievements,
         },
       },
       { status: 200 }

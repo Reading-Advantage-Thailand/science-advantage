@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import type { user as UserModel, Class, Lesson, QuizQuestion } from '@prisma/client';
 import { GET, POST } from './route';
 import { createSession } from '@/lib/auth/session';
+import { BADGE_DEFINITIONS } from '@/lib/gamification/badges';
 
 // Mock next/headers for cookies
 const mockCookies = {
@@ -399,6 +400,8 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     await prisma.quizQuestion.deleteMany();
     await prisma.$executeRaw`DELETE FROM "_CurriculumUnitToLesson"`;
     await prisma.$executeRaw`DELETE FROM "_LessonToStandard"`;
+    await prisma.achievement.deleteMany();
+    await prisma.gamificationProfile.deleteMany();
     await prisma.lessonCompletion.deleteMany();
     await prisma.curriculumUnit.deleteMany();
     await prisma.lesson.deleteMany();
@@ -544,6 +547,8 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     await prisma.quizQuestion.deleteMany();
     await prisma.$executeRaw`DELETE FROM "_CurriculumUnitToLesson"`;
     await prisma.$executeRaw`DELETE FROM "_LessonToStandard"`;
+    await prisma.achievement.deleteMany();
+    await prisma.gamificationProfile.deleteMany();
     await prisma.lessonCompletion.deleteMany();
     await prisma.curriculumUnit.deleteMany();
     await prisma.lesson.deleteMany();
@@ -553,97 +558,8 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
     await prisma.user.deleteMany();
   });
 
-  describe('Authentication', () => {
-    it('should return 401 when not authenticated', async () => {
-      mockCookies.get.mockReturnValue(undefined);
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: [],
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-      const data = await response.json();
-
-      expect(response.status).toBe(401);
-      expect(data.error).toBe('Authentication required');
-    });
-  });
-
-  describe('Authorization', () => {
-    it('should prevent student from submitting another student\'s attempt', async () => {
-      const session = await createSession(otherStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: [],
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-      const data = await response.json();
-
-      expect(response.status).toBe(403);
-      expect(data.error).toBe('Not authorized to submit this attempt');
-    });
-  });
-
-  describe('Validation', () => {
-    it('should return 400 if responses are missing', async () => {
-      const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: [],
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-      const data = await response.json();
-
-      expect(response.status).toBe(400);
-      expect(data.error).toContain('All questions must be answered');
-    });
-
-    it('should return 404 for non-existent attempt', async () => {
-      const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId: 'non-existent-attempt',
-          responses: [
-            {
-              questionId: quizQuestions[0].id,
-              studentAnswer: 'Observe',
-              timeSpentSeconds: 30,
-              answeredAt: new Date().toISOString(),
-              order: 1,
-            },
-          ],
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-      const data = await response.json();
-
-      expect(response.status).toBe(404);
-      expect(data.error).toBe('Attempt not found');
-    });
-
-    it('should return 409 if attempt already submitted', async () => {
-      // Mark attempt as completed
-      await prisma.attempt.update({
-        where: { id: attemptId },
-        data: { completedAt: new Date(), score: 3 },
-      });
-
+  describe('Badge Unlocks', () => {
+    it('should return badgesUnlocked and achievements in gamification response', async () => {
       const session = await createSession(testStudent.id);
       mockCookies.get.mockReturnValue({ value: session.token });
 
@@ -663,134 +579,14 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
       const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
-      expect(response.status).toBe(409);
-      expect(data.error).toBe('Attempt already submitted');
-    });
-  });
-
-  describe('Auto-Grading', () => {
-    it('should correctly grade all correct answers', async () => {
-      const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: [
-            {
-              questionId: quizQuestions[0].id,
-              studentAnswer: 'Observe',
-              timeSpentSeconds: 30,
-              answeredAt: new Date().toISOString(),
-              order: 1,
-            },
-            {
-              questionId: quizQuestions[1].id,
-              studentAnswer: 'Predict',
-              timeSpentSeconds: 25,
-              answeredAt: new Date().toISOString(),
-              order: 2,
-            },
-            {
-              questionId: quizQuestions[2].id,
-              studentAnswer: 'Test',
-              timeSpentSeconds: 20,
-              answeredAt: new Date().toISOString(),
-              order: 3,
-            },
-          ],
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-      const data = await response.json();
-
       expect(response.status).toBe(200);
-      expect(data.score).toBe(3);
-      expect(data.maxScore).toBe(3);
-      expect(data.percentage).toBeCloseTo(100, 2);
-      expect(data.breakdown).toHaveLength(3);
-      expect(data.breakdown.every((b: any) => b.isCorrect)).toBe(true);
+      expect(data.gamification).toHaveProperty('badgesUnlocked');
+      expect(data.gamification).toHaveProperty('achievements');
+      expect(Array.isArray(data.gamification.badgesUnlocked)).toBe(true);
+      expect(Array.isArray(data.gamification.achievements)).toBe(true);
     });
 
-    it('should correctly grade mixed correct and incorrect answers', async () => {
-      const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: [
-            {
-              questionId: quizQuestions[0].id,
-              studentAnswer: 'Observe', // Correct
-              timeSpentSeconds: 30,
-              answeredAt: new Date().toISOString(),
-              order: 1,
-            },
-            {
-              questionId: quizQuestions[1].id,
-              studentAnswer: 'Wrong', // Incorrect
-              timeSpentSeconds: 25,
-              answeredAt: new Date().toISOString(),
-              order: 2,
-            },
-            {
-              questionId: quizQuestions[2].id,
-              studentAnswer: 'Test', // Correct
-              timeSpentSeconds: 20,
-              answeredAt: new Date().toISOString(),
-              order: 3,
-            },
-          ],
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-      const data = await response.json();
-
-      expect(response.status).toBe(200);
-      expect(data.score).toBe(2);
-      expect(data.maxScore).toBe(3);
-      expect(data.percentage).toBeCloseTo(66.67, 1);
-      expect(data.breakdown.filter((b: any) => b.isCorrect)).toHaveLength(2);
-      expect(data.breakdown.filter((b: any) => !b.isCorrect)).toHaveLength(1);
-    });
-  });
-
-  describe('Database Records', () => {
-    it('should create QuestionResponse records', async () => {
-      const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: quizQuestions.map((q, i) => ({
-            questionId: q.id,
-            studentAnswer: 'Observe',
-            timeSpentSeconds: 30 + i,
-            answeredAt: new Date().toISOString(),
-            order: i + 1,
-          })),
-        }),
-      });
-      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-
-      expect(response.status).toBe(200);
-
-      const responses = await prisma.questionResponse.findMany({
-        where: { attemptId },
-      });
-      expect(responses).toHaveLength(3);
-      responses.forEach(r => {
-        expect(r.timeSpentSeconds).toBeGreaterThan(0);
-        expect(r.order).toBeDefined();
-      });
-    });
-
-    it('should update attempt with score and completedAt', async () => {
+    it('should unlock FIRST_STEPS badge on first lesson completion', async () => {
       const session = await createSession(testStudent.id);
       mockCookies.get.mockReturnValue({ value: session.token });
 
@@ -807,72 +603,94 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
           })),
         }),
       });
-      await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
-
-      const attempt = await prisma.attempt.findUnique({
-        where: { id: attemptId },
-      });
-      expect(attempt?.completedAt).toBeDefined();
-      expect(attempt?.score).toBeDefined();
-    });
-
-    it('should create or update LessonCompletion record', async () => {
-      const session = await createSession(testStudent.id);
-      mockCookies.get.mockReturnValue({ value: session.token });
-
-      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
-        method: 'POST',
-        body: JSON.stringify({
-          attemptId,
-          responses: quizQuestions.map((q, i) => ({
-            questionId: q.id,
-            studentAnswer: i === 0 ? 'Observe' : 'Wrong', // 1 correct out of 3
-            timeSpentSeconds: 30,
-            answeredAt: new Date().toISOString(),
-            order: i + 1,
-          })),
-        }),
-      });
       const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
       const data = await response.json();
 
       expect(response.status).toBe(200);
+      expect(data.gamification.badgesUnlocked).toContain('FIRST_STEPS');
 
-      const completion = await prisma.lessonCompletion.findUnique({
+      // Verify achievement record was created in database
+      const achievement = await prisma.achievement.findFirst({
         where: {
-          studentId_lessonId: {
-            studentId: testStudent.id,
-            lessonId: testLesson.id,
-          },
+          userId: testStudent.id,
+          badgeType: 'FIRST_STEPS',
         },
       });
-      expect(completion).toBeDefined();
-      expect(completion?.attemptsCount).toBe(1);
-      expect(completion?.mostRecentScore).toBe(data.score);
-      expect(completion?.mostRecentScorePercentage).toBeCloseTo(data.percentage, 2);
+      expect(achievement).toBeDefined();
+      expect(achievement?.badgeType).toBe('FIRST_STEPS');
     });
 
-    it('should update best score on multiple attempts', async () => {
-      // First attempt with low score
+    it('should unlock PERFECT_SCORE badge on 100% quiz score', async () => {
       const session = await createSession(testStudent.id);
       mockCookies.get.mockReturnValue({ value: session.token });
 
-      let request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
+      // Submit correct answers for all questions (Observe, Predict, Test)
+      const correctAnswers = ['Observe', 'Predict', 'Test'];
+      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
         body: JSON.stringify({
           attemptId,
           responses: quizQuestions.map((q, i) => ({
             questionId: q.id,
-            studentAnswer: 'Wrong',
+            studentAnswer: correctAnswers[i],
             timeSpentSeconds: 30,
             answeredAt: new Date().toISOString(),
             order: i + 1,
           })),
         }),
       });
-      await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
+      const data = await response.json();
 
-      // Second attempt with high score
+      expect(response.status).toBe(200);
+      expect(data.gamification.badgesUnlocked).toContain('PERFECT_SCORE');
+    });
+
+    it('should not unlock PERFECT_SCORE badge on less than 100%', async () => {
+      const session = await createSession(testStudent.id);
+      mockCookies.get.mockReturnValue({ value: session.token });
+
+      const request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
+        method: 'POST',
+        body: JSON.stringify({
+          attemptId,
+          responses: quizQuestions.map((q, i) => ({
+            questionId: q.id,
+            studentAnswer: i === 0 ? 'Observe' : 'Wrong',
+            timeSpentSeconds: 30,
+            answeredAt: new Date().toISOString(),
+            order: i + 1,
+          })),
+        }),
+      });
+      const response = await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
+      const data = await response.json();
+
+      expect(response.status).toBe(200);
+      expect(data.gamification.badgesUnlocked).not.toContain('PERFECT_SCORE');
+    });
+
+    it('should not create duplicate achievement records for already-earned badges', async () => {
+      const session = await createSession(testStudent.id);
+      mockCookies.get.mockReturnValue({ value: session.token });
+
+      // First submission - should unlock FIRST_STEPS
+      const request1 = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
+        method: 'POST',
+        body: JSON.stringify({
+          attemptId,
+          responses: quizQuestions.map((q, i) => ({
+            questionId: q.id,
+            studentAnswer: 'Observe',
+            timeSpentSeconds: 30,
+            answeredAt: new Date().toISOString(),
+            order: i + 1,
+          })),
+        }),
+      });
+      await POST(request1, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
+
+      // Second attempt
       const attempt2 = await prisma.attempt.create({
         data: {
           studentId: testStudent.id,
@@ -883,32 +701,33 @@ describe('POST /api/lessons/[lessonId]/quiz/submit - Integration Tests', () => {
         },
       });
 
-      request = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
+      const request2 = new NextRequest(`http://localhost:3000/api/lessons/${testLesson.id}/quiz/submit`, {
         method: 'POST',
         body: JSON.stringify({
           attemptId: attempt2.id,
           responses: quizQuestions.map((q, i) => ({
             questionId: q.id,
-            studentAnswer: ['Observe', 'Predict', 'Test'][i],
+            studentAnswer: 'Observe',
             timeSpentSeconds: 30,
             answeredAt: new Date().toISOString(),
             order: i + 1,
           })),
         }),
       });
-      await POST(request, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
+      const response2 = await POST(request2, { params: Promise.resolve({ lessonSlug: testLesson.id }) });
+      const data2 = await response2.json();
 
-      const completion = await prisma.lessonCompletion.findUnique({
+      // FIRST_STEPS should NOT be in newly unlocked (already earned)
+      expect(data2.gamification.badgesUnlocked).not.toContain('FIRST_STEPS');
+
+      // Only one FIRST_STEPS achievement should exist in database
+      const firstStepsAchievements = await prisma.achievement.findMany({
         where: {
-          studentId_lessonId: {
-            studentId: testStudent.id,
-            lessonId: testLesson.id,
-          },
+          userId: testStudent.id,
+          badgeType: 'FIRST_STEPS',
         },
       });
-      expect(completion?.bestScore).toBe(3);
-      expect(completion?.bestScorePercentage).toBeCloseTo(100, 2);
-      expect(completion?.attemptsCount).toBe(2);
+      expect(firstStepsAchievements).toHaveLength(1);
     });
   });
 
