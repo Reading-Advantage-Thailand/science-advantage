@@ -7,7 +7,6 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 
 ## Foundation Tracks (Complete before any new feature development)
 
-- [~] **Track: Student Engagement Loop** *Link: [./tracks/student_engagement_loop_20260428/](./tracks/student_engagement_loop_20260428/)*
 - [ ] **Track: Teacher Dashboard Actionability** *Link: [./tracks/teacher_dashboard_actionability_20260428/](./tracks/teacher_dashboard_actionability_20260428/)*
 - [ ] **Track: Content Pipeline & Mastery Wiring** *Link: [./tracks/content_pipeline_mastery_20260428/](./tracks/content_pipeline_mastery_20260428/)*
 - [ ] **Track: Bilingual Architecture Reframe** *Link: [./tracks/bilingual_architecture_20260428/](./tracks/bilingual_architecture_20260428/)*
@@ -20,6 +19,10 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 ## [x] Track: Platform Alignment & Access Model
 *Link: [./measure/archive/platform_alignment_20260311/](./measure/archive/platform_alignment_20260311/)*
 *Completed: 2026-04-23*
+
+## [x] Track: Student Engagement Loop
+*Link: [./measure/archive/student_engagement_loop_20260428/](./measure/archive/student_engagement_loop_20260428/)*
+*Completed: 2026-04-29*
 
 ## [ ] Track: Curriculum Data Foundation
 *Link: [./measure/tracks/curriculum_foundation_20260311/](./measure/tracks/curriculum_foundation_20260311/)*
