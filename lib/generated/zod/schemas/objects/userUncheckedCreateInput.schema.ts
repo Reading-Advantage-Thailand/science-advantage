@@ -8,7 +8,9 @@ import { ClassUncheckedCreateNestedManyWithoutStudentsInputObjectSchema as Class
 import { AttemptUncheckedCreateNestedManyWithoutStudentInputObjectSchema as AttemptUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './AttemptUncheckedCreateNestedManyWithoutStudentInput.schema';
 import { LessonCompletionUncheckedCreateNestedManyWithoutStudentInputObjectSchema as LessonCompletionUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './LessonCompletionUncheckedCreateNestedManyWithoutStudentInput.schema';
 import { StandardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema as StandardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './StandardMasteryUncheckedCreateNestedManyWithoutStudentInput.schema';
-import { MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema as MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './MasteryRunUncheckedCreateNestedManyWithoutStudentInput.schema'
+import { MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema as MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema } from './MasteryRunUncheckedCreateNestedManyWithoutStudentInput.schema';
+import { GamificationProfileUncheckedCreateNestedOneWithoutUserInputObjectSchema as GamificationProfileUncheckedCreateNestedOneWithoutUserInputObjectSchema } from './GamificationProfileUncheckedCreateNestedOneWithoutUserInput.schema';
+import { AchievementUncheckedCreateNestedManyWithoutUserInputObjectSchema as AchievementUncheckedCreateNestedManyWithoutUserInputObjectSchema } from './AchievementUncheckedCreateNestedManyWithoutUserInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string(),
@@ -29,7 +31,9 @@ const makeSchema = () => z.object({
   attempts: z.lazy(() => AttemptUncheckedCreateNestedManyWithoutStudentInputObjectSchema),
   lessonCompletions: z.lazy(() => LessonCompletionUncheckedCreateNestedManyWithoutStudentInputObjectSchema),
   masteryRecords: z.lazy(() => StandardMasteryUncheckedCreateNestedManyWithoutStudentInputObjectSchema),
-  masteryRuns: z.lazy(() => MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema)
+  masteryRuns: z.lazy(() => MasteryRunUncheckedCreateNestedManyWithoutStudentInputObjectSchema),
+  gamificationProfile: z.lazy(() => GamificationProfileUncheckedCreateNestedOneWithoutUserInputObjectSchema).optional(),
+  achievements: z.lazy(() => AchievementUncheckedCreateNestedManyWithoutUserInputObjectSchema)
 }).strict();
 export const userUncheckedCreateInputObjectSchema: z.ZodType<Prisma.userUncheckedCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.userUncheckedCreateInput>;
 export const userUncheckedCreateInputObjectZodSchema = makeSchema();

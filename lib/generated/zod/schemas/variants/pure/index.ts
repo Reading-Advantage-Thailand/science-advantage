@@ -6,6 +6,8 @@
 export { accountModelSchema } from './account.pure';
 export { sessionModelSchema } from './session.pure';
 export { userModelSchema } from './user.pure';
+export { GamificationProfileModelSchema } from './GamificationProfile.pure';
+export { AchievementModelSchema } from './Achievement.pure';
 export { verificationModelSchema } from './verification.pure';
 export { ClassModelSchema } from './Class.pure';
 export { StandardModelSchema } from './Standard.pure';

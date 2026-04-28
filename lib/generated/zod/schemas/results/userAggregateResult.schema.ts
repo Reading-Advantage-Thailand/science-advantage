@@ -18,7 +18,9 @@ export const userAggregateResultSchema = z.object({  _count: z.object({
     attempts: z.number(),
     lessonCompletions: z.number(),
     masteryRecords: z.number(),
-    masteryRuns: z.number()
+    masteryRuns: z.number(),
+    gamificationProfile: z.number(),
+    achievements: z.number()
   }).optional(),
   _sum: z.object({
     gradeLevel: z.number().nullable()

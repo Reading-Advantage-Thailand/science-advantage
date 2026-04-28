@@ -6,6 +6,8 @@
 export { accountInputSchema } from './account.input';
 export { sessionInputSchema } from './session.input';
 export { userInputSchema } from './user.input';
+export { GamificationProfileInputSchema } from './GamificationProfile.input';
+export { AchievementInputSchema } from './Achievement.input';
 export { verificationInputSchema } from './verification.input';
 export { ClassInputSchema } from './Class.input';
 export { StandardInputSchema } from './Standard.input';

@@ -6,6 +6,8 @@
 export { accountResultSchema } from './account.result';
 export { sessionResultSchema } from './session.result';
 export { userResultSchema } from './user.result';
+export { GamificationProfileResultSchema } from './GamificationProfile.result';
+export { AchievementResultSchema } from './Achievement.result';
 export { verificationResultSchema } from './verification.result';
 export { ClassResultSchema } from './Class.result';
 export { StandardResultSchema } from './Standard.result';

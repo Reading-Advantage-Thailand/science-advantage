@@ -8,7 +8,9 @@ import { ClassOrderByRelationAggregateInputObjectSchema as ClassOrderByRelationA
 import { AttemptOrderByRelationAggregateInputObjectSchema as AttemptOrderByRelationAggregateInputObjectSchema } from './AttemptOrderByRelationAggregateInput.schema';
 import { LessonCompletionOrderByRelationAggregateInputObjectSchema as LessonCompletionOrderByRelationAggregateInputObjectSchema } from './LessonCompletionOrderByRelationAggregateInput.schema';
 import { StandardMasteryOrderByRelationAggregateInputObjectSchema as StandardMasteryOrderByRelationAggregateInputObjectSchema } from './StandardMasteryOrderByRelationAggregateInput.schema';
-import { MasteryRunOrderByRelationAggregateInputObjectSchema as MasteryRunOrderByRelationAggregateInputObjectSchema } from './MasteryRunOrderByRelationAggregateInput.schema'
+import { MasteryRunOrderByRelationAggregateInputObjectSchema as MasteryRunOrderByRelationAggregateInputObjectSchema } from './MasteryRunOrderByRelationAggregateInput.schema';
+import { GamificationProfileOrderByWithRelationInputObjectSchema as GamificationProfileOrderByWithRelationInputObjectSchema } from './GamificationProfileOrderByWithRelationInput.schema';
+import { AchievementOrderByRelationAggregateInputObjectSchema as AchievementOrderByRelationAggregateInputObjectSchema } from './AchievementOrderByRelationAggregateInput.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -29,7 +31,9 @@ const makeSchema = () => z.object({
   attempts: z.lazy(() => AttemptOrderByRelationAggregateInputObjectSchema).optional(),
   lessonCompletions: z.lazy(() => LessonCompletionOrderByRelationAggregateInputObjectSchema).optional(),
   masteryRecords: z.lazy(() => StandardMasteryOrderByRelationAggregateInputObjectSchema).optional(),
-  masteryRuns: z.lazy(() => MasteryRunOrderByRelationAggregateInputObjectSchema).optional()
+  masteryRuns: z.lazy(() => MasteryRunOrderByRelationAggregateInputObjectSchema).optional(),
+  gamificationProfile: z.lazy(() => GamificationProfileOrderByWithRelationInputObjectSchema).optional(),
+  achievements: z.lazy(() => AchievementOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const userOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.userOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.userOrderByWithRelationInput>;
 export const userOrderByWithRelationInputObjectZodSchema = makeSchema();

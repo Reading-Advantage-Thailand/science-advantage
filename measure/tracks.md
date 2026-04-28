@@ -5,6 +5,18 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 
 ---
 
+## Foundation Tracks (Complete before any new feature development)
+
+- [~] **Track: Student Engagement Loop** *Link: [./tracks/student_engagement_loop_20260428/](./tracks/student_engagement_loop_20260428/)*
+- [ ] **Track: Teacher Dashboard Actionability** *Link: [./tracks/teacher_dashboard_actionability_20260428/](./tracks/teacher_dashboard_actionability_20260428/)*
+- [ ] **Track: Content Pipeline & Mastery Wiring** *Link: [./tracks/content_pipeline_mastery_20260428/](./tracks/content_pipeline_mastery_20260428/)*
+- [ ] **Track: Bilingual Architecture Reframe** *Link: [./tracks/bilingual_architecture_20260428/](./tracks/bilingual_architecture_20260428/)*
+- [ ] **Track: Tablet & Mobile Responsiveness** *Link: [./tracks/tablet_responsiveness_20260428/](./tracks/tablet_responsiveness_20260428/)*
+- [ ] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)*
+- [ ] **Track: Onboarding Flow** *Link: [./tracks/onboarding_flow_20260428/](./tracks/onboarding_flow_20260428/)*
+
+---
+
 ## [x] Track: Platform Alignment & Access Model
 *Link: [./measure/archive/platform_alignment_20260311/](./measure/archive/platform_alignment_20260311/)*
 *Completed: 2026-04-23*

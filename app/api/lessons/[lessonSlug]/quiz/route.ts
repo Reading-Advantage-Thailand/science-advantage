@@ -4,6 +4,8 @@ import type { Prisma } from '@prisma/client';
 import { getCurrentSession } from '@/lib/auth/session';
 import prisma from '@/lib/prisma';
 import { gradeAnswer } from '@/lib/quiz/scoring';
+import { calculateXpForQuiz, awardXp } from '@/lib/gamification/xp';
+import { updateStreakForProfile } from '@/lib/gamification/streak';
 
 /**
  * GET /api/lessons/{lessonSlug}/quiz
@@ -404,7 +406,41 @@ export async function POST(
       }
     });
 
-    // 9. Format and return response
+    // 9. Award XP and update streak
+    const { baseXp, firstAttemptBonus, totalXp } = calculateXpForQuiz(
+      percentage,
+      attempt.attemptNumber
+    );
+
+    // Find or create gamification profile
+    let gamificationProfile = await prisma.gamificationProfile.findUnique({
+      where: { userId: session.user.id },
+    });
+
+    if (!gamificationProfile) {
+      gamificationProfile = await prisma.gamificationProfile.create({
+        data: {
+          userId: session.user.id,
+          xp: 0,
+          level: 1,
+          streak: 0,
+        },
+      });
+    }
+
+    // Award XP
+    const xpResult = await awardXp(gamificationProfile.id, totalXp);
+
+    // Update streak
+    const streakResult = await updateStreakForProfile(
+      gamificationProfile.id,
+      new Date()
+    );
+
+    // Calculate total XP including streak milestone bonus
+    const totalXpAwarded = totalXp + streakResult.milestoneBonus;
+
+    // 10. Format and return response
     return NextResponse.json(
       {
         attemptId,
@@ -414,6 +450,17 @@ export async function POST(
         attemptNumber: attempt.attemptNumber,
         completedAt: new Date().toISOString(),
         breakdown,
+        gamification: {
+          xpAwarded: totalXpAwarded,
+          baseXp,
+          firstAttemptBonus,
+          streakMilestoneBonus: streakResult.milestoneBonus,
+          currentStreak: streakResult.streak,
+          level: xpResult.level,
+          levelName: xpResult.levelName,
+          levelUp: xpResult.levelUp,
+          totalXp: xpResult.xp,
+        },
       },
       { status: 200 }
     );

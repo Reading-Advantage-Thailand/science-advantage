@@ -58,10 +58,39 @@ model user {
   session           session[]
   taughtClasses     Class[]            @relation("ClassTeacher")
   enrolledClass     Class[]            @relation("ClassStudents")
-  attempts          Attempt[]          @relation("StudentAttempts")
-  lessonCompletions LessonCompletion[] @relation("StudentLessonCompletions")
-  masteryRecords    StandardMastery[]  @relation("StudentMastery")
-  masteryRuns       MasteryRun[]
+  attempts            Attempt[]              @relation("StudentAttempts")
+  lessonCompletions   LessonCompletion[]     @relation("StudentLessonCompletions")
+  masteryRecords      StandardMastery[]      @relation("StudentMastery")
+  masteryRuns         MasteryRun[]
+  gamificationProfile GamificationProfile?
+  achievements        Achievement[]
+}
+
+model GamificationProfile {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  xp           Int       @default(0)
+  level        Int       @default(1)
+  streak       Int       @default(0)
+  lastActiveAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Achievement {
+  id         String   @id @default(cuid())
+  userId     String
+  badgeType  String
+  unlockedAt DateTime @default(now())
+
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeType])
+  @@index([userId])
 }
 
 model verification {
