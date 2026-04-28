@@ -267,4 +267,65 @@
   .edu-input {
     @apply bg-card border border-border rounded-lg px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30;
   }
+
+  /* XP progress bar fill animation */
+  .xp-progress-fill {
+    transition: width 1s ease-out;
+  }
+}
+
+/* Celebration animations */
+@keyframes badge-bounce-in {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes badge-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.75 0.15 80 / 0); }
+  50% { box-shadow: 0 0 24px 8px oklch(0.75 0.15 80 / 0.4); }
+}
+
+@keyframes level-up-scale {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes particle-burst {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px);
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .animate-badge-unlock {
+    animation: badge-bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-badge-glow {
+    animation: badge-glow-pulse 1.5s ease-in-out 2;
+  }
+
+  .animate-level-up {
+    animation: level-up-scale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-badge-unlock,
+  .animate-badge-glow,
+  .animate-level-up {
+    animation: none !important;
+  }
+
+  .xp-progress-fill {
+    transition: none !important;
+  }
 }

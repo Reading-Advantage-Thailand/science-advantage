@@ -25,6 +25,11 @@ import { TrueFalseQuestion } from './quiz-questions/true-false-question';
 import { FillInBlankQuestion } from './quiz-questions/fill-in-blank-question';
 import { VocabularyMatchQuestion } from './quiz-questions/vocabulary-match-question';
 import { QuizQuestion, StudentAnswer } from './quiz-questions/types';
+import { ConfettiCelebration } from '@/components/features/gamification/confetti-celebration';
+import { BadgeUnlockAnimation } from '@/components/features/gamification/badge-unlock-animation';
+import { LevelUpAnimation } from '@/components/features/gamification/level-up-animation';
+import { BadgeDefinition, BADGE_DEFINITIONS } from '@/lib/gamification/badges';
+import { toast } from 'sonner';
 
 interface QuizData {
   quizId: string;
@@ -40,6 +45,20 @@ interface QuestionResponse {
   timeSpentSeconds: number;
   answeredAt: string;
   order: number;
+}
+
+interface GamificationData {
+  xpAwarded: number;
+  baseXp: number;
+  firstAttemptBonus: number;
+  streakMilestoneBonus: number;
+  currentStreak: number;
+  level: number;
+  levelName: string;
+  levelUp: boolean;
+  totalXp: number;
+  badgesUnlocked: string[];
+  achievements: { badgeType: string; id: string; unlockedAt: string }[];
 }
 
 interface QuizResult {
@@ -58,6 +77,7 @@ interface QuizResult {
     points: number;
     timeSpentSeconds: number;
   }[];
+  gamification?: GamificationData;
 }
 
 interface QuizPlayerProps {
@@ -85,6 +105,14 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   const [error, setError] = useState<string | null>(null);
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
+
+  // Celebration state
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiIntensity, setConfettiIntensity] = useState<'low' | 'medium' | 'high'>('low');
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [levelUpData, setLevelUpData] = useState<{ oldLevel: number; newLevel: number } | null>(null);
+  const [badgeQueue, setBadgeQueue] = useState<BadgeDefinition[]>([]);
+  const [currentBadge, setCurrentBadge] = useState<BadgeDefinition | null>(null);
 
   // Fetch quiz on mount
   useEffect(() => {
@@ -237,6 +265,43 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
       setResult(resultData);
       setShowSubmitDialog(false);
       onQuizCompleted?.(resultData);
+
+      // Trigger celebration animations
+      const gamification = resultData.gamification;
+      if (gamification) {
+        // Confetti based on score
+        const intensity: 'low' | 'medium' | 'high' =
+          resultData.percentage >= 90 ? 'high' :
+          resultData.percentage >= 80 ? 'medium' : 'low';
+        setConfettiIntensity(intensity);
+        setShowConfetti(true);
+
+        // Level up
+        if (gamification.levelUp) {
+          setLevelUpData({
+            oldLevel: gamification.level - 1,
+            newLevel: gamification.level,
+          });
+          setShowLevelUp(true);
+        }
+
+        // Badge unlocks
+        if (gamification.badgesUnlocked.length > 0) {
+          const badges = gamification.badgesUnlocked
+            .map(type => BADGE_DEFINITIONS.find(b => b.id === type))
+            .filter((b): b is BadgeDefinition => b !== undefined);
+          setBadgeQueue(badges.slice(1));
+          setCurrentBadge(badges[0] ?? null);
+        }
+
+        // Streak milestone toast
+        if (gamification.streakMilestoneBonus > 0) {
+          toast(`Streak milestone! +${gamification.streakMilestoneBonus} bonus XP`, {
+            description: `You're on a ${gamification.currentStreak}-day streak!`,
+            duration: 4000,
+          });
+        }
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       setShowSubmitDialog(false);
@@ -244,6 +309,18 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
       setSubmitting(false);
     }
   }, [quizData, answers, questionTimes, currentQuestionIndex, lessonSlug, allQuestionsAnswered, recordQuestionTime, onQuizCompleted]);
+
+  const handleBadgeDismiss = useCallback(() => {
+    setCurrentBadge(null);
+    setBadgeQueue(prev => {
+      const [next, ...rest] = prev;
+      if (next) {
+        // Small delay before showing next badge
+        setTimeout(() => setCurrentBadge(next), 300);
+      }
+      return rest;
+    });
+  }, []);
 
   // Render loading state
   if (loading) {
@@ -278,6 +355,25 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   if (result) {
     return (
       <div className="space-y-6">
+        {/* Celebration Overlays */}
+        <ConfettiCelebration
+          trigger={showConfetti}
+          intensity={confettiIntensity}
+          onComplete={() => setShowConfetti(false)}
+        />
+        {showLevelUp && levelUpData && (
+          <LevelUpAnimation
+            oldLevel={levelUpData.oldLevel}
+            newLevel={levelUpData.newLevel}
+            onDismiss={() => {
+              setShowLevelUp(false);
+              setLevelUpData(null);
+            }}
+          />
+        )}
+        {currentBadge && (
+          <BadgeUnlockAnimation badge={currentBadge} onDismiss={handleBadgeDismiss} />
+        )}
         <Button
           variant="ghost"
           onClick={() => router.push(`/student/classes/${classId}`)}

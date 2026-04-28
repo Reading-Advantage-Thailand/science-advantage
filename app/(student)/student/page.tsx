@@ -1,7 +1,7 @@
 import { requireRole } from '@/lib/auth/server';
 import { JoinClassForm } from '@/components/features/student/join-class-form';
 import { StudentClassesSection } from '@/components/features/student/student-classes-section';
-import { StudentProgressCard } from '@/components/features/student/student-progress-card';
+import { GamificationDashboardCard } from '@/components/features/student/gamification-dashboard-card';
 import {
   Card,
   CardContent,
@@ -25,7 +25,7 @@ export default async function StudentPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <Card className="edu-card hover-bounce">
+        <Card className="edu-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               📚 My Classes
@@ -48,7 +48,7 @@ export default async function StudentPage() {
           </CardContent>
         </Card>
 
-        <Card className="edu-card hover-wiggle">
+        <Card className="edu-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               📝 Upcoming Assignments
@@ -60,7 +60,7 @@ export default async function StudentPage() {
           </CardContent>
         </Card>
 
-        <Card className="edu-card hover-wiggle">
+        <Card className="edu-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               ⭐ Recent Activity
@@ -72,15 +72,15 @@ export default async function StudentPage() {
           </CardContent>
         </Card>
 
-        <Card className="edu-card hover-wiggle">
+        <Card className="edu-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               📈 Progress
             </CardTitle>
-            <CardDescription>Your mastery across all standards</CardDescription>
+            <CardDescription>Your XP, level, streak, and badges</CardDescription>
           </CardHeader>
           <CardContent>
-            <StudentProgressCard studentId={session.user.id} />
+            <GamificationDashboardCard studentId={session.user.id} />
           </CardContent>
         </Card>
       </div>

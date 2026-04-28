@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MasteryStrandsList } from './mastery-strands-list';
 import { MasteryProfileHero } from './mastery-profile-hero';
 import { MasteryProfileSkeleton } from './mastery-profile-skeleton';
+import { StudentBadgesSection } from './student-badges-section';
 
 type MasteryStatus = 'READY' | 'CALCULATING';
 
@@ -223,6 +224,9 @@ export function StudentMasteryProfile({
       {data && data.strands.length > 0 && (
         <MasteryStrandsList strands={data.strands} />
       )}
+
+      {/* Badges section */}
+      <StudentBadgesSection studentId={studentId} />
 
       {/* Back navigation */}
       <div className="flex justify-center pt-4">

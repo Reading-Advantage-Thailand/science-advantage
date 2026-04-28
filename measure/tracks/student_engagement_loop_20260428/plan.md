@@ -36,36 +36,36 @@
 
 ## Phase 3: Celebration Animations
 
-- [ ] Task: Implement confetti celebration component
-  - [ ] Write tests for confetti trigger and reduced-motion fallback
-  - [ ] Implement lightweight canvas confetti (no heavy library — use CSS animations or minimal canvas)
-  - [ ] Scale confetti intensity based on quiz score
-  - [ ] Respect `prefers-reduced-motion` — show static "Congratulations!" badge instead
-- [ ] Task: Implement progress animations
-  - [ ] Add fill animation to XP progress bar (CSS transition)
-  - [ ] Add scale-in animation for badge unlock (badge scales up with glow, settles)
-  - [ ] Add level-up particle effect (CSS keyframes)
-  - [ ] All animations respect reduced-motion preference
-- [ ] Task: Measure - Manual Verification 'Celebrations'
-  - [ ] Verify confetti fires on quiz completion
-  - [ ] Verify animations respect prefers-reduced-motion
+- [x] Task: Implement confetti celebration component
+  - [x] Write tests for confetti trigger and reduced-motion fallback
+  - [x] Implement lightweight canvas confetti (no heavy library — use CSS animations or minimal canvas)
+  - [x] Scale confetti intensity based on quiz score
+  - [x] Respect `prefers-reduced-motion` — show static "Congratulations!" badge instead
+- [x] Task: Implement progress animations
+  - [x] Add fill animation to XP progress bar (CSS transition)
+  - [x] Add scale-in animation for badge unlock (badge scales up with glow, settles)
+  - [x] Add level-up particle effect (CSS keyframes)
+  - [x] All animations respect reduced-motion preference
+- [x] Task: Measure - Manual Verification 'Celebrations'
+  - [x] Verify confetti fires on quiz completion
+  - [x] Verify animations respect prefers-reduced-motion
 
 ## Phase 4: Dashboard and Profile Integration
 
-- [ ] Task: Replace student dashboard Progress card
-  - [ ] Write tests for gamification data display
-  - [ ] Build XP counter + level badge component
-  - [ ] Build streak display with flame icon
-  - [ ] Build recent achievements row (last 3 badges)
-  - [ ] Replace the current "Progress" card with the new gamification dashboard card
-- [ ] Task: Update student profile with badges
-  - [ ] Add badges section to `StudentMasteryProfile`
-  - [ ] Show earned badges with unlock dates in a grid
-  - [ ] Show locked badges as grayed-out with unlock requirements
-- [ ] Task: Remove dead code
-  - [ ] Remove `hover-bounce` and `hover-wiggle` CSS class references from student dashboard
-  - [ ] Verify no other references to undefined CSS classes
-- [ ] Task: Measure - Manual Verification 'Dashboard and Profile'
-  - [ ] Verify student dashboard shows XP, level, streak, and badges
-  - [ ] Verify student profile shows badge grid with unlock dates
-  - [ ] Verify dead CSS class references are removed
+- [x] Task: Replace student dashboard Progress card
+  - [x] Write tests for gamification data display
+  - [x] Build XP counter + level badge component
+  - [x] Build streak display with flame icon
+  - [x] Build recent achievements row (last 3 badges)
+  - [x] Replace the current "Progress" card with the new gamification dashboard card
+- [x] Task: Update student profile with badges
+  - [x] Add badges section to `StudentMasteryProfile`
+  - [x] Show earned badges with unlock dates in a grid
+  - [x] Show locked badges as grayed-out with unlock requirements
+- [x] Task: Remove dead code
+  - [x] Remove `hover-bounce` and `hover-wiggle` CSS class references from student dashboard
+  - [x] Verify no other references to undefined CSS classes
+- [x] Task: Measure - Manual Verification 'Dashboard and Profile'
+  - [x] Verify student dashboard shows XP, level, streak, and badges
+  - [x] Verify student profile shows badge grid with unlock dates
+  - [x] Verify dead CSS class references are removed
