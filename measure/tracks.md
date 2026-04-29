@@ -7,7 +7,6 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 
 ## Foundation Tracks (Complete before any new feature development)
 
-- [ ] **Track: Content Pipeline & Mastery Wiring** *Link: [./tracks/content_pipeline_mastery_20260428/](./tracks/content_pipeline_mastery_20260428/)*
 - [ ] **Track: Bilingual Architecture Reframe** *Link: [./tracks/bilingual_architecture_20260428/](./tracks/bilingual_architecture_20260428/)*
 - [ ] **Track: Tablet & Mobile Responsiveness** *Link: [./tracks/tablet_responsiveness_20260428/](./tracks/tablet_responsiveness_20260428/)*
 - [ ] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)*
@@ -25,6 +24,10 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 
 ## [x] Track: Teacher Dashboard Actionability
 *Link: [./measure/archive/teacher_dashboard_actionability_20260428/](./measure/archive/teacher_dashboard_actionability_20260428/)*
+*Completed: 2026-04-29*
+
+## [x] Track: Content Pipeline & Mastery Wiring
+*Link: [./measure/archive/content_pipeline_mastery_20260428/](./measure/archive/content_pipeline_mastery_20260428/)*
 *Completed: 2026-04-29*
 
 ## [ ] Track: Curriculum Data Foundation
