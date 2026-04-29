@@ -1,13 +1,20 @@
-"use client";
+'use client';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Link from 'next/link';
+import { CheckCircle2, Circle } from 'lucide-react';
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface LessonSummary {
   id: string;
+  slug: string;
   title: string;
   description: string | null;
   order: number;
   gradeLevel: number;
+  completionCount?: number;
 }
 
 interface CurriculumUnitSummary {
@@ -20,9 +27,17 @@ interface CurriculumUnitSummary {
 
 interface CurriculumAccordionProps {
   units: CurriculumUnitSummary[];
+  classId: string;
+  studentCount: number;
+  completionsLoading?: boolean;
 }
 
-export function CurriculumAccordion({ units }: CurriculumAccordionProps) {
+export function CurriculumAccordion({
+  units,
+  classId,
+  studentCount,
+  completionsLoading = false,
+}: CurriculumAccordionProps) {
   if (units.length === 0) {
     return null;
   }
@@ -47,21 +62,40 @@ export function CurriculumAccordion({ units }: CurriculumAccordionProps) {
             {unit.lessons.length > 0 ? (
               <ol className="space-y-3">
                 {unit.lessons.map(lesson => (
-                  <li
-                    key={lesson.id}
-                    className="rounded-lg border border-gray-100 bg-white p-4 shadow-sm"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
-                          Lesson {lesson.order}
-                        </p>
-                        <p className="text-base font-medium text-gray-900">{lesson.title}</p>
+                  <li key={lesson.id}>
+                    <Link
+                      href={`/teacher/classes/${classId}/lessons/${lesson.slug}`}
+                      className="block rounded-lg border border-gray-100 bg-white p-4 shadow-sm transition hover:border-rose-200 hover:shadow-md"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
+                            Lesson {lesson.order}
+                          </p>
+                          <p className="text-base font-medium text-gray-900">{lesson.title}</p>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          {completionsLoading ? (
+                            <Skeleton className="h-5 w-16 rounded-full" />
+                          ) : lesson.completionCount !== undefined ? (
+                            <Badge
+                              variant={lesson.completionCount === studentCount ? 'scoreGreen' : 'secondary'}
+                              className="text-xs"
+                            >
+                              {lesson.completionCount}/{studentCount}
+                            </Badge>
+                          ) : null}
+                          {lesson.completionCount !== undefined && lesson.completionCount === studentCount ? (
+                            <CheckCircle2 className="size-5 text-green-500" />
+                          ) : (
+                            <Circle className="size-5 text-gray-300" />
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {lesson.description && (
-                      <p className="mt-2 text-sm text-gray-600">{lesson.description}</p>
-                    )}
+                      {lesson.description && (
+                        <p className="mt-2 text-sm text-gray-600">{lesson.description}</p>
+                      )}
+                    </Link>
                   </li>
                 ))}
               </ol>

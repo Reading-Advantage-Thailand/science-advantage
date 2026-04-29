@@ -21,29 +21,29 @@
 
 ## Phase 2: Curriculum Accordion and Class Management
 
-- [ ] Task: Make curriculum accordion interactive
-  - [ ] Write tests for lesson click navigation and completion badge display
-  - [ ] Add click handler to lesson entries in `CurriculumAccordion` → navigate to teacher lesson preview
-  - [ ] Add completion count badge next to each lesson (X/Y students completed)
-  - [ ] Add loading state for completion data
-- [ ] Task: Implement class editing
-  - [ ] Write tests for class update API (rename, description change)
-  - [ ] Add PATCH endpoint to `/api/classes/[classId]` for name/description updates
-  - [ ] Add edit button on class detail header with inline edit form
-- [ ] Task: Implement class deletion
-  - [ ] Write tests for class delete (with and without student progress data)
-  - [ ] Add DELETE endpoint to `/api/classes/[classId]`
-  - [ ] Add delete button with confirmation dialog on class detail page
-  - [ ] Soft-delete if students have progress; hard-delete if no progress
-- [ ] Task: Implement class roster view
-  - [ ] Write tests for roster API (student list with name, email, join date, last active)
-  - [ ] Create `/api/classes/[classId]/roster` endpoint
-  - [ ] Add roster tab/panel to class detail page
-  - [ ] Add remove-student action with confirmation
-- [ ] Task: Measure - Manual Verification 'Curriculum and Class Management'
-  - [ ] Verify clicking a lesson in the accordion navigates to teacher preview
-  - [ ] Verify class edit saves new name/description
-  - [ ] Verify class delete works with confirmation
+- [x] Task: Make curriculum accordion interactive
+  - [x] Write tests for lesson click navigation and completion badge display
+  - [x] Add click handler to lesson entries in `CurriculumAccordion` → navigate to teacher lesson preview
+  - [x] Add completion count badge next to each lesson (X/Y students completed)
+  - [x] Add loading state for completion data
+- [x] Task: Implement class editing
+  - [x] Write tests for class update API (rename, description change)
+  - [x] Add PATCH endpoint to `/api/classes/[classId]` for name/description updates
+  - [x] Add edit button on class detail header with inline edit form
+- [x] Task: Implement class deletion
+  - [x] Write tests for class delete (with and without student progress data)
+  - [x] Add DELETE endpoint to `/api/classes/[classId]`
+  - [x] Add delete button with confirmation dialog on class detail page
+  - [x] Soft-delete if students have progress; hard-delete if no progress
+- [x] Task: Implement class roster view
+  - [x] Write tests for roster API (student list with name, email, join date, last active)
+  - [x] Create `/api/classes/[classId]/roster` endpoint
+  - [x] Add roster tab/panel to class detail page
+  - [x] Add remove-student action with confirmation
+- [x] Task: Measure - Manual Verification 'Curriculum and Class Management'
+  - [x] Verify clicking a lesson in the accordion navigates to teacher preview
+  - [x] Verify class edit saves new name/description
+  - [x] Verify class delete works with confirmation
 
 ## Phase 3: Assignment System
 
