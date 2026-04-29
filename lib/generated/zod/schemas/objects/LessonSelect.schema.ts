@@ -5,6 +5,7 @@ import { CurriculumUnitFindManySchema as CurriculumUnitFindManySchema } from '..
 import { QuizQuestionFindManySchema as QuizQuestionFindManySchema } from '../findManyQuizQuestion.schema';
 import { AttemptFindManySchema as AttemptFindManySchema } from '../findManyAttempt.schema';
 import { LessonCompletionFindManySchema as LessonCompletionFindManySchema } from '../findManyLessonCompletion.schema';
+import { AssignmentFindManySchema as AssignmentFindManySchema } from '../findManyAssignment.schema';
 import { LessonCountOutputTypeArgsObjectSchema as LessonCountOutputTypeArgsObjectSchema } from './LessonCountOutputTypeArgs.schema'
 
 const makeSchema = () => z.object({
@@ -22,6 +23,7 @@ const makeSchema = () => z.object({
   quizQuestions: z.union([z.boolean(), z.lazy(() => QuizQuestionFindManySchema)]).optional(),
   attempts: z.union([z.boolean(), z.lazy(() => AttemptFindManySchema)]).optional(),
   lessonCompletions: z.union([z.boolean(), z.lazy(() => LessonCompletionFindManySchema)]).optional(),
+  assignments: z.union([z.boolean(), z.lazy(() => AssignmentFindManySchema)]).optional(),
   createdAt: z.boolean().optional(),
   updatedAt: z.boolean().optional(),
   _count: z.union([z.boolean(), z.lazy(() => LessonCountOutputTypeArgsObjectSchema)]).optional()

@@ -6,7 +6,8 @@ import { StandardsAlignmentSchema } from '../enums/StandardsAlignment.schema';
 import { EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema as EnumStandardsAlignmentFieldUpdateOperationsInputObjectSchema } from './EnumStandardsAlignmentFieldUpdateOperationsInput.schema';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { userUpdateManyWithoutEnrolledClassNestedInputObjectSchema as userUpdateManyWithoutEnrolledClassNestedInputObjectSchema } from './userUpdateManyWithoutEnrolledClassNestedInput.schema';
-import { CurriculumUnitUpdateManyWithoutClassNestedInputObjectSchema as CurriculumUnitUpdateManyWithoutClassNestedInputObjectSchema } from './CurriculumUnitUpdateManyWithoutClassNestedInput.schema'
+import { CurriculumUnitUpdateManyWithoutClassNestedInputObjectSchema as CurriculumUnitUpdateManyWithoutClassNestedInputObjectSchema } from './CurriculumUnitUpdateManyWithoutClassNestedInput.schema';
+import { AssignmentUpdateManyWithoutClassNestedInputObjectSchema as AssignmentUpdateManyWithoutClassNestedInputObjectSchema } from './AssignmentUpdateManyWithoutClassNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -17,7 +18,8 @@ const makeSchema = () => z.object({
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   students: z.lazy(() => userUpdateManyWithoutEnrolledClassNestedInputObjectSchema).optional(),
-  curriculumUnits: z.lazy(() => CurriculumUnitUpdateManyWithoutClassNestedInputObjectSchema).optional()
+  curriculumUnits: z.lazy(() => CurriculumUnitUpdateManyWithoutClassNestedInputObjectSchema).optional(),
+  assignments: z.lazy(() => AssignmentUpdateManyWithoutClassNestedInputObjectSchema).optional()
 }).strict();
 export const ClassUpdateWithoutTeacherInputObjectSchema: z.ZodType<Prisma.ClassUpdateWithoutTeacherInput> = makeSchema() as unknown as z.ZodType<Prisma.ClassUpdateWithoutTeacherInput>;
 export const ClassUpdateWithoutTeacherInputObjectZodSchema = makeSchema();

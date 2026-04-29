@@ -56,6 +56,7 @@ export async function createTestLesson(
   const curriculumUnit = await prisma.curriculumUnit.create({
     data: {
       title: `Test Unit ${timestamp}`,
+      slug: `test-unit-${timestamp}`,
       framework: 'THAI',
       gradeLevel: 3,
       order: overrides.order || 1,
@@ -66,6 +67,7 @@ export async function createTestLesson(
   return prisma.lesson.create({
     data: {
       title: overrides.title || `Test Lesson ${timestamp}`,
+      slug: `test-lesson-${timestamp}`,
       description: 'Test lesson description',
       content: 'Test lesson content',
       gradeLevel: 3,
@@ -158,6 +160,7 @@ export async function createTestQuizQuestion(
   return prisma.quizQuestion.create({
     data: {
       lessonId,
+      slug: `test-question-${timestamp}`,
       order: overrides.order || 1,
       text: overrides.text || `Test question ${timestamp}`,
       type: overrides.type || 'MULTIPLE_CHOICE',

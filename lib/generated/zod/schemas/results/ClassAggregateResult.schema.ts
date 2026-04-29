@@ -9,6 +9,7 @@ export const ClassAggregateResultSchema = z.object({  _count: z.object({
     teacher: z.number(),
     students: z.number(),
     curriculumUnits: z.number(),
+    assignments: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

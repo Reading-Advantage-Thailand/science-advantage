@@ -17,6 +17,7 @@ export const ClassGroupByResultSchema = z.array(z.object({
     teacher: z.number(),
     students: z.number(),
     curriculumUnits: z.number(),
+    assignments: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

@@ -59,6 +59,7 @@ export default async function TeacherClassAnalyticsPage({
   return (
     <div className="space-y-8">
       <ClassDetailHeader
+        classId={classId}
         classTitle={classDetail.name}
         gradeLevel={classDetail.gradeLevel}
         standardsAlignment={classDetail.standardsAlignment}

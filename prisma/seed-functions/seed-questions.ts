@@ -1,6 +1,8 @@
 import { PrismaClient, Prisma, QuestionType } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
+import { normalizeQuestionType, isValidQuestionType } from '../../lib/grade4-normalization';
+import { validateQuizQuestionsSeedFile, formatValidationErrors } from '../../lib/schemas/seed-validation';
 
 interface QuestionData {
   slug?: string;
@@ -17,23 +19,42 @@ interface QuestionsFile {
   questions: QuestionData[];
 }
 
+function collectQuestionFiles(gradeLevel?: number): string[] {
+  const seedDataDir = path.join(__dirname, '..', 'seed-data', 'questions');
+  const files: string[] = [];
+
+  if (fs.existsSync(seedDataDir)) {
+    files.push(
+      ...fs.readdirSync(seedDataDir)
+        .filter(f => f.endsWith('.json'))
+        .map(f => path.join(seedDataDir, f))
+    );
+  }
+
+  if (gradeLevel === 4) {
+    const contentDir = path.join(__dirname, '..', '..', 'data', 'content', 'grade-4', 'questions');
+    if (fs.existsSync(contentDir)) {
+      files.push(
+        ...fs.readdirSync(contentDir)
+          .filter(f => f.endsWith('.json'))
+          .map(f => path.join(contentDir, f))
+      );
+    }
+  }
+
+  return files;
+}
+
 export async function seedQuestions(
   prisma: PrismaClient,
   options?: {
     lessonId?: string;
+    gradeLevel?: number;
   }
 ): Promise<void> {
   console.log('❓ Seeding questions...');
 
-  const dataDir = path.join(__dirname, '..', 'seed-data', 'questions');
-
-  // Check if directory exists
-  if (!fs.existsSync(dataDir)) {
-    console.log('  ℹ No questions directory found - skipping question seeding');
-    return;
-  }
-
-  const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.json'));
+  const files = collectQuestionFiles(options?.gradeLevel);
 
   if (files.length === 0) {
     console.log('  ℹ No question files found - skipping question seeding\n');
@@ -43,10 +64,28 @@ export async function seedQuestions(
   let totalQuestionsSeeded = 0;
   let filesProcessed = 0;
 
-  for (const file of files) {
-    const filePath = path.join(dataDir, file);
+  for (const filePath of files) {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const questionData: QuestionsFile = JSON.parse(fileContent);
+    const rawQuestionData: QuestionsFile = JSON.parse(fileContent);
+
+    // Validate with Zod schemas
+    const validationErrors = validateQuizQuestionsSeedFile(rawQuestionData, filePath);
+    if (validationErrors.length > 0) {
+      console.error(formatValidationErrors(validationErrors));
+      process.exit(1);
+    }
+
+    // Normalize question types (handles lowercase/snake_case variants)
+    const questionData: QuestionsFile = {
+      lessonId: rawQuestionData.lessonId,
+      questions: rawQuestionData.questions.map(q => {
+        const normalizedType = normalizeQuestionType(q.type);
+        if (!isValidQuestionType(normalizedType)) {
+          console.log(`  ⚠ Warning: Unknown question type "${q.type}" in ${path.basename(filePath)} (normalized to "${normalizedType}")`);
+        }
+        return { ...q, type: normalizedType };
+      }),
+    };
 
     // Skip if filtering by lessonId and this isn't the one
     if (options?.lessonId && questionData.lessonId !== options.lessonId) {

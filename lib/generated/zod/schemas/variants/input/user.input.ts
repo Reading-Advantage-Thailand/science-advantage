@@ -23,7 +23,8 @@ export const userInputSchema = z.object({
     masteryRecords: z.array(z.unknown()),
     masteryRuns: z.array(z.unknown()),
     gamificationProfile: z.unknown().optional().nullable(),
-    achievements: z.array(z.unknown())
+    achievements: z.array(z.unknown()),
+    assignedLessons: z.array(z.unknown())
 }).strict();
 
 export type userInputType = z.infer<typeof userInputSchema>;

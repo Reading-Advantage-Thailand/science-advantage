@@ -2,49 +2,23 @@
 
 ## Prerequisites
 
-1. **Feature Flag Enabled**:
-   ```bash
-   # Add to .env.local
-   NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS=true
-   ```
-
-2. **Dev Server Running**:
+1. **Dev Server Running**:
    ```bash
    npm run dev
    ```
 
-3. **Database Seeded**: Run the dev-interventions script to populate test data:
+2. **Database Seeded**: Run the dev-interventions script to populate test data:
    ```bash
    npx tsx scripts/dev-interventions.ts
    ```
 
-4. **Signed in as Teacher**: Use dev impersonation or sign in with a teacher account that has classes.
+3. **Signed in as Teacher**: Use dev impersonation or sign in with a teacher account that has classes.
 
 ---
 
 ## Test Scenarios
 
-### 1. Feature Flag Gating
-
-**Steps**:
-1. Set `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS=false` in `.env.local`
-2. Restart dev server
-3. Navigate to `/teacher`
-
-**Expected**:
-- Widget should NOT appear on the dashboard
-
-**Steps**:
-1. Set `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS=true` in `.env.local`
-2. Restart dev server
-3. Navigate to `/teacher`
-
-**Expected**:
-- Widget should appear below the welcome header
-
----
-
-### 2. Loading State
+### 1. Loading State
 
 **Steps**:
 1. Open browser DevTools → Network tab

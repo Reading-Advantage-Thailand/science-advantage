@@ -14,6 +14,7 @@ export const LessonAggregateResultSchema = z.object({  _count: z.object({
     quizQuestions: z.number(),
     attempts: z.number(),
     lessonCompletions: z.number(),
+    assignments: z.number(),
     createdAt: z.number(),
     updatedAt: z.number()
   }).optional(),

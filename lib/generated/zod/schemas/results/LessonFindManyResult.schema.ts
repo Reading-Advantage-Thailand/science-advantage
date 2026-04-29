@@ -15,6 +15,7 @@ export const LessonFindManyResultSchema = z.object({
   quizQuestions: z.array(z.unknown()),
   attempts: z.array(z.unknown()),
   lessonCompletions: z.array(z.unknown()),
+  assignments: z.array(z.unknown()),
   createdAt: z.date(),
   updatedAt: z.date()
 })),

@@ -9,6 +9,8 @@ import {
   ReadingPassageBlock,
   ProcedureBlock,
   MaterialsBlock,
+  ReviewBlock,
+  QuizBlock,
 } from './blocks';
 import type {
   LessonContent,
@@ -157,6 +159,10 @@ function BlockRenderer({ block, index, showThai, onBlockView }: BlockRendererPro
         return <ProcedureBlock block={block} showThai={showThai} />;
       case 'materials':
         return <MaterialsBlock block={block} showThai={showThai} />;
+      case 'review':
+        return <ReviewBlock block={block} showThai={showThai} />;
+      case 'quiz':
+        return <QuizBlock block={block} showThai={showThai} />;
       default: {
         // Handle unknown block types gracefully
         const unknownBlock = block as { type: string };

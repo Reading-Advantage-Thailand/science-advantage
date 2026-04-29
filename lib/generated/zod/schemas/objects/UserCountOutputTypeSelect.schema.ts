@@ -11,7 +11,8 @@ const makeSchema = () => z.object({
   lessonCompletions: z.boolean().optional(),
   masteryRecords: z.boolean().optional(),
   masteryRuns: z.boolean().optional(),
-  achievements: z.boolean().optional()
+  achievements: z.boolean().optional(),
+  assignedLessons: z.boolean().optional()
 }).strict();
 export const UserCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.UserCountOutputTypeSelect> = makeSchema() as unknown as z.ZodType<Prisma.UserCountOutputTypeSelect>;
 export const UserCountOutputTypeSelectObjectZodSchema = makeSchema();

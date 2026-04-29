@@ -8,7 +8,8 @@ import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './Date
 import { UserScalarRelationFilterObjectSchema as UserScalarRelationFilterObjectSchema } from './UserScalarRelationFilter.schema';
 import { userWhereInputObjectSchema as userWhereInputObjectSchema } from './userWhereInput.schema';
 import { UserListRelationFilterObjectSchema as UserListRelationFilterObjectSchema } from './UserListRelationFilter.schema';
-import { CurriculumUnitListRelationFilterObjectSchema as CurriculumUnitListRelationFilterObjectSchema } from './CurriculumUnitListRelationFilter.schema'
+import { CurriculumUnitListRelationFilterObjectSchema as CurriculumUnitListRelationFilterObjectSchema } from './CurriculumUnitListRelationFilter.schema';
+import { AssignmentListRelationFilterObjectSchema as AssignmentListRelationFilterObjectSchema } from './AssignmentListRelationFilter.schema'
 
 const classwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => ClassWhereInputObjectSchema), z.lazy(() => ClassWhereInputObjectSchema).array()]).optional(),
@@ -24,7 +25,8 @@ const classwhereinputSchema = z.object({
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   teacher: z.union([z.lazy(() => UserScalarRelationFilterObjectSchema), z.lazy(() => userWhereInputObjectSchema)]).optional(),
   students: z.lazy(() => UserListRelationFilterObjectSchema).optional(),
-  curriculumUnits: z.lazy(() => CurriculumUnitListRelationFilterObjectSchema).optional()
+  curriculumUnits: z.lazy(() => CurriculumUnitListRelationFilterObjectSchema).optional(),
+  assignments: z.lazy(() => AssignmentListRelationFilterObjectSchema).optional()
 }).strict();
 export const ClassWhereInputObjectSchema: z.ZodType<Prisma.ClassWhereInput> = classwhereinputSchema as unknown as z.ZodType<Prisma.ClassWhereInput>;
 export const ClassWhereInputObjectZodSchema = classwhereinputSchema;

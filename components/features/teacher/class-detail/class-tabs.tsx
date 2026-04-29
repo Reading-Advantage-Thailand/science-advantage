@@ -18,6 +18,10 @@ export function ClassTabs({ classId }: ClassTabsProps) {
       href: `/teacher/classes/${classId}`,
     },
     {
+      name: 'Roster',
+      href: `/teacher/classes/${classId}/roster`,
+    },
+    {
       name: 'Analytics',
       href: `/teacher/classes/${classId}/analytics`,
     },
@@ -27,9 +31,8 @@ export function ClassTabs({ classId }: ClassTabsProps) {
     <div className="border-b border-gray-200">
       <nav className="-mb-px flex space-x-8" aria-label="Tabs">
         {tabs.map((tab) => {
-          // Exact match for curriculum page, startsWith for analytics (to include sub-pages)
           const isActive =
-            tab.name === 'Curriculum'
+            tab.name === 'Curriculum' || tab.name === 'Roster'
               ? pathname === tab.href
               : pathname.startsWith(tab.href);
 

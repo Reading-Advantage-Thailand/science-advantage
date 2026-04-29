@@ -141,7 +141,7 @@ Thresholds configurable via `lib/interventions/config.ts`.
 **Location**: `components/features/teacher/intervention-alerts-widget.tsx`
 
 **Features Implemented**:
-- ✅ Feature flag gating via `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS`
+- ✅ ~~Feature flag gating via `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS`~~ (removed - always visible)
 - ✅ Class selector dropdown with all teacher's classes
 - ✅ Data fetching from `/api/teachers/classes/[classId]/intervention-alerts`
 - ✅ Auto-refresh every 5 minutes (configurable via `AUTO_REFRESH_INTERVAL_MS`)

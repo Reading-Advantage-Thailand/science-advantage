@@ -10,7 +10,8 @@ import { LessonCompletionOrderByRelationAggregateInputObjectSchema as LessonComp
 import { StandardMasteryOrderByRelationAggregateInputObjectSchema as StandardMasteryOrderByRelationAggregateInputObjectSchema } from './StandardMasteryOrderByRelationAggregateInput.schema';
 import { MasteryRunOrderByRelationAggregateInputObjectSchema as MasteryRunOrderByRelationAggregateInputObjectSchema } from './MasteryRunOrderByRelationAggregateInput.schema';
 import { GamificationProfileOrderByWithRelationInputObjectSchema as GamificationProfileOrderByWithRelationInputObjectSchema } from './GamificationProfileOrderByWithRelationInput.schema';
-import { AchievementOrderByRelationAggregateInputObjectSchema as AchievementOrderByRelationAggregateInputObjectSchema } from './AchievementOrderByRelationAggregateInput.schema'
+import { AchievementOrderByRelationAggregateInputObjectSchema as AchievementOrderByRelationAggregateInputObjectSchema } from './AchievementOrderByRelationAggregateInput.schema';
+import { AssignmentOrderByRelationAggregateInputObjectSchema as AssignmentOrderByRelationAggregateInputObjectSchema } from './AssignmentOrderByRelationAggregateInput.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -33,7 +34,8 @@ const makeSchema = () => z.object({
   masteryRecords: z.lazy(() => StandardMasteryOrderByRelationAggregateInputObjectSchema).optional(),
   masteryRuns: z.lazy(() => MasteryRunOrderByRelationAggregateInputObjectSchema).optional(),
   gamificationProfile: z.lazy(() => GamificationProfileOrderByWithRelationInputObjectSchema).optional(),
-  achievements: z.lazy(() => AchievementOrderByRelationAggregateInputObjectSchema).optional()
+  achievements: z.lazy(() => AchievementOrderByRelationAggregateInputObjectSchema).optional(),
+  assignedLessons: z.lazy(() => AssignmentOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const userOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.userOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.userOrderByWithRelationInput>;
 export const userOrderByWithRelationInputObjectZodSchema = makeSchema();

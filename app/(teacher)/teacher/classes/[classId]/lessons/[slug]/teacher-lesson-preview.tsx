@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { LessonPlayer } from '@/components/features/lesson';
+import { AssignButton } from '@/components/features/teacher/assign-button';
 import {
   LessonContentSchema,
   type LessonContent,
@@ -37,6 +38,13 @@ interface LessonData {
     contentVersion?: number;
   };
   standards: Standard[];
+}
+
+interface AssignmentData {
+  id: string;
+  lessonId: string;
+  classId: string;
+  dueAt: string | null;
 }
 
 interface TeacherLessonPreviewProps {
@@ -166,6 +174,7 @@ function PreviewContent({
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [assignment, setAssignment] = useState<AssignmentData | null>(null);
   const { showThai } = useLanguage();
 
   useEffect(() => {
@@ -190,6 +199,22 @@ function PreviewContent({
 
         const data = await response.json();
         setLessonData(data);
+
+        // Fetch existing assignment for this lesson
+        try {
+          const assignmentsRes = await fetch(`/api/classes/${classId}/assignments`);
+          if (assignmentsRes.ok) {
+            const assignmentsData = await assignmentsRes.json();
+            const existing = assignmentsData.data.assignments.find(
+              (a: AssignmentData) => a.lessonId === data.lesson.id
+            );
+            if (existing) {
+              setAssignment(existing);
+            }
+          }
+        } catch {
+          // Silently handle - assignment state just won't show
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       } finally {
@@ -198,7 +223,7 @@ function PreviewContent({
     }
 
     fetchLesson();
-  }, [lessonSlug]);
+  }, [lessonSlug, classId]);
 
   if (loading) {
     return (
@@ -256,7 +281,17 @@ function PreviewContent({
           <ArrowLeft className="h-4 w-4" />
           Back to curriculum
         </Button>
-        <LanguageToggle />
+        <div className="flex items-center gap-2">
+          <AssignButton
+            classId={classId}
+            lessonId={lessonData.lesson.id}
+            lessonTitle={lessonData.lesson.title}
+            existingAssignment={assignment ?? undefined}
+            onAssigned={setAssignment}
+            onRemoved={() => setAssignment(null)}
+          />
+          <LanguageToggle />
+        </div>
       </div>
 
       {/* Lesson Header */}

@@ -19,3 +19,4 @@ export { AttemptResultSchema } from './Attempt.result';
 export { QuestionResponseResultSchema } from './QuestionResponse.result';
 export { LessonCompletionResultSchema } from './LessonCompletion.result';
 export { MasteryRunResultSchema } from './MasteryRun.result';
+export { AssignmentResultSchema } from './Assignment.result';

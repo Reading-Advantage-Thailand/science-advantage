@@ -10,7 +10,8 @@ import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOp
 import { StandardUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema as StandardUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema } from './StandardUncheckedUpdateManyWithoutLessonsNestedInput.schema';
 import { CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema as CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema } from './CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInput.schema';
 import { QuizQuestionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as QuizQuestionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './QuizQuestionUncheckedUpdateManyWithoutLessonNestedInput.schema';
-import { AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './AttemptUncheckedUpdateManyWithoutLessonNestedInput.schema'
+import { AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './AttemptUncheckedUpdateManyWithoutLessonNestedInput.schema';
+import { AssignmentUncheckedUpdateManyWithoutLessonNestedInputObjectSchema as AssignmentUncheckedUpdateManyWithoutLessonNestedInputObjectSchema } from './AssignmentUncheckedUpdateManyWithoutLessonNestedInput.schema'
 
 import { JsonValueSchema as jsonSchema } from '../../helpers/json-helpers';
 
@@ -29,7 +30,8 @@ const makeSchema = () => z.object({
   standards: z.lazy(() => StandardUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema).optional(),
   curriculumUnits: z.lazy(() => CurriculumUnitUncheckedUpdateManyWithoutLessonsNestedInputObjectSchema).optional(),
   quizQuestions: z.lazy(() => QuizQuestionUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional(),
-  attempts: z.lazy(() => AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional()
+  attempts: z.lazy(() => AttemptUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional(),
+  assignments: z.lazy(() => AssignmentUncheckedUpdateManyWithoutLessonNestedInputObjectSchema).optional()
 }).strict();
 export const LessonUncheckedUpdateWithoutLessonCompletionsInputObjectSchema: z.ZodType<Prisma.LessonUncheckedUpdateWithoutLessonCompletionsInput> = makeSchema() as unknown as z.ZodType<Prisma.LessonUncheckedUpdateWithoutLessonCompletionsInput>;
 export const LessonUncheckedUpdateWithoutLessonCompletionsInputObjectZodSchema = makeSchema();

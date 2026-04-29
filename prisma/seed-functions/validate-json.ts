@@ -114,6 +114,15 @@ export function validateLessonsFile(data: any): data is LessonsFile {
     if (!Array.isArray(lesson.standards)) {
       throw new Error(`Lesson at index ${index} must have a "standards" array`);
     }
+    if (lesson.structuredContent !== undefined) {
+      const sc = lesson.structuredContent;
+      if (typeof sc !== 'object' || sc === null) {
+        throw new Error(`Lesson at index ${index}: structuredContent must be an object`);
+      }
+      if (typeof sc.version !== 'number' || !Array.isArray(sc.blocks)) {
+        throw new Error(`Lesson at index ${index}: structuredContent must have "version" (number) and "blocks" (array)`);
+      }
+    }
   });
 
   return true;

@@ -9,6 +9,7 @@ import { StandardMasteryFindManySchema as StandardMasteryFindManySchema } from '
 import { MasteryRunFindManySchema as MasteryRunFindManySchema } from '../findManyMasteryRun.schema';
 import { GamificationProfileArgsObjectSchema as GamificationProfileArgsObjectSchema } from './GamificationProfileArgs.schema';
 import { AchievementFindManySchema as AchievementFindManySchema } from '../findManyAchievement.schema';
+import { AssignmentFindManySchema as AssignmentFindManySchema } from '../findManyAssignment.schema';
 import { UserCountOutputTypeArgsObjectSchema as UserCountOutputTypeArgsObjectSchema } from './UserCountOutputTypeArgs.schema'
 
 const makeSchema = () => z.object({
@@ -22,6 +23,7 @@ const makeSchema = () => z.object({
   masteryRuns: z.union([z.boolean(), z.lazy(() => MasteryRunFindManySchema)]).optional(),
   gamificationProfile: z.union([z.boolean(), z.lazy(() => GamificationProfileArgsObjectSchema)]).optional(),
   achievements: z.union([z.boolean(), z.lazy(() => AchievementFindManySchema)]).optional(),
+  assignedLessons: z.union([z.boolean(), z.lazy(() => AssignmentFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => UserCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const userIncludeObjectSchema: z.ZodType<Prisma.userInclude> = makeSchema() as unknown as z.ZodType<Prisma.userInclude>;

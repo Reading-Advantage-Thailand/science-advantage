@@ -7,6 +7,7 @@ import { gradeAnswer } from '@/lib/quiz/scoring';
 import { calculateXpForQuiz, awardXp } from '@/lib/gamification/xp';
 import { updateStreakForProfile } from '@/lib/gamification/streak';
 import { checkBadgeConditions } from '@/lib/gamification/badges';
+import { processMasteryRun } from '@/lib/services/mastery/mastery-worker';
 
 /**
  * GET /api/lessons/{lessonSlug}/quiz
@@ -407,7 +408,22 @@ export async function POST(
       }
     });
 
-    // 9. Award XP and update streak
+    // 9. Create MasteryRun and process mastery updates
+    await prisma.masteryRun.create({
+      data: {
+        attemptId,
+        studentId: session.user.id,
+        status: 'PENDING',
+        updatedCount: 0,
+      },
+    });
+
+    const masteryResult = await processMasteryRun(
+      { attemptId, studentId: session.user.id },
+      prisma
+    );
+
+    // 10. Award XP and update streak
     const { baseXp, firstAttemptBonus, totalXp } = calculateXpForQuiz(
       percentage,
       attempt.attemptNumber
@@ -460,6 +476,10 @@ export async function POST(
         attemptNumber: attempt.attemptNumber,
         completedAt: new Date().toISOString(),
         breakdown,
+        mastery: {
+          status: masteryResult.status,
+          updatedCount: masteryResult.updatedCount,
+        },
         gamification: {
           xpAwarded: totalXpAwarded,
           baseXp,

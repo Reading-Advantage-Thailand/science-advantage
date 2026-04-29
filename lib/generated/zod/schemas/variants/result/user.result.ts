@@ -23,7 +23,8 @@ export const userResultSchema = z.object({
     masteryRecords: z.array(z.unknown()),
     masteryRuns: z.array(z.unknown()),
     gamificationProfile: z.unknown().nullable(),
-    achievements: z.array(z.unknown())
+    achievements: z.array(z.unknown()),
+    assignedLessons: z.array(z.unknown())
 }).strict();
 
 export type userResultType = z.infer<typeof userResultSchema>;

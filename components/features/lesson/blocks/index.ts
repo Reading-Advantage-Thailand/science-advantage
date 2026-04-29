@@ -8,3 +8,5 @@ export { ImageBlock } from './image-block';
 export { ReadingPassageBlock } from './reading-passage-block';
 export { ProcedureBlock } from './procedure-block';
 export { MaterialsBlock } from './materials-block';
+export { ReviewBlock } from './review-block';
+export { QuizBlock } from './quiz-block';

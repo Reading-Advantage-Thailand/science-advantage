@@ -15,7 +15,8 @@ import { AttemptUpdateManyWithoutStudentNestedInputObjectSchema as AttemptUpdate
 import { LessonCompletionUpdateManyWithoutStudentNestedInputObjectSchema as LessonCompletionUpdateManyWithoutStudentNestedInputObjectSchema } from './LessonCompletionUpdateManyWithoutStudentNestedInput.schema';
 import { MasteryRunUpdateManyWithoutStudentNestedInputObjectSchema as MasteryRunUpdateManyWithoutStudentNestedInputObjectSchema } from './MasteryRunUpdateManyWithoutStudentNestedInput.schema';
 import { GamificationProfileUpdateOneWithoutUserNestedInputObjectSchema as GamificationProfileUpdateOneWithoutUserNestedInputObjectSchema } from './GamificationProfileUpdateOneWithoutUserNestedInput.schema';
-import { AchievementUpdateManyWithoutUserNestedInputObjectSchema as AchievementUpdateManyWithoutUserNestedInputObjectSchema } from './AchievementUpdateManyWithoutUserNestedInput.schema'
+import { AchievementUpdateManyWithoutUserNestedInputObjectSchema as AchievementUpdateManyWithoutUserNestedInputObjectSchema } from './AchievementUpdateManyWithoutUserNestedInput.schema';
+import { AssignmentUpdateManyWithoutTeacherNestedInputObjectSchema as AssignmentUpdateManyWithoutTeacherNestedInputObjectSchema } from './AssignmentUpdateManyWithoutTeacherNestedInput.schema'
 
 const makeSchema = () => z.object({
   id: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -37,7 +38,8 @@ const makeSchema = () => z.object({
   lessonCompletions: z.lazy(() => LessonCompletionUpdateManyWithoutStudentNestedInputObjectSchema).optional(),
   masteryRuns: z.lazy(() => MasteryRunUpdateManyWithoutStudentNestedInputObjectSchema).optional(),
   gamificationProfile: z.lazy(() => GamificationProfileUpdateOneWithoutUserNestedInputObjectSchema).optional(),
-  achievements: z.lazy(() => AchievementUpdateManyWithoutUserNestedInputObjectSchema).optional()
+  achievements: z.lazy(() => AchievementUpdateManyWithoutUserNestedInputObjectSchema).optional(),
+  assignedLessons: z.lazy(() => AssignmentUpdateManyWithoutTeacherNestedInputObjectSchema).optional()
 }).strict();
 export const userUpdateWithoutMasteryRecordsInputObjectSchema: z.ZodType<Prisma.userUpdateWithoutMasteryRecordsInput> = makeSchema() as unknown as z.ZodType<Prisma.userUpdateWithoutMasteryRecordsInput>;
 export const userUpdateWithoutMasteryRecordsInputObjectZodSchema = makeSchema();

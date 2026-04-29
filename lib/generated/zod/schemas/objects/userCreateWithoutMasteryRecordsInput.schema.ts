@@ -9,7 +9,8 @@ import { AttemptCreateNestedManyWithoutStudentInputObjectSchema as AttemptCreate
 import { LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema as LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema } from './LessonCompletionCreateNestedManyWithoutStudentInput.schema';
 import { MasteryRunCreateNestedManyWithoutStudentInputObjectSchema as MasteryRunCreateNestedManyWithoutStudentInputObjectSchema } from './MasteryRunCreateNestedManyWithoutStudentInput.schema';
 import { GamificationProfileCreateNestedOneWithoutUserInputObjectSchema as GamificationProfileCreateNestedOneWithoutUserInputObjectSchema } from './GamificationProfileCreateNestedOneWithoutUserInput.schema';
-import { AchievementCreateNestedManyWithoutUserInputObjectSchema as AchievementCreateNestedManyWithoutUserInputObjectSchema } from './AchievementCreateNestedManyWithoutUserInput.schema'
+import { AchievementCreateNestedManyWithoutUserInputObjectSchema as AchievementCreateNestedManyWithoutUserInputObjectSchema } from './AchievementCreateNestedManyWithoutUserInput.schema';
+import { AssignmentCreateNestedManyWithoutTeacherInputObjectSchema as AssignmentCreateNestedManyWithoutTeacherInputObjectSchema } from './AssignmentCreateNestedManyWithoutTeacherInput.schema'
 
 const makeSchema = () => z.object({
   id: z.string(),
@@ -31,7 +32,8 @@ const makeSchema = () => z.object({
   lessonCompletions: z.lazy(() => LessonCompletionCreateNestedManyWithoutStudentInputObjectSchema).optional(),
   masteryRuns: z.lazy(() => MasteryRunCreateNestedManyWithoutStudentInputObjectSchema).optional(),
   gamificationProfile: z.lazy(() => GamificationProfileCreateNestedOneWithoutUserInputObjectSchema).optional(),
-  achievements: z.lazy(() => AchievementCreateNestedManyWithoutUserInputObjectSchema).optional()
+  achievements: z.lazy(() => AchievementCreateNestedManyWithoutUserInputObjectSchema).optional(),
+  assignedLessons: z.lazy(() => AssignmentCreateNestedManyWithoutTeacherInputObjectSchema).optional()
 }).strict();
 export const userCreateWithoutMasteryRecordsInputObjectSchema: z.ZodType<Prisma.userCreateWithoutMasteryRecordsInput> = makeSchema() as unknown as z.ZodType<Prisma.userCreateWithoutMasteryRecordsInput>;
 export const userCreateWithoutMasteryRecordsInputObjectZodSchema = makeSchema();

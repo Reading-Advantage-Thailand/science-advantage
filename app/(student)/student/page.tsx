@@ -1,6 +1,7 @@
 import { requireRole } from '@/lib/auth/server';
 import { JoinClassForm } from '@/components/features/student/join-class-form';
 import { StudentClassesSection } from '@/components/features/student/student-classes-section';
+import { StudentAssignmentsCard } from '@/components/features/student/student-assignments-card';
 import { GamificationDashboardCard } from '@/components/features/student/gamification-dashboard-card';
 import {
   Card,
@@ -48,17 +49,7 @@ export default async function StudentPage() {
           </CardContent>
         </Card>
 
-        <Card className="edu-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              📝 Upcoming Assignments
-            </CardTitle>
-            <CardDescription>Your pending work</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">No assignments yet.</p>
-          </CardContent>
-        </Card>
+        <StudentAssignmentsCard studentId={session.user.id} />
 
         <Card className="edu-card">
           <CardHeader>

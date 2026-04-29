@@ -41,8 +41,10 @@ async function main() {
       gradeLevel: options.gradeLevel,
     });
 
-    // 3. Seed questions (ready for future implementation)
-    await seedQuestions(prisma);
+    // 3. Seed questions
+    await seedQuestions(prisma, {
+      gradeLevel: options.gradeLevel,
+    });
 
     // 4. Seed demo users and classes (unless skipped)
     if (!options.skipDemo) {

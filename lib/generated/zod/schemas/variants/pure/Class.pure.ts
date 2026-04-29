@@ -12,6 +12,7 @@ export const ClassModelSchema = z.object({
     teacher: z.unknown(),
     students: z.array(z.unknown()),
     curriculumUnits: z.array(z.unknown()),
+    assignments: z.array(z.unknown()),
     createdAt: z.date(),
     updatedAt: z.date()
 }).strict();

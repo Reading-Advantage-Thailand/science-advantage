@@ -206,3 +206,16 @@ export { MasteryRunDeleteManyResultSchema } from './MasteryRunDeleteManyResult.s
 export { MasteryRunAggregateResultSchema } from './MasteryRunAggregateResult.schema';
 export { MasteryRunGroupByResultSchema } from './MasteryRunGroupByResult.schema';
 export { MasteryRunCountResultSchema } from './MasteryRunCountResult.schema';
+export { AssignmentFindUniqueResultSchema } from './AssignmentFindUniqueResult.schema';
+export { AssignmentFindFirstResultSchema } from './AssignmentFindFirstResult.schema';
+export { AssignmentFindManyResultSchema } from './AssignmentFindManyResult.schema';
+export { AssignmentCreateResultSchema } from './AssignmentCreateResult.schema';
+export { AssignmentCreateManyResultSchema } from './AssignmentCreateManyResult.schema';
+export { AssignmentUpdateResultSchema } from './AssignmentUpdateResult.schema';
+export { AssignmentUpdateManyResultSchema } from './AssignmentUpdateManyResult.schema';
+export { AssignmentUpsertResultSchema } from './AssignmentUpsertResult.schema';
+export { AssignmentDeleteResultSchema } from './AssignmentDeleteResult.schema';
+export { AssignmentDeleteManyResultSchema } from './AssignmentDeleteManyResult.schema';
+export { AssignmentAggregateResultSchema } from './AssignmentAggregateResult.schema';
+export { AssignmentGroupByResultSchema } from './AssignmentGroupByResult.schema';
+export { AssignmentCountResultSchema } from './AssignmentCountResult.schema';

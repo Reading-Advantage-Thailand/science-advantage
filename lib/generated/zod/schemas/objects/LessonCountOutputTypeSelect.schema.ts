@@ -7,7 +7,8 @@ const makeSchema = () => z.object({
   curriculumUnits: z.boolean().optional(),
   quizQuestions: z.boolean().optional(),
   attempts: z.boolean().optional(),
-  lessonCompletions: z.boolean().optional()
+  lessonCompletions: z.boolean().optional(),
+  assignments: z.boolean().optional()
 }).strict();
 export const LessonCountOutputTypeSelectObjectSchema: z.ZodType<Prisma.LessonCountOutputTypeSelect> = makeSchema() as unknown as z.ZodType<Prisma.LessonCountOutputTypeSelect>;
 export const LessonCountOutputTypeSelectObjectZodSchema = makeSchema();

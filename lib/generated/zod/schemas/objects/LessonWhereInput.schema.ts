@@ -11,7 +11,8 @@ import { StandardListRelationFilterObjectSchema as StandardListRelationFilterObj
 import { CurriculumUnitListRelationFilterObjectSchema as CurriculumUnitListRelationFilterObjectSchema } from './CurriculumUnitListRelationFilter.schema';
 import { QuizQuestionListRelationFilterObjectSchema as QuizQuestionListRelationFilterObjectSchema } from './QuizQuestionListRelationFilter.schema';
 import { AttemptListRelationFilterObjectSchema as AttemptListRelationFilterObjectSchema } from './AttemptListRelationFilter.schema';
-import { LessonCompletionListRelationFilterObjectSchema as LessonCompletionListRelationFilterObjectSchema } from './LessonCompletionListRelationFilter.schema'
+import { LessonCompletionListRelationFilterObjectSchema as LessonCompletionListRelationFilterObjectSchema } from './LessonCompletionListRelationFilter.schema';
+import { AssignmentListRelationFilterObjectSchema as AssignmentListRelationFilterObjectSchema } from './AssignmentListRelationFilter.schema'
 
 const lessonwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => LessonWhereInputObjectSchema), z.lazy(() => LessonWhereInputObjectSchema).array()]).optional(),
@@ -32,7 +33,8 @@ const lessonwhereinputSchema = z.object({
   curriculumUnits: z.lazy(() => CurriculumUnitListRelationFilterObjectSchema).optional(),
   quizQuestions: z.lazy(() => QuizQuestionListRelationFilterObjectSchema).optional(),
   attempts: z.lazy(() => AttemptListRelationFilterObjectSchema).optional(),
-  lessonCompletions: z.lazy(() => LessonCompletionListRelationFilterObjectSchema).optional()
+  lessonCompletions: z.lazy(() => LessonCompletionListRelationFilterObjectSchema).optional(),
+  assignments: z.lazy(() => AssignmentListRelationFilterObjectSchema).optional()
 }).strict();
 export const LessonWhereInputObjectSchema: z.ZodType<Prisma.LessonWhereInput> = lessonwhereinputSchema as unknown as z.ZodType<Prisma.LessonWhereInput>;
 export const LessonWhereInputObjectZodSchema = lessonwhereinputSchema;

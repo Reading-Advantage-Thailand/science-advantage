@@ -7,9 +7,6 @@ import { InterventionAlertsWidget } from './intervention-alerts-widget';
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
-// Mock environment variable
-const originalEnv = process.env;
-
 describe('InterventionAlertsWidget', () => {
   const mockClasses = [
     { id: 'class-1', name: 'Grade 3A' },
@@ -77,24 +74,6 @@ describe('InterventionAlertsWidget', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env = {
-      ...originalEnv,
-      NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS: 'true',
-    };
-  });
-
-  afterEach(() => {
-    process.env = originalEnv;
-  });
-
-  it('renders nothing when feature flag is disabled', () => {
-    process.env.NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS = 'false';
-
-    const { container } = render(
-      <InterventionAlertsWidget initialClassId="class-1" classes={mockClasses} />
-    );
-
-    expect(container.firstChild).toBeNull();
   });
 
   it('renders nothing when no classes are provided', () => {

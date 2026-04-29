@@ -19,3 +19,4 @@ export { AttemptModelSchema } from './Attempt.pure';
 export { QuestionResponseModelSchema } from './QuestionResponse.pure';
 export { LessonCompletionModelSchema } from './LessonCompletion.pure';
 export { MasteryRunModelSchema } from './MasteryRun.pure';
+export { AssignmentModelSchema } from './Assignment.pure';

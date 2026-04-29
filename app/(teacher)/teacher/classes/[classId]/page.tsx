@@ -5,9 +5,10 @@ import { hasRole, requireAuth } from '@/lib/auth/server';
 import { getClassDetailWithCurriculum } from '@/lib/services/classes/get-class-detail';
 import { ClassDetailHeader } from '@/components/features/teacher/class-detail/class-detail-header';
 import { ClassTabs } from '@/components/features/teacher/class-detail/class-tabs';
-import { CurriculumAccordion } from '@/components/features/teacher/class-detail/curriculum-accordion';
+import { CurriculumWithData } from '@/components/features/teacher/class-detail/curriculum-with-data';
 import { ClassSnapshotPanel } from '@/components/features/teacher/class-detail/class-snapshot-panel';
 import { JoinCodePanel } from '@/components/features/teacher/class-detail/join-code-panel';
+import { ClassInterventionSummary } from '@/components/features/teacher/class-detail/class-intervention-summary';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getStandardsAlignmentLabel } from '@/lib/utils/class-format';
 
@@ -59,6 +60,7 @@ export default async function TeacherClassDetailPage({ params }: { params: Route
   return (
     <div className="space-y-8">
       <ClassDetailHeader
+        classId={classId}
         classTitle={classDetail.name}
         gradeLevel={classDetail.gradeLevel}
         standardsAlignment={classDetail.standardsAlignment}
@@ -82,12 +84,17 @@ export default async function TeacherClassDetailPage({ params }: { params: Route
                 admin.
               </div>
             ) : (
-              <CurriculumAccordion units={classDetail.curriculumUnits} />
+              <CurriculumWithData
+                units={classDetail.curriculumUnits}
+                classId={classId}
+                studentCount={classDetail.studentCount}
+              />
             )}
           </CardContent>
         </Card>
 
         <div className="flex flex-col gap-6">
+          <ClassInterventionSummary classId={classId} />
           <JoinCodePanel
             classId={classDetail.id}
             classTitle={classDetail.name}

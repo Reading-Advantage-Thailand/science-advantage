@@ -19,6 +19,7 @@ export const ClassFindManySelectSchema: z.ZodType<Prisma.ClassSelect> = z.object
     teacher: z.boolean().optional(),
     students: z.boolean().optional(),
     curriculumUnits: z.boolean().optional(),
+    assignments: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()
@@ -34,6 +35,7 @@ export const ClassFindManySelectZodSchema = z.object({
     teacher: z.boolean().optional(),
     students: z.boolean().optional(),
     curriculumUnits: z.boolean().optional(),
+    assignments: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     updatedAt: z.boolean().optional(),
     _count: z.boolean().optional()

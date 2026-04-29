@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Loader2, CheckCircle2, Circle } from 'lucide-react';
+import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
 
 type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
 
@@ -29,6 +29,13 @@ interface Lesson {
   completed: boolean;
   started: boolean;
   progress: LessonProgress;
+}
+
+interface AssignmentData {
+  id: string;
+  lessonId: string;
+  classId: string;
+  dueAt: string | null;
 }
 
 interface CurriculumUnit {
@@ -96,11 +103,25 @@ const formatPercentage = (value: number | null) => {
   return `${Math.round(value)}%`;
 };
 
+function formatDueDate(dueAt: string): string {
+  const date = new Date(dueAt);
+  const now = new Date();
+  const diffMs = date.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0) return 'Overdue';
+  if (diffDays === 0) return 'Due today';
+  if (diffDays === 1) return 'Due tomorrow';
+  if (diffDays <= 7) return `Due in ${diffDays} days`;
+  return `Due ${date.toLocaleDateString()}`;
+}
+
 export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
   const router = useRouter();
   const [curriculum, setCurriculum] = useState<CurriculumData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [assignments, setAssignments] = useState<Map<string, AssignmentData>>(new Map());
 
   useEffect(() => {
     async function fetchCurriculum() {
@@ -124,6 +145,21 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
 
         const data = await response.json();
         setCurriculum(data);
+
+        // Fetch assignments for this class
+        try {
+          const assignmentsRes = await fetch(`/api/classes/${classId}/assignments`);
+          if (assignmentsRes.ok) {
+            const assignmentsData = await assignmentsRes.json();
+            const map = new Map<string, AssignmentData>();
+            for (const assignment of assignmentsData.data.assignments) {
+              map.set(assignment.lessonId, assignment);
+            }
+            setAssignments(map);
+          }
+        } catch {
+          // Silently handle - assignment badges just won't show
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       } finally {
@@ -197,6 +233,7 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
                         const scorePercentage = lesson.progress?.mostRecentScorePercentage ?? null;
                         const bestPercentage = lesson.progress?.bestScorePercentage ?? null;
                         const hasScoreBadge = attemptsCount > 0 && typeof scorePercentage === 'number';
+                        const lessonAssignment = assignments.get(lesson.id);
 
                         const StatusIcon = statusConfig.icon;
 
@@ -223,6 +260,15 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
                                 <Badge variant="outline" className={statusConfig.badgeClass}>
                                   {statusConfig.label}
                                 </Badge>
+                                {lessonAssignment && (
+                                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                                    <Clock className="h-3 w-3 mr-1" />
+                                    {lessonAssignment.dueAt
+                                      ? formatDueDate(lessonAssignment.dueAt)
+                                      : 'Assigned'
+                                    }
+                                  </Badge>
+                                )}
                                 {hasScoreBadge && (
                                   <Tooltip>
                                     <TooltipTrigger asChild>

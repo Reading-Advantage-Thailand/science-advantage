@@ -16,7 +16,8 @@ import { StandardMasteryListRelationFilterObjectSchema as StandardMasteryListRel
 import { MasteryRunListRelationFilterObjectSchema as MasteryRunListRelationFilterObjectSchema } from './MasteryRunListRelationFilter.schema';
 import { GamificationProfileNullableScalarRelationFilterObjectSchema as GamificationProfileNullableScalarRelationFilterObjectSchema } from './GamificationProfileNullableScalarRelationFilter.schema';
 import { GamificationProfileWhereInputObjectSchema as GamificationProfileWhereInputObjectSchema } from './GamificationProfileWhereInput.schema';
-import { AchievementListRelationFilterObjectSchema as AchievementListRelationFilterObjectSchema } from './AchievementListRelationFilter.schema'
+import { AchievementListRelationFilterObjectSchema as AchievementListRelationFilterObjectSchema } from './AchievementListRelationFilter.schema';
+import { AssignmentListRelationFilterObjectSchema as AssignmentListRelationFilterObjectSchema } from './AssignmentListRelationFilter.schema'
 
 const userwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => userWhereInputObjectSchema), z.lazy(() => userWhereInputObjectSchema).array()]).optional(),
@@ -42,7 +43,8 @@ const userwhereinputSchema = z.object({
   masteryRecords: z.lazy(() => StandardMasteryListRelationFilterObjectSchema).optional(),
   masteryRuns: z.lazy(() => MasteryRunListRelationFilterObjectSchema).optional(),
   gamificationProfile: z.union([z.lazy(() => GamificationProfileNullableScalarRelationFilterObjectSchema), z.lazy(() => GamificationProfileWhereInputObjectSchema)]).optional(),
-  achievements: z.lazy(() => AchievementListRelationFilterObjectSchema).optional()
+  achievements: z.lazy(() => AchievementListRelationFilterObjectSchema).optional(),
+  assignedLessons: z.lazy(() => AssignmentListRelationFilterObjectSchema).optional()
 }).strict();
 export const userWhereInputObjectSchema: z.ZodType<Prisma.userWhereInput> = userwhereinputSchema as unknown as z.ZodType<Prisma.userWhereInput>;
 export const userWhereInputObjectZodSchema = userwhereinputSchema;

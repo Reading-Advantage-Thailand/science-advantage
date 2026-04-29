@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 
 type LessonSummary = {
   id: string;
+  slug: string;
   title: string;
   description: string | null;
   order: number;
@@ -61,6 +62,7 @@ export async function getClassDetailWithCurriculum(
       lessons: {
         select: {
           id: true,
+          slug: true,
           title: true,
           description: true,
           order: true,
@@ -85,6 +87,7 @@ export async function getClassDetailWithCurriculum(
       order: unit.order,
       lessons: unit.lessons.map(lesson => ({
         id: lesson.id,
+        slug: lesson.slug,
         title: lesson.title,
         description: lesson.description,
         order: lesson.order,
