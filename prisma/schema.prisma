@@ -64,6 +64,7 @@ model user {
   masteryRuns         MasteryRun[]
   gamificationProfile GamificationProfile?
   achievements        Achievement[]
+  assignedLessons     Assignment[]          @relation("AssignedLessons")
 }
 
 model GamificationProfile {
@@ -142,6 +143,7 @@ model Class {
   teacher            user               @relation("ClassTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
   students           user[]             @relation("ClassStudents")
   curriculumUnits    CurriculumUnit[]
+  assignments       Assignment[]
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
 
@@ -201,6 +203,7 @@ model Lesson {
   quizQuestions     QuizQuestion[]
   attempts          Attempt[]          @relation("LessonAttempts")
   lessonCompletions LessonCompletion[] @relation("LessonCompletions")
+  assignments       Assignment[]
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 
@@ -350,4 +353,22 @@ model MasteryRun {
   student user    @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@index([studentId])
+}
+
+model Assignment {
+  id        String    @id @default(cuid())
+  classId   String
+  lessonId  String
+  assignedAt DateTime @default(now())
+  dueAt     DateTime?
+  assignedBy String
+  class     Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
+  lesson    Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  teacher   user      @relation("AssignedLessons", fields: [assignedBy], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+
+  @@unique([classId, lessonId])
+  @@index([classId])
+  @@index([lessonId])
+  @@index([assignedBy])
 }

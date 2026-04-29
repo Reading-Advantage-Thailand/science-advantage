@@ -240,8 +240,6 @@ export function InterventionAlertsWidget({
   initialClassId,
   classes,
 }: InterventionAlertsWidgetProps) {
-  const featureEnabled = process.env.NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS === "true";
-
   const [selectedClassId, setSelectedClassId] = React.useState<string>(
     initialClassId || classes[0]?.id || ""
   );
@@ -368,11 +366,6 @@ export function InterventionAlertsWidget({
     },
     [selectedClassId]
   );
-
-  // Feature flag check
-  if (!featureEnabled) {
-    return null;
-  }
 
   // No classes available
   if (classes.length === 0) {

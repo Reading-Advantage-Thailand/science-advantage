@@ -47,24 +47,24 @@
 
 ## Phase 3: Assignment System
 
-- [ ] Task: Define assignment data model
-  - [ ] Write tests for assignment creation, listing, and due date logic
-  - [ ] Add `Assignment` model to Prisma schema (classId, lessonId, assignedAt, dueAt, assignedBy)
-  - [ ] Run migration
-- [ ] Task: Implement assignment API and UI
-  - [ ] Write tests for assignment CRUD endpoints
-  - [ ] Create `/api/classes/[classId]/assignments` endpoints (POST create, GET list, DELETE remove)
-  - [ ] Add "Assign" button on teacher lesson preview and curriculum accordion
-  - [ ] Add assignment due date picker (optional)
-- [ ] Task: Surface assignments in student view
-  - [ ] Write tests for student assignment visibility
-  - [ ] Add assignment badges to student curriculum view (due date, assigned indicator)
-  - [ ] Replace "No assignments yet" placeholder on student dashboard with real assignment list
-- [ ] Task: Integrate intervention alerts
-  - [ ] Remove `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS` feature flag
-  - [ ] Move intervention alerts widget to top of teacher dashboard
-  - [ ] Add class-level intervention summary on class detail page
-- [ ] Task: Measure - Manual Verification 'Assignments'
-  - [ ] Verify teacher can assign a lesson from the preview page
-  - [ ] Verify assigned lesson shows due date badge in student curriculum view
-  - [ ] Verify intervention alerts appear without feature flag
+- [x] Task: Define assignment data model
+  - [x] Write tests for assignment creation, listing, and due date logic
+  - [x] Add `Assignment` model to Prisma schema (classId, lessonId, assignedAt, dueAt, assignedBy)
+  - [x] Run migration
+- [x] Task: Implement assignment API and UI
+  - [x] Write tests for assignment CRUD endpoints
+  - [x] Create `/api/classes/[classId]/assignments` endpoints (POST create, GET list, DELETE remove)
+  - [x] Add "Assign" button on teacher lesson preview and curriculum accordion
+  - [x] Add assignment due date picker (optional)
+- [x] Task: Surface assignments in student view
+  - [x] Write tests for student assignment visibility
+  - [x] Add assignment badges to student curriculum view (due date, assigned indicator)
+  - [x] Replace "No assignments yet" placeholder on student dashboard with real assignment list
+- [x] Task: Integrate intervention alerts
+  - [x] Remove `NEXT_PUBLIC_FEATURE_INTERVENTION_ALERTS` feature flag
+  - [x] Move intervention alerts widget to top of teacher dashboard
+  - [x] Add class-level intervention summary on class detail page
+- [x] Task: Measure - Manual Verification 'Assignments'
+  - [x] Verify teacher can assign a lesson from the preview page
+  - [x] Verify assigned lesson shows due date badge in student curriculum view
+  - [x] Verify intervention alerts appear without feature flag

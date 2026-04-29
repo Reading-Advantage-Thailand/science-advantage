@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { CheckCircle2, Circle } from 'lucide-react';
+import { CheckCircle2, Circle, Clock } from 'lucide-react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { AssignButton } from '@/components/features/teacher/assign-button';
 
 interface LessonSummary {
   id: string;
@@ -15,6 +16,12 @@ interface LessonSummary {
   order: number;
   gradeLevel: number;
   completionCount?: number;
+  assignment?: {
+    id: string;
+    lessonId: string;
+    classId: string;
+    dueAt: string | null;
+  };
 }
 
 interface CurriculumUnitSummary {
@@ -30,6 +37,20 @@ interface CurriculumAccordionProps {
   classId: string;
   studentCount: number;
   completionsLoading?: boolean;
+  onAssignmentChange?: (lessonId: string, assignment: { id: string; lessonId: string; classId: string; dueAt: string | null } | null) => void;
+}
+
+function formatDueDate(dueAt: string): string {
+  const date = new Date(dueAt);
+  const now = new Date();
+  const diffMs = date.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0) return 'Overdue';
+  if (diffDays === 0) return 'Due today';
+  if (diffDays === 1) return 'Due tomorrow';
+  if (diffDays <= 7) return `Due in ${diffDays} days`;
+  return `Due ${date.toLocaleDateString()}`;
 }
 
 export function CurriculumAccordion({
@@ -37,6 +58,7 @@ export function CurriculumAccordion({
   classId,
   studentCount,
   completionsLoading = false,
+  onAssignmentChange,
 }: CurriculumAccordionProps) {
   if (units.length === 0) {
     return null;
@@ -73,6 +95,19 @@ export function CurriculumAccordion({
                             Lesson {lesson.order}
                           </p>
                           <p className="text-base font-medium text-gray-900">{lesson.title}</p>
+                          {lesson.assignment && (
+                            <div className="mt-1.5 flex items-center gap-1.5">
+                              <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+                                <Clock className="h-3 w-3 mr-1" />
+                                Assigned
+                              </Badge>
+                              {lesson.assignment.dueAt && (
+                                <span className="text-xs text-muted-foreground">
+                                  {formatDueDate(lesson.assignment.dueAt)}
+                                </span>
+                              )}
+                            </div>
+                          )}
                         </div>
                         <div className="flex shrink-0 items-center gap-2">
                           {completionsLoading ? (
@@ -89,6 +124,19 @@ export function CurriculumAccordion({
                             <CheckCircle2 className="size-5 text-green-500" />
                           ) : (
                             <Circle className="size-5 text-gray-300" />
+                          )}
+                          {onAssignmentChange && (
+                            <div onClick={(e) => e.preventDefault()}>
+                              <AssignButton
+                                classId={classId}
+                                lessonId={lesson.id}
+                                lessonTitle={lesson.title}
+                                existingAssignment={lesson.assignment}
+                                onAssigned={(assignment) => onAssignmentChange(lesson.id, assignment)}
+                                onRemoved={() => onAssignmentChange(lesson.id, null)}
+                                size="sm"
+                              />
+                            </div>
                           )}
                         </div>
                       </div>
