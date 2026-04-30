@@ -6,12 +6,14 @@
     {
       "id": "g3-what-is-energy",
       "slug": "what-is-energy",
-      "title": "What is Energy? / พลังงานคืออะไร?",
+      "title": "What is Energy?",
       "description": "Grade 3 ENERGY ALL AROUND US - Understanding energy as the ability to do work.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nEnergy is the ability to do work. It makes things move, grow, and change. Without energy, nothing in the world could work. In this lesson, you will learn what energy is and why it is important.\n\n## Main Content\n\n**What Is Energy?**\n\nEnergy is the power that makes things happen. The Sun gives energy to Earth. Food gives energy to our bodies. Electricity gives energy to our homes. Energy comes in many forms and is all around us every day.",
       "order": 1,
-      "standards": ["Sc5.1-G3"],
+      "standards": [
+        "Sc5.1-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -47,17 +49,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "พลังงานคืออะไร?"
     },
     {
       "id": "g3-light-energy",
       "slug": "light-energy",
-      "title": "Light Energy / พลังงานแสง",
+      "title": "Light Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Understanding light as a form of energy from the Sun and other sources.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nLight is a form of energy that helps us see the world around us. The Sun is the biggest source of light on Earth. In this lesson, you will learn about light energy and how it works.\n\n## Main Content\n\n**Light Energy**\n\nLight travels in straight lines. It can pass through transparent objects. Light bounces off shiny surfaces. Without light energy, we could not see anything. Light also carries heat energy from the Sun to warm the Earth.",
       "order": 2,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -93,17 +99,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "พลังงานแสง"
     },
     {
       "id": "g3-sound-energy",
       "slug": "sound-energy",
-      "title": "Sound Energy / พลังงานเสียง",
+      "title": "Sound Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Understanding sound as a form of energy created by vibrations.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nSound is another form of energy. It is created by vibrations. When something vibrates, it makes sound waves that travel through the air to our ears. In this lesson, you will learn about sound energy.\n\n## Main Content\n\n**How Sound Works**\n\nSound is made by vibrations. When you pluck a guitar string, it vibrates and makes sound. Sound travels through air, water, and solids. Loud sounds have more energy than soft sounds. High-pitched sounds vibrate faster than low-pitched sounds.",
       "order": 3,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -139,17 +149,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "พลังงานเสียง"
     },
     {
       "id": "g3-heat-energy",
       "slug": "heat-energy",
-      "title": "Heat Energy / พลังงานความร้อน",
+      "title": "Heat Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Understanding heat as a form of energy that causes temperature changes.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nHeat is a form of energy that makes things warm. It flows from hot objects to cold objects. In this lesson, you will learn about heat energy and how it affects the world around us.\n\n## Main Content\n\n**Heat Energy**\n\nHeat energy moves from hot things to cold things. The Sun gives us heat energy. Fire produces heat energy. Our bodies produce heat energy. Heat can change materials: it can melt ice, boil water, and warm food.",
       "order": 4,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -185,17 +199,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "พลังงานความร้อน"
     },
     {
       "id": "g3-energy-sources",
       "slug": "energy-sources",
-      "title": "Energy Sources / แหล่งพลังงาน",
+      "title": "Energy Sources",
       "description": "Grade 3 ENERGY ALL AROUND US - Different sources of energy: Sun, fuel, electricity, and food.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nWhere does our energy come from? Energy comes from many different sources. The Sun is the most important source of energy on Earth. In this lesson, you will learn about different energy sources.\n\n## Main Content\n\n**Types of Energy Sources**\n\nThe Sun is the ultimate source of energy for most life on Earth. Plants use sunlight to make food. We burn fuel like wood, coal, and oil for heat and electricity. Batteries store energy for portable devices. Food gives our bodies the energy we need to live.",
       "order": 5,
-      "standards": ["Sc5.2-G3"],
+      "standards": [
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -231,17 +248,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "แหล่งพลังงาน"
     },
     {
       "id": "g3-energy-conversion",
       "slug": "energy-conversion",
-      "title": "Energy Conversion / การเปลี่ยนแปลงพลังงาน",
+      "title": "Energy Conversion",
       "description": "Grade 3 ENERGY ALL AROUND US - How energy changes from one form to another.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nEnergy can change from one form to another. A light bulb changes electricity into light and heat. Your body changes food energy into movement. In this lesson, you will learn about energy conversion.\n\n## Main Content\n\n**Changing Energy**\n\nEnergy conversion is when energy changes from one form to another. When you turn on a flashlight, electrical energy becomes light energy. When you rub your hands together, movement energy becomes heat energy. Energy is never created or destroyed, it only changes form.",
       "order": 6,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -272,17 +293,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "การเปลี่ยนแปลงพลังงาน"
     },
     {
       "id": "g3-energy-lab",
       "slug": "energy-lab",
-      "title": "Energy Lab / ห้องปฏิบัติการพลังงาน",
+      "title": "Energy Lab",
       "description": "Grade 3 ENERGY ALL AROUND US - Hands-on experiments exploring different forms of energy.",
       "lessonType": "LAB",
       "content": "## Introduction\n\nToday you will explore different forms of energy through hands-on experiments. You will observe light, sound, and heat energy in action.\n\n## Main Content\n\n**Lab Activities**\n\nTest how mirrors reflect light. Use a rubber band to make sound by stretching and releasing it. Feel the heat from a lamp. Record your observations and identify the energy forms you observed.",
       "order": 7,
-      "standards": ["Sc5.1-G3", "Sc8.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc8.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -313,17 +338,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ห้องปฏิบัติการพลังงาน"
     },
     {
       "id": "g3-saving-energy",
       "slug": "saving-energy",
-      "title": "Saving Energy / การประหยัดพลังงาน",
+      "title": "Saving Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Why saving energy is important and how we can conserve it.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nEnergy is valuable, but some energy sources can pollute the environment. Learning to save energy helps protect the Earth. In this lesson, you will learn why saving energy is important and how you can help.\n\n## Main Content\n\n**Why Save Energy?**\n\nSaving energy reduces pollution and helps the environment. You can save energy by turning off lights when you leave a room, using less water, walking instead of driving, and choosing natural light during the day.",
       "order": 8,
-      "standards": ["Sc5.2-G3", "Sc2.3-G3"],
+      "standards": [
+        "Sc5.2-G3",
+        "Sc2.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -354,17 +383,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "การประหยัดพลังงาน"
     },
     {
       "id": "g3-unit-5-review",
       "slug": "unit-5-review",
-      "title": "Unit 5 Review / ทบทวนหน่วย 5",
+      "title": "Unit 5 Review",
       "description": "Grade 3 ENERGY ALL AROUND US - Review activity for forms and sources of energy.",
       "lessonType": "REVIEW",
       "content": "## Review Activity\n\nTest your understanding of energy! Identify different forms of energy, match energy sources to their uses, and demonstrate energy conversion.",
       "order": 9,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -390,17 +423,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ทบทวนหน่วย 5"
     },
     {
       "id": "g3-unit-5-summative-assessment",
       "slug": "unit-5-summative-assessment",
-      "title": "Unit 5 Summative Assessment / แบบทดสอบปลายหน่วย หน่วย 5",
+      "title": "Unit 5 Summative Assessment",
       "description": "Grade 3 ENERGY ALL AROUND US - Summative assessment covering forms, sources, and conservation of energy.",
       "lessonType": "ASSESSMENT",
       "content": "## Summative Assessment\n\nThis assessment covers everything you learned about energy in Unit 5. You will be tested on different forms of energy, energy sources, and energy conservation.",
       "order": 10,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -410,17 +447,21 @@
             "content": "This assessment covers everything you learned about energy in Unit 5. Good luck!"
           }
         ]
-      }
+      },
+      "titleThai": "แบบทดสอบปลายหน่วย หน่วย 5"
     },
     {
       "id": "g3-energy-show",
       "slug": "energy-show",
-      "title": "Energy Show / การแสดงพลังงาน",
+      "title": "Energy Show",
       "description": "Grade 3 ENERGY ALL AROUND US - Presenting energy experiments and demonstrations to classmates.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nShow what you know about energy! Today you will present energy experiments and demonstrations to your classmates. Sharing your learning helps everyone understand energy better.\n\n## Main Content\n\n**Presenting Your Work**\n\nChoose an energy experiment to demonstrate. Explain the energy form involved. Show how energy conversion happens. Answer questions from your classmates. Be a confident science communicator!",
       "order": 11,
-      "standards": ["Sc5.1-G3", "Sc8.1-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc8.1-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -451,17 +492,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "การแสดงพลังงาน"
     },
     {
       "id": "g3-science-journal-energy",
       "slug": "science-journal-energy",
-      "title": "Science Journal: Energy / วารสารวิทยาศาสตร์: พลังงาน",
+      "title": "Science Journal: Energy",
       "description": "Grade 3 ENERGY ALL AROUND US - Recording observations and findings about energy in a science journal.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nToday you will use your science journal to record everything you learned about energy in this unit. Keep detailed records of your observations and experiments.\n\n## Main Content\n\n**Recording Energy Learning**\n\nDraw pictures of different energy forms. Write down examples of energy sources you found. Record your energy experiments and their results. Note any questions you still have about energy.",
       "order": 12,
-      "standards": ["Sc8.3-G3"],
+      "standards": [
+        "Sc8.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -487,7 +531,8 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "วารสารวิทยาศาสตร์: พลังงาน"
     }
   ]
 }

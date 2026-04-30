@@ -12,7 +12,8 @@ import {
   LessonContentSchema,
   type LessonContent,
 } from '@/lib/schemas/lesson-content.schema';
-import { LanguageProvider, useLanguage } from '@/contexts/language-context';
+import { DisplayPreferenceProvider, useDisplayPreference } from '@/contexts/display-preference-context';
+import { DisplayPreferenceSelector } from '@/components/features/lesson/display-preference-selector';
 
 interface Standard {
   id: string;
@@ -53,25 +54,6 @@ interface TeacherLessonPreviewProps {
 }
 
 /**
- * Language toggle button for switching between English and Thai.
- */
-function LanguageToggle() {
-  const { language, setLanguage } = useLanguage();
-  return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => setLanguage(language === 'en' ? 'th' : 'en')}
-      className="gap-2"
-      aria-label={language === 'en' ? 'Switch to Thai' : 'Switch to English'}
-    >
-      <Languages className="h-4 w-4" />
-      {language === 'en' ? 'ไทย' : 'English'}
-    </Button>
-  );
-}
-
-/**
  * Feature flag check for structured content.
  * Note: NEXT_PUBLIC_* variables are inlined at build time,
  * so they're available on both server and client.
@@ -98,10 +80,10 @@ function validateStructuredContent(data: unknown): LessonContent | null {
  */
 function LessonContentRenderer({
   lesson,
-  showThai,
+  displayPreference,
 }: {
   lesson: LessonData['lesson'];
-  showThai: boolean;
+  displayPreference: 'en' | 'th' | 'side-by-side';
 }) {
   const structuredEnabled = isStructuredContentEnabled();
 
@@ -122,7 +104,7 @@ function LessonContentRenderer({
           </div>
         </CardHeader>
         <CardContent>
-          <LessonPlayer content={validatedContent} showThai={showThai} />
+          <LessonPlayer content={validatedContent} displayPreference={displayPreference} />
         </CardContent>
       </Card>
     );
@@ -175,7 +157,7 @@ function PreviewContent({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [assignment, setAssignment] = useState<AssignmentData | null>(null);
-  const { showThai } = useLanguage();
+  const { displayPreference } = useDisplayPreference();
 
   useEffect(() => {
     async function fetchLesson() {
@@ -290,7 +272,7 @@ function PreviewContent({
             onAssigned={setAssignment}
             onRemoved={() => setAssignment(null)}
           />
-          <LanguageToggle />
+          <DisplayPreferenceSelector />
         </div>
       </div>
 
@@ -337,7 +319,7 @@ function PreviewContent({
       )}
 
       {/* Lesson Content */}
-      <LessonContentRenderer lesson={lessonData.lesson} showThai={showThai} />
+      <LessonContentRenderer lesson={lessonData.lesson} displayPreference={displayPreference} />
 
       {/* Standards Covered */}
       {lessonData.standards.length > 0 && (
@@ -396,8 +378,8 @@ function PreviewContent({
  */
 export function TeacherLessonPreview({ classId, lessonSlug }: TeacherLessonPreviewProps) {
   return (
-    <LanguageProvider>
+    <DisplayPreferenceProvider>
       <PreviewContent classId={classId} lessonSlug={lessonSlug} />
-    </LanguageProvider>
+    </DisplayPreferenceProvider>
   );
 }

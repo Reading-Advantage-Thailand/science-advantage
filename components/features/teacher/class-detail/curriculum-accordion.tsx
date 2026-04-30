@@ -12,6 +12,7 @@ interface LessonSummary {
   id: string;
   slug: string;
   title: string;
+  titleThai: string;
   description: string | null;
   order: number;
   gradeLevel: number;
@@ -95,6 +96,9 @@ export function CurriculumAccordion({
                             Lesson {lesson.order}
                           </p>
                           <p className="text-base font-medium text-gray-900">{lesson.title}</p>
+                          {lesson.titleThai && lesson.titleThai !== lesson.title && (
+                            <p className="text-sm text-gray-500">{lesson.titleThai}</p>
+                          )}
                           {lesson.assignment && (
                             <div className="mt-1.5 flex items-center gap-1.5">
                               <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">

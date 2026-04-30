@@ -13,6 +13,7 @@ import type { VocabularyTerm } from '@/lib/schemas/lesson-content.schema';
 export interface VocabularyFlashcardsProps {
   terms: VocabularyTerm[];
   showThai?: boolean;
+  displayPreference?: 'en' | 'th' | 'side-by-side';
   mode?: 'carousel' | 'grid';
   onTermReviewed?: (term: string, recalled: 'easy' | 'hard') => void;
   className?: string;
@@ -21,6 +22,7 @@ export interface VocabularyFlashcardsProps {
 interface FlashcardProps {
   term: VocabularyTerm;
   showThai: boolean;
+  displayPreference?: 'en' | 'th' | 'side-by-side';
   isFlipped: boolean;
   onFlip: () => void;
   onAssess?: (recalled: 'easy' | 'hard') => void;
@@ -65,6 +67,7 @@ function usePrefersReducedMotion(): boolean {
 function Flashcard({
   term,
   showThai,
+  displayPreference,
   isFlipped,
   onFlip,
   onAssess,
@@ -140,13 +143,26 @@ function Flashcard({
           }
           data-testid="flashcard-front"
         >
-          <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">
-            {term.term}
-          </h3>
-          {showThai && term.thai && (
-            <p className="mt-2 text-lg text-gray-600 dark:text-gray-400 text-center">
-              {term.thai}
-            </p>
+          {displayPreference === 'th' && term.thai ? (
+            <>
+              <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">
+                {term.thai}
+              </h3>
+              <p className="mt-2 text-base text-gray-500 dark:text-gray-400 text-center">
+                {term.term}
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">
+                {term.term}
+              </h3>
+              {showThai && term.thai && (
+                <p className="mt-2 text-lg text-gray-600 dark:text-gray-400 text-center">
+                  {term.thai}
+                </p>
+              )}
+            </>
           )}
           <p className="mt-4 text-sm text-gray-500 dark:text-gray-500">
             Click to reveal definition
@@ -278,6 +294,7 @@ function EmptyState({ className }: { className?: string }) {
 export function VocabularyFlashcards({
   terms,
   showThai = false,
+  displayPreference,
   mode = 'carousel',
   onTermReviewed,
   className,
@@ -417,6 +434,7 @@ export function VocabularyFlashcards({
           <Flashcard
             term={currentTerm}
             showThai={showThai}
+            displayPreference={displayPreference}
             isFlipped={isFlipped}
             onFlip={() => handleFlip(currentIndex)}
             onAssess={(recalled) => handleAssess(currentIndex, recalled)}
@@ -509,6 +527,7 @@ export function VocabularyFlashcards({
             <Flashcard
               term={term}
               showThai={showThai}
+              displayPreference={displayPreference}
               isFlipped={flippedCards.has(index)}
               onFlip={() => handleFlip(index)}
               onAssess={(recalled) => handleAssess(index, recalled)}

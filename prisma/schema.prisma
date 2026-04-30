@@ -191,7 +191,9 @@ model Lesson {
   id                String             @id @default(cuid())
   slug              String             @unique
   title             String
+  titleThai         String?
   description       String?
+  descriptionThai   String?
   content           String?
   /// @zod.custom.use(z.any())
   structuredContent Json?              // Structured lesson content (LessonContent schema)

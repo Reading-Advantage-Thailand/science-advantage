@@ -11,6 +11,7 @@ interface MaterialsBlockProps {
 
 /**
  * MaterialsBlock component displays a list of required materials with optional quantities.
+ * When showThai is true, Thai item names appear inline below each English item.
  */
 export function MaterialsBlock({ block, showThai = false, className }: MaterialsBlockProps) {
   return (
@@ -18,6 +19,7 @@ export function MaterialsBlock({ block, showThai = false, className }: Materials
       className={cn('space-y-3', className)}
       data-block-type="materials"
       data-block-id={block.id}
+      data-testid={`materials-block-${block.id ?? 'unknown'}`}
       aria-label="Materials list"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -25,25 +27,35 @@ export function MaterialsBlock({ block, showThai = false, className }: Materials
       </h3>
       <ul className="space-y-2" role="list">
         {block.items.map((material, index) => {
-          const itemName = showThai && material.itemThai ? material.itemThai : material.item;
+          const hasThai = showThai && material.itemThai;
 
           return (
             <li
               key={`${material.item}-${index}`}
-              className="flex items-center gap-3 text-gray-700 dark:text-gray-300"
+              className="flex items-start gap-3 text-gray-700 dark:text-gray-300"
             >
               <span
-                className="h-2 w-2 shrink-0 rounded-full bg-blue-500"
+                className="h-2 w-2 shrink-0 rounded-full bg-blue-500 mt-1.5"
                 aria-hidden="true"
               />
-              <span>
-                {material.quantity && (
-                  <span className="mr-2 font-medium text-gray-900 dark:text-gray-100">
-                    {material.quantity}
-                  </span>
+              <div>
+                <span>
+                  {material.quantity && (
+                    <span className="mr-2 font-medium text-gray-900 dark:text-gray-100">
+                      {material.quantity}
+                    </span>
+                  )}
+                  {material.item}
+                </span>
+                {hasThai && (
+                  <p
+                    className="mt-0.5 text-sm text-gray-500 dark:text-gray-400"
+                    data-thai-item=""
+                  >
+                    {material.itemThai}
+                  </p>
                 )}
-                {itemName}
-              </span>
+              </div>
             </li>
           );
         })}

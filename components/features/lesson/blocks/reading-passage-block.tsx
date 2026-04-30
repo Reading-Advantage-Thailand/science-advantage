@@ -7,16 +7,17 @@ import type { ReadingPassageBlock as ReadingPassageBlockType } from '@/lib/schem
 interface ReadingPassageBlockProps {
   block: ReadingPassageBlockType;
   showThai?: boolean;
+  displayPreference?: 'en' | 'th' | 'side-by-side';
   className?: string;
 }
 
 /**
  * ReadingPassageBlock component displays longer text content with distinct styling.
- * Features a warm amber background, title, content, and word count badge.
+ * Supports English-only, Thai-primary, and side-by-side display modes.
  */
-export function ReadingPassageBlock({ block, showThai = false, className }: ReadingPassageBlockProps) {
-  const title = showThai && block.titleThai ? block.titleThai : block.title;
-  const content = showThai && block.contentThai ? block.contentThai : block.content;
+export function ReadingPassageBlock({ block, showThai = false, displayPreference, className }: ReadingPassageBlockProps) {
+  const hasThaiTitle = block.titleThai;
+  const isThaiPrimary = displayPreference === 'th';
 
   return (
     <article
@@ -26,12 +27,36 @@ export function ReadingPassageBlock({ block, showThai = false, className }: Read
       )}
       data-block-type="reading_passage"
       data-block-id={block.id}
-      aria-label={`Reading passage: ${title}`}
+      data-testid={`reading-passage-block-${block.id ?? 'unknown'}`}
+      aria-label={`Reading passage: ${isThaiPrimary && hasThaiTitle ? block.titleThai : block.title}`}
     >
       <header className="mb-4 flex items-start justify-between gap-4">
-        <h3 className="text-xl font-semibold text-amber-900 dark:text-amber-100">
-          {title}
-        </h3>
+        <div>
+          {isThaiPrimary && hasThaiTitle ? (
+            <>
+              <h3 className="text-xl font-semibold text-amber-900 dark:text-amber-100">
+                {block.titleThai}
+              </h3>
+              <p className="mt-1 text-base text-gray-500 dark:text-gray-400">
+                {block.title}
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className="text-xl font-semibold text-amber-900 dark:text-amber-100">
+                {block.title}
+              </h3>
+              {showThai && hasThaiTitle && (
+                <p
+                  className="mt-1 text-base text-gray-500 dark:text-gray-400"
+                  data-thai-title=""
+                >
+                  {block.titleThai}
+                </p>
+              )}
+            </>
+          )}
+        </div>
         <Badge
           variant="secondary"
           className="shrink-0 bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-200"
@@ -40,7 +65,7 @@ export function ReadingPassageBlock({ block, showThai = false, className }: Read
         </Badge>
       </header>
       <div className="prose prose-sm max-w-none text-amber-900 dark:prose-invert dark:text-amber-100">
-        <p className="whitespace-pre-wrap">{content}</p>
+        <p className="whitespace-pre-wrap">{block.content}</p>
       </div>
     </article>
   );

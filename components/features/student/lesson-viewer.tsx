@@ -55,7 +55,10 @@ interface LessonViewerProps {
   progress?: LessonProgressSummary | null;
   progressLoading?: boolean;
   onStartQuiz?: () => void;
+  /** Show Thai translations when available */
   showThai?: boolean;
+  /** Display preference mode: 'en', 'th', or 'side-by-side' */
+  displayPreference?: 'en' | 'th' | 'side-by-side';
 }
 
 const PROGRESS_STATUS_META: Record<
@@ -122,10 +125,10 @@ function validateStructuredContent(data: unknown): LessonContent | null {
  */
 function LessonContentRenderer({
   lesson,
-  showThai,
+  displayPreference,
 }: {
   lesson: LessonData['lesson'];
-  showThai: boolean;
+  displayPreference?: 'en' | 'th' | 'side-by-side';
 }) {
   // Check if structured content is enabled and available
   const structuredEnabled = isStructuredContentEnabled();
@@ -137,7 +140,7 @@ function LessonContentRenderer({
 
   if (validatedContent) {
     return (
-      <LessonPlayer content={validatedContent} showThai={showThai} />
+      <LessonPlayer content={validatedContent} displayPreference={displayPreference} />
     );
   }
 
@@ -168,7 +171,7 @@ function LessonContentRenderer({
   );
 }
 
-export function LessonViewer({ classId, lessonSlug, progress, progressLoading = false, onStartQuiz, showThai = false }: LessonViewerProps) {
+export function LessonViewer({ classId, lessonSlug, progress, progressLoading = false, onStartQuiz, showThai, displayPreference }: LessonViewerProps) {
   const router = useRouter();
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -327,7 +330,7 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
       {/* Lesson Content */}
       <LessonContentRenderer
         lesson={lessonData.lesson}
-        showThai={showThai}
+        displayPreference={displayPreference}
       />
 
       {/* Lesson Progress & Quiz CTA */}

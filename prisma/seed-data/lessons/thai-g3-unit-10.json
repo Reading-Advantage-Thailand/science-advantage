@@ -6,12 +6,19 @@
     {
       "id": "g3-strands-12-review",
       "slug": "strands-12-review",
-      "title": "Strands 1-2 Review / ทบทวน Strands 1-2",
+      "title": "Strands 1-2 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Review of Strand 1 (Characteristics of Living Things) and Strand 2 (Environments & Habitats).",
       "lessonType": "REVIEW",
       "content": "## Review Activity\n\nLet us review what we learned in Strands 1 and 2! Strand 1 covered the characteristics of living things and how to classify them. Strand 2 covered environments, habitats, food chains, and conservation.",
       "order": 1,
-      "standards": ["Sc1.1-G3", "Sc1.2-G3", "Sc1.3-G3", "Sc2.1-G3", "Sc2.2-G3", "Sc2.3-G3"],
+      "standards": [
+        "Sc1.1-G3",
+        "Sc1.2-G3",
+        "Sc1.3-G3",
+        "Sc2.1-G3",
+        "Sc2.2-G3",
+        "Sc2.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -47,17 +54,23 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ทบทวน Strands 1-2"
     },
     {
       "id": "g3-strands-34-review",
       "slug": "strands-34-review",
-      "title": "Strands 3-4 Review / ทบทวน Strands 3-4",
+      "title": "Strands 3-4 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Review of Strand 3 (Matter & Materials) and Strand 4 (Forces & Motion).",
       "lessonType": "REVIEW",
       "content": "## Review Activity\n\nLet us review Strands 3 and 4! Strand 3 covered matter and materials including properties and states of matter. Strand 4 covered forces and motion including push, pull, and balanced forces.",
       "order": 2,
-      "standards": ["Sc3.1-G3", "Sc3.2-G3", "Sc4.1-G3", "Sc4.2-G3"],
+      "standards": [
+        "Sc3.1-G3",
+        "Sc3.2-G3",
+        "Sc4.1-G3",
+        "Sc4.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -93,17 +106,24 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ทบทวน Strands 3-4"
     },
     {
       "id": "g3-strands-56-review",
       "slug": "strands-56-review",
-      "title": "Strands 5-6 Review / ทบทวน Strands 5-6",
+      "title": "Strands 5-6 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Review of Strand 5 (Energy) and Strand 6 (Our Changing Earth).",
       "lessonType": "REVIEW",
       "content": "## Review Activity\n\nLet us review Strands 5 and 6! Strand 5 covered different forms of energy and energy sources. Strand 6 covered Earth's surface features, weather, and day and night.",
       "order": 3,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3", "Sc6.1-G3", "Sc6.2-G3", "Sc6.3-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3",
+        "Sc6.1-G3",
+        "Sc6.2-G3",
+        "Sc6.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -139,17 +159,25 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ทบทวน Strands 5-6"
     },
     {
       "id": "g3-strands-78-review",
       "slug": "strands-78-review",
-      "title": "Strands 7-8 Review / ทบทวน Strands 7-8",
+      "title": "Strands 7-8 Review",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Review of Strand 7 (The Sky Above) and Strand 8 (Scientific Method).",
       "lessonType": "REVIEW",
       "content": "## Review Activity\n\nLet us review Strands 7 and 8! Strand 7 covered the Sun, Earth, Moon, and moon phases. Strand 8 covered the scientific method and science tools.",
       "order": 4,
-      "standards": ["Sc7.1-G3", "Sc7.2-G3", "Sc7.3-G3", "Sc8.1-G3", "Sc8.2-G3", "Sc8.3-G3"],
+      "standards": [
+        "Sc7.1-G3",
+        "Sc7.2-G3",
+        "Sc7.3-G3",
+        "Sc8.1-G3",
+        "Sc8.2-G3",
+        "Sc8.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -185,17 +213,29 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ทบทวน Strands 7-8"
     },
     {
       "id": "g3-final-assessment-strands-14",
       "slug": "final-assessment-strands-14",
-      "title": "Final Assessment: Strands 1-4 / แบบทดสอบสุดท้าย: Strands 1-4",
+      "title": "Final Assessment: Strands 1-4",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final assessment covering Strands 1 through 4.",
       "lessonType": "ASSESSMENT",
       "content": "## Final Assessment\n\nThis assessment covers Strands 1 through 4. You will be tested on characteristics of living things, environments and habitats, matter and materials, and forces and motion.",
       "order": 5,
-      "standards": ["Sc1.1-G3", "Sc1.2-G3", "Sc1.3-G3", "Sc2.1-G3", "Sc2.2-G3", "Sc2.3-G3", "Sc3.1-G3", "Sc3.2-G3", "Sc4.1-G3", "Sc4.2-G3"],
+      "standards": [
+        "Sc1.1-G3",
+        "Sc1.2-G3",
+        "Sc1.3-G3",
+        "Sc2.1-G3",
+        "Sc2.2-G3",
+        "Sc2.3-G3",
+        "Sc3.1-G3",
+        "Sc3.2-G3",
+        "Sc4.1-G3",
+        "Sc4.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -205,17 +245,30 @@
             "content": "This assessment covers Strands 1 through 4. Good luck!"
           }
         ]
-      }
+      },
+      "titleThai": "แบบทดสอบสุดท้าย: Strands 1-4"
     },
     {
       "id": "g3-final-assessment-strands-58",
       "slug": "final-assessment-strands-58",
-      "title": "Final Assessment: Strands 5-8 / แบบทดสอบสุดท้าย: Strands 5-8",
+      "title": "Final Assessment: Strands 5-8",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Final assessment covering Strands 5 through 8.",
       "lessonType": "ASSESSMENT",
       "content": "## Final Assessment\n\nThis assessment covers Strands 5 through 8. You will be tested on energy, our changing Earth, the sky above, and the scientific method.",
       "order": 6,
-      "standards": ["Sc5.1-G3", "Sc5.2-G3", "Sc6.1-G3", "Sc6.2-G3", "Sc6.3-G3", "Sc7.1-G3", "Sc7.2-G3", "Sc7.3-G3", "Sc8.1-G3", "Sc8.2-G3", "Sc8.3-G3"],
+      "standards": [
+        "Sc5.1-G3",
+        "Sc5.2-G3",
+        "Sc6.1-G3",
+        "Sc6.2-G3",
+        "Sc6.3-G3",
+        "Sc7.1-G3",
+        "Sc7.2-G3",
+        "Sc7.3-G3",
+        "Sc8.1-G3",
+        "Sc8.2-G3",
+        "Sc8.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -225,17 +278,20 @@
             "content": "This assessment covers Strands 5 through 8. Good luck!"
           }
         ]
-      }
+      },
+      "titleThai": "แบบทดสอบสุดท้าย: Strands 5-8"
     },
     {
       "id": "g3-year-celebration",
       "slug": "year-celebration",
-      "title": "Year Celebration / ฉลองปลายปี",
+      "title": "Year Celebration",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Celebrating a year of science learning and growth.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nCongratulations! You have completed Grade 3 science! This lesson is a celebration of all the amazing things you learned this year. Take a moment to reflect on your growth as a scientist.\n\n## Main Content\n\n**Look How Far You Have Come**\n\nThis year, you learned about living things, habitats, materials, forces, energy, the sky, and the scientific method. You conducted experiments, made observations, and drew conclusions. You are now a more skilled and knowledgeable scientist!",
       "order": 7,
-      "standards": ["Sc8.1-G3"],
+      "standards": [
+        "Sc8.1-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -266,17 +322,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ฉลองปลายปี"
     },
     {
       "id": "g3-science-portfolio",
       "slug": "science-portfolio",
-      "title": "Science Portfolio / แฟ้มสะสมผลงานวิทยาศาสตร์",
+      "title": "Science Portfolio",
       "description": "Grade 3 FINAL ASSESSMENT & CLOSURE - Creating a portfolio of your best science work from the year.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nCreate a portfolio of your best science work from this year. Include your favorite experiments, observations, drawings, and journal entries. This portfolio shows your growth as a scientist.\n\n## Main Content\nn**What to Include**\n\nSelect your best work from each strand. Include lab reports, drawings, and journal entries. Write a reflection about what you learned. Share your portfolio with your classmates and family.",
       "order": 8,
-      "standards": ["Sc8.3-G3"],
+      "standards": [
+        "Sc8.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -307,7 +366,8 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "แฟ้มสะสมผลงานวิทยาศาสตร์"
     }
   ]
 }

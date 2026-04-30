@@ -7,6 +7,7 @@ import type { VocabularyBlock as VocabularyBlockType } from '@/lib/schemas/lesso
 interface VocabularyBlockProps {
   block: VocabularyBlockType;
   showThai?: boolean;
+  displayPreference?: 'en' | 'th' | 'side-by-side';
   className?: string;
   mode?: 'carousel' | 'grid';
   onTermReviewed?: (term: string, recalled: 'easy' | 'hard') => void;
@@ -25,6 +26,7 @@ interface VocabularyBlockProps {
 export function VocabularyBlock({
   block,
   showThai = false,
+  displayPreference,
   className,
   mode = 'carousel',
   onTermReviewed,
@@ -38,6 +40,7 @@ export function VocabularyBlock({
       <VocabularyFlashcards
         terms={block.terms}
         showThai={showThai}
+        displayPreference={displayPreference}
         mode={mode}
         onTermReviewed={onTermReviewed}
       />

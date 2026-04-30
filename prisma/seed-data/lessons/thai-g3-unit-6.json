@@ -6,12 +6,14 @@
     {
       "id": "g3-land-and-water",
       "slug": "land-and-water",
-      "title": "Land and Water / แผ่นดินและน้ำ",
+      "title": "Land and Water",
       "description": "Grade 3 OUR CHANGING EARTH - Understanding the major features of Earth's surface: land and water.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nEarth's surface is made up of land and water. About seventy percent of Earth's surface is covered by water, mainly in oceans. The remaining thirty percent is land. In this lesson, you will learn about Earth's land and water features.\n\n## Main Content\n\n**Land Features**\n\nEarth's land includes mountains, hills, plains, valleys, and deserts. Mountains are the highest land features. Plains are flat areas. Valleys are low areas between mountains. Deserts are dry areas with very little rain.",
       "order": 1,
-      "standards": ["Sc6.1-G3"],
+      "standards": [
+        "Sc6.1-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -52,17 +54,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "แผ่นดินและน้ำ"
     },
     {
       "id": "g3-rocks-and-soil",
       "slug": "rocks-and-soil",
-      "title": "Rocks and Soil / หินและดิน",
+      "title": "Rocks and Soil",
       "description": "Grade 3 OUR CHANGING EARTH - Understanding the composition and types of rocks and soil.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nThe ground beneath our feet is made of rocks and soil. Rocks come in many sizes, shapes, and colors. Soil is made from tiny pieces of broken rock mixed with living things. In this lesson, you will learn about rocks and soil.\n\n## Main Content\n\n**Types of Rocks**\n\nThere are three main types of rocks: igneous rocks formed from cooled lava, sedimentary rocks formed from layers of sediment, and metamorphic rocks changed by heat and pressure. Soil is made from weathered rock pieces mixed with decaying plants and animals.",
       "order": 2,
-      "standards": ["Sc6.1-G3"],
+      "standards": [
+        "Sc6.1-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -98,17 +103,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "หินและดิน"
     },
     {
       "id": "g3-weather-patterns",
       "slug": "weather-patterns",
-      "title": "Weather Patterns / รูปแบบสภาพอากาศ",
+      "title": "Weather Patterns",
       "description": "Grade 3 OUR CHANGING EARTH - Observing and recording weather patterns.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nWeather is the condition of the air outside at a particular time and place. Weather changes every day. In this lesson, you will learn about different types of weather and how to observe and record weather patterns.\n\n## Main Content\n\n**Types of Weather**\n\nSunny weather means the sky is clear and bright. Cloudy weather means the sky is covered with clouds. Rainy weather means water falls from clouds. Stormy weather includes strong wind and rain. Weather affects what we wear, what we do, and how we feel.",
       "order": 3,
-      "standards": ["Sc6.2-G3"],
+      "standards": [
+        "Sc6.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -144,17 +152,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "รูปแบบสภาพอากาศ"
     },
     {
       "id": "g3-day-and-night",
       "slug": "day-and-night",
-      "title": "Day and Night / กลางวันและกลางคืน",
+      "title": "Day and Night",
       "description": "Grade 3 OUR CHANGING EARTH - Understanding the causes of day and night through Earth's rotation.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nWhy does the Sun rise every morning and set every evening? Why do we have day and night? The answer lies in how Earth moves. In this lesson, you will learn what causes day and night.\n\n## Main Content\n\n**Earth's Rotation**\n\nEarth spins on an axis like a top. This spinning is called rotation. It takes about twenty-four hours for Earth to complete one full rotation. The side of Earth facing the Sun has day. The side facing away from the Sun has night.",
       "order": 4,
-      "standards": ["Sc6.3-G3"],
+      "standards": [
+        "Sc6.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -190,17 +201,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "กลางวันและกลางคืน"
     },
     {
       "id": "g3-weather-observation",
       "slug": "weather-observation",
-      "title": "Weather Observation / การสังเกตสภาพอากาศ",
+      "title": "Weather Observation",
       "description": "Grade 3 OUR CHANGING EARTH - Hands-on weather observation and recording activity.",
       "lessonType": "LAB",
       "content": "## Introduction\n\nToday you will become a weather scientist! You will observe the weather outside and record your observations using scientific tools and methods.\n\n## Main Content\n\n**Weather Observation Activity**\n\nUse a thermometer to measure temperature. Observe the sky and clouds. Check the direction of the wind. Record all your observations in a weather journal. Compare your observations with the weather forecast.",
       "order": 5,
-      "standards": ["Sc6.2-G3", "Sc8.2-G3"],
+      "standards": [
+        "Sc6.2-G3",
+        "Sc8.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -231,17 +246,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "การสังเกตสภาพอากาศ"
     },
     {
       "id": "g3-changing-earth",
       "slug": "changing-earth",
-      "title": "Changing Earth / โลกที่เปลี่ยนแปลง",
+      "title": "Changing Earth",
       "description": "Grade 3 OUR CHANGING EARTH - How Earth's surface changes over time through erosion, weathering, and volcanic activity.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nEarth's surface is always changing. Wind, water, and ice slowly wear away rocks and shape the land. Volcanoes can create new land. In this lesson, you will learn how Earth changes over time.\n\n## Main Content\n\n**How Earth Changes**\n\nErosion is when wind and water move rocks and soil from one place to another. Weathering breaks rocks into smaller pieces. Rivers can carve valleys. Waves shape coastlines. These changes happen slowly over thousands of years, but they constantly reshape our planet.",
       "order": 6,
-      "standards": ["Sc6.1-G3", "Sc6.2-G3"],
+      "standards": [
+        "Sc6.1-G3",
+        "Sc6.2-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -272,17 +291,21 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "โลกที่เปลี่ยนแปลง"
     },
     {
       "id": "g3-earth-model",
       "slug": "earth-model",
-      "title": "Earth Model / แบบจำลองโลก",
+      "title": "Earth Model",
       "description": "Grade 3 OUR CHANGING EARTH - Creating a model of Earth showing land and water features.",
       "lessonType": "LAB",
       "content": "## Introduction\n\nCreate a 3D model of Earth! Your model should show major land features like mountains, plains, and deserts, as well as water features like oceans and rivers.\n\n## Main Content\n\n**Model Building**\n\nUse clay, paint, and other materials to build your Earth model. Identify the continents and oceans. Label major landforms. Add details like rivers, lakes, and mountain ranges. Present your model and explain the features you included.",
       "order": 7,
-      "standards": ["Sc6.1-G3", "Sc8.1-G3"],
+      "standards": [
+        "Sc6.1-G3",
+        "Sc8.1-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -313,17 +336,22 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "แบบจำลองโลก"
     },
     {
       "id": "g3-unit-6-review",
       "slug": "unit-6-review",
-      "title": "Unit 6 Review / ทบทวนหน่วย 6",
+      "title": "Unit 6 Review",
       "description": "Grade 3 OUR CHANGING EARTH - Review activity for Earth's surface features, weather, and day/night.",
       "lessonType": "REVIEW",
       "content": "## Review Activity\n\nTest your knowledge of Earth's features, weather patterns, and day and night! Identify landforms, read weather instruments, and explain Earth's rotation.",
       "order": 8,
-      "standards": ["Sc6.1-G3", "Sc6.2-G3", "Sc6.3-G3"],
+      "standards": [
+        "Sc6.1-G3",
+        "Sc6.2-G3",
+        "Sc6.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -349,17 +377,22 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "ทบทวนหน่วย 6"
     },
     {
       "id": "g3-unit-6-summative-assessment",
       "slug": "unit-6-summative-assessment",
-      "title": "Unit 6 Summative Assessment / แบบทดสอบปลายหน่วย หน่วย 6",
+      "title": "Unit 6 Summative Assessment",
       "description": "Grade 3 OUR CHANGING EARTH - Summative assessment covering landforms, weather, and Earth's rotation.",
       "lessonType": "ASSESSMENT",
       "content": "## Summative Assessment\n\nThis assessment covers everything you learned about Earth's surface, weather, and day and night in Unit 6.",
       "order": 9,
-      "standards": ["Sc6.1-G3", "Sc6.2-G3", "Sc6.3-G3"],
+      "standards": [
+        "Sc6.1-G3",
+        "Sc6.2-G3",
+        "Sc6.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -369,17 +402,21 @@
             "content": "This assessment covers everything you learned about Earth's surface, weather, and day and night in Unit 6. Good luck!"
           }
         ]
-      }
+      },
+      "titleThai": "แบบทดสอบปลายหน่วย หน่วย 6"
     },
     {
       "id": "g3-weather-week",
       "slug": "weather-week",
-      "title": "Weather Week / สัปดาห์สภาพอากาศ",
+      "title": "Weather Week",
       "description": "Grade 3 OUR CHANGING EARTH - Recording weather observations for one week and identifying patterns.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nFor this activity, you will observe and record the weather every day for one week. At the end of the week, you will look for patterns in your data.\n\n## Main Content\n\n**Recording Weather for a Week**\n\nEach day, observe the sky, measure the temperature, and record the weather type. At the end of the week, create a chart showing all your observations. Look for patterns in temperature and weather conditions.",
       "order": 10,
-      "standards": ["Sc6.2-G3", "Sc8.3-G3"],
+      "standards": [
+        "Sc6.2-G3",
+        "Sc8.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -410,17 +447,20 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "สัปดาห์สภาพอากาศ"
     },
     {
       "id": "g3-science-journal-earth",
       "slug": "science-journal-earth",
-      "title": "Science Journal: Earth / วารสารวิทยาศาสตร์: โลก",
+      "title": "Science Journal: Earth",
       "description": "Grade 3 OUR CHANGING EARTH - Recording observations and findings about Earth in a science journal.",
       "lessonType": "LESSON",
       "content": "## Introduction\n\nToday you will use your science journal to record everything you learned about Earth's surface, weather, and day and night.\n\n## Main Content\n\n**Recording Earth Learning**\n\nDraw maps showing land and water features. Record weather observations and patterns. Write down what you learned about day and night. Include any questions you still have about our changing Earth.",
       "order": 11,
-      "standards": ["Sc8.3-G3"],
+      "standards": [
+        "Sc8.3-G3"
+      ],
       "structuredContent": {
         "version": 1,
         "blocks": [
@@ -446,7 +486,8 @@
             ]
           }
         ]
-      }
+      },
+      "titleThai": "วารสารวิทยาศาสตร์: โลก"
     }
   ]
 }

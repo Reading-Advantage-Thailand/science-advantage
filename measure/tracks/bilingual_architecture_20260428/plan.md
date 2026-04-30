@@ -2,38 +2,38 @@
 
 ## Phase 1: Database Schema and Migration
 
-- [ ] Task: Add Thai fields to Lesson model
-  - [ ] Write tests for new fields (titleThai, descriptionThai nullable strings)
-  - [ ] Add `titleThai` and `descriptionThai` fields to Prisma `Lesson` model
-  - [ ] Create and run Prisma migration
-  - [ ] Verify existing data is not broken (fields are nullable)
-- [ ] Task: Backfill Thai titles from convention
-  - [ ] Write a migration script that parses "English / ไทย" title convention
-  - [ ] Split on " / " delimiter, assign left to `title`, right to `titleThai`
-  - [ ] Handle edge cases: no Thai portion (set titleThai to null), multiple " / " (split on first occurrence only)
-  - [ ] Run backfill and verify results
-- [ ] Task: Update seed functions for Thai fields
-  - [ ] Update `seedLessons()` to populate `titleThai` and `descriptionThai` directly
-  - [ ] Update lesson seed JSON files to include explicit `titleThai` field
-  - [ ] Verify seed produces correct bilingual data
+- [x] Task: Add Thai fields to Lesson model
+  - [x] Write tests for new fields (titleThai, descriptionThai nullable strings)
+  - [x] Add `titleThai` and `descriptionThai` fields to Prisma `Lesson` model
+  - [x] Create and run Prisma migration
+  - [x] Verify existing data is not broken (fields are nullable)
+- [x] Task: Backfill Thai titles from convention
+  - [x] Write a migration script that parses "English / ไทย" title convention
+  - [x] Split on " / " delimiter, assign left to `title`, right to `titleThai`
+  - [x] Handle edge cases: no Thai portion (set titleThai to null), multiple " / " (split on first occurrence only)
+  - [x] Run backfill and verify results
+- [x] Task: Update seed functions for Thai fields
+  - [x] Update `seedLessons()` to populate `titleThai` and `descriptionThai` directly
+  - [x] Update lesson seed JSON files to include explicit `titleThai` field
+  - [x] Verify seed produces correct bilingual data
 
 ## Phase 2: Side-by-Side Block Rendering
 
-- [ ] Task: Update TextBlock for side-by-side rendering
-  - [ ] Write tests for TextBlock with both languages present
-  - [ ] Modify `TextBlock` to render Thai content below English content with a subtle divider
-  - [ ] Thai content uses smaller text size or muted color to maintain visual hierarchy
-  - [ ] When only one language exists, show only that language (no empty Thai placeholder)
-- [ ] Task: Update VocabularyBlock for bilingual display
-  - [ ] Write tests for vocabulary flashcard showing Thai term alongside English
-  - [ ] Modify vocabulary flashcard front to show both `term` and `thai` fields
-  - [ ] Definition remains in the display language
-- [ ] Task: Update ReadingPassageBlock for bilingual titles
-  - [ ] Show Thai title alongside English title
-  - [ ] Content remains in display language (long-form reading toggle still works)
-- [ ] Task: Update ProcedureBlock and MaterialsBlock
-  - [ ] Show Thai instruction/item alongside English on each step/material
-  - [ ] Use compact inline layout (Thai in parentheses or smaller text below)
+- [x] Task: Update TextBlock for side-by-side rendering
+  - [x] Write tests for TextBlock with both languages present
+  - [x] Modify `TextBlock` to render Thai content below English content with a subtle divider
+  - [x] Thai content uses smaller text size or muted color to maintain visual hierarchy
+  - [x] When only one language exists, show only that language (no empty Thai placeholder)
+- [x] Task: Update VocabularyBlock for bilingual display
+  - [x] Write tests for vocabulary flashcard showing Thai term alongside English
+  - [x] Modify vocabulary flashcard front to show both `term` and `thai` fields
+  - [x] Definition remains in the display language
+- [x] Task: Update ReadingPassageBlock for bilingual titles
+  - [x] Show Thai title alongside English title
+  - [x] Content remains in display language (long-form reading toggle still works)
+- [x] Task: Update ProcedureBlock and MaterialsBlock
+  - [x] Show Thai instruction/item alongside English on each step/material
+  - [x] Use compact inline layout (Thai in parentheses or smaller text below)
 - [ ] Task: Measure - Manual Verification 'Side-by-Side'
   - [ ] Verify text blocks show Thai below English
   - [ ] Verify vocabulary flashcards show Thai terms

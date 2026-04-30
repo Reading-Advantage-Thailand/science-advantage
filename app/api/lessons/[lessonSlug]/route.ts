@@ -93,11 +93,15 @@ export async function GET(request: NextRequest, context: LessonRouteContext) {
         id: lesson.id,
         slug: lesson.id, // TODO: Replace with dedicated slug when available
         title: lesson.title,
-        titleThai: lesson.title, // TODO: Surface localized title when schema supports it
+        titleThai: lesson.titleThai ?? lesson.title,
         content: lesson.content ?? '',
-        contentThai: lesson.content ?? '', // TODO: Surface localized content when available
+        contentThai: lesson.content ?? '',
         objectives: lesson.description ? [lesson.description] : [],
-        objectivesThai: lesson.description ? [lesson.description] : [],
+        objectivesThai: lesson.descriptionThai
+          ? [lesson.descriptionThai]
+          : lesson.description
+            ? [lesson.description]
+            : [],
         structuredContent: hasStructuredContent ? lesson.structuredContent : undefined,
         contentType: hasStructuredContent ? 'structured' : 'legacy',
         contentVersion: hasStructuredContent ? 1 : undefined,

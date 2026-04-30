@@ -123,7 +123,7 @@ export async function GET(
             id: lesson.id,
             slug: lesson.id, // TODO: Use slug field when schema supports it
             title: lesson.title,
-            titleThai: lesson.title, // TODO: Add Thai translations when schema supports it
+            titleThai: lesson.titleThai ?? lesson.title,
             order: lesson.order,
             completed: status === 'COMPLETED',
             started: status !== 'NOT_STARTED',

@@ -1,45 +1,32 @@
-# Student Engagement Loop — Phase 3 Plan
+# Student Engagement Loop — Phase 4 Plan
 
-## Phase 3: Celebration Animations
+## Phase 4: Dashboard and Profile Integration
 
-### Task 1: Confetti celebration component
-- [x] Create `components/features/gamification/confetti-celebration.tsx`
-- [x] Canvas-based confetti with requestAnimationFrame
-- [x] Props: trigger, intensity, onComplete
-- [x] Intensity maps to particle count: low=20, medium=50, high=80
-- [x] Design-system colors for particles
-- [x] 3-second duration with fade-out
-- [x] Respects prefers-reduced-motion
-- [x] Cleanup animation frame on unmount
+### Task 1: GamificationDashboardCard component
+- [x] Create `components/features/student/gamification-dashboard-card.tsx`
+- [x] XP counter with level badge (thematic name like "Explorer")
+- [x] XP progress bar toward next level (smooth fill via Radix Progress)
+- [x] Current streak display with Flame icon
+- [x] Recent achievements row showing last 3 unlocked badges
+- [x] "View All Badges" link to profile
+- [x] Fetches data from `/api/students/me/gamification`
+- [x] Loading skeleton state, error state
 
-### Task 2: Progress bar fill animation
-- [x] CSS class `.xp-progress-fill` with `transition: width 1s ease-out`
-- [x] Added to `app/globals.css`
+### Task 2: Gamification API endpoint
+- [x] Create `app/api/students/me/gamification/route.ts`
+- [x] GET endpoint returns: xp, level, levelName, streak, recentAchievements (last 3), totalAchievements
+- [x] Requires student auth via `getCurrentSession()`
+- [x] Uses GamificationProfile and Achievement models
+- [x] Returns 404 if no gamification profile exists
 
-### Task 3: Badge unlock animation component
-- [x] Create `components/features/gamification/badge-unlock-animation.tsx`
-- [x] Bounce-in scale animation (CSS keyframes)
-- [x] Glow pulse effect behind badge
-- [x] Shows badge name and description
-- [x] Auto-dismiss after 4 seconds or click to dismiss
-- [x] Respects prefers-reduced-motion
+### Task 3: Student dashboard integration
+- [x] `app/(student)/student/page.tsx` imports GamificationDashboardCard
+- [x] Card displayed in Progress section of dashboard
+- [x] Existing class cards and other sections preserved
 
-### Task 4: Level-up animation component
-- [x] Create `components/features/gamification/level-up-animation.tsx`
-- [x] Full-screen overlay with backdrop
-- [x] Old level → arrow → new level display
-- [x] CSS particle-burst circles
-- [x] Auto-dismiss after 5 seconds or click to dismiss
-- [x] Respects prefers-reduced-motion
-
-### Task 5: Wire celebrations into quiz results
-- [x] QuizPlayer imports all three celebration components
-- [x] Confetti triggered based on score percentage
-- [x] Level-up shown when levelUp is true
-- [x] Badge queue shown for each unlocked badge
-- [x] Streak milestone toast via sonner
-
-### Task 6: Tests
-- [x] ConfettiCelebration tests (5 tests)
-- [x] BadgeUnlockAnimation tests (7 tests)
-- [x] LevelUpAnimation tests (10 tests)
+### Task 4: Badges section on student profile
+- [x] `StudentBadgesSection` component exists at `components/features/student/mastery-profile/student-badges-section.tsx`
+- [x] Shows all earned badges in grid with icon, name, description, unlock date
+- [x] Shows locked badges as grayed-out with "Locked" badge
+- [x] Fetches achievements from `/api/students/[studentId]/achievements`
+- [x] Wired into `StudentMasteryProfile` component

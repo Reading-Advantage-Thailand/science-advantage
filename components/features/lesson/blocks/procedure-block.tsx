@@ -19,7 +19,7 @@ interface StepItemProps {
 }
 
 function StepItem({ step, showThai, isChecked, onToggle }: StepItemProps) {
-  const instruction = showThai && step.instructionThai ? step.instructionThai : step.instruction;
+  const hasThai = showThai && step.instructionThai;
   const stepId = `step-${step.stepNumber}`;
 
   return (
@@ -52,8 +52,16 @@ function StepItem({ step, showThai, isChecked, onToggle }: StepItemProps) {
               isChecked && 'text-gray-500 line-through dark:text-gray-400'
             )}
           >
-            {instruction}
+            {step.instruction}
           </label>
+          {hasThai && (
+            <p
+              className="mt-0.5 text-sm text-gray-500 dark:text-gray-400"
+              data-thai-instruction=""
+            >
+              {step.instructionThai}
+            </p>
+          )}
           {step.subSteps && step.subSteps.length > 0 && (
             <ul className="mt-2 ml-6 space-y-1" aria-label="Sub-steps">
               {step.subSteps.map((subStep, index) => (
@@ -78,7 +86,7 @@ function StepItem({ step, showThai, isChecked, onToggle }: StepItemProps) {
 
 /**
  * ProcedureBlock component displays step-by-step instructions as an interactive checklist.
- * Users can check off completed steps. State is local only (not persisted).
+ * When showThai is true, Thai instructions appear inline below each English instruction.
  */
 export function ProcedureBlock({ block, showThai = false, className }: ProcedureBlockProps) {
   const [checkedSteps, setCheckedSteps] = useState<Set<number>>(new Set());
@@ -100,6 +108,7 @@ export function ProcedureBlock({ block, showThai = false, className }: Procedure
       className={cn('space-y-4', className)}
       data-block-type="procedure"
       data-block-id={block.id}
+      data-testid={`procedure-block-${block.id ?? 'unknown'}`}
       aria-label="Procedure steps"
     >
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">

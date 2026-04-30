@@ -4,8 +4,9 @@ import { useState, useEffect, useCallback, use } from 'react';
 import { LessonViewer } from '@/components/features/student/lesson-viewer';
 import { QuizPlayer } from '@/components/features/student/quiz-player';
 import { Button } from '@/components/ui/button';
-import { BookOpen, FileQuestion, Languages } from 'lucide-react';
-import { LanguageProvider, useLanguage } from '@/contexts/language-context';
+import { BookOpen, FileQuestion } from 'lucide-react';
+import { DisplayPreferenceProvider, useDisplayPreference } from '@/contexts/display-preference-context';
+import { DisplayPreferenceSelector } from '@/components/features/lesson/display-preference-selector';
 
 interface PageProps {
   params: Promise<{
@@ -29,25 +30,6 @@ interface LessonProgressResponse {
 }
 
 /**
- * Language toggle button for switching between English and Thai.
- */
-function LanguageToggle() {
-  const { language, setLanguage } = useLanguage();
-  return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => setLanguage(language === 'en' ? 'th' : 'en')}
-      className="gap-2"
-      aria-label={language === 'en' ? 'Switch to Thai' : 'Switch to English'}
-    >
-      <Languages className="h-4 w-4" />
-      {language === 'en' ? 'ไทย' : 'English'}
-    </Button>
-  );
-}
-
-/**
  * Inner lesson page content that uses the language context.
  */
 function LessonPageContent({
@@ -60,7 +42,7 @@ function LessonPageContent({
   const [view, setView] = useState<'lesson' | 'quiz'>('lesson');
   const [progress, setProgress] = useState<LessonProgressResponse | null>(null);
   const [progressLoading, setProgressLoading] = useState(true);
-  const { showThai } = useLanguage();
+  const { displayPreference } = useDisplayPreference();
 
   const fetchProgress = useCallback(async () => {
     try {
@@ -122,7 +104,7 @@ function LessonPageContent({
             Quiz
           </Button>
         </div>
-        <LanguageToggle />
+        <DisplayPreferenceSelector />
       </div>
 
       {/* Content */}
@@ -133,7 +115,7 @@ function LessonPageContent({
           progress={progress}
           progressLoading={progressLoading}
           onStartQuiz={handleStartQuiz}
-          showThai={showThai}
+          displayPreference={displayPreference}
         />
       ) : (
         <QuizPlayer
@@ -151,8 +133,8 @@ export default function LessonPage({ params }: PageProps) {
   const { classId, lessonSlug } = use(params);
 
   return (
-    <LanguageProvider>
+    <DisplayPreferenceProvider>
       <LessonPageContent classId={classId} lessonSlug={lessonSlug} />
-    </LanguageProvider>
+    </DisplayPreferenceProvider>
   );
 }

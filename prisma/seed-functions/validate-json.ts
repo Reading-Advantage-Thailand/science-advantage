@@ -16,7 +16,9 @@ interface StandardsFile {
 interface LessonData {
   id: string;
   title: string;
+  titleThai?: string;
   description: string;
+  descriptionThai?: string;
   content: string;
   order: number;
   standards: string[];

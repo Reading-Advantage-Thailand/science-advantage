@@ -161,16 +161,15 @@ describe('LessonPlayer', () => {
       render(<LessonPlayer content={content} />);
 
       expect(screen.getByText('Photosynthesis')).toBeInTheDocument();
-      expect(screen.getByText('(การสังเคราะห์ด้วยแสง)')).toBeInTheDocument();
       expect(screen.getByText('The process by which plants make food')).toBeInTheDocument();
       expect(screen.getByText('Chlorophyll')).toBeInTheDocument();
     });
 
-    it('renders vocabulary block with aria label', () => {
+    it('renders vocabulary block with flashcards region', () => {
       const content = createLessonContent([createVocabularyBlock()]);
       render(<LessonPlayer content={content} />);
 
-      expect(screen.getByRole('list', { name: 'Vocabulary terms' })).toBeInTheDocument();
+      expect(screen.getByRole('region', { name: 'Vocabulary flashcards carousel' })).toBeInTheDocument();
     });
   });
 
@@ -363,7 +362,7 @@ describe('LessonPlayer', () => {
       render(<LessonPlayer content={content} showThai={true} />);
 
       expect(screen.getByRole('heading', { level: 1, name: 'สวัสดีโลก' })).toBeInTheDocument();
-      expect(screen.getByRole('heading', { level: 3, name: 'พืชสร้างอาหารอย่างไร' })).toBeInTheDocument();
+      expect(screen.getByText('พืชสร้างอาหารอย่างไร')).toBeInTheDocument();
     });
   });
 
@@ -417,7 +416,7 @@ describe('LessonPlayer', () => {
       render(<LessonPlayer content={content} />);
 
       // Other blocks still render even with problematic first block
-      expect(screen.getByText('Photosynthesis')).toBeInTheDocument();
+      expect(screen.getAllByText('Photosynthesis').length).toBeGreaterThan(0);
       expect(screen.getByText('Chlorophyll')).toBeInTheDocument();
 
       consoleErrorSpy.mockRestore();
@@ -490,11 +489,11 @@ describe('LessonPlayer', () => {
       expect(screen.getByRole('article', { name: 'Lesson content' })).toBeInTheDocument();
     });
 
-    it('vocabulary list has proper ARIA label', () => {
+    it('vocabulary block has proper ARIA region', () => {
       const content = createLessonContent([createVocabularyBlock()]);
       render(<LessonPlayer content={content} />);
 
-      expect(screen.getByRole('list', { name: 'Vocabulary terms' })).toBeInTheDocument();
+      expect(screen.getByRole('region', { name: 'Vocabulary flashcards carousel' })).toBeInTheDocument();
     });
 
     it('procedure checkboxes are keyboard accessible', async () => {

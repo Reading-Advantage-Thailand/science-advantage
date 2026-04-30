@@ -8,7 +8,9 @@ interface LessonData {
   id: string;
   slug?: string;
   title: string;
+  titleThai?: string;
   description: string;
+  descriptionThai?: string;
   content: string;
   lessonType?: LessonType;
   order: number;
@@ -92,7 +94,9 @@ export async function seedLessons(
         where: { id: lessonData.id },
         update: {
           title: lessonData.title,
+          titleThai: lessonData.titleThai ?? null,
           description: lessonData.description,
+          descriptionThai: lessonData.descriptionThai ?? null,
           content: lessonData.content,
           lessonType: lessonData.lessonType,
           order: lessonData.order,
@@ -110,7 +114,9 @@ export async function seedLessons(
           id: lessonData.id,
           slug,
           title: lessonData.title,
+          titleThai: lessonData.titleThai ?? null,
           description: lessonData.description,
+          descriptionThai: lessonData.descriptionThai ?? null,
           content: lessonData.content,
           lessonType: lessonData.lessonType,
           gradeLevel: data.gradeLevel,

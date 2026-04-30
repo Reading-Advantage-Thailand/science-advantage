@@ -139,18 +139,19 @@ interface BlockRendererProps {
   block: ContentBlock;
   index: number;
   showThai: boolean;
+  displayPreference?: 'en' | 'th' | 'side-by-side';
   onBlockView?: (blockIndex: number, blockId?: string) => void;
 }
 
-function BlockRenderer({ block, index, showThai, onBlockView }: BlockRendererProps) {
+function BlockRenderer({ block, index, showThai, displayPreference, onBlockView }: BlockRendererProps) {
   const ref = useBlockVisibility(index, block.id, onBlockView);
 
   const renderBlock = () => {
     switch (block.type) {
       case 'text':
-        return <TextBlock block={block} showThai={showThai} />;
+        return <TextBlock block={block} showThai={showThai} displayPreference={displayPreference} />;
       case 'vocabulary':
-        return <VocabularyBlock block={block} showThai={showThai} />;
+        return <VocabularyBlock block={block} showThai={showThai} displayPreference={displayPreference} />;
       case 'image':
         return <ImageBlock block={block} showThai={showThai} />;
       case 'reading_passage':
@@ -197,6 +198,8 @@ export interface LessonPlayerProps {
   content: LessonContent;
   /** Show Thai translations when available */
   showThai?: boolean;
+  /** Display preference mode: 'en', 'th', or 'side-by-side' */
+  displayPreference?: 'en' | 'th' | 'side-by-side';
   /** Callback fired when a block becomes visible in the viewport */
   onBlockView?: (blockIndex: number, blockId?: string) => void;
   /** Additional CSS classes for the container */
@@ -226,10 +229,16 @@ export interface LessonPlayerProps {
  */
 export function LessonPlayer({
   content,
-  showThai = false,
+  showThai,
+  displayPreference,
   onBlockView,
   className,
 }: LessonPlayerProps) {
+  // Derive showThai from displayPreference if provided, falling back to showThai prop
+  const effectiveShowThai =
+    displayPreference !== undefined
+      ? displayPreference === 'th' || displayPreference === 'side-by-side'
+      : showThai ?? false;
   // Handle null or empty content
   if (!content || !content.blocks || content.blocks.length === 0) {
     return (
@@ -263,7 +272,8 @@ export function LessonPlayer({
           <BlockRenderer
             block={block}
             index={index}
-            showThai={showThai}
+            showThai={effectiveShowThai}
+            displayPreference={displayPreference}
             onBlockView={onBlockView}
           />
         </BlockErrorBoundary>

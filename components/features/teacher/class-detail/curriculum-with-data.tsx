@@ -8,6 +8,7 @@ interface LessonSummary {
   id: string;
   slug: string;
   title: string;
+  titleThai: string;
   description: string | null;
   order: number;
   gradeLevel: number;
