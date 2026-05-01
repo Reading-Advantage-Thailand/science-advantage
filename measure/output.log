@@ -54,3 +54,1402 @@ af27679 wip(bilingual): day 1 progress - bilingual schema, lesson components, di
 579c06f chore(measure): archive Content Pipeline & Mastery Wiring track
 85fcc41 feat(content-pipeline): complete mastery wiring, Grade 4 integration, and content validation
 [0m
+[0m$ [0mgit add measure/output.log next-env.d.ts && git commit -m "checkpoint: save output log"
+[main d6ce5f6] checkpoint: save output log
+ 2 files changed, 47 insertions(+), 14 deletions(-)
+[0m
+[0m✱ [0mGlob "measure/tracks/*/plan.md"[90m 13 matches[0m
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/plan.md
+[0m→ [0mRead measure/tracks/tablet_responsiveness_20260428/plan.md
+[0m→ [0mRead measure/tracks/lesson_type_differentiation_20260428/plan.md
+[0m→ [0mRead measure/tracks/onboarding_flow_20260428/plan.md
+[0m
+[0m$ [0mls app/
+(admin)
+api
+(auth)
+(dashboard)
+globals.css
+layout.tsx
+page.tsx
+(student)
+(system)
+(teacher)
+[0m
+[0m$ [0mgit log --oneline --all | head -20
+d6ce5f6 checkpoint: save output log
+025c41a checkpoint: save output log
+af27679 wip(bilingual): day 1 progress - bilingual schema, lesson components, display preferences
+89565a5 feat(gamification): celebration animations — confetti, badge unlock, level-up
+579c06f chore(measure): archive Content Pipeline & Mastery Wiring track
+85fcc41 feat(content-pipeline): complete mastery wiring, Grade 4 integration, and content validation
+dcffa73 chore(measure): archive Teacher Dashboard Actionability track
+09e7aeb feat(teacher-dashboard): add assignment system and intervention alerts
+56ba936 feat(teacher-dashboard): add curriculum accordion interactivity and class management
+c273c95 feat(teacher-dashboard): add real data surfaces to dashboard
+7c6b089 chore(measure): archive Student Engagement Loop track
+511da55 feat(student-engagement): complete gamification dashboard and profile integration
+64353a4 feat(gamification): achievement badges — 10 badge types with quiz integration
+8bb7927 feat: gamification system — Achievement + GamificationProfile models, Zod schemas, quiz integration [daily-automation]
+f6c083f chore(measure): daily automation - archive completed tracks, update configs [mimo-v2.5]
+0079ea8 chore(measure): archive visual_refresh_20260425, update tracks.md
+265390a conductor(MiniMax-M2): checkpoint - visual refresh track complete
+0389855 conductor(MiniMax-M2): Phase 2 - visual refresh (DESIGN.md, globals.css, UI components)
+8d8c9b2 conductor: checkpoint before autonomous run (MiniMax-M2)
+07ac4ef chore(review): fix 6 lint/style issues, update tech-debt with review findings
+[0m
+[0m→ [0mRead package.json
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/metadata.json
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/spec.md
+[0m
+[0m$ [0mgit diff af27679^..af27679 --name-only
+app/(student)/student/classes/[classId]/lessons/[lessonSlug]/page.tsx
+app/(teacher)/teacher/classes/[classId]/lessons/[slug]/teacher-lesson-preview.tsx
+app/api/classes/[classId]/curriculum/route.ts
+app/api/lessons/[lessonSlug]/route.ts
+app/api/students/me/gamification/route.ts
+components/features/lesson/__tests__/lesson-player.test.tsx
+components/features/lesson/__tests__/materials-block.test.tsx
+components/features/lesson/__tests__/procedure-block.test.tsx
+components/features/lesson/__tests__/reading-passage-block.test.tsx
+components/features/lesson/__tests__/text-block.test.tsx
+components/features/lesson/__tests__/vocabulary-block.test.tsx
+components/features/lesson/blocks/materials-block.tsx
+components/features/lesson/blocks/procedure-block.tsx
+components/features/lesson/blocks/reading-passage-block.tsx
+components/features/lesson/blocks/text-block.tsx
+components/features/lesson/blocks/vocabulary-block.tsx
+components/features/lesson/display-preference-selector.tsx
+components/features/lesson/lesson-player.tsx
+components/features/lesson/vocabulary-flashcards.tsx
+components/features/student/gamification-dashboard-card.tsx
+components/features/student/lesson-viewer.tsx
+components/features/teacher/class-detail/curriculum-accordion.tsx
+components/features/teacher/class-detail/curriculum-with-data.tsx
+contexts/display-preference-context.tsx
+lib/bilingual.ts
+lib/generated/zod/.prisma-zod-generator-manifest.json
+lib/generated/zod/schemas/enums/LessonScalarFieldEnum.schema.ts
+lib/generated/zod/schemas/findFirstLesson.schema.ts
+lib/generated/zod/schemas/findFirstOrThrowLesson.schema.ts
+lib/generated/zod/schemas/findManyLesson.schema.ts
+lib/generated/zod/schemas/objects/LessonCountAggregateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCountOrderByAggregateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateManyInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateWithoutAssignmentsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateWithoutAttemptsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateWithoutCurriculumUnitsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateWithoutLessonCompletionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateWithoutQuizQuestionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonCreateWithoutStandardsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonMaxAggregateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonMaxOrderByAggregateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonMinAggregateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonMinOrderByAggregateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonOrderByWithAggregationInput.schema.ts
+lib/generated/zod/schemas/objects/LessonOrderByWithRelationInput.schema.ts
+lib/generated/zod/schemas/objects/LessonScalarWhereInput.schema.ts
+lib/generated/zod/schemas/objects/LessonScalarWhereWithAggregatesInput.schema.ts
+lib/generated/zod/schemas/objects/LessonSelect.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateWithoutAssignmentsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateWithoutAttemptsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateWithoutCurriculumUnitsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateWithoutLessonCompletionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateWithoutQuizQuestionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedCreateWithoutStandardsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateManyInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateManyWithoutCurriculumUnitsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateManyWithoutStandardsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutAssignmentsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutAttemptsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutCurriculumUnitsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutLessonCompletionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutQuizQuestionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutStandardsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateManyMutationInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateWithoutAssignmentsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateWithoutAttemptsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateWithoutCurriculumUnitsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateWithoutLessonCompletionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateWithoutQuizQuestionsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonUpdateWithoutStandardsInput.schema.ts
+lib/generated/zod/schemas/objects/LessonWhereInput.schema.ts
+lib/generated/zod/schemas/results/LessonAggregateResult.schema.ts
+lib/generated/zod/schemas/results/LessonCreateResult.schema.ts
+lib/generated/zod/schemas/results/LessonDeleteResult.schema.ts
+lib/generated/zod/schemas/results/LessonFindFirstResult.schema.ts
+lib/generated/zod/schemas/results/LessonFindManyResult.schema.ts
+lib/generated/zod/schemas/results/LessonFindUniqueResult.schema.ts
+lib/generated/zod/schemas/results/LessonGroupByResult.schema.ts
+lib/generated/zod/schemas/results/LessonUpdateResult.schema.ts
+lib/generated/zod/schemas/results/LessonUpsertResult.schema.ts
+lib/generated/zod/schemas/variants/input/Lesson.input.ts
+lib/generated/zod/schemas/variants/pure/Lesson.pure.ts
+lib/generated/zod/schemas/variants/result/Lesson.result.ts
+measure/archive/content_pipeline_mastery_20260428/index.md
+measure/archive/content_pipeline_mastery_20260428/metadata.json
+measure/archive/content_pipeline_mastery_20260428/plan.md
+measure/archive/content_pipeline_mastery_20260428/spec.md
+measure/tracks/bilingual_architecture_20260428/plan.md
+measure/tracks/student_engagement_loop_20260428/plan.md
+measure/tracks/student_engagement_loop_20260428/spec.md
+prisma/migrations/20260429000000_add_lesson_bilingual_fields/backfill-thai-titles.ts
+prisma/migrations/20260429000000_add_lesson_bilingual_fields/migration.sql
+prisma/schema.prisma
+prisma/seed-data/lessons/thai-g3-unit-1.json
+prisma/seed-data/lessons/thai-g3-unit-10.json
+prisma/seed-data/lessons/thai-g3-unit-2.json
+prisma/seed-data/lessons/thai-g3-unit-3.json
+prisma/seed-data/lessons/thai-g3-unit-4.json
+prisma/seed-data/lessons/thai-g3-unit-5.json
+prisma/seed-data/lessons/thai-g3-unit-6.json
+prisma/seed-data/lessons/thai-g3-unit-7.json
+prisma/seed-data/lessons/thai-g3-unit-8.json
+prisma/seed-data/lessons/thai-g3-unit-9.json
+prisma/seed-data/lessons/thai-g4-unit-1.json
+prisma/seed-data/lessons/thai-g4-unit-2.json
+prisma/seed-data/lessons/thai-g4-unit-3.json
+prisma/seed-data/lessons/thai-g4-unit-4.json
+prisma/seed-data/lessons/thai-g4-unit-5.json
+prisma/seed-data/lessons/thai-g4-unit-6.json
+prisma/seed-functions/seed-lessons.ts
+prisma/seed-functions/update-seed-files.ts
+prisma/seed-functions/validate-json.ts
+tests/lib/bilingual-schema.test.ts
+tests/lib/display-preference.test.tsx
+[0m
+[0m# [0mTodos
+[ ] Start dev server and verify previous phase works
+[ ] Run verification tests (console errors, feature check)
+[ ] Implement Phase 3: Display Preference and API Updates
+[ ] Verify implementation with tests and browser
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && bun run dev 2>&1 &
+sleep 5
+echo "Server started"
+$ next dev
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.244.222:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+Server started
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[?25h
+
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 15000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+[0m$ [0mcurl -s -o /dev/null -w "%{http_code}" http://localhost:3000
+000
+[0m
+[0m$ [0mpkill -f "next dev" 2>/dev/null; sleep 1; bun run dev > /tmp/next-dev.log 2>&1 &
+sleep 8
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 || echo "not ready"
+(no output)
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 20000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+[0m$ [0mpkill -f "next" 2>/dev/null || true
+(no output)
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+[0m$ [0mps aux | grep next | grep -v grep | awk '{print $2}' | xargs -r kill -9 2>/dev/null; echo "done"
+done
+[0m
+[0m$ [0mPORT=3000 nohup bun run dev > /tmp/next-dev.log 2>&1 &
+echo "PID: $!"
+sleep 10
+cat /tmp/next-dev.log | head -30
+PID: 2642271
+$ next dev
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.244.222:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+[0m
+[0m$ [0mcurl -s -o /dev/null -w "%{http_code}" http://localhost:3000
+200
+[0m
+[0m→ [0mSkill "browser-harness"
+[0m
+[0m$ [0mbrowser-harness-js 'await session.connect()' 2>&1 | head -20
+/bin/bash: line 1: browser-harness-js: command not found
+[0m
+[0m$ [0mwhich python3 && pip3 show browser-use 2>/dev/null || echo "not installed"
+/usr/bin/python3
+not installed
+[0m
+[0m$ [0mcurl -s http://localhost:3000 | head -50
+...output truncated...
+
+Full output saved to: /home/daniel-bo/.local/share/opencode/tool-output/tool_de38c5b45001GLSWC4bnCHI9WU
+
+$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$115\",\"$117\",0],\"$undefined\"]},\"$115\",\"$116\",1]\n11a:D{\"time\":90.29470999999467}\n11a:D\"$11b\"\n11a:D{\"time\":90.44311899999593}\n11a:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$11b\",\"$11d\",0],\"$undefined\"]},\"$11b\",\"$11c\",1]\n120:D{\"time\":90.88705900000059}\n120:D\"$121\"\n120:D{\"time\":91.03601199999684}\n120:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$121\",\"$123\",0],\"$undefined\"]},\"$121\",\"$122\",1]\n126:D{\"time\":91.48186100000021}\n126:D\"$127\"\n126:D{\"time\":91.72067099999549}\n126:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-users text-rose-600 dark:text-rose-300 mb-4\",\"children\":[\"$undefined\",\"$L129\",\"$L12a"])</script><script>self.__next_f.push([1,"\",\"$L12b\",\"$L12c\",\"$undefined\"]},\"$127\",\"$128\",1]\n"])</script><script>self.__next_f.push([1,"a8:[\"$\",\"section\",null,{\"className\":\"py-20 bg-gray-50 dark:bg-gray-800\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center mb-16\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4\",\"children\":\"Comprehensive Learning Platform\"},\"$33\",\"$b5\",1],[\"$\",\"p\",null,{\"className\":\"text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto\",\"children\":\"Everything needed for modern science education in one integrated platform.\"},\"$33\",\"$b6\",1]]},\"$33\",\"$b4\",1],[\"$\",\"div\",null,{\"className\":\"flex flex-col lg:flex-row gap-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"lg:w-1/3\",\"children\":[\"$\",\"div\",null,{\"className\":\"rounded-lg overflow-hidden bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-700 h-full\",\"children\":[\"$\",\"$L6a\",null,{\"src\":\"/home_page/modern_learning.png\",\"alt\":\"Modern Learning Experience\",\"width\":400,\"height\":600,\"className\":\"w-full h-auto\"},\"$33\",\"$ba\",1]},\"$33\",\"$b9\",1]},\"$33\",\"$b8\",1],[\"$\",\"div\",null,{\"className\":\"lg:w-2/3 grid md:grid-cols-2 gap-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$bd\",[\"$\",\"h3\",null,{\"className\":\"text-lg font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Comprehensive Curriculum Coverage\"},\"$33\",\"$c5\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$c8\",[\"$\",\"span\",null,{\"children\":\"Full K-12 science curriculum\"},\"$33\",\"$cc\",1]]},\"$33\",\"$c7\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$ce\",[\"$\",\"span\",null,{\"children\":\"NGSS disciplinary core ideas coverage\"},\"$33\",\"$d2\",1]]},\"$33\",\"$cd\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$d4\",[\"$\",\"span\",null,{\"children\":\"180 days of structured instruction\"},\"$33\",\"$d8\",1]]},\"$33\",\"$d3\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$da\",[\"$\",\"span\",null,{\"children\":\"Grade-appropriate content progression\"},\"$33\",\"$de\",1]]},\"$33\",\"$d9\",1]]},\"$33\",\"$c6\",1]]},\"$33\",\"$bc\",1],[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$e0\",[\"$\",\"h3\",null,{\"className\":\"text-lg font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Adaptive Learning System\"},\"$33\",\"$e9\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$ec\",[\"$\",\"span\",null,{\"children\":\"Three-track difficulty system\"},\"$33\",\"$f0\",1]]},\"$33\",\"$eb\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$f2\",[\"$\",\"span\",null,{\"children\":\"Automatic performance-based adjustment\"},\"$33\",\"$f6\",1]]},\"$33\",\"$f1\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$f8\",[\"$\",\"span\",null,{\"children\":\"Personalized learning paths\"},\"$33\",\"$fc\",1]]},\"$33\",\"$f7\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$fe\",[\"$\",\"span\",null,{\"children\":\"Built-in support for struggling students\"},\"$33\",\"$102\",1]]},\"$33\",\"$fd\",1]]},\"$33\",\"$ea\",1]]},\"$33\",\"$df\",1],[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$104\",[\"$\",\"h3\",null,{\"className\":\"text-lg font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Integrated Assessment Tools\"},\"$33\",\"$10b\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$10e\",[\"$\",\"span\",null,{\"children\":\"Multiple assessment types\"},\"$33\",\"$112\",1]]},\"$33\",\"$10d\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$114\",[\"$\",\"span\",null,{\"children\":\"Real-time progress tracking\"},\"$33\",\"$118\",1]]},\"$33\",\"$113\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$11a\",[\"$\",\"span\",null,{\"children\":\"NGSS standards alignment\"},\"$33\",\"$11e\",1]]},\"$33\",\"$119\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$120\",[\"$\",\"span\",null,{\"children\":\"Automated feedback systems\"},\"$33\",\"$124\",1]]},\"$33\",\"$11f\",1]]},\"$33\",\"$10c\",1]]},\"$33\",\"$103\",1],[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$126\",[\"$\",\"h3\",null,{\"className\":\"text-lg font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Teacher Support Features\"},\"$33\",\"$12d\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-600 dark:text-gray-400\",\"children\":[\"$L12f\",\"$L130\",\"$L131\",\"$L132\"]},\"$33\",\"$12e\",1]]},\"$33\",\"$125\",1],\"$L133\"]},\"$33\",\"$bb\",1]]},\"$33\",\"$b7\",1]]},\"$33\",\"$b3\",1]},\"$33\",\"$b2\",1]\n"])</script><script>self.__next_f.push([1,"a9:D{\"time\":92.13411400000041}\n141:D{\"time\":93.47963399999571}\n141:D\"$142\"\n141:D{\"time\":93.63181699999404}\n141:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$142\",\"$144\",0],\"$undefined\"]},\"$142\",\"$143\",1]\n147:D{\"time\":94.1034010000003}\n147:D\"$148\"\n147:D{\"time\":94.29620599999907}\n147:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$148\",\"$14a\",0],\"$undefined\"]},\"$148\",\"$149\",1]\n14d:D{\"time\":94.81442499999685}\n14d:D\"$14e\"\n14d:D{\"time\":95.0240449999983}\n14d:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$14e\",\"$150\",0],\"$undefined\"]},\"$14e\",\"$14f\",1]\n153:D{\"time\":95.65916199999629}\n153:D\"$154\"\n153:D{\"time\":95.92608800000016}\n153:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$154\",\"$156\",0],\"$undefined\"]},\"$154\",\"$155\",1]\n15f:D{\"time\":97.27394999999524}\n15f:D\"$160\"\n15f:D{\"time\":97.45814399999654}\n15f:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$160\",\"$162\",0],\"$undefined\"]},\"$160\",\"$161\",1]\n165:D{\"time\":98.26777999999467}\n165:D\"$166\"\n165:D{\"time\":98.44101899999805}\n165:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$166\",\"$168\",0],\"$undefined\"]},\"$166\",\"$167\",1]\n16b:D{\"time\":98.96101799999451}\n16b:D\"$16c\"\n16b:D{\"time\":99.13423799999873}\n16b:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$16c\",\"$16e\",0],\"$undefined\"]},\"$16c\",\"$16d\",1]\n171:D{\"time\":99.64579399999639}\n171:D\"$172\"\n171:D{\"time\":99.8184889999975}\n171:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$172\",\"$174\",0],\"$undefined\"]},\"$172\",\"$173\",1]\n17d:D{\"time\":101.04528299999947}\n17d:D\"$17e\"\n17d:D{\"time\":101.274261999999}\n17d:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\""])</script><script>self.__next_f.push([1,":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$17e\",\"$180\",0],\"$undefined\"]},\"$17e\",\"$17f\",1]\n183:D{\"time\":101.8076879999935}\n183:D\"$184\"\n183:D{\"time\":102.01975699999457}\n183:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$184\",\"$186\",0],\"$undefined\"]},\"$184\",\"$185\",1]\n189:D{\"time\":102.5706699999937}\n189:D\"$18a\"\n189:D{\"time\":102.74372799999401}\n189:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$18a\",\"$18c\",0],\"$undefined\"]},\"$18a\",\"$18b\",1]\n18f:D{\"time\":103.25913299999957}\n18f:D\"$190\"\n18f:D{\"time\":103.42479099999764}\n18f:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-1\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$190\",\"$192\",0],\"$undefined\"]},\"$190\",\"$191\",1]\n"])</script><script>self.__next_f.push([1,"a9:[\"$\",\"section\",null,{\"className\":\"py-20 bg-white dark:bg-gray-900\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center mb-16\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4\",\"children\":\"Built for Every Role in Education\"},\"$33\",\"$137\",1],[\"$\",\"p\",null,{\"className\":\"text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto\",\"children\":\"Tailored features and tools designed specifically for teachers, administrators, and districts.\"},\"$33\",\"$138\",1]]},\"$33\",\"$136\",1],[\"$\",\"div\",null,{\"className\":\"grid md:grid-cols-3 gap-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center rounded-lg overflow-hidden bg-rose-50 dark:bg-rose-950/20\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-full\",\"children\":[\"$\",\"$L6a\",null,{\"src\":\"/home_page/for_teachers.png\",\"alt\":\"For Teachers\",\"width\":400,\"height\":300,\"className\":\"w-full h-auto\"},\"$33\",\"$13c\",1]},\"$33\",\"$13b\",1],[\"$\",\"div\",null,{\"className\":\"p-6\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-2xl font-bold text-gray-900 dark:text-white mb-4\",\"children\":\"For Teachers\"},\"$33\",\"$13e\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-3 text-left text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$141\",[\"$\",\"span\",null,{\"children\":\"Lesson planning and management features\"},\"$33\",\"$145\",1]]},\"$33\",\"$140\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$147\",[\"$\",\"span\",null,{\"children\":\"Assessment and tracking tools\"},\"$33\",\"$14b\",1]]},\"$33\",\"$146\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$14d\",[\"$\",\"span\",null,{\"children\":\"Professional development support\"},\"$33\",\"$151\",1]]},\"$33\",\"$14c\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$153\",[\"$\",\"span\",null,{\"children\":\"Time-saving automation\"},\"$33\",\"$157\",1]]},\"$33\",\"$152\",1]]},\"$33\",\"$13f\",1]]},\"$33\",\"$13d\",1]]},\"$33\",\"$13a\",1],[\"$\",\"div\",null,{\"className\":\"text-center rounded-lg overflow-hidden bg-rose-50 dark:bg-rose-950/20\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-full\",\"children\":[\"$\",\"$L6a\",null,{\"src\":\"/home_page/for_admin.png\",\"alt\":\"For Administrators\",\"width\":400,\"height\":300,\"className\":\"w-full h-auto\"},\"$33\",\"$15a\",1]},\"$33\",\"$159\",1],[\"$\",\"div\",null,{\"className\":\"p-6\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-2xl font-bold text-gray-900 dark:text-white mb-4\",\"children\":\"For Administrators\"},\"$33\",\"$15c\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-3 text-left text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$15f\",[\"$\",\"span\",null,{\"children\":\"NGSS compliance tools\"},\"$33\",\"$163\",1]]},\"$33\",\"$15e\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$165\",[\"$\",\"span\",null,{\"children\":\"School-wide implementation support\"},\"$33\",\"$169\",1]]},\"$33\",\"$164\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$16b\",[\"$\",\"span\",null,{\"children\":\"Progress tracking across classes\"},\"$33\",\"$16f\",1]]},\"$33\",\"$16a\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$171\",[\"$\",\"span\",null,{\"children\":\"Professional development resources\"},\"$33\",\"$175\",1]]},\"$33\",\"$170\",1]]},\"$33\",\"$15d\",1]]},\"$33\",\"$15b\",1]]},\"$33\",\"$158\",1],[\"$\",\"div\",null,{\"className\":\"text-center rounded-lg overflow-hidden bg-rose-50 dark:bg-rose-950/20\",\"children\":[[\"$\",\"div\",null,{\"className\":\"w-full\",\"children\":[\"$\",\"$L6a\",null,{\"src\":\"/home_page/for_districts.png\",\"alt\":\"For Districts\",\"width\":400,\"height\":300,\"className\":\"w-full h-auto\"},\"$33\",\"$178\",1]},\"$33\",\"$177\",1],[\"$\",\"div\",null,{\"className\":\"p-6\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-2xl font-bold text-gray-900 dark:text-white mb-4\",\"children\":\"For Districts\"},\"$33\",\"$17a\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-3 text-left text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$17d\",[\"$\",\"span\",null,{\"children\":\"Standardization across schools\"},\"$33\",\"$181\",1]]},\"$33\",\"$17c\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$183\",[\"$\",\"span\",null,{\"children\":\"District-wide analytics\"},\"$33\",\"$187\",1]]},\"$33\",\"$182\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$189\",[\"$\",\"span\",null,{\"children\":\"Implementation support\"},\"$33\",\"$18d\",1]]},\"$33\",\"$188\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-3\",\"children\":[\"$18f\",[\"$\",\"span\",null,{\"children\":\"Training programs\"},\"$33\",\"$193\",1]]},\"$33\",\"$18e\",1]]},\"$33\",\"$17b\",1]]},\"$33\",\"$179\",1]]},\"$33\",\"$176\",1]]},\"$33\",\"$139\",1]]},\"$33\",\"$135\",1]},\"$33\",\"$134\",1]\n"])</script><script>self.__next_f.push([1,"aa:D{\"time\":103.83319999999367}\n19c:D{\"time\":104.9242879999947}\n19c:D\"$19d\"\n19c:D{\"time\":105.24144199999864}\n19c:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":32,\"height\":32,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-device-desktop text-rose-600 dark:text-rose-300 mb-4 mx-auto\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z\"},\"$19d\",\"$19f\",0],[\"$\",\"path\",\"svg-1\",{\"d\":\"M7 20h10\"},\"$19d\",\"$1a0\",0],[\"$\",\"path\",\"svg-2\",{\"d\":\"M9 16v4\"},\"$19d\",\"$1a1\",0],[\"$\",\"path\",\"svg-3\",{\"d\":\"M15 16v4\"},\"$19d\",\"$1a2\",0],\"$undefined\"]},\"$19d\",\"$19e\",1]\n1a7:D{\"time\":106.29207699999824}\n1a7:D\"$1a8\"\n1a7:D{\"time\":106.57190199999604}\n1a7:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":32,\"height\":32,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-wifi text-rose-600 dark:text-rose-300 mb-4 mx-auto\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M12 18l.01 0\"},\"$1a8\",\"$1aa\",0],[\"$\",\"path\",\"svg-1\",{\"d\":\"M9.172 15.172a4 4 0 0 1 5.656 0\"},\"$1a8\",\"$1ab\",0],[\"$\",\"path\",\"svg-2\",{\"d\":\"M6.343 12.343a8 8 0 0 1 11.314 0\"},\"$1a8\",\"$1ac\",0],[\"$\",\"path\",\"svg-3\",{\"d\":\"M3.515 9.515c4.686 -4.687 12.284 -4.687 17 0\"},\"$1a8\",\"$1ad\",0],\"$undefined\"]},\"$1a8\",\"$1a9\",1]\n1b2:D{\"time\":107.605098}\n1b2:D\"$1b3\"\n1b2:D{\"time\":107.94228799999837}\n1b2:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":32,\"height\":32,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-tools text-rose-600 dark:text-rose-300 mb-4 mx-auto\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4\"},\"$1b3\",\"$1b5\",0],[\"$\",\"path\",\"svg-1\",{\"d\":\"M14.5 5.5l4 4\"},\"$1b3\",\"$1b6\",0],[\"$\",\"path\",\"svg-2\",{\"d\":\"M12 8l-5 -5l-4 4l5 5\"},\"$1b3\",\"$1b7\",0],[\"$\",\"path\",\"svg-3\",{\"d\":\"M7 8l-1.5 1.5\"},\"$1b3\",\"$1b8\",0],[\"$\",\"path\",\"svg-4\",{\"d\":\"M16 12l5 5l-4 4l-5 -5\"},\"$1b3\",\"$1b9\",0],[\"$\",\"path\",\"svg-5\",{\"d\":\"M16 17l-1.5 1.5\"},\"$1b3\",\"$1ba\",0],\"$undefined\"]},\"$1b3\",\"$1b4\",1]\n1bf:D{\"time\":109.1728759999969}\n1bf:D\"$1c0\"\n1bf:D{\"time\":109.51369499999419}\n1bf:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":32,\"height\":32,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-calendar text-rose-600 dark:text-rose-300 mb-4 mx-auto\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z\"},\"$1c0\",\"$1c2\",0],[\"$\",\"path\",\"svg-1\",{\"d\":\"M16 3v4\"},\"$1c0\",\"$1c3\",0],[\"$\",\"path\",\"svg-2\",{\"d\":\"M8 3v4\"},\"$1c0\",\"$1c4\",0],[\"$\",\"path\",\"svg-3\",{\"d\":\"M4 11h16\"},\"$1c0\",\"$1c5\",0],[\"$\",\"path\",\"svg-4\",{\"d\":\"M11 15h1\"},\"$1c0\",\"$1c6\",0],[\"$\",\"path\",\"svg-5\",{\"d\":\"M12 15v3\"},\"$1c0\",\"$1c7\",0],\"$undefined\"]},\"$1c0\",\"$1c1\",1]\n"])</script><script>self.__next_f.push([1,"aa:[\"$\",\"section\",null,{\"className\":\"py-20 bg-gray-50 dark:bg-gray-800\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center mb-16\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4\",\"children\":\"Technical Requirements\"},\"$33\",\"$197\",1],[\"$\",\"p\",null,{\"className\":\"text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto\",\"children\":\"Simple requirements for seamless integration into your existing infrastructure.\"},\"$33\",\"$198\",1]]},\"$33\",\"$196\",1],[\"$\",\"div\",null,{\"className\":\"grid md:grid-cols-2 lg:grid-cols-4 gap-8\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center\",\"children\":[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$19c\",[\"$\",\"h3\",null,{\"className\":\"font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Device Compatibility\"},\"$33\",\"$1a3\",1],[\"$\",\"p\",null,{\"className\":\"text-gray-600 dark:text-gray-400 text-sm\",\"children\":\"Works on tablets, laptops, and desktop computers with modern web browsers\"},\"$33\",\"$1a4\",1]]},\"$33\",\"$19b\",1]},\"$33\",\"$19a\",1],[\"$\",\"div\",null,{\"className\":\"text-center\",\"children\":[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$1a7\",[\"$\",\"h3\",null,{\"className\":\"font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Internet Connectivity\"},\"$33\",\"$1ae\",1],[\"$\",\"p\",null,{\"className\":\"text-gray-600 dark:text-gray-400 text-sm\",\"children\":\"Standard broadband connection recommended for optimal experience\"},\"$33\",\"$1af\",1]]},\"$33\",\"$1a6\",1]},\"$33\",\"$1a5\",1],[\"$\",\"div\",null,{\"className\":\"text-center\",\"children\":[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$1b2\",[\"$\",\"h3\",null,{\"className\":\"font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"IT Support\"},\"$33\",\"$1bb\",1],[\"$\",\"p\",null,{\"className\":\"text-gray-600 dark:text-gray-400 text-sm\",\"children\":\"Minimal IT overhead with cloud-based infrastructure and automatic updates\"},\"$33\",\"$1bc\",1]]},\"$33\",\"$1b1\",1]},\"$33\",\"$1b0\",1],[\"$\",\"div\",null,{\"className\":\"text-center\",\"children\":[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$1bf\",[\"$\",\"h3\",null,{\"className\":\"font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Implementation Timeline\"},\"$33\",\"$1c8\",1],[\"$\",\"p\",null,{\"className\":\"text-gray-600 dark:text-gray-400 text-sm\",\"children\":\"Quick setup process with comprehensive onboarding and training\"},\"$33\",\"$1c9\",1]]},\"$33\",\"$1be\",1]},\"$33\",\"$1bd\",1]]},\"$33\",\"$199\",1]]},\"$33\",\"$195\",1]},\"$33\",\"$194\",1]\n"])</script><script>self.__next_f.push([1,"ab:D{\"time\":113.35528499999782}\n1cf:D{\"time\":114.22706599999947}\n1cf:D\"$1d0\"\n1cf:D{\"time\":114.68309099999897}\n1d7:D{\"time\":114.78774999999587}\n1d7:D\"$1d8\"\n1d7:D{\"time\":115.01801699999487}\n1d7:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":20,\"height\":20,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-mail \",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z\"},\"$1d8\",\"$1da\",0],[\"$\",\"path\",\"svg-1\",{\"d\":\"M3 7l9 6l9 -6\"},\"$1d8\",\"$1db\",0],\"$undefined\"]},\"$1d8\",\"$1d9\",1]\n1cf:[\"$\",\"button\",null,{\"data-slot\":\"button\",\"className\":\"inline-flex items-center justify-center whitespace-nowrap font-medium transition-shadow duration-200 disabled:pointer-events-none disabled:opacity-50 [\u0026_svg]:pointer-events-none [\u0026_svg:not([class*='size-'])]:size-4 shrink-0 [\u0026_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive font-sans shadow-sm hover:shadow-md h-11 rounded-2xl has-[\u003esvg]:px-5 bg-white text-rose-600 hover:bg-gray-100 gap-2 text-lg px-8\",\"children\":[\"$1d7\",\"Join Waitlist\"]},\"$1d0\",\"$1d6\",1]\n1dc:D{\"time\":115.38967799999955}\n1dc:D\"$1dd\"\n1dc:D{\"time\":115.59636599999794}\n1dc:[\"$\",\"button\",null,{\"data-slot\":\"button\",\"className\":\"inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-shadow duration-200 disabled:pointer-events-none disabled:opacity-50 [\u0026_svg]:pointer-events-none [\u0026_svg:not([class*='size-'])]:size-4 shrink-0 [\u0026_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive font-sans shadow-sm hover:shadow-md h-11 rounded-2xl has-[\u003esvg]:px-5 bg-white text-rose-600 hover:bg-gray-100 text-lg px-8\",\"children\":\"Request Demo\"},\"$1dd\",\"$1de\",1]\nab:[\"$\",\"section\",null,{\"className\":\"py-20 bg-gradient-to-r from-rose-700 to-pink-700 text-white\",\"children\":[\"$\",\"div\",null,{\"className\":\"container text-center\",\"children\":[[\"$\",\"h2\",null,{\"className\":\"text-3xl md:text-4xl font-bold mb-6\",\"children\":\"Ready to Transform Science Education?\"},\"$33\",\"$1cc\",1],[\"$\",\"p\",null,{\"className\":\"text-xl mb-8 max-w-2xl mx-auto opacity-90\",\"children\":\"Join the waitlist for early access and be among the first to experience the future of K-12 science education.\"},\"$33\",\"$1cd\",1],[\"$\",\"div\",null,{\"className\":\"flex flex-col sm:flex-row gap-4 justify-center\",\"children\":[\"$1cf\",\"$1dc\"]},\"$33\",\"$1ce\",1]]},\"$33\",\"$1cb\",1]},\"$33\",\"$1ca\",1]\nac:D{\"time\":115.73902099999395}\n1eb:D{\"time\":117.10398499999428}\n1eb:D\"$1ec\"\n1eb:D{\"time\":117.22490999999718}\n1eb:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Features\"},\"$1ec\",\"$1ed\",1]\n1ef:D{\"time\":117.4861729999975}\n1ef:D\"$1f0\"\n1ef:D{\"time\":117.59435099999973}\n1ef:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Curriculum\"},\"$1f0\",\"$1f1\",1]\n1f3:D{\"time\":117.8439819999985}\n1f3:D\"$1f4\"\n1f3:D{\"time\":117.94075599999633}\n1f3:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Pricing\"},\"$1f4\",\"$1f5\",1]\n1f7:D{\"time\":118.19137699999555}\n1f7:D\"$1f8\"\n1f7:D{\"time\":118.28724099999818}\n1f7:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Demo\"},\"$1f8\",\"$1f9\",1]\n1fe:D{\"time\":118.87160999999469}\n1fe:D\"$1ff\"\n1fe:D{\"time\":118.96965699999419}\n1fe:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Sample Lessons\"},\"$1ff\",\"$200\",1]\n202:D{\"time\":119.22065199999633}\n202:D\"$203\"\n202:D{\"time\":119.31725999999617}\n202:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Implementation Guide\"},\"$203\",\"$204\",1]\n206:D{\"time\":119.58306199999788}\n206:D\"$207\"\n206:D{\"t"])</script><script>self.__next_f.push([1,"ime\":119.67866199999844}\n206:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Research\"},\"$207\",\"$208\",1]\n20a:D{\"time\":119.92519099999481}\n20a:D\"$20b\"\n20a:D{\"time\":120.02127800000017}\n20a:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Case Studies\"},\"$20b\",\"$20c\",1]\n211:D{\"time\":120.60219599999982}\n211:D\"$212\"\n211:D{\"time\":120.69828899999993}\n211:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"About Us\"},\"$212\",\"$213\",1]\n215:D{\"time\":120.94326999999612}\n215:D\"$216\"\n215:D{\"time\":121.03853899999376}\n215:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Contact\"},\"$216\",\"$217\",1]\n219:D{\"time\":121.29436499999429}\n219:D\"$21a\"\n219:D{\"time\":121.38837399999466}\n219:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Partners\"},\"$21a\",\"$21b\",1]\n21d:D{\"time\":121.64550400000007}\n21d:D\"$21e\"\n21d:D{\"time\":121.74141999999847}\n21d:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Careers\"},\"$21e\",\"$21f\",1]\n223:D{\"time\":122.21815499999502}\n223:D\"$224\"\n223:D{\"time\":122.31390899999678}\n223:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Privacy Policy\"},\"$224\",\"$225\",1]\n226:D{\"time\":122.47320999999647}\n226:D\"$227\"\n226:D{\"time\":122.5697899999941}\n226:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Terms of Service\"},\"$227\",\"$228\",1]\n229:D{\"time\":122.71313299999747}\n229:D\"$22a\"\n229:D{\"time\":122.80893499999365}\n229:[\"$\",\"$L76\",null,{\"href\":\"#\",\"className\":\"hover:text-white transition-colors\",\"children\":\"Cookie Policy\"},\"$22a\",\"$22b\",1]\n"])</script><script>self.__next_f.push([1,"ac:[\"$\",\"footer\",null,{\"className\":\"bg-gray-900 text-white py-12\",\"children\":[\"$\",\"div\",null,{\"className\":\"container\",\"children\":[[\"$\",\"div\",null,{\"className\":\"grid md:grid-cols-4 gap-8 mb-8\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"flex items-center gap-3 mb-4\",\"children\":[[\"$\",\"$L6a\",null,{\"src\":\"/science-advantage.png\",\"alt\":\"Science Advantage\",\"width\":32,\"height\":32,\"className\":\"rounded-lg\"},\"$33\",\"$1e4\",1],[\"$\",\"span\",null,{\"className\":\"font-bold text-xl\",\"children\":\"Science Advantage\"},\"$33\",\"$1e5\",1]]},\"$33\",\"$1e3\",1],[\"$\",\"p\",null,{\"className\":\"text-gray-400\",\"children\":\"The Future of K-12 Science Education\"},\"$33\",\"$1e6\",1]]},\"$33\",\"$1e2\",1],[\"$\",\"div\",null,{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-semibold mb-4\",\"children\":\"Product\"},\"$33\",\"$1e8\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"children\":\"$1eb\"},\"$33\",\"$1ea\",1],[\"$\",\"li\",null,{\"children\":\"$1ef\"},\"$33\",\"$1ee\",1],[\"$\",\"li\",null,{\"children\":\"$1f3\"},\"$33\",\"$1f2\",1],[\"$\",\"li\",null,{\"children\":\"$1f7\"},\"$33\",\"$1f6\",1]]},\"$33\",\"$1e9\",1]]},\"$33\",\"$1e7\",1],[\"$\",\"div\",null,{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-semibold mb-4\",\"children\":\"Resources\"},\"$33\",\"$1fb\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"children\":\"$1fe\"},\"$33\",\"$1fd\",1],[\"$\",\"li\",null,{\"children\":\"$202\"},\"$33\",\"$201\",1],[\"$\",\"li\",null,{\"children\":\"$206\"},\"$33\",\"$205\",1],[\"$\",\"li\",null,{\"children\":\"$20a\"},\"$33\",\"$209\",1]]},\"$33\",\"$1fc\",1]]},\"$33\",\"$1fa\",1],[\"$\",\"div\",null,{\"children\":[[\"$\",\"h4\",null,{\"className\":\"font-semibold mb-4\",\"children\":\"Company\"},\"$33\",\"$20e\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"children\":\"$211\"},\"$33\",\"$210\",1],[\"$\",\"li\",null,{\"children\":\"$215\"},\"$33\",\"$214\",1],[\"$\",\"li\",null,{\"children\":\"$219\"},\"$33\",\"$218\",1],[\"$\",\"li\",null,{\"children\":\"$21d\"},\"$33\",\"$21c\",1]]},\"$33\",\"$20f\",1]]},\"$33\",\"$20d\",1]]},\"$33\",\"$1e1\",1],[\"$\",\"div\",null,{\"className\":\"border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-gray-400 text-sm mb-4 md:mb-0\",\"children\":[\"© \",2026,\" Science Advantage. All rights reserved.\"]},\"$33\",\"$221\",1],[\"$\",\"div\",null,{\"className\":\"flex gap-6 text-gray-400 text-sm\",\"children\":[\"$223\",\"$226\",\"$229\"]},\"$33\",\"$222\",1]]},\"$33\",\"$220\",1]]},\"$33\",\"$1e0\",1]},\"$33\",\"$1df\",1]\n"])</script><script>self.__next_f.push([1,"22c:[[\"Array.map\",\"\",0,0,0,0,false]]\n22d:[[\"Array.map\",\"\",0,0,0,0,false]]\n22e:[[\"Array.map\",\"\",0,0,0,0,false]]\n22f:[[\"Array.map\",\"\",0,0,0,0,false]]\n230:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1283,308,387,1,false]]\n232:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1286,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n233:[]\n234:[[\"Array.map\",\"\",0,0,0,0,false]]\n235:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1294,316,387,1,false]]\n236:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1307,308,387,1,false]]\n238:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1310,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n239:[]\n23a:[[\"Array.map\",\"\",0,0,0,0,false]]\n23b:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1318,316,387,1,false]]\n23c:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1331,308,387,1,false]]\n23e:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1334,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n23f:[]\n240:[[\"Array.map\",\"\",0,0,0,0,false]]\n241:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1342,316,387,1,false]]\n242:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1355,308,387,1,false]]\n244:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1358,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n245:[]\n246:[[\"Array.map\",\"\",0,0,0,0,false]]\n247:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1366,316,387,1,false]]\n248:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1391,292,387,1,false]]\n24a:{\"name\":\"IconRocket\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1394,300,387,1,false]],\"props\":{\"className\":\"text-rose-600 dark:text-rose-300 mb-4\",\"size\":24}}\n24b:[]\n24c:[[\"Array.map\",\"\",0,0,0,0,false]]\n24d:[[\"Array.map\",\"\",0,0,0,0,false]]\n24e:[[\"Array.map\",\"\",0,0,0,0,false]]\n24f:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1402,300,387,1,false]]\n250:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1410,300,387,1,false]]\n251:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1413,308,387,1,false]]\n253:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1416,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n254:[]\n255:[[\"Array.map\",\"\",0,0,0,0,false]]\n256:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1424,316,387,1,false]]\n257:[[\"HomePage\",\"/home/daniel-bo/De"])</script><script>self.__next_f.push([1,"sktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1437,308,387,1,false]]\n259:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1440,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n25a:[]\n25b:[[\"Array.map\",\"\",0,0,0,0,false]]\n25c:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1448,316,387,1,false]]\n25d:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1461,308,387,1,false]]\n25f:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1464,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n260:[]\n261:[[\"Array.map\",\"\",0,0,0,0,false]]\n262:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1472,316,387,1,false]]\n263:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1485,308,387,1,false]]\n265:{\"name\":\"IconCheck\",\"key\":null,\"env\":\"Server\",\"owner\":\"$33\",\"stack\":[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1488,316,387,1,false]],\"props\":{\"className\":\"text-rose-500 mt-0.5\",\"size\":16}}\n266:[]\n267:[[\"Array.map\",\"\",0,0,0,0,false]]\n268:[[\"HomePage\",\"/home/daniel-bo/Desktop/science-advantage/.next/dev/server/chunks/ssr/[root-of-the-server]__3e89e02b._.js\",1496,316,387,1,false]]\n129:D{\"time\":188.07409699999698}\n129:[\"$\",\"path\",\"svg-0\",{\"d\":\"M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\"},\"$127\",\"$22c\",0]\n12a:D{\"time\":188.23248599999351}\n12a:[\"$\",\"path\",\"svg-1\",{\"d\":\"M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2\"},\"$127\",\"$22d\",0]\n12b:D{\"time\":188.34418899999582}\n12b:[\"$\",\"path\",\"svg-2\",{\"d\":\"M16 3.13a4 4 0 0 1 0 7.75\"},\"$127\",\"$22e\",0]\n12c:D{\"time\":188.45621799999935}\n12c:[\"$\",\"path\",\"svg-3\",{\"d\":\"M21 21v-2a4 4 0 0 0 -3 -3.85\"},\"$127\",\"$22f\",0]\n12f:D{\"time\":188.67129099999875}\n231:D{\"time\":188.83387099999527}\n231:D\"$232\"\n231:D{\"time\":189.04314399999566}\n231:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$232\",\"$234\",0],\"$undefined\"]},\"$232\",\"$233\",1]\n12f:[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$231\",[\"$\",\"span\",null,{\"children\":\"Comprehensive lesson plans\"},\"$33\",\"$235\",1]]},\"$33\",\"$230\",1]\n130:D{\"time\":189.38519099999394}\n237:D{\"time\":189.5321369999947}\n237:D\"$238\"\n237:D{\"time\":189.6862439999968}\n237:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$238\",\"$23a\",0],\"$undefined\"]},\"$238\",\"$239\",1]\n130:[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$237\",[\"$\",\"span\",null,{\"children\":\"Class management tools\"},\"$33\",\"$23b\",1]]},\"$33\",\"$236\",1]\n131:D{\"time\":190.0314139999973}\n23d:D{\"time\":190.1690529999978}\n23d:D\"$23e\"\n23d:D{\"time\":190.32097599999543}\n23d:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l"])</script><script>self.__next_f.push([1,"10 -10\"},\"$23e\",\"$240\",0],\"$undefined\"]},\"$23e\",\"$23f\",1]\n131:[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$23d\",[\"$\",\"span\",null,{\"children\":\"Customizable assessments\"},\"$33\",\"$241\",1]]},\"$33\",\"$23c\",1]\n132:D{\"time\":190.69760999999562}\n243:D{\"time\":190.8557359999977}\n243:D\"$244\"\n243:D{\"time\":191.02432899999985}\n243:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$244\",\"$246\",0],\"$undefined\"]},\"$244\",\"$245\",1]\n132:[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$243\",[\"$\",\"span\",null,{\"children\":\"Progress tracking dashboards\"},\"$33\",\"$247\",1]]},\"$33\",\"$242\",1]\n133:D{\"time\":191.41072399999393}\n249:D{\"time\":191.56721699999616}\n249:D\"$24a\"\n249:D{\"time\":191.80348099999537}\n249:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":24,\"height\":24,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-rocket text-rose-600 dark:text-rose-300 mb-4\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3\"},\"$24a\",\"$24c\",0],[\"$\",\"path\",\"svg-1\",{\"d\":\"M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3\"},\"$24a\",\"$24d\",0],[\"$\",\"path\",\"svg-2\",{\"d\":\"M15 9m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\"},\"$24a\",\"$24e\",0],\"$undefined\"]},\"$24a\",\"$24b\",1]\n252:D{\"time\":192.62540900000022}\n252:D\"$253\"\n252:D{\"time\":192.79100499999913}\n252:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$253\",\"$255\",0],\"$undefined\"]},\"$253\",\"$254\",1]\n258:D{\"time\":193.29371600000013}\n258:D\"$259\"\n258:D{\"time\":193.46207499999582}\n258:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$259\",\"$25b\",0],\"$undefined\"]},\"$259\",\"$25a\",1]\n25e:D{\"time\":193.98464799999783}\n25e:D\"$25f\"\n25e:D{\"time\":194.1854819999935}\n25e:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$25f\",\"$261\",0],\"$undefined\"]},\"$25f\",\"$260\",1]\n264:D{\"time\":194.77375100000063}\n264:D\"$265\"\n264:D{\"time\":195.0329649999985}\n264:[\"$\",\"svg\",null,{\"ref\":\"$undefined\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"width\":16,\"height\":16,\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":2,\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"className\":\"tabler-icon tabler-icon-check text-rose-500 mt-0.5\",\"children\":[\"$undefined\",[\"$\",\"path\",\"svg-0\",{\"d\":\"M5 12l5 5l10 -10\"},\"$265\",\"$267\",0],\"$undefined\"]},\"$265\",\"$266\",1]\n133:[\"$\",\"div\",null,{\"className\":\"bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700\",\"children\":[\"$249\",[\"$\",\"h3\",null,{\"className\":\"text-lg font-semibold text-gray-900 dark:text-white mb-2\",\"children\":\"Modern Learning Experience\"},\"$33\",\"$24f\",1],[\"$\",\"ul\",null,{\"className\":\"space-y-2 text-gray-600 dark:text-gray-400\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$252\",[\""])</script><script>self.__next_f.push([1,"$\",\"span\",null,{\"children\":\"Current scientific discoveries\"},\"$33\",\"$256\",1]]},\"$33\",\"$251\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$258\",[\"$\",\"span\",null,{\"children\":\"Real-world experiments\"},\"$33\",\"$25c\",1]]},\"$33\",\"$257\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$25e\",[\"$\",\"span\",null,{\"children\":\"Cross-curricular connections\"},\"$33\",\"$262\",1]]},\"$33\",\"$25d\",1],[\"$\",\"li\",null,{\"className\":\"flex items-start gap-2\",\"children\":[\"$264\",[\"$\",\"span\",null,{\"children\":\"Collaborative learning tools\"},\"$33\",\"$268\",1]]},\"$33\",\"$263\",1]]},\"$33\",\"$250\",1]]},\"$33\",\"$248\",1]\n"])</script></body></html>
+[0m
+[0m$ [0mcurl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/lessons/being-a-scientist
+401
+[0m
+[0m$ [0mcurl -s -o /dev/null -w "%{http_code}" http://localhost:3000/signin
+200
+[0m
+[0m# [0mTodos
+[x] Start dev server and verify previous phase works
+[ ] Run verification tests (console errors, feature check)
+[ ] Implement Phase 3: Display Preference and API Updates
+[ ] Verify implementation with tests and browser
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npm run test 2>&1 | tail -50
+(no output)
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+[0m$ [0mpkill -f vitest 2>/dev/null; pkill -f "node.*test" 2>/dev/null; echo "killed"
+(no output)
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && timeout 60 npx vitest run --reporter=dot 2>&1 | tail -30
+RadioGroup is changing from uncontrolled to controlled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.
+
+stderr | components/features/student/__tests__/quiz-player.test.tsx > QuizPlayer > Results Screen > should show back to curriculum button
+RadioGroup is changing from uncontrolled to controlled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.
+
+stderr | components/features/student/__tests__/quiz-player.test.tsx > QuizPlayer > Results Screen > should show back to curriculum button
+TypeError: Cannot read properties of undefined (reading 'matches')
+    at [90m/home/daniel-bo/Desktop/science-advantage/[39mcomponents/features/gamification/confetti-celebration.tsx:86:32
+    at Object.react_stack_bottom_frame [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:25989:20[90m)[39m
+    at runWithFiberInDEV [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:874:13[90m)[39m
+    at commitHookEffectListMount [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:13249:29[90m)[39m
+    at commitHookPassiveMountEffects [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:13336:11[90m)[39m
+    at commitPassiveMountOnFiber [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:15484:13[90m)[39m
+    at recursivelyTraversePassiveMountEffects [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:15439:11[90m)[39m
+    at commitPassiveMountOnFiber [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:15718:11[90m)[39m
+    at recursivelyTraversePassiveMountEffects [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:15439:11[90m)[39m
+    at commitPassiveMountOnFiber [90m(/home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4mreact-dom[24m/cjs/react-dom-client.development.js:15476:11[90m)[39m
+An error occurred in the <ConfettiCelebration> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+xstderr | components/features/student/__tests__/quiz-player.test.tsx > QuizPlayer > Submission Error Handling > should show error when submission returns 409 (duplicate)
+RadioGroup is changing from uncontrolled to controlled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.
+
+stderr | components/features/student/__tests__/quiz-player.test.tsx > QuizPlayer > Submission Error Handling > should show error when submission returns 409 (duplicate)
+RadioGroup is changing from uncontrolled to controlled. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.
+
+·
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && timeout 180 npx vitest run --reporter=basic 2>&1 | tail -80
+order: 1,
++   slug: String
+  }
+}
+
+Argument `slug` is missing.
+   × Advanced Data Schema Tests > Complex Nested Queries > should handle complex nested relationships 32ms
+     → 
+Invalid `prisma.lesson.create()` invocation:
+
+{
+  data: {
+    title: "Complex Lesson",
+    description: "Complex lesson description",
+    gradeLevel: 3,
+    order: 1,
+    standards: {
+      connect: [
+        {
+          id: "cmomwpnrk00g6w9d94i51v4s7"
+        }
+      ]
+    },
++   slug: String
+  }
+}
+
+Argument `slug` is missing.
+   ✓ Advanced Data Schema Tests > Foreign Key Constraints > should enforce foreign key constraint for class teacher 14ms
+   ✓ Advanced Data Schema Tests > Foreign Key Constraints > should enforce foreign key constraint for curriculum unit class 14ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+ ✓ app/api/classes/[classId]/curriculum/route.integration.test.ts (13 tests) 1107ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+ ✓ tests/api/ai-update-mastery.integration.test.ts (6 tests) 54ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+stderr | app/api/auth/login/route.integration.test.ts > POST /api/auth/login - Integration Tests > Validation > should handle missing body
+Login error: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+[90m    at parseJSONFromBytes (node:internal/deps/undici/undici:6223:19)[39m
+[90m    at successSteps (node:internal/deps/undici/undici:6204:27)[39m
+[90m    at consumeBody (node:internal/deps/undici/undici:6210:9)[39m
+[90m    at NextRequest.json (node:internal/deps/undici/undici:6152:18)[39m
+    at Module.POST [90m(/home/daniel-bo/Desktop/science-advantage/[39mapp/api/auth/login/route.ts:31:32[90m)[39m
+    at [90m/home/daniel-bo/Desktop/science-advantage/[39mapp/api/auth/login/route.integration.test.ts:183:30
+    at [90mfile:///home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1897:20
+
+stderr | app/api/auth/login/route.integration.test.ts > POST /api/auth/login - Integration Tests > Response Format > should handle malformed JSON request
+Login error: SyntaxError: Unexpected token 'i', "invalid json" is not valid JSON
+    at JSON.parse (<anonymous>)
+[90m    at parseJSONFromBytes (node:internal/deps/undici/undici:6223:19)[39m
+[90m    at successSteps (node:internal/deps/undici/undici:6204:27)[39m
+[90m    at readAllBytes (node:internal/deps/undici/undici:5173:13)[39m
+
+ ❯ app/api/auth/login/route.integration.test.ts (14 tests | 1 failed) 3803ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should login successfully with correct credentials  354ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should create a session in database on successful login 280ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should handle case-insensitive username 276ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should login users with different roles  936ms
+   × POST /api/auth/login - Integration Tests > Validation > should validate required fields 149ms
+     → expected 'Required' to be 'Username and password are required' // Object.is equality
+   ✓ POST /api/auth/login - Integration Tests > Validation > should handle missing body 148ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject incorrect password 264ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject non-existent user 142ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject user without credential account 145ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject credential account without password 152ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should not expose user data on failed login 272ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should use same error message for non-existent user and wrong password 276ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should return user data without sensitive fields 272ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should handle malformed JSON request 136ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && timeout 180 npx vitest run --reporter=basic 2>&1 | grep -E "(✓|✗|×|FAIL|PASS|Tests:)" | tail -50
+✓ QuizPlayer > Submission Error Handling > should show error when submission returns 409 (duplicate)  622ms
+ ✓ tests/api/lesson-analytics.integration.test.ts (10 tests) 1265ms
+   ✓ /api/classes/[classId]/lessons/[lessonId]/analytics > should return 401 when not authenticated  307ms
+   ✓ GET /api/students/[studentId]/mastery-profile - Integration Tests > Authentication & Authorization > should return 401 when not authenticated 73ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Authentication & Authorization > should allow student to access their own profile 89ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Authentication & Authorization > should deny student from accessing another student profile 56ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Response Format & Data Grouping > should return READY status when no pending mastery runs 51ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Response Format & Data Grouping > should return CALCULATING status when mastery run is pending 75ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Response Format & Data Grouping > should group standards by strand and sort by weakest first 85ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Response Format & Data Grouping > should include correct mastery labels 110ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Response Format & Data Grouping > should include all required fields in standard records 55ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Pagination > should paginate results with limit and cursor 55ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Pagination > should enforce maximum limit of 200 50ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Filtering > should filter by strand 54ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Filtering > should return empty strands for non-existent strand 54ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > includeRecommendations parameter > should include aiAnnotation when includeRecommendations=true 47ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > includeRecommendations parameter > should not include aiAnnotation when includeRecommendations=false 57ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Edge Cases > should handle student with no mastery records 55ms
+   × GET /api/students/[studentId]/mastery-profile - Integration Tests > Edge Cases > should return 404 for non-existent student 50ms
+   ✓ Advanced Data Schema Tests > Database Connection > should connect to database successfully 207ms
+   ✓ Advanced Data Schema Tests > User Model > should create a user with required fields 42ms
+   ✓ Advanced Data Schema Tests > User Model > should create a user with role and grade level 17ms
+   ✓ Advanced Data Schema Tests > Class Model > should create a class with THAI standards alignment 22ms
+   ✓ Advanced Data Schema Tests > Class Model > should create a class with NGSS standards alignment 23ms
+   ✓ Advanced Data Schema Tests > Standard Model > should create a standard with NGSS framework 19ms
+   ✓ Advanced Data Schema Tests > Standard Model > should enforce unique constraint on framework + code 19ms
+   × Advanced Data Schema Tests > Lesson Model > should create a lesson with basic fields 15ms
+   × Advanced Data Schema Tests > CurriculumUnit Model > should create a curriculum unit 21ms
+   ✓ Advanced Data Schema Tests > Relationships > should create user-class relationship (teacher-students) 34ms
+   × Advanced Data Schema Tests > Relationships > should create lesson-standard many-to-many relationship 20ms
+   × Advanced Data Schema Tests > Relationships > should create curriculumUnit-lesson many-to-many relationship 25ms
+   × Advanced Data Schema Tests > Complex Nested Queries > should handle complex nested relationships 31ms
+   ✓ Advanced Data Schema Tests > Foreign Key Constraints > should enforce foreign key constraint for class teacher 15ms
+   ✓ Advanced Data Schema Tests > Foreign Key Constraints > should enforce foreign key constraint for curriculum unit class 12ms
+ ✓ app/api/classes/[classId]/curriculum/route.integration.test.ts (13 tests) 996ms
+ ✓ tests/api/ai-update-mastery.integration.test.ts (6 tests) 38ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should login successfully with correct credentials  346ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should create a session in database on successful login 283ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should handle case-insensitive username 287ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should login users with different roles  953ms
+   × POST /api/auth/login - Integration Tests > Validation > should validate required fields 145ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should handle missing body 150ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject incorrect password 276ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject non-existent user 188ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject user without credential account 168ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject credential account without password 152ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should not expose user data on failed login 276ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should use same error message for non-existent user and wrong password 273ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should return user data without sensitive fields 280ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should handle malformed JSON request 145ms
+[0m
+[0m$ [0mtimeout 180 npx vitest run --reporter=basic 2>&1 | grep -E "^(Tests:|Test Files:)" | tail -5
+(no output)
+[0m
+[0m$ [0mtimeout 180 npx vitest run 2>&1 | grep -E "Tests|passed|failed" | tail -5
+✓ POST /api/auth/login - Integration Tests > Security > should not expose user data on failed login 272ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should use same error message for non-existent user and wrong password 275ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should return user data without sensitive fields 277ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should handle malformed JSON request 146ms
+ ❯ components/features/teacher/intervention-alerts-widget.test.tsx (13 tests | 9 failed) 9379ms
+[0m
+[0m# [0mTodos
+[x] Start dev server and verify previous phase works
+[x] Run verification tests (console errors, feature check)
+[ ] Implement Phase 3: Display Preference and API Updates
+[ ] Verify implementation with tests and browser
+[0m
+[0m→ [0mRead contexts/display-preference-context.tsx
+[0m→ [0mRead components/features/lesson/display-preference-selector.tsx
+[0m→ [0mRead app/api/lessons/[lessonSlug]/route.ts
+[0m→ [0mRead app/api/classes/[classId]/curriculum/route.ts
+[0m→ [0mRead components/features/lesson/lesson-player.tsx
+[0m→ [0mRead components/features/student/lesson-viewer.tsx
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npx prisma generate 2>&1 | tail -5
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+[0m
+[0m$ [0mnpm run build 2>&1 | tail -30
+(no output)
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+Based on my review, the Phase 3 implementation work is largely done:
+- `DisplayPreferenceProvider` and `DisplayPreferenceSelector` are implemented
+- API routes return `titleThai` fields
+- `LessonViewer` passes `displayPreference` to `LessonPlayer`
+
+Let me update the plan and then run verification:
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/plan.md[90m [limit=40, offset=40][0m
+[0m
+[0m$ [0mtimeout 120 npx vitest run tests/lib/bilingual-schema.test.ts tests/lib/display-preference.test.tsx --reporter=verbose 2>&1 | tail -50
+✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should handle title that is only the delimiter 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should trim whitespace from both parts 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should handle Thai-only title with delimiter 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > splitBilingualField > should split a bilingual description 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > splitBilingualField > should return null thai when no delimiter present 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > splitBilingualField > should handle null input 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Lesson Model Thai Fields > should have titleThai and descriptionThai as optional fields in schema 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Lesson Model Thai Fields > should allow null values for Thai fields 0ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > defaults to side-by-side for new users 65ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > persists preference to localStorage 31ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > loads saved preference from localStorage on mount 10ms
+ × tests/lib/display-preference.test.tsx > DisplayPreferenceContext > shows Thai when preference is Thai 30ms
+   → [2mexpect([22m[31melement[39m[2m).toHaveTextContent()[22m
+
+Expected element to have text content:
+[32m  true[39m
+Received:
+[31m  false[39m
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > hides Thai when preference is English 12ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > shows both languages when preference is Side-by-Side 10ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > handles invalid localStorage values gracefully 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/lib/display-preference.test.tsx > DisplayPreferenceContext > shows Thai when preference is Thai
+Error: [2mexpect([22m[31melement[39m[2m).toHaveTextContent()[22m
+
+Expected element to have text content:
+[32m  true[39m
+Received:
+[31m  false[39m
+ ❯ tests/lib/display-preference.test.tsx:79:48
+     77| 
+     78|     expect(screen.getByTestId('show-thai')).toHaveTextContent('true');
+     79|     expect(screen.getByTestId('show-english')).toHaveTextContent('true…
+       |                                                ^
+     80|   });
+     81| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 18 passed (19)
+   Start at  21:01:50
+   Duration  25.95s (transform 150ms, setup 23.93s, collect 453ms, tests 177ms, environment 931ms, prepare 129ms)
+[0m
+[0m→ [0mRead tests/lib/display-preference.test.tsx[90m [limit=30, offset=65][0m
+[0m→ [0mRead tests/lib/display-preference.test.tsx
+The test has an incorrect expectation. When preference is 'th', showEnglish should be false, not true. The spec says Thai mode shows Thai as primary with English fallback only when Thai content is missing - it doesn't mean both should be shown simultaneously.
+
+Let me fix the test:
+[0m
+[0m← [0mEdit tests/lib/display-preference.test.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/tests/lib/display-preference.test.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/tests/lib/display-preference.test.tsx
++++ /home/daniel-bo/Desktop/science-advantage/tests/lib/display-preference.test.tsx
+@@ -75,9 +75,9 @@
+     screen.getByText('Thai').click();
+   });
+ 
+   expect(screen.getByTestId('show-thai')).toHaveTextContent('true');
+-  expect(screen.getByTestId('show-english')).toHaveTextContent('true');
++  expect(screen.getByTestId('show-english')).toHaveTextContent('false');
+ });
+ 
+ it('hides Thai when preference is English', () => {
+   render(
+
+[0m
+[0m$ [0mtimeout 120 npx vitest run tests/lib/display-preference.test.tsx tests/lib/bilingual-schema.test.ts --reporter=verbose 2>&1 | tail -30
+Prisma config detected, skipping environment variable loading.
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > defaults to side-by-side for new users 53ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > persists preference to localStorage 26ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > loads saved preference from localStorage on mount 8ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > shows Thai when preference is Thai 11ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > hides Thai when preference is English 11ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > shows both languages when preference is Side-by-Side 8ms
+ ✓ tests/lib/display-preference.test.tsx > DisplayPreferenceContext > handles invalid localStorage values gracefully 6ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should split "English / Thai" into separate parts 1ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should handle titles with no Thai portion 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should split on first occurrence only when multiple delimiters 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should handle empty string 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should handle title that is only the delimiter 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should trim whitespace from both parts 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > parseBilingualTitle > should handle Thai-only title with delimiter 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > splitBilingualField > should split a bilingual description 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > splitBilingualField > should return null thai when no delimiter present 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Bilingual Schema Support > splitBilingualField > should handle null input 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Lesson Model Thai Fields > should have titleThai and descriptionThai as optional fields in schema 0ms
+ ✓ tests/lib/bilingual-schema.test.ts > Lesson Model Thai Fields > should allow null values for Thai fields 0ms
+
+ Test Files  2 passed (2)
+      Tests  19 passed (19)
+   Start at  21:03:33
+   Duration  24.46s (transform 147ms, setup 22.68s, collect 334ms, tests 132ms, environment 889ms, prepare 119ms)
+[0m
+[0m→ [0mRead prisma/seed-data/lessons/thai-g3-unit-1.json[90m [limit=100][0m
+[0m✱ [0mGrep "contentThai"[90m in prisma/seed-data · 0 matches[0m
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/plan.md
+[0m→ [0mRead components/features/teacher/class-detail/curriculum-accordion.tsx[90m [limit=100][0m
+[0m
+[0m# [0mTodos
+[x] Start dev server and verify previous phase works
+[x] Run verification tests (console errors, feature check)
+[x] Implement Phase 3: Display Preference and API Updates
+[ ] Verify implementation with tests and browser
+[0m
+[0m$ [0mtimeout 180 npx vitest run 2>&1 | tail -50
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+ ✓ app/api/classes/[classId]/curriculum/route.integration.test.ts (13 tests) 1007ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+ ✓ tests/api/ai-update-mastery.integration.test.ts (6 tests) 42ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+stderr | app/api/auth/login/route.integration.test.ts > POST /api/auth/login - Integration Tests > Validation > should handle missing body
+Login error: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+[90m    at parseJSONFromBytes (node:internal/deps/undici/undici:6223:19)[39m
+[90m    at successSteps (node:internal/deps/undici/undici:6204:27)[39m
+[90m    at consumeBody (node:internal/deps/undici/undici:6210:9)[39m
+[90m    at NextRequest.json (node:internal/deps/undici/undici:6152:18)[39m
+    at Module.POST [90m(/home/daniel-bo/Desktop/science-advantage/[39mapp/api/auth/login/route.ts:31:32[90m)[39m
+    at [90m/home/daniel-bo/Desktop/science-advantage/[39mapp/api/auth/login/route.integration.test.ts:183:30
+    at [90mfile:///home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/daniel-bo/Desktop/science-advantage/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1897:20
+
+stderr | app/api/auth/login/route.integration.test.ts > POST /api/auth/login - Integration Tests > Response Format > should handle malformed JSON request
+Login error: SyntaxError: Unexpected token 'i', "invalid json" is not valid JSON
+    at JSON.parse (<anonymous>)
+[90m    at parseJSONFromBytes (node:internal/deps/undici/undici:6223:19)[39m
+[90m    at successSteps (node:internal/deps/undici/undici:6204:27)[39m
+[90m    at readAllBytes (node:internal/deps/undici/undici:5173:13)[39m
+
+ ❯ app/api/auth/login/route.integration.test.ts (14 tests | 1 failed) 3818ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should login successfully with correct credentials  327ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should create a session in database on successful login 282ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should handle case-insensitive username 286ms
+   ✓ POST /api/auth/login - Integration Tests > Successful Login > should login users with different roles  976ms
+   × POST /api/auth/login - Integration Tests > Validation > should validate required fields 146ms
+     → expected 'Required' to be 'Username and password are required' // Object.is equality
+   ✓ POST /api/auth/login - Integration Tests > Validation > should handle missing body 143ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject incorrect password 267ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject non-existent user 141ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject user without credential account 150ms
+   ✓ POST /api/auth/login - Integration Tests > Validation > should reject credential account without password 147ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should not expose user data on failed login 265ms
+   ✓ POST /api/auth/login - Integration Tests > Security > should use same error message for non-existent user and wrong password 274ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should return user data without sensitive fields 274ms
+   ✓ POST /api/auth/login - Integration Tests > Response Format > should handle malformed JSON request 141ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma config detected, skipping environment variable loading.
+[0m
+[0m$ [0mgit status --short
+...output truncated...
+
+Full output saved to: /home/daniel-bo/.local/share/opencode/tool-output/tool_de3a81c22001FkOxA4E5liXKkG
+
+ D lib/generated/zod/schemas/countuser.schema.ts
+ D lib/generated/zod/schemas/countverification.schema.ts
+ D lib/generated/zod/schemas/createManyAchievement.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnAchievement.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnAssignment.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnAttempt.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnClass.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnLesson.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnMasteryRun.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnStandard.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnStandardMastery.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnaccount.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnsession.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnuser.schema.ts
+ D lib/generated/zod/schemas/createManyAndReturnverification.schema.ts
+ D lib/generated/zod/schemas/createManyAssignment.schema.ts
+ D lib/generated/zod/schemas/createManyAttempt.schema.ts
+ D lib/generated/zod/schemas/createManyClass.schema.ts
+ D lib/generated/zod/schemas/createManyCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/createManyGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/createManyLesson.schema.ts
+ D lib/generated/zod/schemas/createManyLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/createManyMasteryRun.schema.ts
+ D lib/generated/zod/schemas/createManyQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/createManyQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/createManyStandard.schema.ts
+ D lib/generated/zod/schemas/createManyStandardMastery.schema.ts
+ D lib/generated/zod/schemas/createManyaccount.schema.ts
+ D lib/generated/zod/schemas/createManysession.schema.ts
+ D lib/generated/zod/schemas/createManyuser.schema.ts
+ D lib/generated/zod/schemas/createManyverification.schema.ts
+ D lib/generated/zod/schemas/createOneAchievement.schema.ts
+ D lib/generated/zod/schemas/createOneAssignment.schema.ts
+ D lib/generated/zod/schemas/createOneAttempt.schema.ts
+ D lib/generated/zod/schemas/createOneClass.schema.ts
+ D lib/generated/zod/schemas/createOneCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/createOneGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/createOneLesson.schema.ts
+ D lib/generated/zod/schemas/createOneLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/createOneMasteryRun.schema.ts
+ D lib/generated/zod/schemas/createOneQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/createOneQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/createOneStandard.schema.ts
+ D lib/generated/zod/schemas/createOneStandardMastery.schema.ts
+ D lib/generated/zod/schemas/createOneaccount.schema.ts
+ D lib/generated/zod/schemas/createOnesession.schema.ts
+ D lib/generated/zod/schemas/createOneuser.schema.ts
+ D lib/generated/zod/schemas/createOneverification.schema.ts
+ D lib/generated/zod/schemas/deleteManyAchievement.schema.ts
+ D lib/generated/zod/schemas/deleteManyAssignment.schema.ts
+ D lib/generated/zod/schemas/deleteManyAttempt.schema.ts
+ D lib/generated/zod/schemas/deleteManyClass.schema.ts
+ D lib/generated/zod/schemas/deleteManyCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/deleteManyGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/deleteManyLesson.schema.ts
+ D lib/generated/zod/schemas/deleteManyLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/deleteManyMasteryRun.schema.ts
+ D lib/generated/zod/schemas/deleteManyQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/deleteManyQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/deleteManyStandard.schema.ts
+ D lib/generated/zod/schemas/deleteManyStandardMastery.schema.ts
+ D lib/generated/zod/schemas/deleteManyaccount.schema.ts
+ D lib/generated/zod/schemas/deleteManysession.schema.ts
+ D lib/generated/zod/schemas/deleteManyuser.schema.ts
+ D lib/generated/zod/schemas/deleteManyverification.schema.ts
+ D lib/generated/zod/schemas/deleteOneAchievement.schema.ts
+ D lib/generated/zod/schemas/deleteOneAssignment.schema.ts
+ D lib/generated/zod/schemas/deleteOneAttempt.schema.ts
+ D lib/generated/zod/schemas/deleteOneClass.schema.ts
+ D lib/generated/zod/schemas/deleteOneCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/deleteOneGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/deleteOneLesson.schema.ts
+ D lib/generated/zod/schemas/deleteOneLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/deleteOneMasteryRun.schema.ts
+ D lib/generated/zod/schemas/deleteOneQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/deleteOneQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/deleteOneStandard.schema.ts
+ D lib/generated/zod/schemas/deleteOneStandardMastery.schema.ts
+ D lib/generated/zod/schemas/deleteOneaccount.schema.ts
+ D lib/generated/zod/schemas/deleteOnesession.schema.ts
+ D lib/generated/zod/schemas/deleteOneuser.schema.ts
+ D lib/generated/zod/schemas/deleteOneverification.schema.ts
+ D lib/generated/zod/schemas/findFirstAchievement.schema.ts
+ D lib/generated/zod/schemas/findFirstAssignment.schema.ts
+ D lib/generated/zod/schemas/findFirstAttempt.schema.ts
+ D lib/generated/zod/schemas/findFirstClass.schema.ts
+ D lib/generated/zod/schemas/findFirstCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/findFirstGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/findFirstLesson.schema.ts
+ D lib/generated/zod/schemas/findFirstLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/findFirstMasteryRun.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowAchievement.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowAssignment.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowAttempt.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowClass.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowLesson.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowMasteryRun.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowStandard.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowStandardMastery.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowaccount.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowsession.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowuser.schema.ts
+ D lib/generated/zod/schemas/findFirstOrThrowverification.schema.ts
+ D lib/generated/zod/schemas/findFirstQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/findFirstQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/findFirstStandard.schema.ts
+ D lib/generated/zod/schemas/findFirstStandardMastery.schema.ts
+ D lib/generated/zod/schemas/findFirstaccount.schema.ts
+ D lib/generated/zod/schemas/findFirstsession.schema.ts
+ D lib/generated/zod/schemas/findFirstuser.schema.ts
+ D lib/generated/zod/schemas/findFirstverification.schema.ts
+ D lib/generated/zod/schemas/findManyAchievement.schema.ts
+ D lib/generated/zod/schemas/findManyAssignment.schema.ts
+ D lib/generated/zod/schemas/findManyAttempt.schema.ts
+ D lib/generated/zod/schemas/findManyClass.schema.ts
+ D lib/generated/zod/schemas/findManyCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/findManyGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/findManyLesson.schema.ts
+ D lib/generated/zod/schemas/findManyLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/findManyMasteryRun.schema.ts
+ D lib/generated/zod/schemas/findManyQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/findManyQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/findManyStandard.schema.ts
+ D lib/generated/zod/schemas/findManyStandardMastery.schema.ts
+ D lib/generated/zod/schemas/findManyaccount.schema.ts
+ D lib/generated/zod/schemas/findManysession.schema.ts
+ D lib/generated/zod/schemas/findManyuser.schema.ts
+ D lib/generated/zod/schemas/findManyverification.schema.ts
+ D lib/generated/zod/schemas/findUniqueAchievement.schema.ts
+ D lib/generated/zod/schemas/findUniqueAssignment.schema.ts
+ D lib/generated/zod/schemas/findUniqueAttempt.schema.ts
+ D lib/generated/zod/schemas/findUniqueClass.schema.ts
+ D lib/generated/zod/schemas/findUniqueCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/findUniqueGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/findUniqueLesson.schema.ts
+ D lib/generated/zod/schemas/findUniqueLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/findUniqueMasteryRun.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowAchievement.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowAssignment.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowAttempt.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowClass.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowLesson.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowMasteryRun.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowStandard.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowStandardMastery.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowaccount.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowsession.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowuser.schema.ts
+ D lib/generated/zod/schemas/findUniqueOrThrowverification.schema.ts
+ D lib/generated/zod/schemas/findUniqueQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/findUniqueQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/findUniqueStandard.schema.ts
+ D lib/generated/zod/schemas/findUniqueStandardMastery.schema.ts
+ D lib/generated/zod/schemas/findUniqueaccount.schema.ts
+ D lib/generated/zod/schemas/findUniquesession.schema.ts
+ D lib/generated/zod/schemas/findUniqueuser.schema.ts
+ D lib/generated/zod/schemas/findUniqueverification.schema.ts
+ D lib/generated/zod/schemas/groupByAchievement.schema.ts
+ D lib/generated/zod/schemas/groupByAssignment.schema.ts
+ D lib/generated/zod/schemas/groupByAttempt.schema.ts
+ D lib/generated/zod/schemas/groupByClass.schema.ts
+ D lib/generated/zod/schemas/groupByCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/groupByGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/groupByLesson.schema.ts
+ D lib/generated/zod/schemas/groupByLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/groupByMasteryRun.schema.ts
+ D lib/generated/zod/schemas/groupByQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/groupByQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/groupByStandard.schema.ts
+ D lib/generated/zod/schemas/groupByStandardMastery.schema.ts
+ D lib/generated/zod/schemas/groupByaccount.schema.ts
+ D lib/generated/zod/schemas/groupBysession.schema.ts
+ D lib/generated/zod/schemas/groupByuser.schema.ts
+ D lib/generated/zod/schemas/groupByverification.schema.ts
+ D lib/generated/zod/schemas/index.ts
+ D lib/generated/zod/schemas/objects/AccountCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AccountMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AccountMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementArgs.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementInclude.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementSelect.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementUncheckedUpdateManyWithoutUserInput.schema.ts
+ D lib/generated/zod/schemas/objects/AchievementUncheckedUpdateWithoutUserInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentArgs.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentCreateManyClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentCreateManyLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentInclude.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentSelect.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUncheckedUpdateManyWithoutClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUncheckedUpdateManyWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUncheckedUpdateManyWithoutTeacherInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUncheckedUpdateWithoutClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUncheckedUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUncheckedUpdateWithoutTeacherInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUpdateWithoutClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AssignmentUpdateWithoutTeacherInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptArgs.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptCreateManyLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptInclude.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptSelect.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptUncheckedUpdateManyWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptUncheckedUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/AttemptUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/ClassArgs.schema.ts
+ D lib/generated/zod/schemas/objects/ClassAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/ClassCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/ClassCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/ClassCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/ClassInclude.schema.ts
+ D lib/generated/zod/schemas/objects/ClassMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/ClassMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/ClassSelect.schema.ts
+ D lib/generated/zod/schemas/objects/ClassSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitArgs.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitCreateManyClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitInclude.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitSelect.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitUncheckedUpdateManyWithoutClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitUncheckedUpdateManyWithoutLessonsInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitUncheckedUpdateWithoutClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitUncheckedUpdateWithoutLessonsInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitUpdateWithoutClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/CurriculumUnitUpdateWithoutLessonsInput.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileArgs.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileInclude.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileSelect.schema.ts
+ D lib/generated/zod/schemas/objects/GamificationProfileSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonArgs.schema.ts
+ D lib/generated/zod/schemas/objects/LessonAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionArgs.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionCreateManyLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionInclude.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionSelect.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionUncheckedUpdateManyWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionUncheckedUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCompletionUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/LessonCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/LessonInclude.schema.ts
+ D lib/generated/zod/schemas/objects/LessonMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonSelect.schema.ts
+ D lib/generated/zod/schemas/objects/LessonSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonUncheckedUpdateManyWithoutCurriculumUnitsInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonUncheckedUpdateManyWithoutStandardsInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutCurriculumUnitsInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonUncheckedUpdateWithoutStandardsInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonUpdateWithoutCurriculumUnitsInput.schema.ts
+ D lib/generated/zod/schemas/objects/LessonUpdateWithoutStandardsInput.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunArgs.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunInclude.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunSelect.schema.ts
+ D lib/generated/zod/schemas/objects/MasteryRunSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseArgs.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseCreateManyAttemptInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseCreateManyQuestionInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseInclude.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseSelect.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseUncheckedUpdateManyWithoutAttemptInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseUncheckedUpdateManyWithoutQuestionInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseUncheckedUpdateWithoutAttemptInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseUncheckedUpdateWithoutQuestionInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseUpdateWithoutAttemptInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuestionResponseUpdateWithoutQuestionInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionArgs.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionCreateManyLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionInclude.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionSelect.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionUncheckedUpdateManyWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionUncheckedUpdateManyWithoutStandardsInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionUncheckedUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionUncheckedUpdateWithoutStandardsInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionUpdateWithoutLessonInput.schema.ts
+ D lib/generated/zod/schemas/objects/QuizQuestionUpdateWithoutStandardsInput.schema.ts
+ D lib/generated/zod/schemas/objects/SessionCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/SessionMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/SessionMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardArgs.schema.ts
+ D lib/generated/zod/schemas/objects/StandardAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/StandardCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/StandardInclude.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryArgs.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryCreateManyStandardInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryInclude.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasterySelect.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasterySumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryUncheckedUpdateManyWithoutStandardInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryUncheckedUpdateWithoutStandardInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMasteryUpdateWithoutStandardInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardSelect.schema.ts
+ D lib/generated/zod/schemas/objects/StandardSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardUncheckedUpdateManyWithoutLessonsInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardUncheckedUpdateManyWithoutQuizQuestionsInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardUncheckedUpdateWithoutLessonsInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardUncheckedUpdateWithoutQuizQuestionsInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardUpdateWithoutLessonsInput.schema.ts
+ D lib/generated/zod/schemas/objects/StandardUpdateWithoutQuizQuestionsInput.schema.ts
+ D lib/generated/zod/schemas/objects/UserAvgAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/UserCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/UserCountOutputTypeArgs.schema.ts
+ D lib/generated/zod/schemas/objects/UserCountOutputTypeSelect.schema.ts
+ D lib/generated/zod/schemas/objects/UserMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/UserMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/UserSumAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/VerificationCountAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/VerificationMaxAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/VerificationMinAggregateInput.schema.ts
+ D lib/generated/zod/schemas/objects/accountArgs.schema.ts
+ D lib/generated/zod/schemas/objects/accountInclude.schema.ts
+ D lib/generated/zod/schemas/objects/accountSelect.schema.ts
+ D lib/generated/zod/schemas/objects/sessionArgs.schema.ts
+ D lib/generated/zod/schemas/objects/sessionInclude.schema.ts
+ D lib/generated/zod/schemas/objects/sessionSelect.schema.ts
+ D lib/generated/zod/schemas/objects/userArgs.schema.ts
+ D lib/generated/zod/schemas/objects/userInclude.schema.ts
+ D lib/generated/zod/schemas/objects/userSelect.schema.ts
+ D lib/generated/zod/schemas/objects/userUncheckedUpdateManyWithoutEnrolledClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/userUncheckedUpdateWithoutEnrolledClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/userUpdateWithoutEnrolledClassInput.schema.ts
+ D lib/generated/zod/schemas/objects/verificationArgs.schema.ts
+ D lib/generated/zod/schemas/objects/verificationSelect.schema.ts
+ D lib/generated/zod/schemas/results/AchievementAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementCountResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/AchievementUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentCountResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/AssignmentUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptCountResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/AttemptUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassCountResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/ClassUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitCountResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/CurriculumUnitUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileCountResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/GamificationProfileUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionCountResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCompletionUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCountResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/LessonUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunCountResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/MasteryRunUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseCountResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/QuestionResponseUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionCountResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/QuizQuestionUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardCountResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryCountResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardMasteryUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/StandardUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/accountAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/accountCountResult.schema.ts
+ D lib/generated/zod/schemas/results/accountCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/accountCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/accountDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/accountDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/accountFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/accountFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/accountFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/accountGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/accountUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/accountUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/accountUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/index.ts
+ D lib/generated/zod/schemas/results/sessionAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionCountResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/sessionUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/userAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/userCountResult.schema.ts
+ D lib/generated/zod/schemas/results/userCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/userCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/userDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/userDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/userFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/userFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/userFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/userGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/userUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/userUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/userUpsertResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationAggregateResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationCountResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationCreateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationCreateResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationDeleteManyResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationDeleteResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationFindFirstResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationFindManyResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationFindUniqueResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationGroupByResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationUpdateManyResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationUpdateResult.schema.ts
+ D lib/generated/zod/schemas/results/verificationUpsertResult.schema.ts
+ D lib/generated/zod/schemas/updateManyAchievement.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnAchievement.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnAssignment.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnAttempt.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnClass.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnLesson.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnMasteryRun.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnStandard.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnStandardMastery.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnaccount.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnsession.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnuser.schema.ts
+ D lib/generated/zod/schemas/updateManyAndReturnverification.schema.ts
+ D lib/generated/zod/schemas/updateManyAssignment.schema.ts
+ D lib/generated/zod/schemas/updateManyAttempt.schema.ts
+ D lib/generated/zod/schemas/updateManyClass.schema.ts
+ D lib/generated/zod/schemas/updateManyCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/updateManyGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/updateManyLesson.schema.ts
+ D lib/generated/zod/schemas/updateManyLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/updateManyMasteryRun.schema.ts
+ D lib/generated/zod/schemas/updateManyQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/updateManyQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/updateManyStandard.schema.ts
+ D lib/generated/zod/schemas/updateManyStandardMastery.schema.ts
+ D lib/generated/zod/schemas/updateManyaccount.schema.ts
+ D lib/generated/zod/schemas/updateManysession.schema.ts
+ D lib/generated/zod/schemas/updateManyuser.schema.ts
+ D lib/generated/zod/schemas/updateManyverification.schema.ts
+ D lib/generated/zod/schemas/updateOneAchievement.schema.ts
+ D lib/generated/zod/schemas/updateOneAssignment.schema.ts
+ D lib/generated/zod/schemas/updateOneAttempt.schema.ts
+ D lib/generated/zod/schemas/updateOneClass.schema.ts
+ D lib/generated/zod/schemas/updateOneCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/updateOneGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/updateOneLesson.schema.ts
+ D lib/generated/zod/schemas/updateOneLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/updateOneMasteryRun.schema.ts
+ D lib/generated/zod/schemas/updateOneQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/updateOneQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/updateOneStandard.schema.ts
+ D lib/generated/zod/schemas/updateOneStandardMastery.schema.ts
+ D lib/generated/zod/schemas/updateOneaccount.schema.ts
+ D lib/generated/zod/schemas/updateOnesession.schema.ts
+ D lib/generated/zod/schemas/updateOneuser.schema.ts
+ D lib/generated/zod/schemas/updateOneverification.schema.ts
+ D lib/generated/zod/schemas/upsertOneAchievement.schema.ts
+ D lib/generated/zod/schemas/upsertOneAssignment.schema.ts
+ D lib/generated/zod/schemas/upsertOneAttempt.schema.ts
+ D lib/generated/zod/schemas/upsertOneClass.schema.ts
+ D lib/generated/zod/schemas/upsertOneCurriculumUnit.schema.ts
+ D lib/generated/zod/schemas/upsertOneGamificationProfile.schema.ts
+ D lib/generated/zod/schemas/upsertOneLesson.schema.ts
+ D lib/generated/zod/schemas/upsertOneLessonCompletion.schema.ts
+ D lib/generated/zod/schemas/upsertOneMasteryRun.schema.ts
+ D lib/generated/zod/schemas/upsertOneQuestionResponse.schema.ts
+ D lib/generated/zod/schemas/upsertOneQuizQuestion.schema.ts
+ D lib/generated/zod/schemas/upsertOneStandard.schema.ts
+ D lib/generated/zod/schemas/upsertOneStandardMastery.schema.ts
+ D lib/generated/zod/schemas/upsertOneaccount.schema.ts
+ D lib/generated/zod/schemas/upsertOnesession.schema.ts
+ D lib/generated/zod/schemas/upsertOneuser.schema.ts
+ D lib/generated/zod/schemas/upsertOneverification.schema.ts
+ D lib/generated/zod/schemas/variants/index.ts
+ D lib/generated/zod/schemas/variants/input/Achievement.input.ts
+ D lib/generated/zod/schemas/variants/input/Assignment.input.ts
+ D lib/generated/zod/schemas/variants/input/Attempt.input.ts
+ D lib/generated/zod/schemas/variants/input/Class.input.ts
+ D lib/generated/zod/schemas/variants/input/CurriculumUnit.input.ts
+ D lib/generated/zod/schemas/variants/input/GamificationProfile.input.ts
+ D lib/generated/zod/schemas/variants/input/Lesson.input.ts
+ D lib/generated/zod/schemas/variants/input/LessonCompletion.input.ts
+ D lib/generated/zod/schemas/variants/input/MasteryRun.input.ts
+ D lib/generated/zod/schemas/variants/input/QuestionResponse.input.ts
+ D lib/generated/zod/schemas/variants/input/QuizQuestion.input.ts
+ D lib/generated/zod/schemas/variants/input/Standard.input.ts
+ D lib/generated/zod/schemas/variants/input/StandardMastery.input.ts
+ D lib/generated/zod/schemas/variants/input/account.input.ts
+ D lib/generated/zod/schemas/variants/input/index.ts
+ D lib/generated/zod/schemas/variants/input/session.input.ts
+ D lib/generated/zod/schemas/variants/input/user.input.ts
+ D lib/generated/zod/schemas/variants/input/verification.input.ts
+ D lib/generated/zod/schemas/variants/pure/Achievement.pure.ts
+ D lib/generated/zod/schemas/variants/pure/Assignment.pure.ts
+ D lib/generated/zod/schemas/variants/pure/Attempt.pure.ts
+ D lib/generated/zod/schemas/variants/pure/Class.pure.ts
+ D lib/generated/zod/schemas/variants/pure/CurriculumUnit.pure.ts
+ D lib/generated/zod/schemas/variants/pure/GamificationProfile.pure.ts
+ D lib/generated/zod/schemas/variants/pure/Lesson.pure.ts
+ D lib/generated/zod/schemas/variants/pure/LessonCompletion.pure.ts
+ D lib/generated/zod/schemas/variants/pure/MasteryRun.pure.ts
+ D lib/generated/zod/schemas/variants/pure/QuestionResponse.pure.ts
+ D lib/generated/zod/schemas/variants/pure/QuizQuestion.pure.ts
+ D lib/generated/zod/schemas/variants/pure/Standard.pure.ts
+ D lib/generated/zod/schemas/variants/pure/StandardMastery.pure.ts
+ D lib/generated/zod/schemas/variants/pure/account.pure.ts
+ D lib/generated/zod/schemas/variants/pure/index.ts
+ D lib/generated/zod/schemas/variants/pure/session.pure.ts
+ D lib/generated/zod/schemas/variants/pure/user.pure.ts
+ D lib/generated/zod/schemas/variants/pure/verification.pure.ts
+ D lib/generated/zod/schemas/variants/result/Achievement.result.ts
+ D lib/generated/zod/schemas/variants/result/Assignment.result.ts
+ D lib/generated/zod/schemas/variants/result/Attempt.result.ts
+ D lib/generated/zod/schemas/variants/result/Class.result.ts
+ D lib/generated/zod/schemas/variants/result/CurriculumUnit.result.ts
+ D lib/generated/zod/schemas/variants/result/GamificationProfile.result.ts
+ D lib/generated/zod/schemas/variants/result/Lesson.result.ts
+ D lib/generated/zod/schemas/variants/result/LessonCompletion.result.ts
+ D lib/generated/zod/schemas/variants/result/MasteryRun.result.ts
+ D lib/generated/zod/schemas/variants/result/QuestionResponse.result.ts
+ D lib/generated/zod/schemas/variants/result/QuizQuestion.result.ts
+ D lib/generated/zod/schemas/variants/result/Standard.result.ts
+ D lib/generated/zod/schemas/variants/result/StandardMastery.result.ts
+ D lib/generated/zod/schemas/variants/result/account.result.ts
+ D lib/generated/zod/schemas/variants/result/index.ts
+ D lib/generated/zod/schemas/variants/result/session.result.ts
+ D lib/generated/zod/schemas/variants/result/user.result.ts
+ D lib/generated/zod/schemas/variants/result/verification.result.ts
+ M measure/output.log
+ M next-env.d.ts
+ M tests/lib/display-preference.test.tsx
+[0m

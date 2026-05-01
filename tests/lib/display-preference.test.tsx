@@ -76,7 +76,7 @@ describe('DisplayPreferenceContext', () => {
     });
 
     expect(screen.getByTestId('show-thai')).toHaveTextContent('true');
-    expect(screen.getByTestId('show-english')).toHaveTextContent('true');
+    expect(screen.getByTestId('show-english')).toHaveTextContent('false');
   });
 
   it('hides Thai when preference is English', () => {
