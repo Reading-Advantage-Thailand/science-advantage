@@ -34,34 +34,34 @@
 - [x] Task: Update ProcedureBlock and MaterialsBlock
   - [x] Show Thai instruction/item alongside English on each step/material
   - [x] Use compact inline layout (Thai in parentheses or smaller text below)
-- [ ] Task: Measure - Manual Verification 'Side-by-Side'
-  - [ ] Verify text blocks show Thai below English
-  - [ ] Verify vocabulary flashcards show Thai terms
-  - [ ] Verify no empty Thai placeholders when Thai content is missing
+- [x] Task: Measure - Manual Verification 'Side-by-Side'
+  - [x] Verify text blocks show Thai below English
+  - [x] Verify vocabulary flashcards show Thai terms
+  - [x] Verify no empty Thai placeholders when Thai content is missing
 
 ## Phase 3: Display Preference and API Updates
 
-- [ ] Task: Replace binary toggle with display preference
-  - [ ] Write tests for DisplayPreference context (English, Thai, SideBySide modes)
-  - [ ] Create `DisplayPreferenceProvider` context replacing `LanguageProvider`
-  - [ ] Add preference selector UI (three options: English, Thai, Side-by-Side)
-  - [ ] Default to "Side-by-Side" for new users
-  - [ ] Persist preference to localStorage
-- [ ] Task: Update API routes for bilingual fields
-  - [ ] Update `/api/lessons/[lessonSlug]` to return `titleThai` and `descriptionThai` as separate fields
-  - [ ] Update `/api/classes/[classId]/curriculum` to return `titleThai` for lessons
-  - [ ] Update curriculum accordion to display `titleThai` alongside `title`
-- [ ] Task: Update lesson viewer for display preference
-  - [ ] In "English" mode: show only English content
-  - [ ] In "Thai" mode: show Thai content as primary (fallback to English if Thai missing)
-  - [ ] In "Side-by-Side" mode: show both with Thai as secondary/supplementary
-  - [ ] Pass `displayPreference` to all block renderers
-- [ ] Task: Populate Thai content for key lessons
-  - [ ] Audit Grade 3 Unit 1 vocabulary terms — ensure `thai` field is populated
-  - [ ] Add `contentThai` to vocabulary blocks in all seeded lessons
-  - [ ] For lessons without Thai translation, verify graceful degradation (English only)
-- [ ] Task: Measure - Manual Verification 'Display Preference'
-  - [ ] Verify the three-way preference selector works
-  - [ ] Verify "Side-by-Side" shows both languages
-  - [ ] Verify "Thai" mode shows Thai content with English fallback
-  - [ ] Verify API returns separate title/titleThai fields
+- [x] Task: Replace binary toggle with display preference
+  - [x] Write tests for DisplayPreference context (English, Thai, SideBySide modes)
+  - [x] Create `DisplayPreferenceProvider` context replacing `LanguageProvider`
+  - [x] Add preference selector UI (three options: English, Thai, Side-by-Side)
+  - [x] Default to "Side-by-Side" for new users
+  - [x] Persist preference to localStorage
+- [x] Task: Update API routes for bilingual fields
+  - [x] Update `/api/lessons/[lessonSlug]` to return `titleThai` and `descriptionThai` as separate fields
+  - [x] Update `/api/classes/[classId]/curriculum` to return `titleThai` for lessons
+  - [x] Update curriculum accordion to display `titleThai` alongside `title`
+- [x] Task: Update lesson viewer for display preference
+  - [x] In "English" mode: show only English content
+  - [x] In "Thai" mode: show Thai content as primary (fallback to English if Thai missing)
+  - [x] In "Side-by-Side" mode: show both with Thai as secondary/supplementary
+  - [x] Pass `displayPreference` to all block renderers
+- [x] Task: Populate Thai content for key lessons
+  - [x] Audit Grade 3 Unit 1 vocabulary terms — ensure `thai` field is populated
+  - [x] Add `contentThai` to vocabulary blocks in all seeded lessons
+  - [x] For lessons without Thai translation, verify graceful degradation (English only)
+- [x] Task: Measure - Manual Verification 'Display Preference'
+  - [x] Verify the three-way preference selector works
+  - [x] Verify "Side-by-Side" shows both languages
+  - [x] Verify "Thai" mode shows Thai content with English fallback
+  - [x] Verify API returns separate title/titleThai fields
