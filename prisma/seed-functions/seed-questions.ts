@@ -98,7 +98,7 @@ export async function seedQuestions(
     });
 
     if (!lesson) {
-      console.log(`  ⚠ Warning: Lesson ${questionData.lessonId} not found - skipping ${file}`);
+      console.log(`  ⚠ Warning: Lesson ${questionData.lessonId} not found - skipping ${filePath}`);
       continue;
     }
 
@@ -137,7 +137,7 @@ export async function seedQuestions(
         });
 
         if (standardRecords.length === 0) {
-          console.log(`  ⚠ Warning: No standards found for question in ${file} (order ${i + 1})`);
+          console.log(`  ⚠ Warning: No standards found for question in ${filePath} (order ${i + 1})`);
           console.log(`    Standards requested: ${q.standards.join(', ')}`);
         }
 
@@ -162,7 +162,7 @@ export async function seedQuestions(
 
         questionsCreated++;
       } catch (error) {
-        console.log(`  ⚠ Error creating question ${i + 1} in ${file}:`, error);
+        console.log(`  ⚠ Error creating question ${i + 1} in ${filePath}:`, error);
       }
     }
 

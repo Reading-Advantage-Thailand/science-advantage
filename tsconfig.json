@@ -38,6 +38,8 @@
   "exclude": [
     "node_modules",
     "lib/generated",
+    "prisma/migrations",
+    "prisma/seed-functions",
     "app/api/students/[studentId]/classes/[classId]/analytics/route.integration.test.ts",
     "app/api/students/[studentId]/lessons/[lessonId]/analytics/route.integration.test.ts",
     "tests/api/class-analytics-overview.integration.test.ts",

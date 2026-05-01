@@ -6,6 +6,7 @@ type LessonSummary = {
   id: string;
   slug: string;
   title: string;
+  titleThai: string | null;
   description: string | null;
   order: number;
   gradeLevel: number;
@@ -64,6 +65,7 @@ export async function getClassDetailWithCurriculum(
           id: true,
           slug: true,
           title: true,
+          titleThai: true,
           description: true,
           order: true,
           gradeLevel: true,
@@ -89,6 +91,7 @@ export async function getClassDetailWithCurriculum(
         id: lesson.id,
         slug: lesson.slug,
         title: lesson.title,
+        titleThai: lesson.titleThai,
         description: lesson.description,
         order: lesson.order,
         gradeLevel: lesson.gradeLevel,
