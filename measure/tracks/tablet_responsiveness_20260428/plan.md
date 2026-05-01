@@ -2,23 +2,23 @@
 
 ## Phase 1: Responsive Navigation Shell
 
-- [ ] Task: Build MobileNav component
-  - [ ] Write tests for mobile nav open/close, keyboard accessibility, focus trapping
-  - [ ] Create `MobileNav` component with hamburger button and slide-out sheet
-  - [ ] Use shadcn Sheet component (or build minimal drawer) for the slide-out panel
-  - [ ] Include logo, role-appropriate nav links, and user menu items in the sheet
-  - [ ] Implement focus trap when menu is open (Tab cycles within the sheet)
-  - [ ] Close menu on route change
-- [ ] Task: Update role-group layouts for responsive nav
-  - [ ] Modify `(student)/layout.tsx` to use `MobileNav` on tablet/mobile
-  - [ ] Modify `(teacher)/layout.tsx` to use `MobileNav`
-  - [ ] Modify `(admin)/layout.tsx` to use `MobileNav`
-  - [ ] Modify `(system)/layout.tsx` to use `MobileNav`
-  - [ ] Keep horizontal nav on desktop (>= 1024px), switch to hamburger on tablet/mobile
-- [ ] Task: Measure - Manual Verification 'Responsive Nav'
-  - [ ] Verify hamburger menu appears at 768px and below
-  - [ ] Verify sheet opens/closes with animation
-  - [ ] Verify keyboard navigation works (Escape to close, Tab to cycle)
+- [x] Task: Build MobileNav component
+  - [x] Write tests for mobile nav open/close, keyboard accessibility, focus trapping
+  - [x] Create `MobileNav` component with hamburger button and slide-out sheet
+  - [x] Use shadcn Sheet component (or build minimal drawer) for the slide-out panel
+  - [x] Include logo, role-appropriate nav links, and user menu items in the sheet
+  - [x] Implement focus trap when menu is open (Tab cycles within the sheet)
+  - [x] Close menu on route change
+- [x] Task: Update role-group layouts for responsive nav
+  - [x] Modify `(student)/layout.tsx` to use `MobileNav` on tablet/mobile
+  - [x] Modify `(teacher)/layout.tsx` to use `MobileNav`
+  - [x] Modify `(admin)/layout.tsx` to use `MobileNav`
+  - [x] Modify `(system)/layout.tsx` to use `MobileNav`
+  - [x] Keep horizontal nav on desktop (>= 1024px), switch to hamburger on tablet/mobile
+- [x] Task: Measure - Manual Verification 'Responsive Nav'
+  - [x] Verify hamburger menu appears at 768px and below
+  - [x] Verify sheet opens/closes with animation
+  - [x] Verify keyboard navigation works (Escape to close, Tab to cycle)
 
 ## Phase 2: Layout and Content Responsiveness
 

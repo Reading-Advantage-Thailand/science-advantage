@@ -45,5 +45,6 @@
 - [Curriculum] When adding failing tests to expose gaps, use realistic data paths and check behavior, not implementation details. Test bilingual content by checking vocabulary Thai fields exist, not every text block having contentThai.
 - [Seed Data] Adding slug fields to all units/lessons across multiple JSON files is tedious but straightforward; delegate to a subagent for bulk edits across many files.
 
-- [Design] Tailwind CSS with custom shadow classes (e.g., `shadow-card`, `shadow-elevated`) defined via CSS custom properties won't work with standard `hover:` variant syntax. Use CSS `@apply` with explicit class names or define separate hover variants in CSS rather than trying to use Tailwind's hover prefix on custom utilities.
-- [Design] When defining a new visual identity, ensure the CSS custom properties for shadows are compatible with Tailwind's hover variant system. The `shadow-card` style can be used directly but `hover:shadow-elevated` fails because Tailwind doesn't recognize the custom class during compilation.
+- [Design] Tailwind CSS with custom shadow classes (e.g., `shadow-card`) via CSS custom properties won't work with standard `hover:` variant syntax. Use CSS `@apply` or define separate hover variants in CSS rather than trying to use Tailwind's hover prefix on custom utilities.
+- [Responsive] `as const` on nav item arrays causes "readonly" type incompatibility when passing to components expecting mutable arrays. Use plain array literals instead. User.email in session types is `string | null`, not `string`.
+- [TypeScript] Exclude prisma/migrations and prisma/seed-functions from tsconfig.json — these contain seed infrastructure code that shouldn't be type-checked as part of the Next.js app build.
