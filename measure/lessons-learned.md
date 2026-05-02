@@ -48,3 +48,4 @@
 - [Design] Tailwind CSS with custom shadow classes (e.g., `shadow-card`) via CSS custom properties won't work with standard `hover:` variant syntax. Use CSS `@apply` or define separate hover variants in CSS rather than trying to use Tailwind's hover prefix on custom utilities.
 - [Responsive] `as const` on nav item arrays causes "readonly" type incompatibility when passing to components expecting mutable arrays. Use plain array literals instead. User.email in session types is `string | null`, not `string`.
 - [TypeScript] Exclude prisma/migrations and prisma/seed-functions from tsconfig.json — these contain seed infrastructure code that shouldn't be type-checked as part of the Next.js app build.
+- [Onboarding] First-run detection via API call with localStorage caching avoids prop drilling and works with RSC. Invalidate cache on class join so returning users don't see welcome screen again.
