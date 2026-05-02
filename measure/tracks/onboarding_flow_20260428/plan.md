@@ -2,22 +2,22 @@
 
 ## Phase 1: Student First-Run Experience
 
-- [ ] Task: Define first-run detection logic
-  - [ ] Write tests for first-run check (no enrolled classes = first run)
-  - [ ] Create `useFirstRun()` hook that checks enrolled class count from API
-  - [ ] Cache first-run state to avoid re-checking on every render
-- [ ] Task: Build student welcome screen
-  - [ ] Write tests for welcome screen rendering and class join flow
-  - [ ] Create `StudentWelcomeScreen` component with:
+- [x] Task: Define first-run detection logic
+  - [x] Write tests for first-run check (no enrolled classes = first run)
+  - [x] Create `useFirstRun()` hook that checks enrolled class count from API
+  - [x] Cache first-run state to avoid re-checking on every render
+- [x] Task: Build student welcome screen
+  - [x] Write tests for welcome screen rendering and class join flow
+  - [x] Create `StudentWelcomeScreen` component with:
     - Greeting with student name
     - Brief explanation text
     - Prominent `JoinClassForm` embedded in the center
     - Helper text: "Ask your teacher for your class code"
-  - [ ] Style with the expedition theme (warm, encouraging, not corporate)
-- [ ] Task: Wire welcome screen to student dashboard
-  - [ ] Modify `/student/page.tsx` to conditionally render welcome screen or normal dashboard
-  - [ ] After successful class join, transition to normal dashboard (refresh or state update)
-  - [ ] Returning students with classes see normal dashboard (no welcome screen)
+  - [x] Style with the expedition theme (warm, encouraging, not corporate)
+- [x] Task: Wire welcome screen to student dashboard
+  - [x] Modify `/student/page.tsx` to conditionally render welcome screen or normal dashboard
+  - [x] After successful class join, transition to normal dashboard (refresh or state update)
+  - [x] Returning students with classes see normal dashboard (no welcome screen)
 - [ ] Task: Measure - Manual Verification 'Student First-Run'
   - [ ] Verify new student sees welcome screen
   - [ ] Verify joining a class transitions to normal dashboard
@@ -25,19 +25,19 @@
 
 ## Phase 2: Teacher First-Run Experience
 
-- [ ] Task: Build teacher setup wizard
-  - [ ] Write tests for wizard step progression and class creation
-  - [ ] Create `TeacherSetupWizard` component with 3 steps:
+- [x] Task: Build teacher setup wizard
+  - [x] Write tests for wizard step progression and class creation
+  - [x] Create `TeacherSetupWizard` component with 3 steps:
     - Step 1: "Create your first class" — name, grade, standards (reuse `CreateClassForm` fields)
     - Step 2: "Share the join code" — show join code with copy-to-clipboard, instructions
     - Step 3: "What's next" — brief overview of features: preview lessons, track progress, intervention alerts
-  - [ ] Step indicator showing current step (1 of 3)
-  - [ ] Back button to go to previous step
-- [ ] Task: Wire wizard to teacher dashboard
-  - [ ] Modify `/teacher/page.tsx` to conditionally render wizard or normal dashboard
-  - [ ] Check if teacher has any classes (API call to `/api/classes`)
-  - [ ] After completing wizard, show normal dashboard
-  - [ ] After creating class in wizard step 1, proceed to step 2 with the new class's join code
+  - [x] Step indicator showing current step (1 of 3)
+  - [x] Back button to go to previous step
+- [x] Task: Wire wizard to teacher dashboard
+  - [x] Modify `/teacher/page.tsx` to conditionally render wizard or normal dashboard
+  - [x] Check if teacher has any classes (API call to `/api/classes`)
+  - [x] After completing wizard, show normal dashboard
+  - [x] After creating class in wizard step 1, proceed to step 2 with the new class's join code
 - [ ] Task: Measure - Manual Verification 'Teacher First-Run'
   - [ ] Verify new teacher sees 3-step wizard
   - [ ] Verify creating a class in step 1 shows join code in step 2

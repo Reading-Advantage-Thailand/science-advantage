@@ -127,6 +127,12 @@ export function JoinClassForm() {
           })
 
           form.reset()
+
+          try {
+            localStorage.removeItem("student_first_run_cached")
+          } catch {
+          }
+
           router.refresh()
         } catch (error) {
           console.error("Unable to join class", error)

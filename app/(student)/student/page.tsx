@@ -3,6 +3,7 @@ import { JoinClassForm } from '@/components/features/student/join-class-form';
 import { StudentClassesSection } from '@/components/features/student/student-classes-section';
 import { StudentAssignmentsCard } from '@/components/features/student/student-assignments-card';
 import { GamificationDashboardCard } from '@/components/features/student/gamification-dashboard-card';
+import { StudentWelcomeScreen } from '@/components/features/student/student-welcome-screen';
 import {
   Card,
   CardContent,
@@ -16,14 +17,7 @@ export default async function StudentPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold edu-title">
-          Welcome, {session.user.name}! 🎓
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          Your student dashboard - View your classes, assignments, and progress
-        </p>
-      </div>
+      <StudentWelcomeScreen student={{ name: session.user.name ?? 'Student' }} />
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card className="edu-card">
