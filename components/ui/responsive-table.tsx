@@ -56,7 +56,14 @@ export function ResponsiveTable<T extends { id: string }>({
 
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <table className="w-full">{renderHeader()}</table>
+      <table className="w-full">
+        {renderHeader()}
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={keyExtractor(item)}>{renderRow(item, index)}</tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

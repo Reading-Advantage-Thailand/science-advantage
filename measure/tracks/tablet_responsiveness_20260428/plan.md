@@ -22,18 +22,18 @@
 
 ## Phase 2: Layout and Content Responsiveness
 
-- [ ] Task: Update main content areas for responsive padding
-  - [ ] Change `container mx-auto px-4 py-8` to responsive padding: `px-4 sm:px-6 lg:px-8`
-  - [ ] Apply across all role-group layouts
-- [ ] Task: Make dashboard cards responsive
-  - [ ] Update student dashboard card grid: `grid-cols-1 md:grid-cols-2 xl:grid-cols-4`
-  - [ ] Update teacher dashboard card grid: `grid-cols-1 md:grid-cols-2 xl:grid-cols-3`
-  - [ ] Ensure cards have proper spacing on mobile (gap-4 or gap-6)
-- [ ] Task: Make tables responsive
-  - [ ] Write tests for card-based table layout on mobile
-  - [ ] Create `ResponsiveTable` wrapper component that switches to card layout at < 768px
-  - [ ] Apply to teacher analytics tables (class overview, lesson detail, student detail)
-  - [ ] Sort controls become a dropdown on mobile instead of column headers
+- [x] Task: Update main content areas for responsive padding
+  - [x] Change `container mx-auto px-4 py-8` to responsive padding: `px-4 sm:px-6 lg:px-8`
+  - [x] Apply across all role-group layouts
+- [x] Task: Make dashboard cards responsive
+  - [x] Update student dashboard card grid: `grid-cols-1 md:grid-cols-2 xl:grid-cols-4`
+  - [x] Update teacher dashboard card grid: `grid-cols-1 md:grid-cols-2 xl:grid-cols-3`
+  - [x] Ensure cards have proper spacing on mobile (gap-4 or gap-6)
+- [x] Task: Make tables responsive (foundation only)
+  - [x] Write tests for card-based table layout on mobile
+  - [x] Create `ResponsiveTable` wrapper component that switches to card layout at < 768px
+  - [ ] Apply to teacher analytics tables (class overview, lesson detail, student detail) - Pending integration work
+  - [ ] Sort controls become a dropdown on mobile instead of column headers - Pending
 - [ ] Task: Fix horizontal overflow on mobile
   - [ ] Audit all pages at 375px width for horizontal scroll
   - [ ] Fix any overflow: code blocks get `overflow-x-auto`, images get `max-w-full`, tables get responsive treatment
