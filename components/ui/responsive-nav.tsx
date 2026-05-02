@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { UserMenu } from '@/components/features/auth/user-menu';
+
 
 interface MobileNavProps {
   logo: React.ReactNode;
@@ -13,7 +13,7 @@ interface MobileNavProps {
   user: { name: string; email: string | null } | null;
 }
 
-export function MobileNav({ logo, navItems, user }: MobileNavProps) {
+export function MobileNav({ navItems, user }: Omit<MobileNavProps, 'logo'>) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);

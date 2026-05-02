@@ -154,7 +154,8 @@ async function checkLabPartner(userId: string): Promise<boolean> {
   return count >= 1;
 }
 
-async function checkBilingualScholar(_userId: string): Promise<boolean> {
+async function checkBilingualScholar(userId: string): Promise<boolean> {
+  void userId;
   // TODO: Requires language preference tracking — not yet implemented
   return false;
 }
@@ -229,8 +230,9 @@ export async function evaluateAllBadges(
 
 export async function checkBadgeConditions(
   userId: string,
-  _triggerEvent: BadgeTriggerEvent
+  triggerEvent: BadgeTriggerEvent
 ): Promise<{ newlyUnlocked: BadgeType[]; achievements: { badgeType: string; id: string; unlockedAt: Date }[] }> {
+  void triggerEvent;
   // Get already-unlocked badges
   const existingAchievements = await prisma.achievement.findMany({
     where: { userId },

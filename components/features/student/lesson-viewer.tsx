@@ -171,7 +171,7 @@ function LessonContentRenderer({
   );
 }
 
-export function LessonViewer({ classId, lessonSlug, progress, progressLoading = false, onStartQuiz, showThai, displayPreference }: LessonViewerProps) {
+export function LessonViewer({ classId, lessonSlug, progress, progressLoading = false, onStartQuiz, displayPreference }: LessonViewerProps) {
   const router = useRouter();
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState(true);

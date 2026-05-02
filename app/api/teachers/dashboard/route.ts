@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireRole } from '@/lib/auth/server';
 import prisma from '@/lib/prisma';
 
-export async function GET(_req: NextRequest) {
+export async function GET(req: NextRequest) {
+  void req;
   try {
     const session = await requireRole('TEACHER');
 

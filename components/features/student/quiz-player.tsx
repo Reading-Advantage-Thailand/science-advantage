@@ -111,7 +111,6 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   const [confettiIntensity, setConfettiIntensity] = useState<'low' | 'medium' | 'high'>('low');
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [levelUpData, setLevelUpData] = useState<{ oldLevel: number; newLevel: number } | null>(null);
-  const [badgeQueue, setBadgeQueue] = useState<BadgeDefinition[]>([]);
   const [currentBadge, setCurrentBadge] = useState<BadgeDefinition | null>(null);
 
   // Fetch quiz on mount
