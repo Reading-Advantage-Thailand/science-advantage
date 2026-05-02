@@ -48,7 +48,7 @@ export default async function TeacherPage() {
 
           <TeacherDashboardClasses />
 
-          <section className="grid gap-6 md:grid-cols-2">
+          <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <ClassProgressCard />
             <StudentsNeedAttentionCard />
           </section>

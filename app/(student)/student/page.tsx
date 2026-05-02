@@ -19,7 +19,7 @@ export default async function StudentPage() {
     <div className="space-y-6">
       <StudentWelcomeScreen student={{ name: session.user.name ?? 'Student' }} />
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <Card className="edu-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">

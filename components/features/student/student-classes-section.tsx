@@ -102,7 +102,7 @@ export function StudentClassesSection() {
 
   if (status === "loading" && classes.length === 0) {
     return (
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <StudentClassCardSkeleton />
         <StudentClassCardSkeleton />
       </div>
@@ -135,7 +135,7 @@ export function StudentClassesSection() {
   return (
     <div className="space-y-6">
       {hasClasses ? (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {classes.map(enrolledClass => (
             <StudentClassCard
               key={enrolledClass.id}
