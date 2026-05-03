@@ -329,3 +329,7 @@
     transition: none !important;
   }
 }
+
+noscript + [data-noscript-hide] {
+  display: none;
+}

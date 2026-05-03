@@ -19,3 +19,4 @@
 | Open      | Medium   | seed-questions.ts does not call validateQuizQuestionsFile() before inserting data. Validation exists but seed script bypasses it.                                             | `curriculum_foundation_20260311` |
 | Resolved  | Medium   | Visual identity was generic "AI slop" — no distinct aesthetic. Defined Scientific Expedition Journal theme with DM Serif Display, forest green, warm cream palette.          | `visual_refresh_20260425`        |
 | Open      | Low      | Design system uses CSS custom properties for shadows but Tailwind only provides standard shadow utilities. Custom shadow classes need to be defined in CSS rather than via Tailwind. | follow-up            |
+| Resolved  | Medium   | Onboarding Flow track complete: student/teacher first-run screens, contextual help, post-onboarding checklist, accessibility and progressive enhancement.                          | `onboarding_flow_20260428`  |

@@ -43,6 +43,11 @@ export function StudentWelcomeScreen({ student }: StudentWelcomeScreenProps) {
               <div className="rounded-lg bg-muted/50 p-4">
                 <JoinClassForm />
               </div>
+              <noscript>
+                <p className="text-sm text-muted-foreground">
+                  Please enable JavaScript to join a class, or contact your teacher for assistance.
+                </p>
+              </noscript>
               <p className="text-sm text-muted-foreground">
                 Ask your teacher for the class code — it&apos;s usually 6 letters
                 like &ldquo;ABC123&rdquo;

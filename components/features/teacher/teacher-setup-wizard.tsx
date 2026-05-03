@@ -56,7 +56,7 @@ export function TeacherSetupWizard() {
         </p>
       </div>
 
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-2" role="progressbar" aria-valuenow={currentStep} aria-valuemin={1} aria-valuemax={3} aria-label={`Step ${currentStep} of 3`}>
         {[1, 2, 3].map((step) => (
           <React.Fragment key={step}>
             <div
@@ -67,6 +67,7 @@ export function TeacherSetupWizard() {
                     ? "bg-primary/20 text-primary"
                     : "bg-muted text-muted-foreground"
               }`}
+              aria-current={currentStep === step ? "step" : undefined}
             >
               {currentStep > step ? "✓" : step}
             </div>
@@ -268,60 +269,64 @@ function WizardClassForm({ onSuccess }: WizardClassFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <label htmlFor="className" className="text-sm font-medium">
-          Class Name
-        </label>
-        <input
-          id="className"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter class name"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-          disabled={isSubmitting}
-        />
-      </div>
+      <form onSubmit={handleSubmit} className="space-y-4" aria-label="Create class form">
+        <div className="space-y-2">
+          <label htmlFor="className" className="text-sm font-medium">
+            Class Name <span className="text-destructive">*</span>
+          </label>
+          <input
+            id="className"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter class name"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            disabled={isSubmitting}
+            required
+            aria-required="true"
+          />
+        </div>
 
-      <div className="space-y-2">
-        <label htmlFor="gradeLevel" className="text-sm font-medium">
-          Grade Level
-        </label>
-        <select
-          id="gradeLevel"
-          value={gradeLevel ?? ""}
-          onChange={(e) => setGradeLevel(Number(e.target.value))}
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-          disabled={isSubmitting}
-        >
-          <option value="">Select grade level</option>
-          <option value={3}>Grade 3</option>
-          <option value={4}>Grade 4</option>
-          <option value={5}>Grade 5</option>
-          <option value={6}>Grade 6</option>
-        </select>
-      </div>
+        <div className="space-y-2">
+          <label htmlFor="gradeLevel" className="text-sm font-medium">
+            Grade Level <span className="text-destructive">*</span>
+          </label>
+          <select
+            id="gradeLevel"
+            value={gradeLevel ?? ""}
+            onChange={(e) => setGradeLevel(Number(e.target.value))}
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            disabled={isSubmitting}
+            required
+            aria-required="true"
+          >
+            <option value="">Select grade level</option>
+            <option value={3}>Grade 3</option>
+            <option value={4}>Grade 4</option>
+            <option value={5}>Grade 5</option>
+            <option value={6}>Grade 6</option>
+          </select>
+        </div>
 
-      <div className="space-y-2">
-        <label htmlFor="standards" className="text-sm font-medium">
-          Standards Alignment
-        </label>
-        <select
-          id="standards"
-          value={standardsAlignment}
-          onChange={(e) => setStandardsAlignment(e.target.value)}
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-          disabled={isSubmitting}
-        >
-          <option value="THAI">Thai National Standards</option>
-          <option value="NGSS">NGSS</option>
-        </select>
-      </div>
+        <div className="space-y-2">
+          <label htmlFor="standards" className="text-sm font-medium">
+            Standards Alignment
+          </label>
+          <select
+            id="standards"
+            value={standardsAlignment}
+            onChange={(e) => setStandardsAlignment(e.target.value)}
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            disabled={isSubmitting}
+          >
+            <option value="THAI">Thai National Standards</option>
+            <option value="NGSS">NGSS</option>
+          </select>
+        </div>
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Creating..." : "Create Class"}
-      </Button>
-    </form>
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Creating..." : "Create Class"}
+        </Button>
+      </form>
   )
 }

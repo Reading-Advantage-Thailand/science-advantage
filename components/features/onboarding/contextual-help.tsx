@@ -63,7 +63,10 @@ export function ContextualHelp({ surfaceId, content, children }: ContextualHelpP
             {children ?? <IconQuestionMark size={12} />}
           </button>
         </TooltipTrigger>
-        <TooltipContent side="top" className="max-w-xs">
+        <TooltipContent side="top" className="max-w-xs" data-noscript-hide="true">
+          <noscript>
+            <span>{content}</span>
+          </noscript>
           {content}
         </TooltipContent>
       </Tooltip>
@@ -72,7 +75,7 @@ export function ContextualHelp({ surfaceId, content, children }: ContextualHelpP
 }
 
 export function ContextualHelpPlainText({ surfaceId, content }: { surfaceId: string; content: string }) {
-  const [dismissed, setDismissedState] = React.useState<boolean>(false)
+  const [dismissed, setDismissedState] = React.useState(false)
 
   React.useEffect(() => {
     const dismissedState = getDismissed()
@@ -82,6 +85,26 @@ export function ContextualHelpPlainText({ surfaceId, content }: { surfaceId: str
   if (dismissed) {
     return null
   }
+
+  return (
+    <span className="text-sm text-muted-foreground inline-flex items-center gap-1" data-noscript-hide="true">
+      <noscript>
+        <span className="text-sm text-muted-foreground">{content}</span>
+      </noscript>
+      <button
+        type="button"
+        onClick={() => {
+          setDismissed(surfaceId)
+          setDismissedState(true)
+        }}
+        className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-muted hover:bg-muted/80 text-muted-foreground text-xs transition-colors"
+        aria-label="Dismiss help"
+      >
+        ×
+      </button>
+    </span>
+  )
+}
 
   return (
     <span className="text-sm text-muted-foreground inline-flex items-center gap-1">

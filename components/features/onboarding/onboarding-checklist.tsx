@@ -143,6 +143,11 @@ export function OnboardingChecklist({ role, classId }: OnboardingChecklistProps)
           <h3 className="text-sm font-semibold text-rose-800 dark:text-rose-200">
             Your First Steps
           </h3>
+          <noscript>
+            <p className="text-sm text-muted-foreground italic">
+              Complete these steps to get started with Science Advantage.
+            </p>
+          </noscript>
           <ul className="space-y-2">
             {items.map((item) => (
               <li key={item.id} className="flex items-center gap-2 text-sm">
