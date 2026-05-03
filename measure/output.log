@@ -9,15 +9,122 @@
 [0m✗ [0mread failed
 [91m[1mError: [0mFile not found: /home/daniel-bo/Desktop/science-advantage/measure/current_directive.md
 [0m
-[0m$ [0mgit log --oneline -5
-623b953 docs: update lessons learned with onboarding patterns
-696b71f chore: update onboarding track progress - Phase 3 done, Phase 4 pending
-a8e4bcb feat(onboarding): implement Phase 3 - landing page, contextual help, and checklist
-9f6c94c checkpoint: autonomous run continuation
-15f5f46 chore(review): fix 8 lint/style issues
+[0m$ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   measure/output.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
 [0m
-[0m$ [0mgit status --short
-M measure/output.log
+[0m$ [0mls -la measure/tracks/
+total 56
+drwxrwxr-x 14 daniel-bo daniel-bo 4096 May  2 07:45 .
+drwxrwxr-x  5 daniel-bo daniel-bo 4096 May  3 21:04 ..
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 28 22:04 bilingual_architecture_20260428
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 content_release_workflow_20260425
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 curriculum_foundation_20260311
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 28 22:05 lesson_type_differentiation_20260428
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 mastery_assistance_20260311
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 28 22:05 onboarding_flow_20260428
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 redis_actual_integration_20260425
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 student_learning_loop_20260311
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 28 22:04 tablet_responsiveness_20260428
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 teacher_dashboard_surfaces_20260425
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 teacher_delivery_20260311
+drwxrwxr-x  2 daniel-bo daniel-bo 4096 Apr 25 12:14 thai_localization_expand_20260425
 [0m
-[0m✱ [0mGlob "measure/tracks/*/plan.md"[90m 12 matches[0m
-[0m→ [0mRead measure/tracks/onboarding_flow_20260428/plan.md
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/plan.md
+[0m→ [0mRead measure/tracks/bilingual_architecture_20260428/spec.md
+[0m→ [0mRead measure/tracks/tablet_responsiveness_20260428/plan.md
+[0m→ [0mRead measure/tracks/lesson_type_differentiation_20260428/plan.md
+[0m
+[0m$ [0mcd measure && git log -1 --format='%H %s'
+d39b97183ef1635041c06ccc7e579b1efcb44d50 feat(onboarding): complete Phase 4 - accessibility and progressive enhancement
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && cat package.json | grep -A5 '"dev"'
+"dev": "next dev",
+    "build": "npx prisma generate && next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "test": "vitest run",
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && cat package.json | grep -E '"port"|"3000"'
+(no output)
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && cat .env.example 2>/dev/null | head -20 || echo "No .env.example found"
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/science_advantage?schema=public"
+
+# Google OAuth (required for authentication)
+GOOGLE_OAUTH_CLIENT_ID="your-google-oauth-client-id.apps.googleusercontent.com"
+GOOGLE_OAUTH_CLIENT_SECRET="your-google-oauth-secret"
+GOOGLE_OAUTH_REDIRECT_URI="http://localhost:3000/api/auth/google/callback"
+
+# Redis (for caching)
+REDIS_URL="redis://localhost:6379"
+
+# OpenAI (for AI features)
+OPENAI_API_KEY="your-openai-api-key"
+GEMINI_API_KEY="your-gemini-api-key"
+
+# AI Recommendation Service
+AI_RECOMMENDER_MODEL="gpt-5-mini"
+AI_RECOMMENDER_MODEL_SECONDARY="gemini-2.5-flash"
+AI_RECOMMENDER_TIMEOUT_MS="10000"
+# Optional legacy key supported for compatibility:
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npx prisma generate 2>&1 | tail -5
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && bun run dev 2>&1 &
+sleep 5
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 || echo "Server not ready"
+$ next dev
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.10.244.222:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ○ Compiling / ...
+
+
+<bash_metadata>
+bash tool terminated command after exceeding timeout 30000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</bash_metadata>
+[0m
+[0m$ [0mbrowser-harness-js 'await session.connect()' 2>&1
+/bin/bash: line 1: browser-harness-js: command not found
+[0m
+[0m→ [0mRead ../../.agents/skills/browser-harness/SKILL.md
+[0m
+[0m$ [0mbrowser-harness 'print("hello")' 2>&1
+/bin/bash: line 1: browser-harness: command not found
+[0m
+[0m$ [0mwhich browser-harness 2>&1 || find /home/daniel-bo -name "browser-harness*" -type f 2>/dev/null | head -5
+/home/daniel-bo/.local/share/uv/tools/browser-harness/bin/browser-harness
+/home/daniel-bo/.agents/skills/cdp/sdk/browser-harness-js
+/home/daniel-bo/Desktop/browser-harness/.venv/bin/browser-harness
+[0m
+[0m$ [0m/home/daniel-bo/.local/share/uv/tools/browser-harness/bin/browser-harness 'print("hello")' 2>&1
+Traceback (most recent call last):
+  File "/home/daniel-bo/.local/share/uv/tools/browser-harness/bin/browser-harness", line 5, in <module>
+    from run import main
+ModuleNotFoundError: No module named 'run'
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/browser-harness && source .venv/bin/activate && python -c "from helpers import *; print('OK')" 2>&1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from helpers import *; print('OK')
+    ^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'helpers'
+[0m
