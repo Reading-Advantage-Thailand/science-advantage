@@ -5,6 +5,8 @@ import { ClassProgressCard } from '@/components/features/teacher/class-progress-
 import { StudentsNeedAttentionCard } from '@/components/features/teacher/students-need-attention-card';
 import { RecentCompletionsFeed } from '@/components/features/teacher/recent-completions-feed';
 import { TeacherSetupWizardWrapper } from './teacher-setup-wizard-wrapper';
+import { OnboardingChecklist } from '@/components/features/onboarding/onboarding-checklist';
+import { ContextualHelpPlainText } from '@/components/features/onboarding/contextual-help';
 import prisma from '@/lib/prisma';
 
 export default async function TeacherPage() {
@@ -37,7 +39,17 @@ export default async function TeacherPage() {
               ยินดีต้อนรับ! จัดการชั้นเรียน งานมอบหมาย
               และความก้าวหน้าของนักเรียนได้จากที่เดียว
             </p>
+            <div className="flex items-center gap-2">
+              <ContextualHelpPlainText
+                surfaceId="teacher-dashboard-help"
+                content="Create a class and share the join code with students to get started."
+              />
+            </div>
           </header>
+
+          <div className="flex items-start justify-between gap-4">
+            <OnboardingChecklist role="TEACHER" classId={teacherClasses[0]?.id} />
+          </div>
 
           {teacherClasses.length > 0 && (
             <InterventionAlertsWidget

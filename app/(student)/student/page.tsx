@@ -1,9 +1,12 @@
 import { requireRole } from '@/lib/auth/server';
+import prisma from '@/lib/prisma';
 import { JoinClassForm } from '@/components/features/student/join-class-form';
 import { StudentClassesSection } from '@/components/features/student/student-classes-section';
 import { StudentAssignmentsCard } from '@/components/features/student/student-assignments-card';
 import { GamificationDashboardCard } from '@/components/features/student/gamification-dashboard-card';
 import { StudentWelcomeScreen } from '@/components/features/student/student-welcome-screen';
+import { OnboardingChecklist } from '@/components/features/onboarding/onboarding-checklist';
+import { ContextualHelpPlainText } from '@/components/features/onboarding/contextual-help';
 import {
   Card,
   CardContent,
@@ -15,15 +18,30 @@ import {
 export default async function StudentPage() {
   const session = await requireRole('STUDENT');
 
+  const enrolledClasses = await prisma.enrollment.findMany({
+    where: { studentId: session.user.id },
+    select: { classId: true },
+    take: 1,
+  });
+  const firstClassId = enrolledClasses[0]?.classId ?? undefined;
+
   return (
     <div className="space-y-6">
       <StudentWelcomeScreen student={{ name: session.user.name ?? 'Student' }} />
+
+      <div className="flex items-start justify-between gap-4">
+        <OnboardingChecklist role="STUDENT" classId={firstClassId} />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <Card className="edu-card">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               📚 My Classes
+              <ContextualHelpPlainText
+                surfaceId="student-classes-help"
+                content="Ask your teacher for the 6-character class code to join."
+              />
             </CardTitle>
             <CardDescription>Classes you&apos;re enrolled in</CardDescription>
           </CardHeader>
@@ -49,6 +67,10 @@ export default async function StudentPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               ⭐ Recent Activity
+              <ContextualHelpPlainText
+                surfaceId="student-activity-help"
+                content="Your latest lesson completions and quiz scores appear here."
+              />
             </CardTitle>
             <CardDescription>Your latest learning activities</CardDescription>
           </CardHeader>
@@ -61,6 +83,10 @@ export default async function StudentPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               📈 Progress
+              <ContextualHelpPlainText
+                surfaceId="student-progress-help"
+                content="Earn XP by completing lessons and quizzes. Level up to unlock rewards!"
+              />
             </CardTitle>
             <CardDescription>Your XP, level, streak, and badges</CardDescription>
           </CardHeader>

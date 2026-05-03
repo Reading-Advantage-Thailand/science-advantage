@@ -83,7 +83,7 @@ export default async function HomePage() {
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl text-white">
             The Future of K-12 Science Education
             <span className="block text-2xl md:text-4xl text-rose-200 mt-2">
-              Coming 2025
+              Now Available for Teachers and Students
             </span>
           </h1>
           <p className="text-lg text-white/90 max-w-3xl">
@@ -92,21 +92,25 @@ export default async function HomePage() {
             classroom-first education with 180 days of structured instruction.
           </p>
           <div className="flex gap-4 mt-8">
+            <Link href="/signin">
             <Button
               size="lg"
               className="bg-white text-rose-800 hover:bg-gray-100 gap-2 text-lg px-8"
             >
-              Join Waitlist <IconChevronRight size={20} />
+              Get Started <IconChevronRight size={20} />
             </Button>
+          </Link>
+          <Link href="/signin">
             <Button
               size="lg"
               className="bg-white text-rose-800 hover:bg-gray-100 text-lg px-8"
             >
               Learn More
             </Button>
+          </Link>
           </div>
           <div className="mt-6 text-sm text-white/80">
-            Launch Expected 2025 • Early Access Available
+            Launch Now • Early Access Open
           </div>
         </div>
       </section>
@@ -572,23 +576,26 @@ export default async function HomePage() {
             Ready to Transform Science Education?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Join the waitlist for early access and be among the first to
-            experience the future of K-12 science education.
+            Get started with your free account and bring hands-on science lessons to your classroom today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-rose-600 hover:bg-gray-100 gap-2 text-lg px-8"
-            >
-              <IconMail size={20} />
-              Join Waitlist
-            </Button>
-            <Button
-              size="lg"
-              className="bg-white text-rose-600 hover:bg-gray-100 text-lg px-8"
-            >
-              Request Demo
-            </Button>
+            <Link href="/signin">
+              <Button
+                size="lg"
+                className="bg-white text-rose-600 hover:bg-gray-100 gap-2 text-lg px-8"
+              >
+                <IconMail size={20} />
+                Get Started
+              </Button>
+            </Link>
+            <Link href="/signin">
+              <Button
+                size="lg"
+                className="bg-white text-rose-600 hover:bg-gray-100 text-lg px-8"
+              >
+                Request Demo
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

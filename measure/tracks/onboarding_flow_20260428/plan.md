@@ -45,31 +45,31 @@
 
 ## Phase 3: Landing Page and Contextual Help
 
-- [ ] Task: Update landing page
-  - [ ] Replace "Coming 2025" and "Launch Expected 2025" with current messaging
-  - [ ] Update CTA button to link to `/signin` instead of waitlist
-  - [ ] Update or remove "Technical Requirements" section
-  - [ ] Verify all links work
-- [ ] Task: Implement contextual help tooltips
-  - [ ] Write tests for help tooltip display and dismissal
-  - [ ] Create `ContextualHelp` component with "?" icon and tooltip/popover content
-  - [ ] Add help tooltips to:
+- [x] Task: Update landing page
+  - [x] Replace "Coming 2025" and "Launch Expected 2025" with current messaging
+  - [x] Update CTA button to link to `/signin` instead of waitlist
+  - [x] Update or remove "Technical Requirements" section
+  - [x] Verify all links work
+- [x] Task: Implement contextual help tooltips
+  - [x] Write tests for help tooltip display and dismissal
+  - [x] Create `ContextualHelp` component with "?" icon and tooltip/popover content
+  - [x] Add help tooltips to:
     - Student dashboard: explain join code, explain XP/levels
     - Teacher dashboard: explain class cards, explain intervention alerts
-  - [ ] Dismissal persists to localStorage (keyed by surface ID)
-  - [ ] Tooltip is keyboard-accessible and screen-reader friendly
-- [ ] Task: Implement post-onboarding checklist
-  - [ ] Write tests for checklist item completion detection
-  - [ ] Create `OnboardingChecklist` component:
+  - [x] Dismissal persists to localStorage (keyed by surface ID)
+  - [x] Tooltip is keyboard-accessible and screen-reader friendly
+- [x] Task: Implement post-onboarding checklist
+  - [x] Write tests for checklist item completion detection
+  - [x] Create `OnboardingChecklist` component:
     - Students: "Join a class", "Complete your first lesson", "Take your first quiz"
     - Teachers: "Create a class", "Share join code with students", "Preview a lesson"
-  - [ ] Check items off based on actual user data (class enrollment, lesson completions)
-  - [ ] Hide checklist when all items are complete
-  - [ ] Persist dismissal to localStorage
-- [ ] Task: Measure - Manual Verification 'Landing and Help'
-  - [ ] Verify landing page shows current year and links to /signin
-  - [ ] Verify help tooltips appear on first visit and are dismissible
-  - [ ] Verify checklist tracks progress and disappears when complete
+  - [x] Check items off based on actual user data (class enrollment, lesson completions)
+  - [x] Hide checklist when all items are complete
+  - [x] Persist dismissal to localStorage
+- [x] Task: Measure - Manual Verification 'Landing and Help'
+  - [x] Verify landing page shows current year and links to /signin
+  - [x] Verify help tooltips appear on first visit and are dismissible
+  - [x] Verify checklist tracks progress and disappears when complete
 
 ## Phase 4: Progressive Enhancement and Accessibility
 
