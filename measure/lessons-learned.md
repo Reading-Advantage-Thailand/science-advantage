@@ -50,3 +50,4 @@
 - [TypeScript] Exclude prisma/migrations and prisma/seed-functions from tsconfig.json — these contain seed infrastructure code that shouldn't be type-checked as part of the Next.js app build.
 - [Onboarding] First-run detection via API call with localStorage caching avoids prop drilling and works with RSC. Invalidate cache on class join so returning users don't see welcome screen again.
 - [Responsive] When updating grids for responsive design, use explicit `grid-cols-1 md:grid-cols-N` pattern rather than relying on default behavior. Always specify mobile-first column count for predictable stacking.
+- [Onboarding] Contextual help and onboarding checklist components use localStorage for dismissal. Use distinct storage keys per surface to avoid cross-contamination.
