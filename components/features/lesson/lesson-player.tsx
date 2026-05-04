@@ -12,10 +12,15 @@ import {
   ReviewBlock,
   QuizBlock,
 } from './blocks';
+import { StepModeProcedureBlock } from './blocks/step-mode-procedure-block';
+import { InteractiveMaterialsBlock } from './blocks/interactive-materials-block';
+import { LabSafetyNotice } from './lab-safety-notice';
+import { LabTimer } from './lab-timer';
 import type {
   LessonContent,
   ContentBlock,
 } from '@/lib/schemas/lesson-content.schema';
+import type { LessonType } from '@prisma/client';
 
 // =============================================================================
 // Error Boundary Component
@@ -141,10 +146,12 @@ interface BlockRendererProps {
   showThai: boolean;
   displayPreference?: 'en' | 'th' | 'side-by-side';
   onBlockView?: (blockIndex: number, blockId?: string) => void;
+  lessonType?: LessonType;
 }
 
-function BlockRenderer({ block, index, showThai, displayPreference, onBlockView }: BlockRendererProps) {
+function BlockRenderer({ block, index, showThai, displayPreference, onBlockView, lessonType }: BlockRendererProps) {
   const ref = useBlockVisibility(index, block.id, onBlockView);
+  const isLab = lessonType === 'LAB';
 
   const renderBlock = () => {
     switch (block.type) {
@@ -157,8 +164,14 @@ function BlockRenderer({ block, index, showThai, displayPreference, onBlockView 
       case 'reading_passage':
         return <ReadingPassageBlock block={block} showThai={showThai} />;
       case 'procedure':
+        if (isLab) {
+          return <StepModeProcedureBlock block={block} showThai={showThai} />;
+        }
         return <ProcedureBlock block={block} showThai={showThai} />;
       case 'materials':
+        if (isLab) {
+          return <InteractiveMaterialsBlock block={block} showThai={showThai} />;
+        }
         return <MaterialsBlock block={block} showThai={showThai} />;
       case 'review':
         return <ReviewBlock block={block} showThai={showThai} />;
@@ -204,6 +217,8 @@ export interface LessonPlayerProps {
   onBlockView?: (blockIndex: number, blockId?: string) => void;
   /** Additional CSS classes for the container */
   className?: string;
+  /** The type of lesson - affects rendering of lab-specific features */
+  lessonType?: LessonType;
 }
 
 /**
@@ -233,7 +248,10 @@ export function LessonPlayer({
   displayPreference,
   onBlockView,
   className,
+  lessonType,
 }: LessonPlayerProps) {
+  const isLab = lessonType === 'LAB';
+
   // Derive showThai from displayPreference if provided, falling back to showThai prop
   const effectiveShowThai =
     displayPreference !== undefined
@@ -264,6 +282,12 @@ export function LessonPlayer({
       role="article"
       aria-label="Lesson content"
     >
+      {isLab && (
+        <div className="space-y-4">
+          <LabSafetyNotice />
+          <LabTimer durationMinutes={30} />
+        </div>
+      )}
       {content.blocks.map((block, index) => (
         <BlockErrorBoundary
           key={block.id || `block-${index}`}
@@ -275,6 +299,7 @@ export function LessonPlayer({
             showThai={effectiveShowThai}
             displayPreference={displayPreference}
             onBlockView={onBlockView}
+            lessonType={lessonType}
           />
         </BlockErrorBoundary>
       ))}

@@ -105,6 +105,7 @@ export async function GET(request: NextRequest, context: LessonRouteContext) {
         structuredContent: hasStructuredContent ? lesson.structuredContent : undefined,
         contentType: hasStructuredContent ? 'structured' : 'legacy',
         contentVersion: hasStructuredContent ? 1 : undefined,
+        lessonType: lesson.lessonType,
       },
       standards: lesson.standards.map(standard => ({
         id: standard.id,

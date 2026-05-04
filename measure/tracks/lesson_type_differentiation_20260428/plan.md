@@ -20,27 +20,27 @@
 
 ## Phase 2: Lab-Specific Features
 
-- [ ] Task: Implement lab safety notice
-  - [ ] Write tests for safety notice rendering on LAB lesson type
-  - [ ] Create `LabSafetyNotice` component with prominent banner styling
-  - [ ] Show banner at top of lesson when `lessonType === 'LAB'`
-  - [ ] Banner is dismissible but reappears on each visit (not persisted)
-- [ ] Task: Implement step-by-step procedure mode
-  - [ ] Write tests for step-by-step navigation (next/previous, completion tracking)
-  - [ ] Modify `ProcedureBlock` to detect lab context and render in "step mode"
-  - [ ] Step mode: show one step at a time with Previous/Next buttons
-  - [ ] Step completion tracked in local state (checkbox still works)
-  - [ ] Show progress indicator ("Step 2 of 5")
-- [ ] Task: Implement lab timer
-  - [ ] Write tests for timer display and countdown
-  - [ ] Create `LabTimer` component with configurable duration
-  - [ ] Timer runs client-side (localStorage for persistence across page refreshes)
-  - [ ] Show time remaining prominently in the lesson header
-  - [ ] Alert when time is up (visual, not audio)
-- [ ] Task: Implement materials checklist
-  - [ ] Modify `MaterialsBlock` to render as interactive checklist when in lab context
-  - [ ] Checkboxes persist to localStorage (gathered items stay checked)
-  - [ ] Show "X of Y items gathered" progress
+- [x] Task: Implement lab safety notice
+   - [x] Write tests for safety notice rendering on LAB lesson type
+   - [x] Create `LabSafetyNotice` component with prominent banner styling
+   - [x] Show banner at top of lesson when `lessonType === 'LAB'`
+   - [x] Banner is dismissible but reappears on each visit (not persisted)
+- [x] Task: Implement step-by-step procedure mode
+   - [x] Write tests for step-by-step navigation (next/previous, completion tracking)
+   - [x] Modify `ProcedureBlock` to detect lab context and render in "step mode"
+   - [x] Step mode: show one step at a time with Previous/Next buttons
+   - [x] Step completion tracked in local state (checkbox still works)
+   - [x] Show progress indicator ("Step 2 of 5")
+- [x] Task: Implement lab timer
+   - [x] Write tests for timer display and countdown
+   - [x] Create `LabTimer` component with configurable duration
+   - [x] Timer runs client-side (localStorage for persistence across page refreshes)
+   - [x] Show time remaining prominently in the lesson header
+   - [x] Alert when time is up (visual, not audio)
+- [x] Task: Implement materials checklist
+   - [x] Modify `MaterialsBlock` to render as interactive checklist when in lab context
+   - [x] Checkboxes persist to localStorage (gathered items stay checked)
+   - [x] Show "X of Y items gathered" progress
 - [ ] Task: Measure - Manual Verification 'Lab Features'
   - [ ] Verify safety notice appears on lab lessons
   - [ ] Verify step-by-step mode works for procedure blocks in labs

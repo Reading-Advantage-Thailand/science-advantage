@@ -34,6 +34,7 @@ interface LessonData {
     structuredContent?: unknown;
     contentType?: 'legacy' | 'structured';
     contentVersion?: number;
+    lessonType?: 'LESSON' | 'LAB' | 'ASSESSMENT' | 'REVIEW';
   };
   standards: Standard[];
 }
@@ -140,7 +141,11 @@ function LessonContentRenderer({
 
   if (validatedContent) {
     return (
-      <LessonPlayer content={validatedContent} displayPreference={displayPreference} />
+      <LessonPlayer
+        content={validatedContent}
+        displayPreference={displayPreference}
+        lessonType={lesson.lessonType}
+      />
     );
   }
 
