@@ -45,14 +45,14 @@
 
 ## Phase 3: Touch and Interaction Optimization
 
-- [ ] Task: Increase touch targets
-  - [ ] Audit all interactive elements for 44x44px minimum
-  - [ ] Update buttons, nav links, and form inputs that are too small
-  - [ ] Add min-h-[44px] and min-w-[44px] where needed
-- [ ] Task: Optimize lesson viewer for touch
-  - [ ] Add touch swipe support to vocabulary flashcard carousel (using touch event handlers)
-  - [ ] Fix quiz navigation to be thumb-friendly on mobile (larger buttons, bottom-anchored)
-  - [ ] Ensure quiz options are large enough to tap (min 44px height)
+- [x] Task: Increase touch targets
+   - [x] Audit all interactive elements for 44x44px minimum
+   - [x] Update buttons, nav links, and form inputs that are too small
+   - [x] Add min-h-[44px] and min-w-[44px] where needed
+ - [x] Task: Optimize lesson viewer for touch
+   - [x] Add touch swipe support to vocabulary flashcard carousel (using touch event handlers)
+   - [x] Fix quiz navigation to be thumb-friendly on mobile (larger buttons, bottom-anchored)
+   - [x] Ensure quiz options are large enough to tap (min 44px height)
 - [ ] Task: Add tablet landscape support
   - [ ] Verify layouts work in landscape orientation (1024x768)
   - [ ] Adjust grid breakpoints if needed for landscape tablets
