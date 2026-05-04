@@ -232,7 +232,7 @@ export function ClassAnalyticsOverview({
     );
   }
 
-  const renderCardContent = (lesson: LessonAnalytics, index: number) => (
+  const renderCardContent = (lesson: LessonAnalytics) => (
     <div
       key={lesson.lessonId}
       className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
@@ -277,7 +277,7 @@ export function ClassAnalyticsOverview({
     </div>
   );
 
-  const renderTableRow = (lesson: LessonAnalytics, index: number) => (
+  const renderTableRow = (lesson: LessonAnalytics) => (
     <TableRow
       key={lesson.lessonId}
       className="cursor-pointer transition-colors hover:bg-gray-50"
