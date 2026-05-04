@@ -29,6 +29,12 @@ import {
   ChevronRight,
   AlertTriangle,
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 type StudentPerformance = {
   studentId: string;
@@ -150,6 +156,16 @@ export function LessonDetailAnalytics({
   const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(
     new Set()
   );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     fetchAnalytics();
@@ -347,86 +363,58 @@ export function LessonDetailAnalytics({
       <Card>
         <CardHeader>
           <CardTitle>Student Performance</CardTitle>
+          {isMobile && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="mt-2">
+                  Sort by <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem onClick={() => { setSortField('name'); setSortDirection('asc'); }}>
+                  Name {sortField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => { setSortField('score'); setSortDirection('desc'); }}>
+                  Score {sortField === 'score' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => { setSortField('attempts'); setSortDirection('desc'); }}>
+                  Attempts {sortField === 'attempts' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => { setSortField('time'); setSortDirection('desc'); }}>
+                  Time {sortField === 'time' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[200px]">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-auto p-0 font-semibold"
-                    onClick={() => handleSort('name')}
-                  >
-                    Student
-                    {getSortIcon('name', sortField, sortDirection)}
-                  </Button>
-                </TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-auto p-0 font-semibold"
-                    onClick={() => handleSort('score')}
-                  >
-                    Most Recent Score
-                    {getSortIcon('score', sortField, sortDirection)}
-                  </Button>
-                </TableHead>
-                <TableHead className="text-right">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-auto p-0 font-semibold"
-                    onClick={() => handleSort('attempts')}
-                  >
-                    Attempts
-                    {getSortIcon('attempts', sortField, sortDirection)}
-                  </Button>
-                </TableHead>
-                <TableHead className="text-right">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-auto p-0 font-semibold"
-                    onClick={() => handleSort('time')}
-                  >
-                    Total Time
-                    {getSortIcon('time', sortField, sortDirection)}
-                  </Button>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          {isMobile ? (
+            <div className="space-y-4">
               {sortedStudents.map((student) => (
-                <TableRow
+                <div
                   key={student.studentId}
-                  className="cursor-pointer transition-colors hover:bg-gray-50"
+                  className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
                   onClick={() => handleStudentClick(student.studentId)}
                 >
-                  <TableCell className="font-medium">
-                    {student.studentName}
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={`text-sm ${
-                        student.completionStatus === 'COMPLETED'
-                          ? 'text-green-600'
+                  <div className="mb-2 flex items-start justify-between">
+                    <div>
+                      <h3 className="font-semibold">{student.studentName}</h3>
+                      <span
+                        className={`text-sm ${
+                          student.completionStatus === 'COMPLETED'
+                            ? 'text-green-600'
+                            : student.completionStatus === 'IN_PROGRESS'
+                              ? 'text-yellow-600'
+                              : 'text-gray-500'
+                        }`}
+                      >
+                        {student.completionStatus === 'COMPLETED'
+                          ? 'Completed'
                           : student.completionStatus === 'IN_PROGRESS'
-                            ? 'text-yellow-600'
-                            : 'text-gray-500'
-                      }`}
-                    >
-                      {student.completionStatus === 'COMPLETED'
-                        ? 'Completed'
-                        : student.completionStatus === 'IN_PROGRESS'
-                          ? 'In Progress'
-                          : 'Not Started'}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-right">
+                            ? 'In Progress'
+                            : 'Not Started'}
+                      </span>
+                    </div>
                     {student.mostRecentScorePercentage !== null ? (
                       <Badge variant={getScoreColorVariant(student.colorCode)}>
                         {Math.round(student.mostRecentScorePercentage)}%
@@ -434,25 +422,134 @@ export function LessonDetailAnalytics({
                     ) : (
                       <span className="text-sm text-gray-500">—</span>
                     )}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
-                    {student.attempts > 0 ? (
-                      student.attempts
-                    ) : (
-                      <span className="text-gray-500">—</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
-                    {student.totalTimeSeconds > 0 ? (
-                      formatTime(student.totalTimeSeconds)
-                    ) : (
-                      <span className="text-gray-500">—</span>
-                    )}
-                  </TableCell>
-                </TableRow>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-500">Attempts:</span>
+                      <span className="font-mono">
+                        {student.attempts > 0 ? student.attempts : '—'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-500">Time:</span>
+                      <span className="font-mono">
+                        {student.totalTimeSeconds > 0
+                          ? formatTime(student.totalTimeSeconds)
+                          : '—'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               ))}
-            </TableBody>
-          </Table>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[200px]">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-auto p-0 font-semibold"
+                        onClick={() => handleSort('name')}
+                      >
+                        Student
+                        {getSortIcon('name', sortField, sortDirection)}
+                      </Button>
+                    </TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-auto p-0 font-semibold"
+                        onClick={() => handleSort('score')}
+                      >
+                        Most Recent Score
+                        {getSortIcon('score', sortField, sortDirection)}
+                      </Button>
+                    </TableHead>
+                    <TableHead className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-auto p-0 font-semibold"
+                        onClick={() => handleSort('attempts')}
+                      >
+                        Attempts
+                        {getSortIcon('attempts', sortField, sortDirection)}
+                      </Button>
+                    </TableHead>
+                    <TableHead className="text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-auto p-0 font-semibold"
+                        onClick={() => handleSort('time')}
+                      >
+                        Total Time
+                        {getSortIcon('time', sortField, sortDirection)}
+                      </Button>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {sortedStudents.map((student) => (
+                    <TableRow
+                      key={student.studentId}
+                      className="cursor-pointer transition-colors hover:bg-gray-50"
+                      onClick={() => handleStudentClick(student.studentId)}
+                    >
+                      <TableCell className="font-medium">
+                        {student.studentName}
+                      </TableCell>
+                      <TableCell>
+                        <span
+                          className={`text-sm ${
+                            student.completionStatus === 'COMPLETED'
+                              ? 'text-green-600'
+                              : student.completionStatus === 'IN_PROGRESS'
+                                ? 'text-yellow-600'
+                                : 'text-gray-500'
+                          }`}
+                        >
+                          {student.completionStatus === 'COMPLETED'
+                            ? 'Completed'
+                            : student.completionStatus === 'IN_PROGRESS'
+                              ? 'In Progress'
+                              : 'Not Started'}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {student.mostRecentScorePercentage !== null ? (
+                          <Badge variant={getScoreColorVariant(student.colorCode)}>
+                            {Math.round(student.mostRecentScorePercentage)}%
+                          </Badge>
+                        ) : (
+                          <span className="text-sm text-gray-500">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right font-mono text-sm">
+                        {student.attempts > 0 ? (
+                          student.attempts
+                        ) : (
+                          <span className="text-gray-500">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right font-mono text-sm">
+                        {student.totalTimeSeconds > 0 ? (
+                          formatTime(student.totalTimeSeconds)
+                        ) : (
+                          <span className="text-gray-500">—</span>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
         </CardContent>
       </Card>
 

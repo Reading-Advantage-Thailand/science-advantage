@@ -32,16 +32,16 @@
 - [x] Task: Make tables responsive (foundation only)
   - [x] Write tests for card-based table layout on mobile
   - [x] Create `ResponsiveTable` wrapper component that switches to card layout at < 768px
-  - [ ] Apply to teacher analytics tables (class overview, lesson detail, student detail) - Pending integration work
-  - [ ] Sort controls become a dropdown on mobile instead of column headers - Pending
-- [ ] Task: Fix horizontal overflow on mobile
-  - [ ] Audit all pages at 375px width for horizontal scroll
-  - [ ] Fix any overflow: code blocks get `overflow-x-auto`, images get `max-w-full`, tables get responsive treatment
-  - [ ] Ensure lesson content blocks don't overflow (text wrapping, image scaling)
-- [ ] Task: Measure - Manual Verification 'Layout'
-  - [ ] Verify no horizontal scroll at 375px on all major pages
-  - [ ] Verify dashboard cards stack on mobile
-  - [ ] Verify analytics tables convert to cards on mobile
+  - [x] Apply to teacher analytics tables (class overview, lesson detail, student detail)
+  - [x] Sort controls become a dropdown on mobile instead of column headers
+- [x] Task: Fix horizontal overflow on mobile
+  - [x] Audit all pages at 375px width for horizontal scroll
+  - [x] Fix any overflow: code blocks get `overflow-x-auto`, images get `max-w-full`, tables get responsive treatment
+  - [x] Ensure lesson content blocks don't overflow (text wrapping, image scaling)
+- [x] Task: Measure - Manual Verification 'Layout'
+  - [x] Verify no horizontal scroll at 375px on all major pages
+  - [x] Verify dashboard cards stack on mobile
+  - [x] Verify analytics tables convert to cards on mobile
 
 ## Phase 3: Touch and Interaction Optimization
 

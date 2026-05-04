@@ -16,7 +16,13 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { ArrowUpDown, ArrowUp, ArrowDown, ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 type LessonAnalytics = {
   lessonId: string;
@@ -95,6 +101,16 @@ export function ClassAnalyticsOverview({
   const [error, setError] = useState<string | null>(null);
   const [sortField, setSortField] = useState<SortField>('order');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     fetchAnalytics();
@@ -216,6 +232,185 @@ export function ClassAnalyticsOverview({
     );
   }
 
+  const renderCardContent = (lesson: LessonAnalytics, index: number) => (
+    <div
+      key={lesson.lessonId}
+      className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+    >
+      <div className="mb-3 flex items-start justify-between">
+        <div>
+          <h3 className="font-semibold">{lesson.lessonTitle}</h3>
+          <p className="text-sm text-gray-500">
+            {lesson.studentsCompleted} of {data.totalStudents} students completed
+          </p>
+        </div>
+        <Badge variant={getScoreColorVariant(lesson.colorCode)}>
+          {lesson.averageScore}%
+        </Badge>
+      </div>
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        <div className="flex justify-between">
+          <span className="text-gray-500">Completion:</span>
+          <span className="font-mono">{lesson.completionRate}%</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-gray-500">Avg Attempts:</span>
+          <span className="font-mono">
+            {lesson.studentsCompleted === 0 ? '—' : lesson.averageAttempts}
+          </span>
+        </div>
+        <div className="col-span-2 flex justify-between">
+          <span className="text-gray-500">Avg Time:</span>
+          <span className="font-mono">
+            {lesson.studentsCompleted === 0 ? '—' : formatTime(lesson.averageTimeSeconds)}
+          </span>
+        </div>
+      </div>
+      <Button
+        variant="outline"
+        size="sm"
+        className="mt-3 w-full"
+        onClick={() => handleLessonClick(lesson.lessonId)}
+      >
+        View Details
+      </Button>
+    </div>
+  );
+
+  const renderTableRow = (lesson: LessonAnalytics, index: number) => (
+    <TableRow
+      key={lesson.lessonId}
+      className="cursor-pointer transition-colors hover:bg-gray-50"
+      onClick={() => handleLessonClick(lesson.lessonId)}
+    >
+      <TableCell className="font-medium">
+        <div>
+          <div className="font-semibold">{lesson.lessonTitle}</div>
+          <div className="text-sm text-gray-500">
+            {lesson.studentsCompleted} of {data.totalStudents}{' '}
+            students completed
+          </div>
+        </div>
+      </TableCell>
+      <TableCell className="text-right">
+        <div className="font-mono text-sm">{lesson.completionRate}%</div>
+      </TableCell>
+      <TableCell className="text-right">
+        {lesson.studentsCompleted === 0 ? (
+          <span className="text-sm text-gray-500">No data</span>
+        ) : (
+          <Badge variant={getScoreColorVariant(lesson.colorCode)}>
+            {lesson.averageScore}%
+          </Badge>
+        )}
+      </TableCell>
+      <TableCell className="text-right font-mono text-sm">
+        {lesson.studentsCompleted === 0 ? (
+          <span className="text-gray-500">—</span>
+        ) : (
+          lesson.averageAttempts
+        )}
+      </TableCell>
+      <TableCell className="text-right font-mono text-sm">
+        {lesson.studentsCompleted === 0 ? (
+          <span className="text-gray-500">—</span>
+        ) : (
+          formatTime(lesson.averageTimeSeconds)
+        )}
+      </TableCell>
+    </TableRow>
+  );
+
+  const renderHeader = () => (
+    <TableHeader>
+      <TableRow>
+        <TableHead className="w-[300px]">
+          {isMobile ? (
+            <span className="font-semibold">Lesson</span>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-auto p-0 font-semibold"
+              onClick={() => handleSort('order')}
+            >
+              Lesson
+              {getSortIcon('order', sortField, sortDirection)}
+            </Button>
+          )}
+        </TableHead>
+        <TableHead className="text-right">
+          {isMobile ? (
+            <span className="font-semibold">Completion</span>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-auto p-0 font-semibold"
+              onClick={() => handleSort('completionRate')}
+            >
+              Completion Rate
+              {getSortIcon('completionRate', sortField, sortDirection)}
+            </Button>
+          )}
+        </TableHead>
+        <TableHead className="text-right">
+          {isMobile ? (
+            <span className="font-semibold">Avg Score</span>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-auto p-0 font-semibold"
+              onClick={() => handleSort('averageScore')}
+            >
+              Average Score
+              {getSortIcon('averageScore', sortField, sortDirection)}
+            </Button>
+          )}
+        </TableHead>
+        <TableHead className="hidden md:table-cell text-right">Avg Attempts</TableHead>
+        <TableHead className="hidden md:table-cell text-right">Avg Time</TableHead>
+      </TableRow>
+    </TableHeader>
+  );
+
+  if (isMobile) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Class Analytics Overview</CardTitle>
+          <p className="text-sm text-gray-600">
+            {data.totalStudents} students, {data.lessons.length} lessons
+          </p>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="mt-2">
+                Sort by <ChevronDown className="ml-1 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem onClick={() => { setSortField('order'); setSortDirection('asc'); }}>
+                Lesson Order {sortField === 'order' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { setSortField('completionRate'); setSortDirection('desc'); }}>
+                Completion Rate {sortField === 'completionRate' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => { setSortField('averageScore'); setSortDirection('desc'); }}>
+                Average Score {sortField === 'averageScore' && (sortDirection === 'asc' ? '↑' : '↓')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {sortedLessons.map((lesson, index) => renderCardContent(lesson, index))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -226,94 +421,14 @@ export function ClassAnalyticsOverview({
         </p>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[300px]">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto p-0 font-semibold"
-                  onClick={() => handleSort('order')}
-                >
-                  Lesson
-                  {getSortIcon('order', sortField, sortDirection)}
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto p-0 font-semibold"
-                  onClick={() => handleSort('completionRate')}
-                >
-                  Completion Rate
-                  {getSortIcon('completionRate', sortField, sortDirection)}
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto p-0 font-semibold"
-                  onClick={() => handleSort('averageScore')}
-                >
-                  Average Score
-                  {getSortIcon('averageScore', sortField, sortDirection)}
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">Avg Attempts</TableHead>
-              <TableHead className="text-right">Avg Time</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {sortedLessons.map((lesson) => (
-              <TableRow
-                key={lesson.lessonId}
-                className="cursor-pointer transition-colors hover:bg-gray-50"
-                onClick={() => handleLessonClick(lesson.lessonId)}
-              >
-                <TableCell className="font-medium">
-                  <div>
-                    <div className="font-semibold">{lesson.lessonTitle}</div>
-                    <div className="text-sm text-gray-500">
-                      {lesson.studentsCompleted} of {data.totalStudents}{' '}
-                      students completed
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell className="text-right">
-                  <div className="font-mono text-sm">
-                    {lesson.completionRate}%
-                  </div>
-                </TableCell>
-                <TableCell className="text-right">
-                  {lesson.studentsCompleted === 0 ? (
-                    <span className="text-sm text-gray-500">No data</span>
-                  ) : (
-                    <Badge variant={getScoreColorVariant(lesson.colorCode)}>
-                      {lesson.averageScore}%
-                    </Badge>
-                  )}
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm">
-                  {lesson.studentsCompleted === 0 ? (
-                    <span className="text-gray-500">—</span>
-                  ) : (
-                    lesson.averageAttempts
-                  )}
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm">
-                  {lesson.studentsCompleted === 0 ? (
-                    <span className="text-gray-500">—</span>
-                  ) : (
-                    formatTime(lesson.averageTimeSeconds)
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <div className="overflow-x-auto">
+          <Table>
+            {renderHeader()}
+            <TableBody>
+              {sortedLessons.map((lesson, index) => renderTableRow(lesson, index))}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );
