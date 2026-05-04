@@ -28,3 +28,4 @@
 - [A11y] Progressive enhancement: use `<noscript>` for JS-disabled fallback content; `data-noscript-hide` attribute to hide JS-only elements.
 - [A11y] Wizard step indicators should use `role="progressbar"` with `aria-valuenow` for screen reader announcements.
 - [A11y] Form inputs need `aria-required="true"` and `<span className="text-destructive">*</span>` for required field indicators.
+- [LessonType] Create a central LESSON_TYPE_CONFIG mapping in lib/config/lesson-type-config.ts rather than scattering icon/color logic across components.

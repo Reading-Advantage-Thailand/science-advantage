@@ -20,3 +20,4 @@
 | Resolved  | Medium   | Visual identity was generic "AI slop" — no distinct aesthetic. Defined Scientific Expedition Journal theme with DM Serif Display, forest green, warm cream palette.          | `visual_refresh_20260425`        |
 | Open      | Low      | Design system uses CSS custom properties for shadows but Tailwind only provides standard shadow utilities. Custom shadow classes need to be defined in CSS rather than via Tailwind. | follow-up            |
 | Resolved  | Medium   | Onboarding Flow track complete: student/teacher first-run screens, contextual help, post-onboarding checklist, accessibility and progressive enhancement.                          | `onboarding_flow_20260428`  |
+| Addressed | Medium   | Lesson types (LESSON/LAB/REVIEW/ASSESSMENT) had no visual differentiation. Created LESSON_TYPE_CONFIG with color/icon mapping and added type badges to curriculum views.              | `lesson_type_differentiation_20260428` |
