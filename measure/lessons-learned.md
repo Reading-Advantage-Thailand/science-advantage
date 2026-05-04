@@ -29,3 +29,6 @@
 - [A11y] Wizard step indicators should use `role="progressbar"` with `aria-valuenow` for screen reader announcements.
 - [A11y] Form inputs need `aria-required="true"` and `<span className="text-destructive">*</span>` for required field indicators.
 - [LessonType] Create a central LESSON_TYPE_CONFIG mapping in lib/config/lesson-type-config.ts rather than scattering icon/color logic across components.
+- [Responsive] Touch swipe for carousel requires onTouchStart/onTouchMove/onTouchEnd handlers; 50px minimum swipe distance works well.
+- [Responsive] Quiz navigation should be bottom-anchored on mobile (fixed positioning) with min-h-[44px] buttons for thumb-friendly taps.
+- [Responsive] Quiz option rows need min-h-[44px] for comfortable touch targets; RadioGroupItem and Checkbox need alignment adjustments.
