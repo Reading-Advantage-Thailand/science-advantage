@@ -2,14 +2,14 @@
 
 ## Phase 1: Lesson Type Visual Identity
 
-- [ ] Task: Define lesson type color and icon system
-  - [ ] Write tests for lesson type badge rendering with correct colors and icons
-  - [ ] Create a `lesson-type-config.ts` mapping: LESSON→green/BookOpen, LAB→blue/FlaskConical, REVIEW→coral/Gamepad2, ASSESSMENT→gold/ClipboardCheck
-  - [ ] Export color classes and icon components for each type
-- [ ] Task: Update curriculum view with type badges
-  - [ ] Add lesson type badge to each entry in `StudentCurriculumView` accordion
-  - [ ] Add lesson type badge to each entry in `CurriculumAccordion` (teacher view)
-  - [ ] Badge shows icon + type name with the type-specific color
+- [x] Task: Define lesson type color and icon system
+  - [x] Write tests for lesson type badge rendering with correct colors and icons
+  - [x] Create a `lesson-type-config.ts` mapping: LESSON→green/BookOpen, LAB→blue/FlaskConical, REVIEW→coral/Gamepad2, ASSESSMENT→gold/ClipboardCheck
+  - [x] Export color classes and icon components for each type
+- [x] Task: Update curriculum view with type badges
+  - [x] Add lesson type badge to each entry in `StudentCurriculumView` accordion
+  - [x] Add lesson type badge to each entry in `CurriculumAccordion` (teacher view)
+  - [x] Badge shows icon + type name with the type-specific color
 - [ ] Task: Add visual differentiation to lesson pages
   - [ ] Add accent color border/top-bar to lesson page based on type
   - [ ] Add type badge in the lesson header area
