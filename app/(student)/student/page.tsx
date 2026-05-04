@@ -18,12 +18,12 @@ import {
 export default async function StudentPage() {
   const session = await requireRole('STUDENT');
 
-  const enrolledClasses = await prisma.enrollment.findMany({
-    where: { studentId: session.user.id },
-    select: { classId: true },
+  const enrolledClasses = await prisma.class.findMany({
+    where: { students: { some: { id: session.user.id } } },
+    select: { id: true },
     take: 1,
   });
-  const firstClassId = enrolledClasses[0]?.classId ?? undefined;
+  const firstClassId = enrolledClasses[0]?.id ?? undefined;
 
   return (
     <div className="space-y-6">

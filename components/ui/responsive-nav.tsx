@@ -207,7 +207,6 @@ export function ResponsiveNav({ logo, navItems, user }: ResponsiveNavProps) {
               )}
             </div>
             <MobileNav
-              logo={logo}
               navItems={navItems}
               user={user}
             />
