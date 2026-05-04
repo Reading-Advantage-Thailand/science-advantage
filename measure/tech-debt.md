@@ -21,3 +21,4 @@
 | Open      | Low      | Design system uses CSS custom properties for shadows but Tailwind only provides standard shadow utilities. Custom shadow classes need to be defined in CSS rather than via Tailwind. | follow-up            |
 | Resolved  | Medium   | Onboarding Flow track complete: student/teacher first-run screens, contextual help, post-onboarding checklist, accessibility and progressive enhancement.                          | `onboarding_flow_20260428`  |
 | Addressed | Medium   | Lesson types (LESSON/LAB/REVIEW/ASSESSMENT) had no visual differentiation. Created LESSON_TYPE_CONFIG with color/icon mapping and added type badges to curriculum views.              | `lesson_type_differentiation_20260428` |
+| Addressed | High     | window.matchMedia not mocked in jsdom test environment causing confetti-celebration tests to fail. Added mock to vitest.unit.setup.ts; quiz-player.test.tsx also needed explicit mock.    | `lesson_type_differentiation_20260428` |

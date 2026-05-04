@@ -32,3 +32,4 @@
 - [Responsive] Touch swipe for carousel requires onTouchStart/onTouchMove/onTouchEnd handlers; 50px minimum swipe distance works well.
 - [Responsive] Quiz navigation should be bottom-anchored on mobile (fixed positioning) with min-h-[44px] buttons for thumb-friendly taps.
 - [Responsive] Quiz option rows need min-h-[44px] for comfortable touch targets; RadioGroupItem and Checkbox need alignment adjustments.
+- [LessonType] Lab-specific features (safety notice, step-mode procedure, lab timer, materials checklist) added as conditional renderings in LessonPlayer via lessonType prop.
