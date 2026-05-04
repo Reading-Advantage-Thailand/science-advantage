@@ -121,9 +121,10 @@ export async function GET(
 
           return {
             id: lesson.id,
-            slug: lesson.id, // TODO: Use slug field when schema supports it
+            slug: lesson.slug ?? lesson.id,
             title: lesson.title,
             titleThai: lesson.titleThai ?? lesson.title,
+            lessonType: lesson.lessonType,
             order: lesson.order,
             completed: status === 'COMPLETED',
             started: status !== 'NOT_STARTED',

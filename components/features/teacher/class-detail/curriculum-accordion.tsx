@@ -1,12 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import { CheckCircle2, Circle, Clock } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, BookOpen, FlaskConical, Gamepad2, ClipboardCheck } from 'lucide-react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AssignButton } from '@/components/features/teacher/assign-button';
+import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
+import type { LessonType } from '@prisma/client';
+
+const LESSON_TYPE_ICONS = {
+  LESSON: BookOpen,
+  LAB: FlaskConical,
+  ASSESSMENT: ClipboardCheck,
+  REVIEW: Gamepad2,
+} as const;
 
 interface LessonSummary {
   id: string;
@@ -16,6 +25,7 @@ interface LessonSummary {
   description: string | null;
   order: number;
   gradeLevel: number;
+  lessonType: LessonType;
   completionCount?: number;
   assignment?: {
     id: string;
@@ -92,9 +102,18 @@ export function CurriculumAccordion({
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
-                            Lesson {lesson.order}
-                          </p>
+                          <div className="mb-1 flex items-center gap-2">
+                            <Badge variant="outline" className={LESSON_TYPE_CONFIG[lesson.lessonType].badgeClass}>
+                              {(() => {
+                                const Icon = LESSON_TYPE_ICONS[lesson.lessonType];
+                                return <Icon className="h-3 w-3 mr-1" />;
+                              })()}
+                              {LESSON_TYPE_CONFIG[lesson.lessonType].label}
+                            </Badge>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-rose-500">
+                              Lesson {lesson.order}
+                            </p>
+                          </div>
                           <p className="text-base font-medium text-gray-900">{lesson.title}</p>
                           {lesson.titleThai && lesson.titleThai !== lesson.title && (
                             <p className="text-sm text-gray-500">{lesson.titleThai}</p>

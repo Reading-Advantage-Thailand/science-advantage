@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { CurriculumAccordion } from './curriculum-accordion';
 
+import type { LessonType } from '@prisma/client';
+
 interface LessonSummary {
   id: string;
   slug: string;
@@ -12,6 +14,7 @@ interface LessonSummary {
   description: string | null;
   order: number;
   gradeLevel: number;
+  lessonType: LessonType;
 }
 
 interface CurriculumUnitSummary {

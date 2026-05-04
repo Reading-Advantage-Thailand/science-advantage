@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
+import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
+import type { LessonType } from '@prisma/client';
 
 type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
 
@@ -25,6 +27,7 @@ interface Lesson {
   slug: string;
   title: string;
   titleThai: string;
+  lessonType: LessonType;
   order: number;
   completed: boolean;
   started: boolean;
@@ -257,6 +260,16 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
                                 </div>
                               </div>
                               <div className="flex items-center gap-3">
+                                {(() => {
+                                  const typeConfig = LESSON_TYPE_CONFIG[lesson.lessonType];
+                                  const TypeIcon = typeConfig.icon;
+                                  return (
+                                    <Badge variant="outline" className={typeConfig.badgeClass}>
+                                      <TypeIcon className="h-3 w-3 mr-1" />
+                                      {typeConfig.label}
+                                    </Badge>
+                                  );
+                                })()}
                                 <Badge variant="outline" className={statusConfig.badgeClass}>
                                   {statusConfig.label}
                                 </Badge>

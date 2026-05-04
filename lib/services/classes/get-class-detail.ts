@@ -1,4 +1,4 @@
-import type { StandardsAlignment } from '@prisma/client';
+import type { LessonType, StandardsAlignment } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 
@@ -10,6 +10,7 @@ type LessonSummary = {
   description: string | null;
   order: number;
   gradeLevel: number;
+  lessonType: LessonType;
 };
 
 type CurriculumUnitSummary = {
@@ -69,6 +70,7 @@ export async function getClassDetailWithCurriculum(
           description: true,
           order: true,
           gradeLevel: true,
+          lessonType: true,
         },
         orderBy: { order: 'asc' },
       },
@@ -95,6 +97,7 @@ export async function getClassDetailWithCurriculum(
         description: lesson.description,
         order: lesson.order,
         gradeLevel: lesson.gradeLevel,
+        lessonType: lesson.lessonType,
       })),
     })),
   };
