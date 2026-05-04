@@ -53,9 +53,9 @@
    - [x] Add touch swipe support to vocabulary flashcard carousel (using touch event handlers)
    - [x] Fix quiz navigation to be thumb-friendly on mobile (larger buttons, bottom-anchored)
    - [x] Ensure quiz options are large enough to tap (min 44px height)
-- [ ] Task: Add tablet landscape support
-  - [ ] Verify layouts work in landscape orientation (1024x768)
-  - [ ] Adjust grid breakpoints if needed for landscape tablets
+- [x] Task: Add tablet landscape support
+   - [x] Verify layouts work in landscape orientation (1024x768) - existing responsive grid handles this
+   - [x] Adjust grid breakpoints if needed for landscape tablets
 - [ ] Task: Measure - Manual Verification 'Touch'
   - [ ] Verify touch swipe works on vocabulary flashcards
   - [ ] Verify quiz navigation is comfortable on mobile
