@@ -587,50 +587,54 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
       </Card>
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-between">
-        <Button
-          variant="outline"
-          onClick={handlePrevious}
-          disabled={currentQuestionIndex === 0}
-          className="gap-2"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Previous
-        </Button>
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 md:relative md:bg-transparent md:border-0 md:p-0">
+        <div className="flex items-center justify-between gap-4">
+          <Button
+            variant="outline"
+            onClick={handlePrevious}
+            disabled={currentQuestionIndex === 0}
+            className="gap-2 min-h-[44px] min-w-[44px] md:min-h-[40px]"
+            aria-label="Previous question"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span className="hidden sm:inline">Previous</span>
+          </Button>
 
-        {isLastQuestion ? (
-          <Button
-            onClick={() => {
-              if (!allQuestionsAnswered()) {
-                alert('Please answer all questions before submitting.');
-                return;
-              }
-              setShowSubmitDialog(true);
-            }}
-            disabled={!allQuestionsAnswered() || submitting}
-            className="gap-2"
-          >
-            {submitting ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Submitting...
-              </>
-            ) : (
-              <>
-                <CheckCircle2 className="h-4 w-4" />
-                Submit Quiz
-              </>
-            )}
-          </Button>
-        ) : (
-          <Button
-            onClick={handleNext}
-            className="gap-2"
-          >
-            Next
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        )}
+          {isLastQuestion ? (
+            <Button
+              onClick={() => {
+                if (!allQuestionsAnswered()) {
+                  alert('Please answer all questions before submitting.');
+                  return;
+                }
+                setShowSubmitDialog(true);
+              }}
+              disabled={!allQuestionsAnswered() || submitting}
+              className="gap-2 min-h-[44px] min-w-[44px] md:min-h-[40px]"
+            >
+              {submitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="hidden sm:inline">Submitting...</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span className="hidden sm:inline">Submit Quiz</span>
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button
+              onClick={handleNext}
+              className="gap-2 min-h-[44px] min-w-[44px] md:min-h-[40px]"
+              aria-label="Next question"
+            >
+              <span className="hidden sm:inline">Next</span>
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Submit Confirmation Dialog */}

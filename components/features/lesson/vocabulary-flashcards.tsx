@@ -387,7 +387,31 @@ export function VocabularyFlashcards({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mode, hasTerms, goToPrevious, goToNext]);
 
-  // Progress calculation
+  // Touch swipe state
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (touchStart === null || touchEnd === null) return;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    if (distance > minSwipeDistance) {
+      goToNext();
+    } else if (distance < -minSwipeDistance) {
+      goToPrevious();
+    }
+    setTouchStart(null);
+    setTouchEnd(null);
+  }, [touchStart, touchEnd, goToNext, goToPrevious]);
   const progress = useMemo(() => {
     return {
       current: currentIndex + 1,
@@ -413,6 +437,9 @@ export function VocabularyFlashcards({
         data-mode="carousel"
         role="region"
         aria-label="Vocabulary flashcards carousel"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Progress Indicator */}
         <div

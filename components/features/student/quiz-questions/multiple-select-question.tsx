@@ -33,12 +33,13 @@ export function MultipleSelectQuestion({
       </p>
       <div className="space-y-3">
         {options.map((option, index) => (
-          <div key={index} className="flex items-center space-x-3">
+          <div key={index} className="flex items-center space-x-3 min-h-[44px]">
             <Checkbox
               id={`${question.id}-option-${index}`}
               checked={value.includes(option)}
               onCheckedChange={(checked) => handleCheckboxChange(option, checked as boolean)}
               aria-label={option}
+              className="mt-1"
             />
             <Label
               htmlFor={`${question.id}-option-${index}`}

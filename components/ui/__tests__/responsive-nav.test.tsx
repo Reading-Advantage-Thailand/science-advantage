@@ -21,14 +21,14 @@ describe('MobileNav', () => {
   });
 
   it('renders hamburger button when menu is closed', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     expect(menuButton).toBeInTheDocument();
   });
 
   it('opens mobile menu when hamburger button is clicked', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -38,7 +38,7 @@ describe('MobileNav', () => {
   });
 
   it('closes mobile menu when close button is clicked', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -52,7 +52,7 @@ describe('MobileNav', () => {
   });
 
   it('closes mobile menu when escape key is pressed', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -63,7 +63,7 @@ describe('MobileNav', () => {
   });
 
   it('closes mobile menu when overlay is clicked', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -78,7 +78,7 @@ describe('MobileNav', () => {
   });
 
   it('renders navigation items in mobile menu', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -88,7 +88,7 @@ describe('MobileNav', () => {
   });
 
   it('closes menu when a navigation link is clicked', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -102,7 +102,7 @@ describe('MobileNav', () => {
   });
 
   it('displays user info when user prop is provided', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     fireEvent.click(menuButton);
@@ -112,7 +112,7 @@ describe('MobileNav', () => {
   });
 
   it('renders with correct aria attributes when open', () => {
-    render(<MobileNav logo={MOCK_LOGO} navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
+    render(<MobileNav navItems={MOCK_NAV_ITEMS} user={MOCK_USER} />);
 
     const menuButton = screen.getByRole('button', { name: /open navigation menu/i });
     expect(menuButton).toHaveAttribute('aria-expanded', 'false');

@@ -23,7 +23,7 @@ export function TrueFalseQuestion({
       aria-label={question.text || 'True or false question'}
       className="space-y-3"
     >
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3 min-h-[44px]">
         <RadioGroupItem
           value="True"
           id={`${question.id}-true`}
@@ -35,7 +35,7 @@ export function TrueFalseQuestion({
           True
         </Label>
       </div>
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3 min-h-[44px]">
         <RadioGroupItem
           value="False"
           id={`${question.id}-false`}

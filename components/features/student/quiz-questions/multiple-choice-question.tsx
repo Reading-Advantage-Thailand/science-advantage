@@ -26,11 +26,12 @@ export function MultipleChoiceQuestion({
       className="space-y-3"
     >
       {options.map((option, index) => (
-        <div key={index} className="flex items-center space-x-3">
+        <div key={index} className="flex items-center space-x-3 min-h-[44px]">
           <RadioGroupItem
             value={option}
             id={`${question.id}-option-${index}`}
             aria-label={option}
+            className="mt-1"
           />
           <Label
             htmlFor={`${question.id}-option-${index}`}
