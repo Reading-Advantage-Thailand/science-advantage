@@ -9,7 +9,7 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 
 - [x] **Track: Bilingual Architecture Reframe** *Link: [./tracks/bilingual_architecture_20260428/](./tracks/bilingual_architecture_20260428/)*
 - [ ] **Track: Tablet & Mobile Responsiveness** *Link: [./tracks/tablet_responsiveness_20260428/](./tracks/tablet_responsiveness_20260428/)* Phase 3 of 3 complete; Lighthouse audit pending
-- [ ] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)* Phase 2 of 5 complete
+- [ ] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)* Phase 4 of 5 complete
 
 - [x] **Track: Onboarding Flow**
   *Link: [./tracks/onboarding_flow_20260428/](./tracks/onboarding_flow_20260428/)*

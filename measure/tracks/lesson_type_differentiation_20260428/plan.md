@@ -48,31 +48,31 @@
 
 ## Phase 3: Assessment-Specific Features
 
-- [ ] Task: Implement assessment timer
-  - [ ] Write tests for assessment countdown timer
-  - [ ] Create `AssessmentTimer` component with configurable duration (default 30 min)
-  - [ ] Timer is tamper-resistant: server stores assessment start time, client displays countdown
-  - [ ] Auto-submit when timer reaches zero
-  - [ ] Show warning at 5 minutes remaining
-- [ ] Task: Implement question navigator grid
-  - [ ] Write tests for question grid state (answered/unanswered/reviewed)
-  - [ ] Create `QuestionNavigator` component showing numbered grid
-  - [ ] Color-code: green (answered), yellow (marked for review), gray (unanswered)
-  - [ ] Click a number to jump to that question
-- [ ] Task: Implement assessment navigation rules
-  - [ ] Default forward-only navigation (Previous button hidden unless question is marked for review)
-  - [ ] Add "Mark for Review" toggle on each question
-  - [ ] Show "X unanswered" count in submission confirmation
-  - [ ] Double-confirm dialog on submit
-- [ ] Task: Implement score reveal animation
-  - [ ] After assessment submission, show "Grading..." animation for 2-3 seconds
-  - [ ] Then reveal score with emphasis animation
-  - [ ] Respect prefers-reduced-motion (skip delay, show score immediately)
+- [x] Task: Implement assessment timer
+   - [x] Write tests for assessment countdown timer
+   - [x] Create `AssessmentTimer` component with configurable duration (default 30 min)
+   - [x] Timer is tamper-resistant: server stores assessment start time, client displays countdown
+   - [x] Auto-submit when timer reaches zero
+   - [x] Show warning at 5 minutes remaining
+- [x] Task: Implement question navigator grid
+   - [x] Write tests for question grid state (answered/unanswered/reviewed)
+   - [x] Create `QuestionNavigator` component showing numbered grid
+   - [x] Color-code: green (answered), yellow (marked for review), gray (unanswered)
+   - [x] Click a number to jump to that question
+- [x] Task: Implement assessment navigation rules
+   - [x] Default forward-only navigation (Previous button hidden unless question is marked for review)
+   - [x] Add "Mark for Review" toggle on each question
+   - [x] Show "X unanswered" count in submission confirmation
+   - [x] Double-confirm dialog on submit
+- [x] Task: Implement score reveal animation
+   - [x] After assessment submission, show "Grading..." animation for 2-3 seconds
+   - [x] Then reveal score with emphasis animation
+   - [x] Respect prefers-reduced-motion (skip delay, show score immediately)
 - [ ] Task: Measure - Manual Verification 'Assessment Features'
-  - [ ] Verify assessment timer counts down
-  - [ ] Verify question navigator shows correct color coding
-  - [ ] Verify forward-only navigation works
-  - [ ] Verify double-confirm on submit
+   - [ ] Verify assessment timer counts down
+   - [ ] Verify question navigator shows correct color coding
+   - [ ] Verify forward-only navigation works
+   - [ ] Verify double-confirm on submit
 
 ## Phase 4: Review-Specific Features
 
