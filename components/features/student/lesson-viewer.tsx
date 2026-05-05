@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from '@/lib/utils';
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Loader2, FileQuestion } from 'lucide-react';
@@ -7,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { LessonPlayer } from '@/components/features/lesson';
+import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
 import {
   LessonContentSchema,
   type LessonContent,
@@ -281,6 +283,10 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
     }
   };
 
+  const lessonTypeMeta = lessonData.lesson.lessonType
+    ? LESSON_TYPE_CONFIG[lessonData.lesson.lessonType]
+    : null;
+
   return (
     <div className="space-y-6">
       <Button
@@ -293,7 +299,18 @@ export function LessonViewer({ classId, lessonSlug, progress, progressLoading = 
       </Button>
 
       {/* Lesson Header */}
-      <div className="space-y-2">
+      <div className={cn(
+        'space-y-2 rounded-lg border-l-4 bg-white p-4 shadow-sm',
+        lessonTypeMeta ? lessonTypeMeta.accentClass : 'border-l-gray-300'
+      )}>
+        <div className="flex items-center gap-2">
+          {lessonTypeMeta && (
+            <Badge className={lessonTypeMeta.badgeClass}>
+              <lessonTypeMeta.icon className="mr-1 h-3 w-3" />
+              {lessonTypeMeta.label}
+            </Badge>
+          )}
+        </div>
         <h1 className="text-3xl font-bold text-gray-900">{lessonData.lesson.title}</h1>
         {lessonData.lesson.titleThai !== lessonData.lesson.title && (
           <p className="text-xl text-gray-600">{lessonData.lesson.titleThai}</p>
