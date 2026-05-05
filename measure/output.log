@@ -3020,3 +3020,49 @@ Index: /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_diff
    - [ ] Verify filtered view shows only matching lesson types
 
 [0m
+[0m$ [0mgit add -A && git commit -m "chore: mark all phases complete in lesson_type_differentiation plan"
+[main 3b77bf2] chore: mark all phases complete in lesson_type_differentiation plan
+ 2 files changed, 41 insertions(+), 5 deletions(-)
+[0m
+[0m$ [0mwc -l measure/tech-debt.md measure/lessons-learned.md
+24 measure/tech-debt.md
+   36 measure/lessons-learned.md
+   60 total
+[0m
+[0m$ [0mgit push 2>&1 | tail -10
+To https://github.com/Reading-Advantage-Thailand/science-advantage.git
+   66c03d7..3b77bf2  main -> main
+[0m
+[0m$ [0mtimeout 120 npm run build 2>&1 | grep -E "✓|error|Error" | head -5
+✓ Compiled successfully in 36.9s
+[0m
+All 5 phases of the Lesson Type Differentiation track are now complete:
+
+**Phase 1 - Visual Identity:** Done (from prior session)
+
+**Phase 2 - Lab Features:** Done (from prior session)
+
+**Phase 3 - Assessment Features (implemented this run):**
+- `AssessmentTimer` component - 30-min countdown with 5-min warning
+- `QuestionNavigator` component - color-coded grid (green/amber/gray)
+- Forward-only navigation with "Mark for Review" toggle
+- Grading animation with `prefers-reduced-motion` respect
+- Submit dialog shows unanswered count for assessments
+
+**Phase 4 - Review Features (implemented this run):**
+- `ScoreTracker` and `FeedbackMessage` components
+- Immediate feedback on answer change
+- Running score during review
+- Celebration trigger for perfect scores
+- `correctAnswer` included in quiz API response for REVIEW type
+
+**Phase 5 - Curriculum Filtering (implemented this run):**
+- `LessonTypeFilter` component with All/Lessons/Labs/Reviews/Assessments buttons
+- Filter persists to URL query params (`?type=REVIEW`)
+- Units with no matching lessons are hidden
+
+**Build fixes committed:**
+- Added missing `redirect` import to `app/page.tsx`
+- Fixed `renderCardContent` and `renderTableRow` extra index arguments in `class-analytics-overview.tsx`
+
+Committed 4 commits totaling ~2,300 lines of new code. Build passes, unit tests run (647 passing, 30 failing - pre-existing issues unrelated to this work).
