@@ -3,11 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
-interface GradingAnimationProps {
-  onComplete?: () => void;
-}
-
-export function GradingAnimation({ onComplete }: GradingAnimationProps) {
+export function GradingAnimation() {
   const [dots, setDots] = useState('');
 
   useEffect(() => {

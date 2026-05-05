@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Clock, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -21,7 +21,7 @@ export function AssessmentTimer({
 }: AssessmentTimerProps) {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [isExpired, setIsExpired] = useState(false);
-  const [hasWarned, setHasWarned] = useState(false);
+
   const endTimeRef = useRef<number>(startTime.getTime() + durationMinutes * 60 * 1000);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const warningFiredRef = useRef(false);

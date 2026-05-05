@@ -1,21 +1,14 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import {
-  IconChevronRight,
   IconBook,
   IconBrain,
   IconChartBar,
   IconUsers,
   IconRocket,
   IconCheck,
-  IconDeviceDesktop,
-  IconWifi,
-  IconTools,
-  IconMail,
-  IconCalendar,
 } from '@tabler/icons-react';
 import { getSession } from '@/lib/auth/server';
 

@@ -126,7 +126,6 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   // Review-specific state
   const [correctCount, setCorrectCount] = useState(0);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
-  const [showCelebration, setShowCelebration] = useState(false);
 
   // Determine if this is an assessment or review
   const isAssessment = quizData?.lessonType === 'ASSESSMENT';
@@ -238,7 +237,7 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
         if (isCorrect) {
           setCorrectCount(prev => prev + 1);
           if (correctCount + 1 === quizData.questions.length) {
-            setShowCelebration(true);
+            // All questions answered correctly in review mode
           }
         }
       }
@@ -372,7 +371,7 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
     } finally {
       setSubmitting(false);
     }
-  }, [quizData, answers, questionTimes, currentQuestionIndex, lessonSlug, allQuestionsAnswered, recordQuestionTime, onQuizCompleted]);
+  }, [quizData, answers, questionTimes, currentQuestionIndex, lessonSlug, allQuestionsAnswered, recordQuestionTime, onQuizCompleted, isAssessment]);
 
   const handleBadgeDismiss = useCallback(() => {
     setCurrentBadge(null);
