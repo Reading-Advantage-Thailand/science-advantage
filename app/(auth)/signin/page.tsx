@@ -4,6 +4,10 @@ import { env } from '@/lib/env';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 
+export const metadata = {
+  title: 'Sign In - Science Advantage',
+};
+
 const ROLE_ROUTES = {
   STUDENT: '/student',
   TEACHER: '/teacher',
