@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
 import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
+import { LessonTypeFilter, filterLessons } from '@/components/features/lesson/lesson-type-filter';
 import type { LessonType } from '@prisma/client';
 
 type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
@@ -121,10 +122,13 @@ function formatDueDate(dueAt: string): string {
 
 export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [curriculum, setCurriculum] = useState<CurriculumData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [assignments, setAssignments] = useState<Map<string, AssignmentData>>(new Map());
+
+  const lessonTypeFilter = (searchParams.get('type') as LessonType) || 'ALL';
 
   useEffect(() => {
     async function fetchCurriculum() {
@@ -211,9 +215,25 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
         </div>
       </div>
 
+      <LessonTypeFilter
+        selectedType={lessonTypeFilter}
+        onChange={(type) => {
+          const params = new URLSearchParams(searchParams.toString());
+          if (type === 'ALL') {
+            params.delete('type');
+          } else {
+            params.set('type', type);
+          }
+          router.push(`?${params.toString()}`);
+        }}
+      />
+
       <TooltipProvider delayDuration={200}>
         <Accordion type="multiple" className="divide-y divide-gray-200">
-          {curriculum.units.map(unit => (
+          {curriculum.units.map(unit => {
+            const filteredLessons = filterLessons(unit.lessons, lessonTypeFilter);
+            if (filteredLessons.length === 0) return null;
+            return (
             <AccordionItem key={unit.id} value={unit.id} className="px-2">
             <AccordionTrigger>
               <div className="flex flex-col gap-1 text-left">
@@ -227,9 +247,9 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-1 pb-4">
-                  {unit.lessons.length > 0 ? (
+                  {filteredLessons.length > 0 ? (
                     <ol className="space-y-3">
-                      {unit.lessons.map(lesson => {
+                      {filteredLessons.map(lesson => {
                         const status = lesson.progress?.status ?? 'NOT_STARTED';
                         const statusConfig = STATUS_CONFIG[status];
                         const attemptsCount = lesson.progress?.attemptsCount ?? 0;
@@ -324,8 +344,9 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
                     <p className="text-sm text-gray-500">No lessons added yet.</p>
                   )}
             </AccordionContent>
-          </AccordionItem>
-          ))}
+            </AccordionItem>
+          );
+          })}
         </Accordion>
       </TooltipProvider>
     </div>

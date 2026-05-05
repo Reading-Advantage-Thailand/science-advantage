@@ -76,18 +76,18 @@
 
 ## Phase 4: Review-Specific Features
 
-- [ ] Task: Implement game-like review presentation
-  - [ ] Modify quiz rendering for REVIEW type: larger text, more spacing, playful card design
-  - [ ] Use coral/terracotta accent colors for review question cards
-  - [ ] Increase font size for question text in review mode
-- [ ] Task: Implement immediate feedback
-  - [ ] Modify quiz flow for REVIEW type: show correct/incorrect immediately after each answer
-  - [ ] Show brief explanation or encouraging message after each answer
-  - [ ] No waiting until the end for results
-- [ ] Task: Implement score tracker and encouragement
-  - [ ] Show running score during review ("3/5 correct so far!")
-  - [ ] Add randomized encouraging messages between questions
-  - [ ] Show celebration animation when all questions answered correctly
+- [x] Task: Implement game-like review presentation
+  - [x] Modify quiz rendering for REVIEW type: larger text, more spacing, playful card design
+  - [x] Use coral/terracotta accent colors for review question cards
+  - [x] Increase font size for question text in review mode
+- [x] Task: Implement immediate feedback
+  - [x] Modify quiz flow for REVIEW type: show correct/incorrect immediately after each answer
+  - [x] Show brief explanation or encouraging message after each answer
+  - [x] No waiting until the end for results
+- [x] Task: Implement score tracker and encouragement
+  - [x] Show running score during review ("3/5 correct so far!")
+  - [x] Add randomized encouraging messages between questions
+  - [x] Show celebration animation when all questions answered correctly
 - [ ] Task: Measure - Manual Verification 'Review Features'
   - [ ] Verify review questions have playful visual treatment
   - [ ] Verify immediate feedback after each answer

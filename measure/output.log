@@ -2524,3 +2524,463 @@ Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/qui
 [0m← [0mWrite components/features/student/__tests__/review-feedback.test.tsx
 Wrote file successfully.
 [0m
+[0m$ [0mgit add -A && git commit -m "feat(review): implement Phase 4 review-specific features
+
+- Add ScoreTracker, FeedbackMessage, and ReviewFeedback components
+- Modify QuizPlayer to detect REVIEW lessonType via isReview flag
+- Add immediate feedback on answer change for review mode
+- Include correctAnswer in quiz API response for REVIEW type
+- Show running score during review
+- Auto-advance blocked when answer is wrong in review mode
+- Add correctCount state and celebration trigger for perfect score"
+[main e59f14a] feat(review): implement Phase 4 review-specific features
+ 7 files changed, 497 insertions(+), 8 deletions(-)
+ create mode 100644 components/features/student/__tests__/review-feedback.test.tsx
+ create mode 100644 components/features/student/review-feedback.tsx
+[0m
+[0m→ [0mRead measure/tracks/lesson_type_differentiation_20260428/plan.md[90m [limit=25, offset=76][0m
+[0m
+[0m← [0mEdit measure/tracks/lesson_type_differentiation_20260428/plan.md
+Index: /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_differentiation_20260428/plan.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_differentiation_20260428/plan.md
++++ /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_differentiation_20260428/plan.md
+@@ -75,20 +75,20 @@
+    - [ ] Verify double-confirm on submit
+ 
+ ## Phase 4: Review-Specific Features
+ 
+-- [ ] Task: Implement game-like review presentation
+-  - [ ] Modify quiz rendering for REVIEW type: larger text, more spacing, playful card design
+-  - [ ] Use coral/terracotta accent colors for review question cards
+-  - [ ] Increase font size for question text in review mode
+-- [ ] Task: Implement immediate feedback
+-  - [ ] Modify quiz flow for REVIEW type: show correct/incorrect immediately after each answer
+-  - [ ] Show brief explanation or encouraging message after each answer
+-  - [ ] No waiting until the end for results
+-- [ ] Task: Implement score tracker and encouragement
+-  - [ ] Show running score during review ("3/5 correct so far!")
+-  - [ ] Add randomized encouraging messages between questions
+-  - [ ] Show celebration animation when all questions answered correctly
++- [x] Task: Implement game-like review presentation
++  - [x] Modify quiz rendering for REVIEW type: larger text, more spacing, playful card design
++  - [x] Use coral/terracotta accent colors for review question cards
++  - [x] Increase font size for question text in review mode
++- [x] Task: Implement immediate feedback
++  - [x] Modify quiz flow for REVIEW type: show correct/incorrect immediately after each answer
++  - [x] Show brief explanation or encouraging message after each answer
++  - [x] No waiting until the end for results
++- [x] Task: Implement score tracker and encouragement
++  - [x] Show running score during review ("3/5 correct so far!")
++  - [x] Add randomized encouraging messages between questions
++  - [x] Show celebration animation when all questions answered correctly
+ - [ ] Task: Measure - Manual Verification 'Review Features'
+   - [ ] Verify review questions have playful visual treatment
+   - [ ] Verify immediate feedback after each answer
+   - [ ] Verify running score tracker updates
+
+[0m
+[0m← [0mEdit measure/tracks.md
+Index: /home/daniel-bo/Desktop/science-advantage/measure/tracks.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/measure/tracks.md
++++ /home/daniel-bo/Desktop/science-advantage/measure/tracks.md
+@@ -8,9 +8,9 @@
+ ## Foundation Tracks (Complete before any new feature development)
+ 
+ - [x] **Track: Bilingual Architecture Reframe** *Link: [./tracks/bilingual_architecture_20260428/](./tracks/bilingual_architecture_20260428/)*
+ - [ ] **Track: Tablet & Mobile Responsiveness** *Link: [./tracks/tablet_responsiveness_20260428/](./tracks/tablet_responsiveness_20260428/)* Phase 3 of 3 complete; Lighthouse audit pending
+-- [ ] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)* Phase 4 of 5 complete
++- [ ] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)* Phase 5 of 5 complete
+ 
+ - [x] **Track: Onboarding Flow**
+   *Link: [./tracks/onboarding_flow_20260428/](./tracks/onboarding_flow_20260428/)*
+   *Status: Complete*
+
+[0m
+[0m# [0mTodos
+[ ] Create lesson type filter component
+[ ] Add filter to curriculum accordion views
+[ ] Persist filter state to URL params
+[ ] Write tests for filter toggle behavior
+[0m
+[0m✱ [0mGlob "**/curriculum*.tsx"[90m 2 matches[0m
+[0m✱ [0mGlob "**/student-curriculum*.tsx"[90m 1 match[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=60][0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=80, offset=60][0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=100, offset=200][0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=50, offset=1][0m
+[0m
+[0m← [0mWrite components/features/lesson/lesson-type-filter.tsx
+Wrote file successfully.
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=30, offset=120][0m
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -6,8 +6,9 @@
+ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+ import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
+ import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
++import { LessonTypeFilter, filterLessons } from '@/components/features/lesson/lesson-type-filter';
+ import type { LessonType } from '@prisma/client';
+ 
+ type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+ 
+
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=25, offset=120][0m
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -4,8 +4,9 @@
+ import { useRouter } from 'next/navigation';
+ import { Badge } from '@/components/ui/badge';
+ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
++import { useSearchParams } from 'next/navigation';
+ import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
+ import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
+ import { LessonTypeFilter, filterLessons } from '@/components/features/lesson/lesson-type-filter';
+ import type { LessonType } from '@prisma/client';
+
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -1,12 +1,8 @@
+ "use client";
+ 
+ import { useEffect, useState } from 'react';
+-import { useRouter } from 'next/navigation';
+-import { Badge } from '@/components/ui/badge';
+-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+-import { useSearchParams } from 'next/navigation';
++import { useRouter, useSearchParams } from 'next/navigation';
+ import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
+ import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
+ import { LessonTypeFilter, filterLessons } from '@/components/features/lesson/lesson-type-filter';
+ import type { LessonType } from '@prisma/client';
+
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -118,13 +118,16 @@
+ }
+ 
+ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
+   const router = useRouter();
++  const searchParams = useSearchParams();
+   const [curriculum, setCurriculum] = useState<CurriculumData | null>(null);
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState<string | null>(null);
+   const [assignments, setAssignments] = useState<Map<string, AssignmentData>>(new Map());
+ 
++  const lessonTypeFilter = (searchParams.get('type') as LessonType) || 'ALL';
++
+   useEffect(() => {
+     async function fetchCurriculum() {
+       try {
+         setLoading(true);
+
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=30, offset=203][0m
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -211,11 +211,26 @@
+     <span>{curriculum.class.standardsAlignment}</span>
+   </div>
+ </div>
+ 
++<LessonTypeFilter
++  selectedType={lessonTypeFilter}
++  onChange={(type) => {
++    const params = new URLSearchParams(searchParams.toString());
++    if (type === 'ALL') {
++      params.delete('type');
++    } else {
++      params.set('type', type);
++    }
++    router.push(`?${params.toString()}`);
++  }}
++/>
++
+ <TooltipProvider delayDuration={200}>
+   <Accordion type="multiple" className="divide-y divide-gray-200">
+-    {curriculum.units.map(unit => (
++    {curriculum.units.map(unit => {
++      const filteredLessons = filterLessons(unit.lessons, lessonTypeFilter);
++      if (filteredLessons.length === 0) return null;
+       <AccordionItem key={unit.id} value={unit.id} className="px-2">
+       <AccordionTrigger>
+         <div className="flex flex-col gap-1 text-left">
+           <span className="text-xs font-semibold uppercase tracking-wide text-rose-600">
+
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=60, offset=240][0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=30, offset=305][0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=20, offset=335][0m
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -242,11 +242,11 @@
+     )}
+   </div>
+ </AccordionTrigger>
+ <AccordionContent className="px-1 pb-4">
+-      {unit.lessons.length > 0 ? (
++      {filteredLessons.length > 0 ? (
+         <ol className="space-y-3">
+-          {unit.lessons.map(lesson => {
++          {filteredLessons.map(lesson => {
+             const status = lesson.progress?.status ?? 'NOT_STARTED';
+             const statusConfig = STATUS_CONFIG[status];
+             const attemptsCount = lesson.progress?.attemptsCount ?? 0;
+             const scorePercentage = lesson.progress?.mostRecentScorePercentage ?? null;
+
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=20, offset=333][0m
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -340,9 +340,10 @@
+                   <p className="text-sm text-gray-500">No lessons added yet.</p>
+                 )}
+           </AccordionContent>
+         </AccordionItem>
+-        ))}
++        );
++      })}
+       </Accordion>
+     </TooltipProvider>
+   </div>
+ );
+
+[0m
+[0m$ [0mtimeout 180 npm run build 2>&1 | tail -25
+Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./components/features/student/student-curriculum-view.tsx:344:11
+Parsing ecmascript source code failed
+[0m [90m 342 |[39m             [33m<[39m[33m/[39m[33mAccordionContent[39m[33m>[39m
+ [90m 343 |[39m           [33m<[39m[33m/[39m[33mAccordionItem[39m[33m>[39m
+[31m[1m>[22m[39m[90m 344 |[39m           )[33m;[39m
+ [90m     |[39m           [31m[1m^[22m[39m
+ [90m 345 |[39m         })}
+ [90m 346 |[39m         [33m<[39m[33m/[39m[33mAccordion[39m[33m>[39m
+ [90m 347 |[39m       [33m<[39m[33m/[39m[33mTooltipProvider[39m[33m>[39m[0m
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./components/features/student/student-curriculum-view.tsx
+    ./app/(student)/student/classes/[classId]/page.tsx
+
+
+    at <unknown> (./components/features/student/student-curriculum-view.tsx:344:11)
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=30, offset=225][0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=120, offset=228][0m
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -229,8 +229,9 @@
+ <Accordion type="multiple" className="divide-y divide-gray-200">
+   {curriculum.units.map(unit => {
+     const filteredLessons = filterLessons(unit.lessons, lessonTypeFilter);
+     if (filteredLessons.length === 0) return null;
++    return (
+     <AccordionItem key={unit.id} value={unit.id} className="px-2">
+     <AccordionTrigger>
+       <div className="flex flex-col gap-1 text-left">
+         <span className="text-xs font-semibold uppercase tracking-wide text-rose-600">
+
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -340,11 +340,11 @@
+                 ) : (
+                   <p className="text-sm text-gray-500">No lessons added yet.</p>
+                 )}
+           </AccordionContent>
+-        </AccordionItem>
++          </AccordionItem>
+         );
+-      })}
++        })}
+       </Accordion>
+     </TooltipProvider>
+   </div>
+ );
+
+[0m
+[0m$ [0mtimeout 180 npm run build 2>&1 | tail -25
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Compiled successfully in 37.0s
+   Running TypeScript ...
+Failed to compile.
+
+./components/features/student/student-curriculum-view.tsx:228:8
+Type error: Cannot find name 'TooltipProvider'.
+
+[0m [90m 226 |[39m       [33m/[39m[33m>[39m
+ [90m 227 |[39m
+[31m[1m>[22m[39m[90m 228 |[39m       [33m<[39m[33mTooltipProvider[39m delayDuration[33m=[39m{[35m200[39m}[33m>[39m
+ [90m     |[39m        [31m[1m^[22m[39m
+ [90m 229 |[39m         [33m<[39m[33mAccordion[39m type[33m=[39m[32m"multiple"[39m className[33m=[39m[32m"divide-y divide-gray-200"[39m[33m>[39m
+ [90m 230 |[39m           {curriculum[33m.[39munits[33m.[39mmap(unit [33m=>[39m {
+ [90m 231 |[39m             [36mconst[39m filteredLessons [33m=[39m filterLessons(unit[33m.[39mlessons[33m,[39m lessonTypeFilter)[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null
+[0m
+[0m→ [0mRead components/features/student/student-curriculum-view.tsx[90m [limit=15][0m
+[0m✱ [0mGrep "TooltipProvider"[90m 2 matches[0m
+[0m
+[0m$ [0mgit diff HEAD~5 -- components/features/student/student-curriculum-view.tsx 2>/dev/null | head -60
+diff --git a/components/features/student/student-curriculum-view.tsx b/components/features/student/student-curriculum-view.tsx
+index bdf3741..851ac18 100644
+--- a/components/features/student/student-curriculum-view.tsx
++++ b/components/features/student/student-curriculum-view.tsx
+@@ -1,12 +1,10 @@
+ "use client";
+ 
+ import { useEffect, useState } from 'react';
+-import { useRouter } from 'next/navigation';
+-import { Badge } from '@/components/ui/badge';
+-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
++import { useRouter, useSearchParams } from 'next/navigation';
+ import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
+ import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
++import { LessonTypeFilter, filterLessons } from '@/components/features/lesson/lesson-type-filter';
+ import type { LessonType } from '@prisma/client';
+ 
+ type LessonProgressStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED';
+@@ -121,11 +119,14 @@ function formatDueDate(dueAt: string): string {
+ 
+ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
+   const router = useRouter();
++  const searchParams = useSearchParams();
+   const [curriculum, setCurriculum] = useState<CurriculumData | null>(null);
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState<string | null>(null);
+   const [assignments, setAssignments] = useState<Map<string, AssignmentData>>(new Map());
+ 
++  const lessonTypeFilter = (searchParams.get('type') as LessonType) || 'ALL';
++
+   useEffect(() => {
+     async function fetchCurriculum() {
+       try {
+@@ -211,9 +212,25 @@ export function StudentCurriculumView({ classId }: StudentCurriculumViewProps) {
+         </div>
+       </div>
+ 
++      <LessonTypeFilter
++        selectedType={lessonTypeFilter}
++        onChange={(type) => {
++          const params = new URLSearchParams(searchParams.toString());
++          if (type === 'ALL') {
++            params.delete('type');
++          } else {
++            params.set('type', type);
++          }
++          router.push(`?${params.toString()}`);
++        }}
++      />
++
+       <TooltipProvider delayDuration={200}>
+         <Accordion type="multiple" className="divide-y divide-gray-200">
+-          {curriculum.units.map(unit => (
++          {curriculum.units.map(unit => {
++            const filteredLessons = filterLessons(unit.lessons, lessonTypeFilter);
++            if (filteredLessons.length === 0) return null;
++            return (
+             <AccordionItem key={unit.id} value={unit.id} className="px-2">
+             <AccordionTrigger>
+[0m
+[0m← [0mEdit components/features/student/student-curriculum-view.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/student-curriculum-view.tsx
+@@ -1,8 +1,11 @@
+ "use client";
+ 
+ import { useEffect, useState } from 'react';
+ import { useRouter, useSearchParams } from 'next/navigation';
++import { Badge } from '@/components/ui/badge';
++import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
++import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+ import { Loader2, CheckCircle2, Circle, Clock } from 'lucide-react';
+ import { LESSON_TYPE_CONFIG } from '@/lib/config/lesson-type-config';
+ import { LessonTypeFilter, filterLessons } from '@/components/features/lesson/lesson-type-filter';
+ import type { LessonType } from '@prisma/client';
+
+[0m
+[0m$ [0mtimeout 180 npm run build 2>&1 | tail -25
+├ ƒ /assignments
+├ ƒ /schools
+├ ƒ /settings
+├ ƒ /signin
+├ ƒ /student
+├ ƒ /student/classes/[classId]
+├ ƒ /student/classes/[classId]/lessons/[lessonSlug]
+├ ƒ /student/profile
+├ ƒ /students
+├ ƒ /system
+├ ƒ /teacher
+├ ƒ /teacher/classes
+├ ƒ /teacher/classes/[classId]
+├ ƒ /teacher/classes/[classId]/analytics
+├ ƒ /teacher/classes/[classId]/analytics/lessons/[lessonId]
+├ ƒ /teacher/classes/[classId]/lessons/[slug]
+├ ƒ /teacher/classes/[classId]/roster
+├ ƒ /teacher/classes/[classId]/students/[studentId]
+├ ƒ /teacher/classes/[classId]/students/[studentId]/lessons/[lessonId]
+└ ƒ /teachers
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+[0m
