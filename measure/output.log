@@ -2984,3 +2984,39 @@ Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/stu
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 [0m
+[0m$ [0mgit add -A && git commit -m "feat(filtering): implement Phase 5 curriculum filtering
+
+- Add LessonTypeFilter component with All/Lessons/Labs/Reviews/Assessments buttons
+- Add filterLessons utility function for type-based filtering
+- Integrate filter into StudentCurriculumView with URL param persistence
+- Filter persists to URL query params (?type=REVIEW) for shareable links
+- Units with no matching lessons after filtering are hidden"
+[main 07d3432] feat(filtering): implement Phase 5 curriculum filtering
+ 6 files changed, 565 insertions(+), 20 deletions(-)
+ create mode 100644 components/features/lesson/lesson-type-filter.tsx
+[0m
+[0m← [0mEdit measure/tracks/lesson_type_differentiation_20260428/plan.md
+Index: /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_differentiation_20260428/plan.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_differentiation_20260428/plan.md
++++ /home/daniel-bo/Desktop/science-advantage/measure/tracks/lesson_type_differentiation_20260428/plan.md
+@@ -94,12 +94,12 @@
+   - [ ] Verify running score tracker updates
+ 
+ ## Phase 5: Curriculum Filtering
+ 
+-- [ ] Task: Add lesson type filter to curriculum views
+-  - [ ] Write tests for filter toggle behavior
+-  - [ ] Add filter buttons (All, Lessons, Labs, Reviews, Assessments) above curriculum accordion
+-  - [ ] Filter shows/hides lessons by type
+-  - [ ] Filter state persists to URL query params (shareable)
++- [x] Task: Add lesson type filter to curriculum views
++  - [x] Write tests for filter toggle behavior
++  - [x] Add filter buttons (All, Lessons, Labs, Reviews, Assessments) above curriculum accordion
++  - [x] Filter shows/hides lessons by type
++  - [x] Filter state persists to URL query params (shareable)
+ - [ ] Task: Measure - Manual Verification 'Filtering'
+   - [ ] Verify filter buttons appear and work
+   - [ ] Verify filtered view shows only matching lesson types
+
+[0m

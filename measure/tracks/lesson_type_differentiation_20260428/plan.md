@@ -95,11 +95,11 @@
 
 ## Phase 5: Curriculum Filtering
 
-- [ ] Task: Add lesson type filter to curriculum views
-  - [ ] Write tests for filter toggle behavior
-  - [ ] Add filter buttons (All, Lessons, Labs, Reviews, Assessments) above curriculum accordion
-  - [ ] Filter shows/hides lessons by type
-  - [ ] Filter state persists to URL query params (shareable)
+- [x] Task: Add lesson type filter to curriculum views
+  - [x] Write tests for filter toggle behavior
+  - [x] Add filter buttons (All, Lessons, Labs, Reviews, Assessments) above curriculum accordion
+  - [x] Filter shows/hides lessons by type
+  - [x] Filter state persists to URL query params (shareable)
 - [ ] Task: Measure - Manual Verification 'Filtering'
   - [ ] Verify filter buttons appear and work
   - [ ] Verify filtered view shows only matching lesson types
