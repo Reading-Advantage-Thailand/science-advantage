@@ -432,3 +432,38 @@ Index: /home/daniel-bo/Desktop/science-advantage/components/features/teacher/ana
 
 [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
 [0m
+[0m$ [0mgit add -A && git commit -m "chore(review): fix 3 lint/style issues"
+[main 5ed6aa3] chore(review): fix 3 lint/style issues
+ 3 files changed, 437 insertions(+), 3 deletions(-)
+[0m
+## Code Review Report — Past 24 Hours
+
+**Files Reviewed:**
+- `components/features/lesson/lab-safety-notice.tsx`
+- `components/features/lesson/lab-timer.tsx`
+- `components/features/lesson/blocks/step-mode-procedure-block.tsx`
+- `components/features/lesson/blocks/interactive-materials-block.tsx`
+- `components/features/lesson/__tests__/lab-safety-notice.test.tsx`
+- `components/features/lesson/__tests__/lab-timer.test.tsx`
+- `components/features/lesson/__tests__/step-mode-procedure-block.test.tsx`
+- `components/features/lesson/__tests__/interactive-materials-block.test.tsx`
+- `components/features/student/quiz-player.tsx`
+- `components/features/teacher/analytics/class-analytics-overview.tsx`
+
+**Issues Found:**
+1. `quiz-player.tsx:115` — `badgeQueue` variable declared but never used (lint warning)
+2. `class-analytics-overview.tsx:235,280` — Two unused `index` parameters in render functions (lint warnings)
+3. Tests cannot run without database (known infra issue, documented in tech-debt.md)
+
+**Issues Fixed:**
+- Removed unused `badgeQueue` state variable
+- Removed unused `index` parameters from `renderCardContent` and `renderTableRow`
+- All 3 lint warnings resolved
+
+**Architectural Concerns for tech-debt.md:**
+- None new. The existing `vitest.setup.ts` database dependency issue still prevents running unit tests in CI without a running Postgres instance.
+
+**Current Status:**
+- Lint: Clean
+- Typecheck: Not run (no `typecheck` script found in package.json)
+- Tests: Blocked by database dependency (pre-existing)
