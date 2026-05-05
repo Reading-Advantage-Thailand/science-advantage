@@ -33,3 +33,4 @@
 - [Responsive] Quiz navigation should be bottom-anchored on mobile (fixed positioning) with min-h-[44px] buttons for thumb-friendly taps.
 - [Responsive] Quiz option rows need min-h-[44px] for comfortable touch targets; RadioGroupItem and Checkbox need alignment adjustments.
 - [LessonType] Lab-specific features (safety notice, step-mode procedure, lab timer, materials checklist) added as conditional renderings in LessonPlayer via lessonType prop.
+- [E2E] Playwright tests may share browser state across test runs via reuseExistingServer. Always use test.beforeEach to ensure clean navigation state. The webServer config uses `npm run dev` with `reuseExistingServer: !process.env.CI` which can cause stale session issues.
