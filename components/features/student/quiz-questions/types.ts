@@ -23,6 +23,7 @@ export interface QuizQuestion {
   options?: QuestionOptions;
   points: number;
   order: number;
+  correctAnswer?: string | string[];
 }
 
 export type StudentAnswer =

@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "generatorVersion": "0.1.0",
-  "generatedAt": "2026-05-05T19:38:10.695Z",
+  "generatedAt": "2026-05-05T19:46:06.815Z",
   "outputPath": "/home/daniel-bo/Desktop/science-advantage/lib/generated/zod",
   "files": [
     "schemas/enums/TransactionIsolationLevel.schema.ts",

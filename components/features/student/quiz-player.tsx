@@ -31,6 +31,7 @@ import { ConfettiCelebration } from '@/components/features/gamification/confetti
 import { BadgeUnlockAnimation } from '@/components/features/gamification/badge-unlock-animation';
 import { LevelUpAnimation } from '@/components/features/gamification/level-up-animation';
 import { GradingAnimation } from '@/components/features/student/grading-animation';
+import { ScoreTracker, FeedbackMessage } from '@/components/features/student/review-feedback';
 import { BadgeDefinition, BADGE_DEFINITIONS } from '@/lib/gamification/badges';
 import { toast } from 'sonner';
 
@@ -122,8 +123,14 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   const [markedForReview, setMarkedForReview] = useState<Set<number>>(new Set());
   const [showGradingAnimation, setShowGradingAnimation] = useState(false);
 
-  // Determine if this is an assessment
+  // Review-specific state
+  const [correctCount, setCorrectCount] = useState(0);
+  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  // Determine if this is an assessment or review
   const isAssessment = quizData?.lessonType === 'ASSESSMENT';
+  const isReview = quizData?.lessonType === 'REVIEW';
   useEffect(() => {
     async function fetchQuiz() {
       try {
@@ -178,9 +185,16 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
     }
   }, [quizData, questionStartTimes]);
 
-  // Navigate to next question
+  // Navigate to next question (or auto-advance in review mode)
   const handleNext = useCallback(() => {
-    if (!quizData || currentQuestionIndex >= quizData.questions.length - 1) return;
+    if (!quizData) return;
+
+    // In review mode, check answer immediately before advancing
+    if (isReview && lastAnswerCorrect === false) {
+      return; // Don't advance if answer was wrong (they need to see feedback)
+    }
+
+    if (currentQuestionIndex >= quizData.questions.length - 1) return;
 
     recordQuestionTime(currentQuestionIndex);
     const nextIndex = currentQuestionIndex + 1;
@@ -189,7 +203,8 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
       ...prev,
       [nextIndex]: Date.now()
     }));
-  }, [currentQuestionIndex, quizData, recordQuestionTime]);
+    setLastAnswerCorrect(null); // Reset feedback for new question
+  }, [currentQuestionIndex, quizData, isReview, lastAnswerCorrect, recordQuestionTime]);
 
   // Navigate to previous question
   const handlePrevious = useCallback(() => {
@@ -210,7 +225,25 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
       ...prev,
       [questionId]: answer
     }));
-  }, []);
+
+    // Immediate feedback for review mode
+    if (isReview && quizData) {
+      const question = quizData.questions.find(q => q.id === questionId);
+      if (question?.correctAnswer !== undefined) {
+        const isCorrect = Array.isArray(answer)
+          ? JSON.stringify(answer.sort()) === JSON.stringify([question.correctAnswer].flat().sort())
+          : answer === question.correctAnswer;
+
+        setLastAnswerCorrect(isCorrect);
+        if (isCorrect) {
+          setCorrectCount(prev => prev + 1);
+          if (correctCount + 1 === quizData.questions.length) {
+            setShowCelebration(true);
+          }
+        }
+      }
+    }
+  }, [isReview, quizData, correctCount]);
 
   // Toggle mark for review (assessment mode)
   const toggleMarkForReview = useCallback((questionIndex: number) => {
@@ -589,6 +622,16 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
             }));
           }}
         />
+      )}
+
+      {/* Review-specific features */}
+      {isReview && (
+        <>
+          <ScoreTracker correctCount={correctCount} totalCount={quizData.questions.length} />
+          {lastAnswerCorrect !== null && (
+            <FeedbackMessage isCorrect={lastAnswerCorrect} />
+          )}
+        </>
       )}
 
       {/* Progress Indicator */}

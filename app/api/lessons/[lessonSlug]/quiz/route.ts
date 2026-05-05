@@ -161,7 +161,9 @@ export async function GET(
       });
     }
 
-    // 11. Format response (exclude correctAnswer)
+    // 11. Format response
+    // For REVIEW type, include correct answer for immediate feedback
+    const includeCorrectAnswer = lesson.lessonType === 'REVIEW';
     const response = {
       quizId: attempt.id,
       lessonId: lessonSlug,
@@ -172,7 +174,8 @@ export async function GET(
         text: q.text,
         options: q.options,
         points: q.points,
-        order: index + 1, // Order within this quiz
+        order: index + 1,
+        ...(includeCorrectAnswer && { correctAnswer: q.correctAnswer }),
       })),
       totalPoints,
       startedAt: attempt.startedAt.toISOString(),
