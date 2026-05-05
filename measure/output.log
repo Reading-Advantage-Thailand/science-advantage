@@ -1389,3 +1389,757 @@ Index: /home/daniel-bo/Desktop/science-advantage/components/features/teacher/ana
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 [0m
+[0m$ [0mgit add -A && git commit -m "fix(build): resolve TypeScript errors blocking production build
+
+- Add missing 'redirect' import in app/page.tsx
+- Rewrite page.tsx to properly handle session null case
+- Fix renderCardContent and renderTableRow call sites in class-analytics-overview.tsx to not pass extra index argument"
+[main 8d315c9] fix(build): resolve TypeScript errors blocking production build
+ 5 files changed, 1505 insertions(+), 658 deletions(-)
+[0m
+[0m$ [0mbun run dev --port 3456 &>/tmp/dev-server.log &
+echo $!
+1247815
+[0m
+[0m$ [0msleep 10 && curl -s -o /dev/null -w "%{http_code}" http://localhost:3456 2>/dev/null
+200
+[0m
+[0m$ [0mpython3 <<'PY' 2>&1
+import sys
+sys.path.insert(0, '/home/daniel-bo/.agents/skills/browser-harness')
+from helpers import ensure_daemon, new_tab, wait_for_load, capture_screenshot, page_info
+ensure_daemon()
+new_tab("http://localhost:3456")
+wait_for_load()
+print("Homepage loaded successfully")
+print(page_info())
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+ImportError: cannot import name 'ensure_daemon' from 'helpers' (/home/daniel-bo/.agents/skills/browser-harness/helpers.py)
+[0m
+[0m$ [0mhead -60 /home/daniel-bo/.agents/skills/browser-harness/helpers.py
+"""Browser control via CDP. Read, edit, extend -- this file is yours."""
+import base64, json, os, socket, time, urllib.request
+from pathlib import Path
+from urllib.parse import urlparse
+
+
+def _load_env():
+    p = Path(__file__).parent / ".env"
+    if not p.exists():
+        return
+    for line in p.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+_load_env()
+
+NAME = os.environ.get("BU_NAME", "default")
+SOCK = f"/tmp/bu-{NAME}.sock"
+INTERNAL = ("chrome://", "chrome-untrusted://", "devtools://", "chrome-extension://", "about:")
+
+
+def _send(req):
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    s.connect(SOCK)
+    s.sendall((json.dumps(req) + "\n").encode())
+    data = b""
+    while not data.endswith(b"\n"):
+        chunk = s.recv(1 << 20)
+        if not chunk: break
+        data += chunk
+    s.close()
+    r = json.loads(data)
+    if "error" in r: raise RuntimeError(r["error"])
+    return r
+
+
+def cdp(method, session_id=None, **params):
+    """Raw CDP. cdp('Page.navigate', url='...'), cdp('DOM.getDocument', depth=-1)."""
+    return _send({"method": method, "params": params, "session_id": session_id}).get("result", {})
+
+
+def drain_events():  return _send({"meta": "drain_events"})["events"]
+
+
+# --- navigation / page ---
+def goto_url(url):
+    r = cdp("Page.navigate", url=url)
+    d = (Path(__file__).parent / "domain-skills" / (urlparse(url).hostname or "").removeprefix("www.").split(".")[0])
+    return {**r, "domain_skills": sorted(p.name for p in d.rglob("*.md"))[:10]} if d.is_dir() else r
+
+def page_info():
+    """{url, title, w, h, sx, sy, pw, ph} — viewport + scroll + page size.
+
+    If a native dialog (alert/confirm/prompt/beforeunload) is open, returns
+    {dialog: {type, message, ...}} instead — the page's JS thread is frozen
+    until the dialog is handled (see interaction-skills/dialogs.md)."""
+[0m
+[0m$ [0mpython3 <<'PY' 2>&1
+import sys, socket, json, os
+sys.path.insert(0, '/home/daniel-bo/.agents/skills/browser-harness')
+from admin import ensure_daemon
+ensure_daemon()
+print("daemon started")
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/home/daniel-bo/.agents/skills/browser-harness/admin.py", line 76, in ensure_daemon
+    p = subprocess.Popen(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'uv'
+[0m
+[0m$ [0mls /tmp/bu-*.sock /tmp/bu-*.pid 2>/dev/null
+(no output)
+[0m
+[0m$ [0mpkill -f "next dev" 2>/dev/null; true
+(no output)
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+[0m$ [0mps aux | grep -E "next|node" | grep -v grep | head -10
+daniel-+ 1175930  0.0  0.6 50817720 48616 ?      Sl   May05   0:02 /opt/google/chrome/chrome --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-US --service-sandbox-type=utility --render-node-override=/dev/dri/renderD128 --crashpad-handler-pid=3145 --enable-crash-reporter=cc29d0a3-cc99-444f-a8eb-8901cedcdaea, --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,6751582451001523603,9707174428963266008,524288 --field-trial-handle=3,i,17207577713802509750,874871501867390363,262144 --disable-features=EyeDropper --variations-seed-version --pseudonymization-salt-handle=7,i,15276990432621966822,17892960928119250051,4 --trace-process-track-uuid=3190711044055771898
+daniel-+ 1175938  0.8  1.5 50763248 115920 ?     Sl   May05   1:52 /opt/google/chrome/chrome --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --render-node-override=/dev/dri/renderD128 --crashpad-handler-pid=3145 --enable-crash-reporter=cc29d0a3-cc99-444f-a8eb-8901cedcdaea, --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,18236889212650604650,15283106358577083697,524288 --field-trial-handle=3,i,17207577713802509750,874871501867390363,262144 --disable-features=EyeDropper --variations-seed-version --pseudonymization-salt-handle=7,i,15276990432621966822,17892960928119250051,4 --trace-process-track-uuid=3190711044992813747
+daniel-+ 1175947  2.8  1.9 51213140 149600 ?     Sl   May05   6:05 /opt/google/chrome/chrome --type=gpu-process --ozone-platform=wayland --render-node-override=/dev/dri/renderD128 --crashpad-handler-pid=3145 --enable-crash-reporter=cc29d0a3-cc99-444f-a8eb-8901cedcdaea, --change-stack-guard-on-fork=enable --gpu-preferences=UAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAYAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAA --shared-files --metrics-shmem-handle=4,i,1097867308030239882,5762145613119136235,262144 --field-trial-handle=3,i,17207577713802509750,874871501867390363,262144 --disable-features=EyeDropper --variations-seed-version --pseudonymization-salt-handle=7,i,15276990432621966822,17892960928119250051,4 --trace-process-track-uuid=3190711045929855596
+daniel-+ 1231341  0.0  0.0  17660  3532 ?        Ss   02:30   0:00 /bin/bash -c cd /home/daniel-bo/Desktop/science-advantage && /home/daniel-bo/.nvm/versions/node/v24.4.0/bin/opencode -m minimax-cn-coding-plan/MiniMax-M2.7 run @measure/autonomous_prompt.md > measure/output.log 2>&1
+daniel-+ 1231344  0.0  0.6 1411544 47548 ?       Sl   02:30   0:00 node /home/daniel-bo/.nvm/versions/node/v24.4.0/bin/opencode -m minimax-cn-coding-plan/MiniMax-M2.7 run @measure/autonomous_prompt.md
+daniel-+ 1231358  9.4 18.7 76208800 1436088 ?    Sl   02:30   3:37 /home/daniel-bo/.nvm/versions/node/v24.4.0/lib/node_modules/opencode-ai/bin/.opencode -m minimax-cn-coding-plan/MiniMax-M2.7 run @measure/autonomous_prompt.md
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npm run dev -- --port 3456 &>/tmp/dev-server.log &
+echo $!
+1249344
+
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && nohup npm run dev -- --port 3456 >/tmp/dev-server.log 2>&1 &
+echo $!
+1249933
+
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+Let me wrap up the work done and update track status.
+[0m→ [0mRead measure/tracks/lesson_type_differentiation_20260428/plan.md[90m [limit=25][0m
+[0m→ [0mRead measure/tracks/lesson_type_differentiation_20260428/plan.md[90m [limit=60, offset=45][0m
+[0m
+[0m$ [0mcurl -s -o /dev/null -w "%{http_code}" http://localhost:3456 2>/dev/null && echo " - server responding"
+000
+[0m
+[0m$ [0mss -tlnp 2>/dev/null | grep 3456 || netstat -tlnp 2>/dev/null | grep 3456 || echo "Port 3456 not listening"
+Port 3456 not listening
+[0m
+[0m$ [0msetsid npm run dev -- --port 3456 </dev/null >/tmp/dev-server.log 2>&1 &
+echo "Started with PID $!"
+Started with PID 1250903
+[0m
+[0m$ [0msleep 15 && curl -s -o /dev/null -w "%{http_code}" http://localhost:3456 2>/dev/null || echo "not ready"
+200
+[0m
+[0m$ [0mpython3 <<'PY' 2>&1
+import socket, json, time
+
+# Try to connect to Chrome's CDP socket
+chrome_sock = "/tmp/chrome-socket"  # Try default Chrome remote debugging
+for sock_path in ["/tmp/chrome-socket", "/tmp/.chrome-debug", "/tmp/credivs.sock"]:
+    try:
+        s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        s.settimeout(2)
+        s.connect(sock_path)
+        s.close()
+        print(f"Found socket at {sock_path}")
+        break
+    except:
+        pass
+
+# Try WebSocket to Chrome
+import urllib.request
+try:
+    resp = urllib.request.urlopen("http://localhost:9222/json/version", timeout=2)
+    print("Chrome debug at localhost:9222")
+    data = json.loads(resp.read())
+    print(f"WebSocketDebuggerUrl: {data.get('webSocketDebuggerUrl', 'N/A')}")
+except Exception as e:
+    print(f"Chrome debug not at 9222: {e}")
+PY
+Chrome debug not at 9222: <urlopen error [Errno 111] Connection refused>
+[0m
+Server is up and responding. Let me proceed with implementing Phase 3: Assessment-Specific Features. I'll start with the assessment timer task.
+[0m✱ [0mGlob "**/lab-timer*.{ts,tsx}"[90m 2 matches[0m
+[0m✱ [0mGlob "**/assessment*.{ts,tsx}"[90m 0 matches[0m
+[0m→ [0mRead components/features/lesson/lab-timer.tsx
+[0m✱ [0mGlob "**/assessment-timer*.{ts,tsx}"[90m 0 matches[0m
+[0m✱ [0mGlob "**/question-navigator*.{ts,tsx}"[90m 0 matches[0m
+[0m✱ [0mGlob "**/lesson-player*.{ts,tsx}"[90m 2 matches[0m
+[0m✱ [0mGlob "**/quiz-player*.{ts,tsx}"[90m 2 matches[0m
+[0m→ [0mRead components/features/lesson/lesson-player.tsx[90m [limit=60][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=80][0m
+[0m✱ [0mGlob "**/quiz-player*.tsx"[90m 2 matches[0m
+[0m→ [0mRead measure/tracks/lesson_type_differentiation_20260428/spec.md[90m [limit=25, offset=29][0m
+[0m✱ [0mGlob "**/api/quiz/**/*.ts"[90m 0 matches[0m
+[0m✱ [0mGlob "**/api/**/quiz*.ts"[90m 0 matches[0m
+[0m✱ [0mGrep "submit|quiz|attempt"[90m in app/api · 357 matches[0m
+[0m✱ [0mGrep "lessonType|LessonType"[90m 3 matches[0m
+[0m→ [0mRead prisma/schema.prisma[90m [limit=15, offset=110][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=80, offset=80][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=100, offset=160][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=100, offset=260][0m
+[0m→ [0mRead components/features/lesson/lesson-player.tsx[90m [limit=120, offset=60][0m
+[0m✱ [0mGrep "LessonPlayer"[90m 48 matches[0m
+[0m→ [0mRead components/features/lesson/blocks/quiz-block.tsx
+[0m✱ [0mGrep "QuizPlayer.*classId|lessonSlug""[90m 1 match[0m
+[0m✱ [0mGrep "<QuizPlayer""[90m 0 matches[0m
+[0m✱ [0mGrep "QuizPlayer"[90m 29 matches[0m
+[0m→ [0mRead app/(student)/student/classes/[classId]/lessons/[lessonSlug]/page.tsx[90m [limit=60, offset=100][0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=80][0m
+[0m→ [0mRead app/(student)/student/classes/[classId]/lessons/[lessonSlug]/page.tsx[90m [limit=100][0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=70, offset=140][0m
+[0m
+[0m# [0mTodos
+[ ] Create AssessmentTimer component
+[ ] Create QuestionNavigator component
+[ ] Modify QuizPlayer for assessment mode
+[ ] Add score reveal animation
+[ ] Write tests for assessment features
+[ ] Run build and tests to verify
+[0m
+[0m← [0mWrite components/features/student/assessment-timer.tsx
+Wrote file successfully.
+[0m
+[0m← [0mWrite components/features/student/question-navigator.tsx
+Wrote file successfully.
+[0m
+[0m← [0mWrite components/features/student/__tests__/assessment-timer.test.tsx
+Wrote file successfully.
+[0m
+[0m← [0mWrite components/features/student/__tests__/question-navigator.test.tsx
+Wrote file successfully.
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=50, offset=354][0m
+[0m✱ [0mGrep "lessonType|getLesson""[90m in app/(student)/student/classes/[classId]/lessons/[lessonSlug] · 0 matches[0m
+[0m✱ [0mGrep "getLessonBySlug"[90m 0 matches[0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=40, offset=164][0m
+[0m✱ [0mGrep "GET.*lessons.*progress|student.*lesson""[90m 0 matches[0m
+[0m✱ [0mGlob "**/api/**/progress*.ts"[90m 0 matches[0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=20, offset=55][0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=20, offset=164][0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=20, offset=35][0m
+[0m→ [0mRead app/api/lessons/[lessonSlug]/quiz/route.ts[90m [limit=30, offset=163][0m
+[0m
+[0m← [0mEdit app/api/lessons/[lessonSlug]/quiz/route.ts
+Index: /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.ts
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.ts
++++ /home/daniel-bo/Desktop/science-advantage/app/api/lessons/[lessonSlug]/quiz/route.ts
+@@ -164,8 +164,9 @@
+ // 11. Format response (exclude correctAnswer)
+ const response = {
+   quizId: attempt.id,
+   lessonId: lessonSlug,
++  lessonType: lesson.lessonType,
+   questions: selectedQuestions.map((q, index) => ({
+     id: q.id,
+     type: q.type,
+     text: q.text,
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=25, offset=34][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -33,8 +33,9 @@
+ 
+ interface QuizData {
+   quizId: string;
+   lessonId: string;
++  lessonType: 'LESSON' | 'LAB' | 'REVIEW' | 'ASSESSMENT';
+   questions: QuizQuestion[];
+   totalPoints: number;
+   startedAt: string;
+ }
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=70, offset=92][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -114,9 +114,14 @@
+ const [levelUpData, setLevelUpData] = useState<{ oldLevel: number; newLevel: number } | null>(null);
+ const [currentBadge, setCurrentBadge] = useState<BadgeDefinition | null>(null);
+ const [, setBadgeQueue] = useState<BadgeDefinition[]>([]);
+ 
+-// Fetch quiz on mount
++// Assessment-specific state
++const [markedForReview, setMarkedForReview] = useState<Set<number>>(new Set());
++const [showGradingAnimation, setShowGradingAnimation] = useState(false);
++
++// Determine if this is an assessment
++const isAssessment = quizData?.lessonType === 'ASSESSMENT';
+ useEffect(() => {
+   async function fetchQuiz() {
+     try {
+       setLoading(true);
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=80, offset=325][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=70, offset=225][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -267,8 +267,17 @@
+   }
+ }
+ 
+ const resultData: QuizResult = await response.json();
++
++if (isAssessment) {
++  setShowGradingAnimation(true);
++  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++  const delay = prefersReducedMotion ? 0 : 2500;
++  await new Promise(resolve => setTimeout(resolve, delay));
++  setShowGradingAnimation(false);
++}
++
+ setResult(resultData);
+ setShowSubmitDialog(false);
+ onQuizCompleted?.(resultData);
+ 
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=30, offset=365][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=35][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -1,12 +1,14 @@
+ "use client";
+ 
+ import { useEffect, useState, useCallback } from 'react';
+ import { useRouter } from 'next/navigation';
+-import { ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
++import { ArrowLeft, ArrowRight, Loader2, CheckCircle2, Bookmark } from 'lucide-react';
+ import { Button } from '@/components/ui/button';
+ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+ import { Badge } from '@/components/ui/badge';
++import { AssessmentTimer } from '@/components/features/student/assessment-timer';
++import { QuestionNavigator } from '@/components/features/student/question-navigator';
+ import { AiRecommendationCard } from '@/components/features/student/ai-recommendation-card';
+ import { ContinueLearningCard } from '@/components/features/student/continue-learning-card';
+ import { isAiRecommendationEnabled } from '@/lib/config/features';
+ import {
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=40, offset=195][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -210,8 +210,21 @@
+     [questionId]: answer
+   }));
+ }, []);
+ 
++// Toggle mark for review (assessment mode)
++const toggleMarkForReview = useCallback((questionIndex: number) => {
++  setMarkedForReview(prev => {
++    const next = new Set(prev);
++    if (next.has(questionIndex)) {
++      next.delete(questionIndex);
++    } else {
++      next.add(questionIndex);
++    }
++    return next;
++  });
++}, []);
++
+ // Check if all questions are answered
+ const allQuestionsAnswered = useCallback(() => {
+   if (!quizData) return false;
+   return quizData.questions.every(q => {
+
+[0m
+[0m← [0mWrite components/features/student/grading-animation.tsx
+Wrote file successfully.
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -29,8 +29,9 @@
+ import { QuizQuestion, StudentAnswer } from './quiz-questions/types';
+ import { ConfettiCelebration } from '@/components/features/gamification/confetti-celebration';
+ import { BadgeUnlockAnimation } from '@/components/features/gamification/badge-unlock-animation';
+ import { LevelUpAnimation } from '@/components/features/gamification/level-up-animation';
++import { GradingAnimation } from '@/components/features/student/grading-animation';
+ import { BadgeDefinition, BADGE_DEFINITIONS } from '@/lib/gamification/badges';
+ import { toast } from 'sonner';
+ 
+ interface QuizData {
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=30, offset=385][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -381,8 +381,13 @@
+     </div>
+   );
+ }
+ 
++// Render grading animation
++if (showGradingAnimation) {
++  return <GradingAnimation />;
++}
++
+ // Render results screen
+ if (result) {
+   return (
+     <div className="space-y-6">
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=80, offset=440][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=80, offset=518][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=60, offset=595][0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=40, offset=655][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -559,16 +559,60 @@
+   <ArrowLeft className="h-4 w-4" />
+   Back to curriculum
+ </Button>
+ 
++{/* Assessment-specific features */}
++{isAssessment && quizData.startedAt && (
++  <AssessmentTimer
++    durationMinutes={30}
++    startTime={new Date(quizData.startedAt)}
++    onTimeUp={handleSubmit}
++  />
++)}
++
++{/* Question Navigator (Assessment mode) */}
++{isAssessment && (
++  <QuestionNavigator
++    totalQuestions={quizData.questions.length}
++    answeredQuestions={new Set(
++      quizData.questions
++        .map((q, i) => (answers[q.id] !== undefined ? i : -1))
++        .filter(i => i !== -1)
++    )}
++    markedForReview={markedForReview}
++    currentIndex={currentQuestionIndex}
++    onNavigate={(index) => {
++      recordQuestionTime(currentQuestionIndex);
++      setCurrentQuestionIndex(index);
++      setQuestionStartTimes(prev => ({
++        ...prev,
++        [index]: Date.now()
++      }));
++    }}
++  />
++)}
++
+ {/* Progress Indicator */}
+ <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4">
+   <span className="text-sm font-medium text-gray-700">
+     Question {currentQuestionIndex + 1} of {quizData.questions.length}
+   </span>
+-  <span className="text-sm text-gray-600">
+-    {quizData.totalPoints} points total
+-  </span>
++  <div className="flex items-center gap-3">
++    <span className="text-sm text-gray-600">
++      {quizData.totalPoints} points total
++    </span>
++    {isAssessment && (
++      <Button
++        variant="ghost"
++        size="sm"
++        onClick={() => toggleMarkForReview(currentQuestionIndex)}
++        className={markedForReview.has(currentQuestionIndex) ? 'text-amber-600' : ''}
++      >
++        <Bookmark className={`h-4 w-4 mr-1 ${markedForReview.has(currentQuestionIndex) ? 'fill-amber-500' : ''}`} />
++        {markedForReview.has(currentQuestionIndex) ? 'Marked for Review' : 'Mark for Review'}
++      </Button>
++    )}
++  </div>
+ </div>
+ 
+ {/* Question Card */}
+ <Card>
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=40, offset=680][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -671,9 +671,12 @@
+ <div className="flex items-center justify-between gap-4">
+   <Button
+     variant="outline"
+     onClick={handlePrevious}
+-    disabled={currentQuestionIndex === 0}
++    disabled={
++      currentQuestionIndex === 0 ||
++      (isAssessment && !markedForReview.has(currentQuestionIndex - 1))
++    }
+     className="gap-2 min-h-[44px] min-w-[44px] md:min-h-[40px]"
+     aria-label="Previous question"
+   >
+     <ArrowLeft className="h-4 w-4" />
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=30, offset=720][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -723,13 +723,19 @@
+ {/* Submit Confirmation Dialog */}
+ <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+   <AlertDialogContent>
+     <AlertDialogHeader>
+-      <AlertDialogTitle>Submit Quiz?</AlertDialogTitle>
++      <AlertDialogTitle>Submit Assessment?</AlertDialogTitle>
+       <AlertDialogDescription>
+-        Are you sure you want to submit your quiz? You have answered{' '}
+-        {Object.keys(answers).length} of {quizData.questions.length} questions.
+-        Once submitted, you cannot change your answers.
++        {isAssessment ? (
++          <>You have answered </>
++        ) : (
++          <>Are you sure you want to submit your quiz? You have answered </>
++        )}{Object.keys(answers).length} of {quizData.questions.length} questions.
++        {isAssessment && Object.keys(answers).length < quizData.questions.length && (
++          <> There are {quizData.questions.length - Object.keys(answers).length} unanswered questions.</>
++
++        )}Once submitted, you cannot change your answers.
+       </AlertDialogDescription>
+     </AlertDialogHeader>
+     <AlertDialogFooter>
+       <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && timeout 180 npm run build 2>&1 | tail -40
+├ ƒ /api/classes/[classId]/roster
+├ ƒ /api/classes/join
+├ ƒ /api/lessons/[lessonSlug]
+├ ƒ /api/lessons/[lessonSlug]/quiz
+├ ƒ /api/student/classes
+├ ƒ /api/students/[studentId]/achievements
+├ ƒ /api/students/[studentId]/assignments
+├ ƒ /api/students/[studentId]/classes/[classId]/analytics
+├ ƒ /api/students/[studentId]/gamification-profile
+├ ƒ /api/students/[studentId]/lessons/[lessonId]/analytics
+├ ƒ /api/students/[studentId]/lessons/[lessonId]/progress
+├ ƒ /api/students/[studentId]/mastery-profile
+├ ƒ /api/students/me/gamification
+├ ƒ /api/teachers/classes/[classId]/intervention-alerts
+├ ƒ /api/teachers/dashboard
+├ ƒ /assignments
+├ ƒ /schools
+├ ƒ /settings
+├ ƒ /signin
+├ ƒ /student
+├ ƒ /student/classes/[classId]
+├ ƒ /student/classes/[classId]/lessons/[lessonSlug]
+├ ƒ /student/profile
+├ ƒ /students
+├ ƒ /system
+├ ƒ /teacher
+├ ƒ /teacher/classes
+├ ƒ /teacher/classes/[classId]
+├ ƒ /teacher/classes/[classId]/analytics
+├ ƒ /teacher/classes/[classId]/analytics/lessons/[lessonId]
+├ ƒ /teacher/classes/[classId]/lessons/[slug]
+├ ƒ /teacher/classes/[classId]/roster
+├ ƒ /teacher/classes/[classId]/students/[studentId]
+├ ƒ /teacher/classes/[classId]/students/[studentId]/lessons/[lessonId]
+└ ƒ /teachers
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && timeout 120 npx vitest run --config vitest.unit.config.ts 2>&1 | tail -40
+426| 
+    427|       // Confirmation dialog should appear
+    428|       expect(screen.getByText('Submit Quiz?')).toBeInTheDocument();
+       |                     ^
+    429|       expect(screen.getByText(/Are you sure you want to submit/)).toBe…
+    430|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/30]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+TypeError: candidate?.scrollIntoView is not a function
+ ❯ node_modules/@radix-ui/react-select/src/select.tsx:552:22
+ ❯ node_modules/@radix-ui/react-select/src/select.tsx:564:13
+ ❯ node_modules/@radix-ui/react-select/src/select.tsx:572:9
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25989:20
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:874:13
+ ❯ commitHookEffectListMount node_modules/react-dom/cjs/react-dom-client.development.js:13249:29
+ ❯ commitHookPassiveMountEffects node_modules/react-dom/cjs/react-dom-client.development.js:13336:11
+ ❯ commitPassiveMountOnFiber node_modules/react-dom/cjs/react-dom-client.development.js:15484:13
+ ❯ recursivelyTraversePassiveMountEffects node_modules/react-dom/cjs/react-dom-client.development.js:15439:11
+ ❯ commitPassiveMountOnFiber node_modules/react-dom/cjs/react-dom-client.development.js:15476:11
+
+This error originated in "components/features/teacher/intervention-alerts-widget.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "allows class selection change". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  7 failed | 48 passed (55)
+      Tests  30 failed | 617 passed (647)
+     Errors  1 error
+   Start at  03:30:31
+   Duration  86.55s (transform 3.26s, setup 501ms, collect 6.70s, tests 76.12s, environment 1.06s, prepare 133ms)
+[0m
+[0m✱ [0mGrep "Submit Quiz""[90m 0 matches[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=25, offset=723][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -723,9 +723,9 @@
+ {/* Submit Confirmation Dialog */}
+ <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+   <AlertDialogContent>
+     <AlertDialogHeader>
+-      <AlertDialogTitle>Submit Assessment?</AlertDialogTitle>
++      <AlertDialogTitle>{isAssessment ? 'Submit Assessment?' : 'Submit Quiz?'}</AlertDialogTitle>
+       <AlertDialogDescription>
+         {isAssessment ? (
+           <>You have answered </>
+         ) : (
+
+[0m
+[0m→ [0mRead components/features/student/__tests__/quiz-player.test.tsx[90m [limit=40, offset=420][0m
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -723,9 +723,9 @@
+ {/* Submit Confirmation Dialog */}
+ <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+   <AlertDialogContent>
+     <AlertDialogHeader>
+-      <AlertDialogTitle>{isAssessment ? 'Submit Assessment?' : 'Submit Quiz?'}</AlertDialogTitle>
++      <AlertDialogTitle>Submit Quiz?</AlertDialogTitle>
+       <AlertDialogDescription>
+         {isAssessment ? (
+           <>You have answered </>
+         ) : (
+
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -723,9 +723,9 @@
+ {/* Submit Confirmation Dialog */}
+ <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+   <AlertDialogContent>
+     <AlertDialogHeader>
+-      <AlertDialogTitle>Submit Quiz?</AlertDialogTitle>
++      <AlertDialogTitle>{isAssessment ? 'Submit Assessment?' : 'Submit Quiz?'}</AlertDialogTitle>
+       <AlertDialogDescription>
+         {isAssessment ? (
+           <>You have answered </>
+         ) : (
+
+[0m
+[0m← [0mEdit components/features/student/quiz-player.tsx
+Index: /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
++++ /home/daniel-bo/Desktop/science-advantage/components/features/student/quiz-player.tsx
+@@ -723,9 +723,9 @@
+ {/* Submit Confirmation Dialog */}
+ <AlertDialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+   <AlertDialogContent>
+     <AlertDialogHeader>
+-      <AlertDialogTitle>{isAssessment ? 'Submit Assessment?' : 'Submit Quiz?'}</AlertDialogTitle>
++      <AlertDialogTitle>Submit Quiz?</AlertDialogTitle>
+       <AlertDialogDescription>
+         {isAssessment ? (
+           <>You have answered </>
+         ) : (
+
+[0m
+[0m→ [0mRead components/features/student/quiz-player.tsx[90m [limit=25, offset=723][0m
+[0m→ [0mRead components/features/student/__tests__/quiz-player.test.tsx[90m [limit=50][0m
+[0m
+[0m$ [0mtimeout 180 npm run build 2>&1 | tail -15
+✔ Generated Prisma Zod Generator to ./lib/generated/zod in 9.87s
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Compiled successfully in 80s
+   Running TypeScript ...
+[0m
+[0m$ [0mtimeout 120 npm run build 2>&1 | grep -E "✓|error|Error|failed" | tail -10
+✓ Compiled successfully in 69s
+[0m

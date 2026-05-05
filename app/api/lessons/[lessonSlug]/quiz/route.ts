@@ -165,6 +165,7 @@ export async function GET(
     const response = {
       quizId: attempt.id,
       lessonId: lessonSlug,
+      lessonType: lesson.lessonType,
       questions: selectedQuestions.map((q, index) => ({
         id: q.id,
         type: q.type,

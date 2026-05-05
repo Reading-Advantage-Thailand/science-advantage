@@ -2,10 +2,12 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2, CheckCircle2, Bookmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AssessmentTimer } from '@/components/features/student/assessment-timer';
+import { QuestionNavigator } from '@/components/features/student/question-navigator';
 import { AiRecommendationCard } from '@/components/features/student/ai-recommendation-card';
 import { ContinueLearningCard } from '@/components/features/student/continue-learning-card';
 import { isAiRecommendationEnabled } from '@/lib/config/features';
@@ -28,12 +30,14 @@ import { QuizQuestion, StudentAnswer } from './quiz-questions/types';
 import { ConfettiCelebration } from '@/components/features/gamification/confetti-celebration';
 import { BadgeUnlockAnimation } from '@/components/features/gamification/badge-unlock-animation';
 import { LevelUpAnimation } from '@/components/features/gamification/level-up-animation';
+import { GradingAnimation } from '@/components/features/student/grading-animation';
 import { BadgeDefinition, BADGE_DEFINITIONS } from '@/lib/gamification/badges';
 import { toast } from 'sonner';
 
 interface QuizData {
   quizId: string;
   lessonId: string;
+  lessonType: 'LESSON' | 'LAB' | 'REVIEW' | 'ASSESSMENT';
   questions: QuizQuestion[];
   totalPoints: number;
   startedAt: string;
@@ -114,7 +118,12 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
   const [currentBadge, setCurrentBadge] = useState<BadgeDefinition | null>(null);
   const [, setBadgeQueue] = useState<BadgeDefinition[]>([]);
 
-  // Fetch quiz on mount
+  // Assessment-specific state
+  const [markedForReview, setMarkedForReview] = useState<Set<number>>(new Set());
+  const [showGradingAnimation, setShowGradingAnimation] = useState(false);
+
+  // Determine if this is an assessment
+  const isAssessment = quizData?.lessonType === 'ASSESSMENT';
   useEffect(() => {
     async function fetchQuiz() {
       try {
@@ -203,6 +212,19 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
     }));
   }, []);
 
+  // Toggle mark for review (assessment mode)
+  const toggleMarkForReview = useCallback((questionIndex: number) => {
+    setMarkedForReview(prev => {
+      const next = new Set(prev);
+      if (next.has(questionIndex)) {
+        next.delete(questionIndex);
+      } else {
+        next.add(questionIndex);
+      }
+      return next;
+    });
+  }, []);
+
   // Check if all questions are answered
   const allQuestionsAnswered = useCallback(() => {
     if (!quizData) return false;
@@ -262,6 +284,15 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
       }
 
       const resultData: QuizResult = await response.json();
+
+      if (isAssessment) {
+        setShowGradingAnimation(true);
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const delay = prefersReducedMotion ? 0 : 2500;
+        await new Promise(resolve => setTimeout(resolve, delay));
+        setShowGradingAnimation(false);
+      }
+
       setResult(resultData);
       setShowSubmitDialog(false);
       onQuizCompleted?.(resultData);
@@ -349,6 +380,11 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
         </div>
       </div>
     );
+  }
+
+  // Render grading animation
+  if (showGradingAnimation) {
+    return <GradingAnimation />;
   }
 
   // Render results screen
@@ -524,14 +560,58 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
         Back to curriculum
       </Button>
 
+      {/* Assessment-specific features */}
+      {isAssessment && quizData.startedAt && (
+        <AssessmentTimer
+          durationMinutes={30}
+          startTime={new Date(quizData.startedAt)}
+          onTimeUp={handleSubmit}
+        />
+      )}
+
+      {/* Question Navigator (Assessment mode) */}
+      {isAssessment && (
+        <QuestionNavigator
+          totalQuestions={quizData.questions.length}
+          answeredQuestions={new Set(
+            quizData.questions
+              .map((q, i) => (answers[q.id] !== undefined ? i : -1))
+              .filter(i => i !== -1)
+          )}
+          markedForReview={markedForReview}
+          currentIndex={currentQuestionIndex}
+          onNavigate={(index) => {
+            recordQuestionTime(currentQuestionIndex);
+            setCurrentQuestionIndex(index);
+            setQuestionStartTimes(prev => ({
+              ...prev,
+              [index]: Date.now()
+            }));
+          }}
+        />
+      )}
+
       {/* Progress Indicator */}
       <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-4">
         <span className="text-sm font-medium text-gray-700">
           Question {currentQuestionIndex + 1} of {quizData.questions.length}
         </span>
-        <span className="text-sm text-gray-600">
-          {quizData.totalPoints} points total
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-gray-600">
+            {quizData.totalPoints} points total
+          </span>
+          {isAssessment && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => toggleMarkForReview(currentQuestionIndex)}
+              className={markedForReview.has(currentQuestionIndex) ? 'text-amber-600' : ''}
+            >
+              <Bookmark className={`h-4 w-4 mr-1 ${markedForReview.has(currentQuestionIndex) ? 'fill-amber-500' : ''}`} />
+              {markedForReview.has(currentQuestionIndex) ? 'Marked for Review' : 'Mark for Review'}
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Question Card */}
@@ -592,7 +672,10 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
           <Button
             variant="outline"
             onClick={handlePrevious}
-            disabled={currentQuestionIndex === 0}
+            disabled={
+              currentQuestionIndex === 0 ||
+              (isAssessment && !markedForReview.has(currentQuestionIndex - 1))
+            }
             className="gap-2 min-h-[44px] min-w-[44px] md:min-h-[40px]"
             aria-label="Previous question"
           >
@@ -643,9 +726,15 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
           <AlertDialogHeader>
             <AlertDialogTitle>Submit Quiz?</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to submit your quiz? You have answered{' '}
-              {Object.keys(answers).length} of {quizData.questions.length} questions.
-              Once submitted, you cannot change your answers.
+              {isAssessment ? (
+                <>You have answered </>
+              ) : (
+                <>Are you sure you want to submit your quiz? You have answered </>
+              )}{Object.keys(answers).length} of {quizData.questions.length} questions.
+              {isAssessment && Object.keys(answers).length < quizData.questions.length && (
+                <> There are {quizData.questions.length - Object.keys(answers).length} unanswered questions.</>
+
+              )}Once submitted, you cannot change your answers.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
