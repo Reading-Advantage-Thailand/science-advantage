@@ -404,7 +404,7 @@ export function ClassAnalyticsOverview({
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {sortedLessons.map((lesson, index) => renderCardContent(lesson, index))}
+            {sortedLessons.map((lesson) => renderCardContent(lesson))}
           </div>
         </CardContent>
       </Card>
@@ -425,7 +425,7 @@ export function ClassAnalyticsOverview({
           <Table>
             {renderHeader()}
             <TableBody>
-              {sortedLessons.map((lesson, index) => renderTableRow(lesson, index))}
+              {sortedLessons.map((lesson) => renderTableRow(lesson))}
             </TableBody>
           </Table>
         </div>
