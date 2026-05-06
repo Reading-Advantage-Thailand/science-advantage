@@ -714,10 +714,7 @@ export function QuizPlayer({ classId, lessonSlug, studentId, onQuizCompleted }: 
           <Button
             variant="outline"
             onClick={handlePrevious}
-            disabled={
-              currentQuestionIndex === 0 ||
-              (isAssessment && !markedForReview.has(currentQuestionIndex - 1))
-            }
+            disabled={currentQuestionIndex === 0}
             className="gap-2 min-h-[44px] min-w-[44px] md:min-h-[40px]"
             aria-label="Previous question"
           >

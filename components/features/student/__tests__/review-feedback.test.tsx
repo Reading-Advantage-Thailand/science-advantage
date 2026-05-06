@@ -34,12 +34,12 @@ describe('FeedbackMessage', () => {
 
 describe('ReviewFeedback', () => {
   it('shows correct state for correct answer', () => {
-    render(<ReviewFeedback isCorrect={true} />);
+    render(<ReviewFeedback questionId="q1" isCorrect={true} />);
     expect(screen.getByText('Correct!')).toBeInTheDocument();
   });
 
   it('shows incorrect state with correct answer when provided', () => {
-    render(<ReviewFeedback isCorrect={false} correctAnswer="Mitochondria" />);
+    render(<ReviewFeedback questionId="q1" isCorrect={false} correctAnswer="Mitochondria" />);
     expect(screen.getByText('Incorrect')).toBeInTheDocument();
     expect(screen.getByText('Correct answer:')).toBeInTheDocument();
     expect(screen.getByText('Mitochondria')).toBeInTheDocument();
@@ -48,6 +48,7 @@ describe('ReviewFeedback', () => {
   it('shows explanation when provided', () => {
     render(
       <ReviewFeedback
+        questionId="q1"
         isCorrect={false}
         correctAnswer="Mitochondria"
         explanation="The mitochondria are the powerhouse of the cell."
