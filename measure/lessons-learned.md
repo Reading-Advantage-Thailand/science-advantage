@@ -35,3 +35,5 @@
 - [LessonType] Lab-specific features (safety notice, step-mode procedure, lab timer, materials checklist) added as conditional renderings in LessonPlayer via lessonType prop.
 - [E2E] Playwright tests may share browser state across test runs via reuseExistingServer. Always use test.beforeEach to ensure clean navigation state. The webServer config uses `npm run dev` with `reuseExistingServer: !process.env.CI` which can cause stale session issues.
 - [LessonType] Assessment mode uses `lessonType === 'ASSESSMENT'` from quiz API response to conditionally render AssessmentTimer, QuestionNavigator, and grading animation. QuizPlayer handles both quiz and assessment flows with `isAssessment` flag.
+- [Build] Undefined variables referenced in JSX will cause TypeScript build failure. Always ensure any variable used in template is defined in the component scope.
+- [Lighthouse] Chrome interstitial errors in dev environment prevent direct Lighthouse audit. Fall back to Playwright smoke tests for functional verification.

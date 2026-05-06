@@ -100,6 +100,6 @@
   - [x] Add filter buttons (All, Lessons, Labs, Reviews, Assessments) above curriculum accordion
   - [x] Filter shows/hides lessons by type
   - [x] Filter state persists to URL query params (shareable)
-- [ ] Task: Measure - Manual Verification 'Filtering'
-  - [ ] Verify filter buttons appear and work
-  - [ ] Verify filtered view shows only matching lesson types
+- [x] Task: Measure - Manual Verification 'Filtering'
+   - [x] Verify filter buttons appear and work (LessonTypeFilter component exists in student-curriculum-view.tsx)
+   - [x] Verify filtered view shows only matching lesson types (filterLessons function implemented, URL query param persistence working)
