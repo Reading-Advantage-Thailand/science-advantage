@@ -1477,3 +1477,59 @@ Index: /home/daniel-bo/Desktop/science-advantage/measure/tracks.md
  
 
 [0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git add -A && git commit -m "[autonomous] complete curriculum_foundation track - Phase 3 release tooling
+
+- Add scripts/release-content.ts with deterministic validation workflow
+- Add scripts/validate-content.ts (already existed, now documented)
+- Curriculum foundation track complete: all phases done
+
+Model: MiniMax-M2.7" 2>&1
+[main acbcc17] [autonomous] complete curriculum_foundation track - Phase 3 release tooling
+ 4 files changed, 451 insertions(+), 13 deletions(-)
+ create mode 100644 scripts/release-content.ts
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git push 2>&1
+To https://github.com/Reading-Advantage-Thailand/science-advantage.git
+   3880169..acbcc17  main -> main
+[0m
+[0m→ [0mRead measure/lessons-learned.md
+[0m
+[0m← [0mEdit measure/lessons-learned.md
+Index: /home/daniel-bo/Desktop/science-advantage/measure/lessons-learned.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/measure/lessons-learned.md
++++ /home/daniel-bo/Desktop/science-advantage/measure/lessons-learned.md
+@@ -35,5 +35,7 @@
+ - [LessonType] Lab-specific features (safety notice, step-mode procedure, lab timer, materials checklist) added as conditional renderings in LessonPlayer via lessonType prop.
+ - [E2E] Playwright tests may share browser state across test runs via reuseExistingServer. Always use test.beforeEach to ensure clean navigation state. The webServer config uses `npm run dev` with `reuseExistingServer: !process.env.CI` which can cause stale session issues.
+ - [LessonType] Assessment mode uses `lessonType === 'ASSESSMENT'` from quiz API response to conditionally render AssessmentTimer, QuestionNavigator, and grading animation. QuizPlayer handles both quiz and assessment flows with `isAssessment` flag.
+ - [Build] Undefined variables referenced in JSX will cause TypeScript build failure. Always ensure any variable used in template is defined in the component scope.
+-- [Lighthouse] Chrome interstitial errors in dev environment prevent direct Lighthouse audit. Fall back to Playwright smoke tests for functional verification.
+\ No newline at end of file
++- [Lighthouse] Chrome interstitial errors in dev environment prevent direct Lighthouse audit. Fall back to Playwright smoke tests for functional verification.
++- [Curriculum] Question files can be missing `slug` field even when `id` is present. Always check for slug when validating question banks; add `q-{num}` slugs for files that lack them.
++- [Curriculum] validate-content.ts and release-content.ts provide comprehensive validation; run these before committing content changes.
+\ No newline at end of file
+
+[0m
+[0m→ [0mRead measure/tech-debt.md
+[0m
+[0m← [0mEdit measure/tech-debt.md
+Index: /home/daniel-bo/Desktop/science-advantage/measure/tech-debt.md
+===================================================================
+--- /home/daniel-bo/Desktop/science-advantage/measure/tech-debt.md
++++ /home/daniel-bo/Desktop/science-advantage/measure/tech-debt.md
+@@ -8,9 +8,10 @@
+ | Addressed | High     | Typecheck errors: fixed slug issues in integration tests, auth mocking, jest/vitest config, and fixture slugs. Some legacy test files excluded from tsconfig until migrated to Vitest. | `curriculum_foundation_20260311` |
+ | Open      | High     | Curriculum source of truth is split across docs, seeds, and archived curriculum notes.                                                                                       | `curriculum_foundation_20260311` |
+ | Open      | Medium   | Thai localization: bilingual architecture implemented (Phases 2-3 complete), vocabulary terms have Thai, text blocks render via showThai flag. Full text block translation (contentThai) still needs content authoring effort. | `bilingual_architecture_20260428` |
+ | Open      | Medium   | Teacher dashboards still contain placeholder activity and assignment surfaces.                                                                                               | `teacher_delivery_20260311`      |
+-| Open      | Medium   | Content operations rely on seeds and scripts rather than a governed release workflow.                                                                                        | `curriculum_foundation_20260311` |
++| Open      | Medium   | Content operations rely on seeds and scripts rather than a governed release workflow.                                                                                        | `curriculum_foundation_20260311`    |
++| Resolved  | Medium   | Content operations: created scripts/validate-content.ts and scripts/release-content.ts for deterministic validation and release workflow.                                        | `curriculum_foundation_20260311`    |
+ | Open      | Medium   | Observability exists as scaffolding but lacks clear dashboards and operational thresholds.                                                                                   | `mastery_assistance_20260311`    |
+ | Addressed | Low      | Root README and some legacy docs still describe stale auth and platform behavior.                                                                                            | follow-up docs chore             |
+ | Open      | Medium   | Redis client is scaffolding: createUpstashClient and createNodeRedisClient both return in-memory clients. No actual Redis I/O in any environment.                             | `platform_alignment_20260311`    |
+ | Open      | Low      | RateLimitStore.recordFailure semantically misleading: it records every request, not failures. Consider renaming to recordAttempt.                                             | follow-up refactor               |
+
+[0m
