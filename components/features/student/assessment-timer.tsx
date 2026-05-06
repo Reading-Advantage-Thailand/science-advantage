@@ -103,7 +103,7 @@ export function AssessmentTimer({
       <span data-testid="assessment-timer-display">
         {isExpired ? 'Time up!' : formatTime(timeRemaining)}
       </span>
-      {isWarning && !hasWarned && (
+      {isWarning && (
         <span className="text-sm font-normal">5 min warning</span>
       )}
     </div>
