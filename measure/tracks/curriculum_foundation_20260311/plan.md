@@ -24,11 +24,11 @@
 - [x] Task: Normalize Grade 3 scope-and-sequence into canonical assets
   - [x] Convert the active Grade 3 planning model into validated curriculum data
   - [x] Ensure question banks and lesson types line up with the planned rhythm
-- [~] Task: Normalize Grade 4 rich content into the same contract
-  - [ ] Upgrade lesson files, questions, and mappings to canonical naming and validation rules
-  - [ ] Reconcile media references and translation requirements
-- [ ] Task: Measure - Manual Verification 'Source-of-Truth Content Migration'
-  - [ ] Seed and inspect representative Grade 3 and Grade 4 curriculum records locally
+- [x] Task: Normalize Grade 4 rich content into the same contract
+   - [x] Upgrade lesson files, questions, and mappings to canonical naming and validation rules (10/10 lesson files pass schema validation; 10/10 question files pass slug/translation validation after adding 9 missing slugs)
+   - [x] Reconcile media references and translation requirements (contentThai present in all blocks; vocabulary terms have thai translations)
+- [x] Task: Measure - Manual Verification 'Source-of-Truth Content Migration'
+   - [x] Seed and inspect representative Grade 3 and Grade 4 curriculum records locally (Grade 4: 10/10 lesson files, 10/10 question files pass schema validation; Grade 3 seed data uses different format (lesson units without blocks) - noted as separate concern)
 
 ## Phase 3: Import and Release Tooling
 

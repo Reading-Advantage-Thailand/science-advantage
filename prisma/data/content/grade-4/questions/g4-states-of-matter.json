@@ -7,9 +7,15 @@
       "difficulty": "easy",
       "question": "What is matter?",
       "questionThai": "สสารคืออะไร?",
-      "options": ["Only things you can see", "Anything that takes up space and has mass", "Only solid objects", "Only living things"],
+      "options": [
+        "Only things you can see",
+        "Anything that takes up space and has mass",
+        "Only solid objects",
+        "Only living things"
+      ],
       "correctAnswer": 1,
-      "explanation": "Matter is anything that takes up space and has mass, including solids, liquids, and gases."
+      "explanation": "Matter is anything that takes up space and has mass, including solids, liquids, and gases.",
+      "slug": "q-1"
     },
     {
       "id": "q2",
@@ -17,9 +23,15 @@
       "difficulty": "easy",
       "question": "What are the three main states of matter?",
       "questionThai": "สสารสามสถานะหลักคืออะไร?",
-      "options": ["Hot, cold, warm", "Solid, liquid, gas", "Big, medium, small", "Light, dark, gray"],
+      "options": [
+        "Hot, cold, warm",
+        "Solid, liquid, gas",
+        "Big, medium, small",
+        "Light, dark, gray"
+      ],
       "correctAnswer": 1,
-      "explanation": "The three main states of matter are solid, liquid, and gas."
+      "explanation": "The three main states of matter are solid, liquid, and gas.",
+      "slug": "q-2"
     },
     {
       "id": "q3",
@@ -27,9 +39,15 @@
       "difficulty": "easy",
       "question": "Which state of matter has a definite shape and definite volume?",
       "questionThai": "สสารสถานะใดมีรูปร่างและปริมาตรที่แน่นอน?",
-      "options": ["Liquid", "Gas", "Solid", "None of them"],
+      "options": [
+        "Liquid",
+        "Gas",
+        "Solid",
+        "None of them"
+      ],
       "correctAnswer": 2,
-      "explanation": "Solids have both a definite shape and a definite volume because their particles are tightly packed."
+      "explanation": "Solids have both a definite shape and a definite volume because their particles are tightly packed.",
+      "slug": "q-3"
     },
     {
       "id": "q4",
@@ -37,9 +55,15 @@
       "difficulty": "easy",
       "question": "What is an example of a liquid?",
       "questionThai": "ตัวอย่างของของเหลวคืออะไร?",
-      "options": ["Ice", "Water", "Steam", "Rock"],
+      "options": [
+        "Ice",
+        "Water",
+        "Steam",
+        "Rock"
+      ],
       "correctAnswer": 1,
-      "explanation": "Water is a liquid. Ice is solid water, and steam is water as a gas."
+      "explanation": "Water is a liquid. Ice is solid water, and steam is water as a gas.",
+      "slug": "q-4"
     },
     {
       "id": "q5",
@@ -47,9 +71,15 @@
       "difficulty": "easy",
       "question": "What happens when ice melts?",
       "questionThai": "เกิดอะไรขึ้นเมื่อน้ำแข็งละลาย?",
-      "options": ["It becomes a gas", "It stays a solid", "It becomes a liquid", "It disappears"],
+      "options": [
+        "It becomes a gas",
+        "It stays a solid",
+        "It becomes a liquid",
+        "It disappears"
+      ],
       "correctAnswer": 2,
-      "explanation": "When ice melts, it changes from a solid to a liquid (water)."
+      "explanation": "When ice melts, it changes from a solid to a liquid (water).",
+      "slug": "q-5"
     },
     {
       "id": "q6",
@@ -57,9 +87,15 @@
       "difficulty": "easy",
       "question": "What causes matter to change states?",
       "questionThai": "อะไรทำให้สสารเปลี่ยนสถานะ?",
-      "options": ["Changing its color", "Adding or removing heat", "Changing its name", "Moving it to a new place"],
+      "options": [
+        "Changing its color",
+        "Adding or removing heat",
+        "Changing its name",
+        "Moving it to a new place"
+      ],
       "correctAnswer": 1,
-      "explanation": "Adding or removing heat (energy) causes matter to change states."
+      "explanation": "Adding or removing heat (energy) causes matter to change states.",
+      "slug": "q-6"
     },
     {
       "id": "q7",
@@ -67,9 +103,15 @@
       "difficulty": "easy",
       "question": "What is freezing?",
       "questionThai": "การแข็งตัวคืออะไร?",
-      "options": ["When a gas becomes a liquid", "When a liquid becomes a solid", "When a solid becomes a gas", "When a liquid becomes a gas"],
+      "options": [
+        "When a gas becomes a liquid",
+        "When a liquid becomes a solid",
+        "When a solid becomes a gas",
+        "When a liquid becomes a gas"
+      ],
       "correctAnswer": 1,
-      "explanation": "Freezing is when a liquid changes into a solid by removing heat."
+      "explanation": "Freezing is when a liquid changes into a solid by removing heat.",
+      "slug": "q-7"
     },
     {
       "id": "q8",
@@ -77,9 +119,15 @@
       "difficulty": "easy",
       "question": "What is evaporation?",
       "questionThai": "การระเหยคืออะไร?",
-      "options": ["When a liquid becomes a gas", "When a gas becomes a liquid", "When a solid becomes a liquid", "When a liquid becomes a solid"],
+      "options": [
+        "When a liquid becomes a gas",
+        "When a gas becomes a liquid",
+        "When a solid becomes a liquid",
+        "When a liquid becomes a solid"
+      ],
       "correctAnswer": 0,
-      "explanation": "Evaporation is when a liquid changes into a gas, usually when heated."
+      "explanation": "Evaporation is when a liquid changes into a gas, usually when heated.",
+      "slug": "q-8"
     },
     {
       "id": "q9",
@@ -87,9 +135,15 @@
       "difficulty": "medium",
       "question": "How are particles arranged in a solid?",
       "questionThai": "อนุภาคในของแข็งถูกจัดเรียงอย่างไร?",
-      "options": ["Very far apart and moving fast", "Tightly packed and vibrating in place", "Spread out evenly", "In random patterns"],
+      "options": [
+        "Very far apart and moving fast",
+        "Tightly packed and vibrating in place",
+        "Spread out evenly",
+        "In random patterns"
+      ],
       "correctAnswer": 1,
-      "explanation": "In solids, particles are tightly packed together and vibrate in place but don't move around freely."
+      "explanation": "In solids, particles are tightly packed together and vibrate in place but don't move around freely.",
+      "slug": "q-9"
     },
     {
       "id": "q10",
@@ -97,9 +151,15 @@
       "difficulty": "medium",
       "question": "Why can liquids take the shape of their container?",
       "questionThai": "ทำไมของเหลวสามารถเป็นรูปร่างของภาชนะได้?",
-      "options": ["Because they have no particles", "Because particles can slide past each other", "Because particles are tightly packed", "Because they are very cold"],
+      "options": [
+        "Because they have no particles",
+        "Because particles can slide past each other",
+        "Because particles are tightly packed",
+        "Because they are very cold"
+      ],
       "correctAnswer": 1,
-      "explanation": "Liquid particles can slide past each other, allowing the liquid to flow and take the shape of its container."
+      "explanation": "Liquid particles can slide past each other, allowing the liquid to flow and take the shape of its container.",
+      "slug": "q-10"
     },
     {
       "id": "q11",
@@ -107,9 +167,15 @@
       "difficulty": "medium",
       "question": "Why do gases spread out to fill any container?",
       "questionThai": "ทำไมก๊าซถึงแพร่กระจายเต็มภาชนะ?",
-      "options": ["Particles are tightly packed", "Particles move fast and are far apart", "Particles don't move", "Particles are very heavy"],
+      "options": [
+        "Particles are tightly packed",
+        "Particles move fast and are far apart",
+        "Particles don't move",
+        "Particles are very heavy"
+      ],
       "correctAnswer": 1,
-      "explanation": "Gas particles move very fast in all directions and are far apart, so they spread out to fill any space."
+      "explanation": "Gas particles move very fast in all directions and are far apart, so they spread out to fill any space.",
+      "slug": "q-11"
     },
     {
       "id": "q12",
@@ -117,9 +183,15 @@
       "difficulty": "medium",
       "question": "What is condensation?",
       "questionThai": "การควบแน่นคืออะไร?",
-      "options": ["When a solid melts", "When a gas changes into a liquid", "When a liquid evaporates", "When ice freezes"],
+      "options": [
+        "When a solid melts",
+        "When a gas changes into a liquid",
+        "When a liquid evaporates",
+        "When ice freezes"
+      ],
       "correctAnswer": 1,
-      "explanation": "Condensation is when a gas changes into a liquid, usually when it cools down."
+      "explanation": "Condensation is when a gas changes into a liquid, usually when it cools down.",
+      "slug": "q-12"
     },
     {
       "id": "q13",
@@ -127,9 +199,15 @@
       "difficulty": "medium",
       "question": "In the reading passage, what happened to the ice cream in the freezer?",
       "questionThai": "ในบทอ่าน เกิดอะไรขึ้นกับไอศกรีมในช่องแช่แข็ง?",
-      "options": ["It evaporated", "It froze from liquid to solid", "It melted", "It became a gas"],
+      "options": [
+        "It evaporated",
+        "It froze from liquid to solid",
+        "It melted",
+        "It became a gas"
+      ],
       "correctAnswer": 1,
-      "explanation": "In the passage, the liquid ice cream mixture froze into solid ice cream in the freezer."
+      "explanation": "In the passage, the liquid ice cream mixture froze into solid ice cream in the freezer.",
+      "slug": "q-13"
     },
     {
       "id": "q14",
@@ -137,9 +215,15 @@
       "difficulty": "medium",
       "question": "Where did the water droplets on Lek's cold glass come from?",
       "questionThai": "หยดน้ำบนแก้วเย็นของเล็กมาจากไหน?",
-      "options": ["They leaked from the glass", "Water vapor in the air condensed on the cold glass", "Lek spilled water", "The ice melted"],
+      "options": [
+        "They leaked from the glass",
+        "Water vapor in the air condensed on the cold glass",
+        "Lek spilled water",
+        "The ice melted"
+      ],
       "correctAnswer": 1,
-      "explanation": "Water vapor in the air cooled down when it touched the cold glass and condensed into liquid water droplets."
+      "explanation": "Water vapor in the air cooled down when it touched the cold glass and condensed into liquid water droplets.",
+      "slug": "q-14"
     },
     {
       "id": "q15",
@@ -147,9 +231,15 @@
       "difficulty": "medium",
       "question": "Why can't you push your hand through a solid wall?",
       "questionThai": "ทำไมคุณไม่สามารถดันมือผ่านกำแพงแข็งได้?",
-      "options": ["Because it's too cold", "Because particles in solids are packed tightly together", "Because solids have no particles", "Because walls are painted"],
+      "options": [
+        "Because it's too cold",
+        "Because particles in solids are packed tightly together",
+        "Because solids have no particles",
+        "Because walls are painted"
+      ],
       "correctAnswer": 1,
-      "explanation": "Particles in solids are packed so tightly that other objects cannot pass through them."
+      "explanation": "Particles in solids are packed so tightly that other objects cannot pass through them.",
+      "slug": "q-15"
     },
     {
       "id": "q16",
@@ -157,9 +247,15 @@
       "difficulty": "medium",
       "question": "Why do wet clothes dry on a clothesline?",
       "questionThai": "ทำไมเสื้อผ้าเปียกแห้งบนราวตากผ้า?",
-      "options": ["The water freezes", "The water evaporates into the air", "The water disappears", "The clothes absorb the water"],
+      "options": [
+        "The water freezes",
+        "The water evaporates into the air",
+        "The water disappears",
+        "The clothes absorb the water"
+      ],
       "correctAnswer": 1,
-      "explanation": "The sun and wind provide energy for the liquid water to evaporate and become water vapor in the air."
+      "explanation": "The sun and wind provide energy for the liquid water to evaporate and become water vapor in the air.",
+      "slug": "q-16"
     },
     {
       "id": "q17",
@@ -167,9 +263,15 @@
       "difficulty": "hard",
       "question": "What happens to particles when you heat a solid until it melts?",
       "questionThai": "เกิดอะไรขึ้นกับอนุภาคเมื่อคุณให้ความร้อนของแข็งจนละลาย?",
-      "options": ["Particles disappear", "Particles slow down", "Particles gain energy, move more, and break free from fixed positions", "Particles get smaller"],
+      "options": [
+        "Particles disappear",
+        "Particles slow down",
+        "Particles gain energy, move more, and break free from fixed positions",
+        "Particles get smaller"
+      ],
       "correctAnswer": 2,
-      "explanation": "Heat gives particles more energy. They vibrate faster, break free from their fixed positions, and can slide past each other."
+      "explanation": "Heat gives particles more energy. They vibrate faster, break free from their fixed positions, and can slide past each other.",
+      "slug": "q-17"
     },
     {
       "id": "q18",
@@ -177,9 +279,15 @@
       "difficulty": "hard",
       "question": "Why is water unique among common substances?",
       "questionThai": "ทำไมน้ำถึงมีเอกลักษณ์เฉพาะในบรรดาสารทั่วไป?",
-      "options": ["It only exists as a liquid", "It's the only substance that is blue", "It naturally exists as solid, liquid, and gas on Earth", "It cannot change states"],
+      "options": [
+        "It only exists as a liquid",
+        "It's the only substance that is blue",
+        "It naturally exists as solid, liquid, and gas on Earth",
+        "It cannot change states"
+      ],
       "correctAnswer": 2,
-      "explanation": "Water naturally exists in all three states on Earth (ice, liquid water, water vapor), which is unusual for common substances."
+      "explanation": "Water naturally exists in all three states on Earth (ice, liquid water, water vapor), which is unusual for common substances.",
+      "slug": "q-18"
     },
     {
       "id": "q19",
@@ -187,9 +295,15 @@
       "difficulty": "hard",
       "question": "Why does adding salt to ice make it melt faster?",
       "questionThai": "ทำไมการเติมเกลือลงในน้ำแข็งทำให้มันละลายเร็วขึ้น?",
-      "options": ["Salt is hot", "Salt lowers the freezing point, so ice melts at a lower temperature", "Salt absorbs the ice", "Salt is heavy"],
+      "options": [
+        "Salt is hot",
+        "Salt lowers the freezing point, so ice melts at a lower temperature",
+        "Salt absorbs the ice",
+        "Salt is heavy"
+      ],
       "correctAnswer": 1,
-      "explanation": "Salt lowers the freezing point of water, meaning ice can melt even at temperatures that would normally keep it frozen."
+      "explanation": "Salt lowers the freezing point of water, meaning ice can melt even at temperatures that would normally keep it frozen.",
+      "slug": "q-19"
     },
     {
       "id": "q20",
@@ -197,9 +311,15 @@
       "difficulty": "hard",
       "question": "In the reading passage, why did Grandmother say changes in states are 'physical changes'?",
       "questionThai": "ในบทอ่าน ทำไมคุณยายถึงบอกว่าการเปลี่ยนสถานะเป็น 'การเปลี่ยนแปลงทางกายภาพ'?",
-      "options": ["Because the matter disappears", "Because the matter changes into something new", "Because the matter is still the same substance, just in a different form", "Because the matter becomes heavier"],
+      "options": [
+        "Because the matter disappears",
+        "Because the matter changes into something new",
+        "Because the matter is still the same substance, just in a different form",
+        "Because the matter becomes heavier"
+      ],
       "correctAnswer": 2,
-      "explanation": "Physical changes don't create new substances. Water is still water whether it's ice, liquid, or steam - just in different forms."
+      "explanation": "Physical changes don't create new substances. Water is still water whether it's ice, liquid, or steam - just in different forms.",
+      "slug": "q-20"
     }
   ]
 }
