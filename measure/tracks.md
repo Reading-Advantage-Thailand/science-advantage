@@ -8,8 +8,8 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 ## Foundation Tracks (Complete before any new feature development)
 
 - [x] **Track: Bilingual Architecture Reframe** *Link: [./archive/bilingual_architecture_20260428/](./archive/bilingual_architecture_20260428/)*
-- [x] **Track: Tablet & Mobile Responsiveness** *Link: [./tracks/tablet_responsiveness_20260428/](./tracks/tablet_responsiveness_20260428/)* Phase 3 of 3 complete; verification done
-- [x] **Track: Lesson Type Differentiation** *Link: [./tracks/lesson_type_differentiation_20260428/](./tracks/lesson_type_differentiation_20260428/)* Phase 5 of 5 complete; verification done
+- [x] **Track: Tablet & Mobile Responsiveness** *Link: [./archive/tablet_responsiveness_20260428/](./archive/tablet_responsiveness_20260428/)* Phase 3 of 3 complete; verification done
+- [x] **Track: Lesson Type Differentiation** *Link: [./archive/lesson_type_differentiation_20260428/](./archive/lesson_type_differentiation_20260428/)* Phase 5 of 5 complete; verification done
 
 - [x] **Track: Onboarding Flow**
   *Link: [./archive/onboarding_flow_20260428/](./archive/onboarding_flow_20260428/)*
@@ -34,7 +34,7 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 *Completed: 2026-04-29*
 
 ## [x] Track: Curriculum Data Foundation
-*Link: [./measure/tracks/curriculum_foundation_20260311/](./measure/tracks/curriculum_foundation_20260311/)*
+*Link: [./measure/archive/curriculum_foundation_20260311/](./measure/archive/curriculum_foundation_20260311/)*
 *Completed: 2026-05-06*
 
 ## [ ] Track: Student Learning Loop
