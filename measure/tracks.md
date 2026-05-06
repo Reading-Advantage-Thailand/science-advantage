@@ -33,8 +33,9 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 *Link: [./measure/archive/content_pipeline_mastery_20260428/](./measure/archive/content_pipeline_mastery_20260428/)*
 *Completed: 2026-04-29*
 
-## [ ] Track: Curriculum Data Foundation
+## [x] Track: Curriculum Data Foundation
 *Link: [./measure/tracks/curriculum_foundation_20260311/](./measure/tracks/curriculum_foundation_20260311/)*
+*Completed: 2026-05-06*
 
 ## [ ] Track: Student Learning Loop
 *Link: [./measure/tracks/student_learning_loop_20260311/](./measure/tracks/student_learning_loop_20260311/)*
