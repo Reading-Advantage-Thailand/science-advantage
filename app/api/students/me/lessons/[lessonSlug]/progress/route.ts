@@ -18,7 +18,19 @@ export async function GET(
 
     const lesson = await prisma.lesson.findUnique({
       where: { slug: lessonSlug },
-      select: { id: true },
+      include: {
+        curriculumUnits: {
+          include: {
+            class: {
+              include: {
+                students: {
+                  select: { id: true },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!lesson) {
@@ -26,6 +38,14 @@ export async function GET(
     }
 
     const targetStudentId = session.user.id;
+
+    const hasAccess = lesson.curriculumUnits.some(unit =>
+      unit.class.students.some(student => student.id === targetStudentId)
+    );
+
+    if (!hasAccess) {
+      return NextResponse.json({ error: 'Not enrolled in a class with this lesson' }, { status: 403 });
+    }
 
     const completion = await prisma.lessonCompletion.findUnique({
       where: {
