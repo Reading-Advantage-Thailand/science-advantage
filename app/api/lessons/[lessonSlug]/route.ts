@@ -30,7 +30,7 @@ export async function GET(request: NextRequest, context: LessonRouteContext) {
     const { lessonSlug } = await context.params;
 
     const lesson = await prisma.lesson.findUnique({
-      where: { id: lessonSlug },
+      where: { slug: lessonSlug },
       include: {
         standards: true,
         curriculumUnits: {
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest, context: LessonRouteContext) {
     const responsePayload = {
       lesson: {
         id: lesson.id,
-        slug: lesson.id, // TODO: Replace with dedicated slug when available
+        slug: lesson.slug,
         title: lesson.title,
         titleThai: lesson.titleThai ?? lesson.title,
         content: lesson.content ?? '',
