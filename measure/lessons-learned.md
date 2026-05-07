@@ -40,3 +40,4 @@
 - [Curriculum] Question files can be missing `slug` field even when `id` is present. Always check for slug when validating question banks; add `q-{num}` slugs for files that lack them.
 - [Curriculum] validate-content.ts and release-content.ts provide comprehensive validation; run these before committing content changes.
 - [API] LessonViewer fetches progress via `/api/students/me/lessons/${lessonSlug}/progress` but the route was missing. Created the route using lesson slug as the lookup key.
+- [API] Lesson API routes must query by `slug` field (not `id`) to match canonical navigation links; returning `lesson.id` as slug breaks deep linking.
