@@ -41,3 +41,6 @@
 - [Curriculum] validate-content.ts and release-content.ts provide comprehensive validation; run these before committing content changes.
 - [API] LessonViewer fetches progress via `/api/students/me/lessons/${lessonSlug}/progress` but the route was missing. Created the route using lesson slug as the lookup key.
 - [API] Lesson API routes must query by `slug` field (not `id`) to match canonical navigation links; returning `lesson.id` as slug breaks deep linking.
+- [Testing] Unit tests with db calls fail when PostgreSQL is unavailable; use vitest.unit.config.ts for db-free tests.
+- [Browser] browser-harness requires uv tool; run with `uv run bh <<'PY'` not bare `browser-harness`.
+- [Build] Production build succeeds even when unit tests fail due to db unavailability; don't conflate build success with test pass rate.
