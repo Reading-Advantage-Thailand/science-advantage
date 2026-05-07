@@ -2,15 +2,15 @@
 
 ## Phase 1: Navigation and Lesson Entry
 
-- [ ] Task: Define failing tests for student navigation and stable lesson routes
-  - [ ] Cover class, unit, and lesson deep links using canonical slugs
-  - [ ] Capture current routing inconsistencies around lesson identifiers
-- [ ] Task: Implement stable curriculum navigation
-  - [ ] Align student routes, loaders, and links with canonical curriculum identifiers
-  - [ ] Remove ambiguous or duplicate lesson entry paths
-- [ ] Task: Harden lesson access and completion state loading
-  - [ ] Ensure enrollment, access checks, and completion reads stay consistent
-  - [ ] Fix empty/error states so they support real classroom use
+- [x] Task: Define failing tests for student navigation and stable lesson routes
+  - [x] Cover class, unit, and lesson deep links using canonical slugs
+  - [x] Capture current routing inconsistencies around lesson identifiers
+- [x] Task: Implement stable curriculum navigation
+  - [x] Align student routes, loaders, and links with canonical curriculum identifiers
+  - [x] Remove ambiguous or duplicate lesson entry paths
+- [x] Task: Harden lesson access and completion state loading
+  - [x] Ensure enrollment, access checks, and completion reads stay consistent
+  - [x] Fix empty/error states so they support real classroom use
 - [ ] Task: Measure - Manual Verification 'Navigation and Lesson Entry'
   - [ ] Verify a student can enter a class and launch lessons from multiple entry points
 
