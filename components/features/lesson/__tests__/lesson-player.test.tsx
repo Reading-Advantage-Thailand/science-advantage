@@ -527,11 +527,20 @@ describe('LessonPlayer', () => {
   });
 
   describe('Bilingual Scaffolding', () => {
-    it('only shows Thai toggle button when Thai content exists in at least one block', () => {
+    it('shows Thai toggle button when Thai content exists and no explicit showThai prop', () => {
       const content = createLessonContent([createTextBlock()]);
       render(<LessonPlayer content={content} />);
 
+      expect(screen.getByRole('button', { name: /english/i })).toBeInTheDocument();
+    });
+
+    it('does not show Thai toggle when content has no Thai', () => {
+      const textBlock = createTextBlock({ contentThai: undefined } as Partial<ContentBlock>);
+      const content = createLessonContent([textBlock]);
+      render(<LessonPlayer content={content} />);
+
       expect(screen.queryByRole('button', { name: /thai/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /english/i })).not.toBeInTheDocument();
     });
 
     it('does not show Thai content when showThai is false even if Thai content exists', () => {
@@ -548,6 +557,18 @@ describe('LessonPlayer', () => {
       render(<LessonPlayer content={content} showThai={true} />);
 
       expect(screen.getByRole('heading', { level: 1, name: 'Hello World' })).toBeInTheDocument();
+    });
+
+    it('toggles Thai content when toggle button is clicked', async () => {
+      const user = userEvent.setup();
+      const content = createLessonContent([createTextBlock()]);
+      render(<LessonPlayer content={content} />);
+
+      const toggleBtn = screen.getByRole('button', { name: /english/i });
+      await user.click(toggleBtn);
+
+      expect(screen.getByRole('button', { name: /ภาษาไทย/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'สวัสดีโลก' })).toBeInTheDocument();
     });
 
     it('shows Thai caption for image blocks when showThai is true', () => {

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, Component, type ReactNode } from 'react';
+import { useEffect, useRef, Component, useState, type ReactNode } from 'react';
+import { Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   TextBlock,
@@ -137,6 +138,42 @@ function useBlockVisibility(
 }
 
 // =============================================================================
+// Bilingual Support Helpers
+// =============================================================================
+
+function hasThaiContentInBlock(block: ContentBlock): boolean {
+  switch (block.type) {
+    case 'text':
+      return Boolean(block.contentThai);
+    case 'vocabulary':
+      return block.terms.some((t) => Boolean(t.thai));
+    case 'image':
+      return Boolean(block.captionThai);
+    case 'reading_passage':
+      return Boolean(block.contentThai) || Boolean(block.titleThai);
+    case 'procedure':
+      return block.steps.some((s) => Boolean(s.instructionThai));
+    case 'materials':
+      return block.items.some((i) => Boolean(i.itemThai));
+    case 'review':
+      return Boolean(block.titleThai) || block.questions.some((q) => Boolean(q.textThai));
+    case 'quiz':
+      return (
+        Boolean(block.titleThai) ||
+        block.questions.some(
+          (q) => Boolean(q.textThai) || q.options?.some((o) => Boolean(o.textThai))
+        )
+      );
+    default:
+      return false;
+  }
+}
+
+function contentHasThai(content: LessonContent): boolean {
+  return content.blocks.some(hasThaiContentInBlock);
+}
+
+// =============================================================================
 // Block Renderer Component
 // =============================================================================
 
@@ -244,7 +281,7 @@ export interface LessonPlayerProps {
  */
 export function LessonPlayer({
   content,
-  showThai,
+  showThai: showThaiProp,
   displayPreference,
   onBlockView,
   className,
@@ -252,12 +289,23 @@ export function LessonPlayer({
 }: LessonPlayerProps) {
   const isLab = lessonType === 'LAB';
 
-  // Derive showThai from displayPreference if provided, falling back to showThai prop
+  const [internalShowThai, setInternalShowThai] = useState(false);
+
+  const hasThai = contentHasThai(content);
+
   const effectiveShowThai =
     displayPreference !== undefined
       ? displayPreference === 'th' || displayPreference === 'side-by-side'
-      : showThai ?? false;
-  // Handle null or empty content
+      : showThaiProp
+        ? true
+        : internalShowThai;
+
+  const canShowToggle = displayPreference === undefined && showThaiProp === undefined && hasThai;
+
+  const handleToggleThai = () => {
+    setInternalShowThai((prev) => !prev);
+  };
+
   if (!content || !content.blocks || content.blocks.length === 0) {
     return (
       <div
@@ -282,6 +330,27 @@ export function LessonPlayer({
       role="article"
       aria-label="Lesson content"
     >
+      <div className="flex items-center justify-end">
+        {canShowToggle && (
+          <button
+            type="button"
+            onClick={handleToggleThai}
+            className={cn(
+              'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+              internalShowThai
+                ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-200'
+                : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+              !hasThai && 'opacity-50 cursor-not-allowed'
+            )}
+            aria-pressed={internalShowThai}
+            aria-label="Toggle Thai language"
+            disabled={!hasThai}
+          >
+            <Globe className="h-4 w-4" aria-hidden="true" />
+            {internalShowThai ? 'ภาษาไทย' : 'English'}
+          </button>
+        )}
+      </div>
       {isLab && (
         <div className="space-y-4">
           <LabSafetyNotice />

@@ -16,9 +16,9 @@
 
 ## Phase 2: Lesson Type Delivery
 
-- [ ] Task: Define failing tests for lesson-type rendering and bilingual scaffolding
-  - [ ] Cover supported block types and lesson modes
-  - [ ] Cover Thai toggle behavior only when translated content exists
+- [x] Task: Define failing tests for lesson-type rendering and bilingual scaffolding
+  - [x] Cover supported block types and lesson modes
+  - [x] Cover Thai toggle behavior only when translated content exists
 - [ ] Task: Implement lesson-type specific student experiences
   - [ ] Finalize rendering for explicit instruction, lab, review, and summative lessons
   - [ ] Ensure structured content validation failures degrade gracefully
