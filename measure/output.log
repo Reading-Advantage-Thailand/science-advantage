@@ -1,32 +1,232 @@
 [0m
 > build · MiniMax-M2.7
 [0m
-<think>The user is referencing a file with @measure/autonomous_prompt.md. Let me read this file to understand what they're asking about.</think>
+<think>The user is referencing a file with the @ symbol. This appears to be a request to read or reference a file called "autonomous_prompt.md" within a "measure" directory. Let me read this file to understand what they're sharing.
+</think>
 [0m→ [0mRead measure/autonomous_prompt.md
 [0m→ [0mSkill "measure"
-<think>The user has referenced a file `measure/autonomous_prompt.md`. I've read it - it's the autonomous Measure prompt that defines the workflow for unattended Measure runs.
+<think>This is an autonomous prompt for Measure - a spec-driven development framework. The user wants me to run in autonomous mode following these instructions.
 
-This doesn't seem like a question - they just referenced the file. I should load the measure skill and follow the autonomous workflow as described.
+Let me start:
+1. Load the measure skill
+2. Read tracks.md, tech-debt.md, lessons-learned.md
+3. Try current_directive.md
+
+Let me start by loading the measure skill and reading the relevant files.
 </think>
-
-I'll load the measure skill and follow the autonomous Measure workflow.
+[0m✗ [0mread failed
+[91m[1mError: [0mFile not found: /home/daniel-bo/Desktop/science-advantage/measure/current_directive.md
 [0m→ [0mRead measure/tracks.md
 [0m→ [0mRead measure/tech-debt.md
 [0m→ [0mRead measure/lessons-learned.md
-[0m✗ [0mread failed
-[91m[1mError: [0mFile not found: /home/daniel-bo/Desktop/science-advantage/measure/current_directive.md
-<think>Now I need to read the key Measure files to understand the current state:
-1. measure/tracks.md - Master list of all tracks
-2. measure/tech-debt.md - Tech debt registry
-3. measure/lessons-learned.md - Lessons learned
-4. measure/current_directive.md - Current directive (if exists)
-
-Let me read these files in parallel.</think>
-<think>Let me check the current state of the workspace (git status), and look at the student_learning_loop track to see what phase is in progress.</think>
+<think>No `current_directive.md` exists. Let me check the workspace state (git status), and look at the in-progress track (Student Learning Loop) and the top tech-debt item.
+</think>
 [0m→ [0mRead measure/tracks/student_learning_loop_20260311/plan.md
 [0m
-[0m$ [0mgit status --short
-M measure/output.log
- M measure/review-output.log
- M next-env.d.ts
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   components/features/lesson/__tests__/lesson-player.test.tsx
+	modified:   measure/output.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
 [0m
+<think>Phase 1 is marked complete with verification done. Phase 2 is in progress - all 4 tasks are pending. Let me proceed with Phase 2 tasks.
+
+First, I should check the current state of the track and see if there's anything that needs to be done. The plan shows Phase 2 tasks are all pending.
+
+Let me start Phase 2 - Lesson Type Delivery. I need to:
+1. Define failing tests for lesson-type rendering and bilingual scaffolding
+2. Implement lesson-type specific student experiences
+3. Remove fake translation and placeholder behaviors
+4. Manual verification
+
+Let me start by checking if there's any existing test for lesson-type rendering that I can examine.
+</think>
+
+Phase 1 is complete. Phase 2 is in progress. Let me start Phase 2's first task — define failing tests for lesson-type rendering and bilingual scaffolding.
+[0m→ [0mRead measure/tracks/student_learning_loop_20260311/spec.md
+[0m✱ [0mGlob "components/features/lesson/__tests__/*.test.tsx"[90m 14 matches[0m
+<think>Phase 1 is complete. Phase 2 is in progress - it covers lesson type rendering and bilingual scaffolding. Let me look at what Phase 2 tasks say:
+
+- Task: Define failing tests for lesson-type rendering and bilingual scaffolding
+- Task: Implement lesson-type specific student experiences
+- Task: Remove fake translation and placeholder behaviors
+- Task: Measure - Manual Verification 'Lesson Type Delivery'
+
+I need to continue Phase 2. Let me first verify the previous phase works by running the app. Let me check the port and start the dev server.
+</think>
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && cat package.json | grep -E '"dev"|"port"' | head -5
+"dev": "next dev",
+[0m
+<think>Let me run the dev server in the background, then connect via browser-harness to verify functionality.
+</think>
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npm run dev > /tmp/dev-server.log 2>&1 &
+sleep 5 && curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 || echo "Server not ready"
+(no output)
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 30000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+<think>The dev server command timed out. Let me try a different approach - start the server in the background and check its status.
+</think>
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npm run dev > /tmp/dev.log 2>&1 &
+echo "PID: $!"
+PID: 81669
+
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+<think>The shell timed out when trying to start the dev server. Let me try using a shorter timeout and background mode properly.
+</think>
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && nohup npm run dev > /tmp/dev.log 2>&1 &
+disown
+sleep 3 && echo "Server starting..."
+Server starting...
+
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 10000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+<think>I keep getting timeout issues. Let me try a different approach - using the background subagent to handle the server, while I proceed with the rest of the workflow.
+</think>
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && npm run dev > /tmp/dev.log 2>&1 &
+disown -a
+echo "started"
+started
+
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 5000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+<think>The dev server is starting but the command doesn't return. Let me check if the server is running and try to connect via browser-harness.
+</think>
+[0m$ [0mps aux | grep -E "next|node" | grep -v grep | head -5
+root        2336  0.0  0.0   4816     4 ?        Ss   May08   0:00 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+daniel-+    5329  2.1  0.2 50762996 16996 ?      Sl   May08   9:56 /opt/google/chrome/chrome --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --render-node-override=/dev/dri/renderD128 --crashpad-handler-pid=5283 --enable-crash-reporter=cc29d0a3-cc99-444f-a8eb-8901cedcdaea, --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,15035790268235541847,12078048382239962969,524288 --field-trial-handle=3,i,9309992883770045975,6463759865173003379,262144 --disable-features=EyeDropper --variations-seed-version --pseudonymization-salt-handle=7,i,3627901675197286711,11840288053488076477,4 --trace-process-track-uuid=3190708989122997041
+daniel-+    5339  0.3  0.0 50833088 2148 ?       Sl   May08   1:24 /opt/google/chrome/chrome --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-US --service-sandbox-type=utility --render-node-override=/dev/dri/renderD128 --crashpad-handler-pid=5283 --enable-crash-reporter=cc29d0a3-cc99-444f-a8eb-8901cedcdaea, --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,11930682721734534290,10103417463178986948,524288 --field-trial-handle=3,i,9309992883770045975,6463759865173003379,262144 --disable-features=EyeDropper --variations-seed-version --pseudonymization-salt-handle=7,i,3627901675197286711,11840288053488076477,4 --trace-process-track-uuid=3190708990060038890
+daniel-+    5706  0.5  0.0 50825084 2240 ?       Sl   May08   2:38 /opt/google/chrome/chrome --type=utility --utility-sub-type=audio.mojom.AudioService --lang=en-US --service-sandbox-type=none --render-node-override=/dev/dri/renderD128 --crashpad-handler-pid=5283 --enable-crash-reporter=cc29d0a3-cc99-444f-a8eb-8901cedcdaea, --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,1015169704546416749,15835094108472700362,524288 --field-trial-handle=3,i,9309992883770045975,6463759865173003379,262144 --disable-features=EyeDropper --variations-seed-version --pseudonymization-salt-handle=7,i,3627901675197286711,11840288053488076477,4 --trace-process-track-uuid=3190709041597340585
+daniel-+   45367  0.3  0.0 18554036 608 ?        Sl   May08   1:19 node /home/daniel-bo/Desktop/ka-math-companion/node_modules/.bin/elm-land server
+[0m
+[0m$ [0mcd /home/daniel-bo/Desktop/science-advantage && git diff components/features/lesson/__tests__/lesson-player.test.tsx | head -100
+diff --git a/components/features/lesson/__tests__/lesson-player.test.tsx b/components/features/lesson/__tests__/lesson-player.test.tsx
+index 3521fbe..477a2d8 100644
+--- a/components/features/lesson/__tests__/lesson-player.test.tsx
++++ b/components/features/lesson/__tests__/lesson-player.test.tsx
+@@ -481,6 +481,83 @@ describe('LessonPlayer', () => {
+     });
+   });
+ 
++  describe('Lesson Type Rendering', () => {
++    it('renders LabSafetyNotice and LabTimer when lessonType is LAB', () => {
++      const content = createLessonContent([createTextBlock()]);
++      render(<LessonPlayer content={content} lessonType="LAB" />);
++
++      expect(screen.getByText('Lab Safety Notice')).toBeInTheDocument();
++    });
++
++    it('does not render LabSafetyNotice or LabTimer for non-LAB lesson types', () => {
++      const content = createLessonContent([createTextBlock()]);
++      render(<LessonPlayer content={content} lessonType="LESSON" />);
++
++      expect(screen.queryByText('Lab Safety Notice')).not.toBeInTheDocument();
++    });
++
++    it('renders StepModeProcedureBlock for procedure blocks when lessonType is LAB', () => {
++      const content = createLessonContent([createProcedureBlock()]);
++      render(<LessonPlayer content={content} lessonType="LAB" />);
++
++      expect(screen.getByText(/0 of 2 completed/)).toBeInTheDocument();
++    });
++
++    it('renders InteractiveMaterialsBlock for materials blocks when lessonType is LAB', () => {
++      const content = createLessonContent([createMaterialsBlock()]);
++      render(<LessonPlayer content={content} lessonType="LAB" />);
++
++      expect(screen.getByText('Materials Needed')).toBeInTheDocument();
++    });
++
++    it('renders regular ProcedureBlock for non-LAB lesson types', () => {
++      const content = createLessonContent([createProcedureBlock()]);
++      render(<LessonPlayer content={content} lessonType="LESSON" />);
++
++      expect(screen.getByRole('heading', { level: 3, name: 'Procedure' })).toBeInTheDocument();
++      expect(screen.getByRole('checkbox', { name: 'Mark step 1 as complete' })).toBeInTheDocument();
++    });
++
++    it('renders regular MaterialsBlock for non-LAB lesson types', () => {
++      const content = createLessonContent([createMaterialsBlock()]);
++      render(<LessonPlayer content={content} lessonType="LESSON" />);
++
++      expect(screen.getByRole('heading', { level: 3, name: 'Materials Needed' })).toBeInTheDocument();
++    });
++  });
++
++  describe('Bilingual Scaffolding', () => {
++    it('only shows Thai toggle button when Thai content exists in at least one block', () => {
++      const content = createLessonContent([createTextBlock()]);
++      render(<LessonPlayer content={content} />);
++
++      expect(screen.queryByRole('button', { name: /thai/i })).not.toBeInTheDocument();
++    });
++
++    it('does not show Thai content when showThai is false even if Thai content exists', () => {
++      const content = createLessonContent([createTextBlock()]);
++      render(<LessonPlayer content={content} showThai={false} />);
++
++      expect(screen.getByRole('heading', { level: 1, name: 'Hello World' })).toBeInTheDocument();
++      expect(screen.queryByRole('heading', { level: 1, name: 'สวัสดีโลก' })).not.toBeInTheDocument();
++    });
++
++    it('falls back to English when Thai content is null', () => {
++      const textBlock = createTextBlock({ contentThai: null } as Partial<ContentBlock>);
++      const content = createLessonContent([textBlock]);
++      render(<LessonPlayer content={content} showThai={true} />);
++
++      expect(screen.getByRole('heading', { level: 1, name: 'Hello World' })).toBeInTheDocument();
++    });
++
++    it('shows Thai caption for image blocks when showThai is true', () => {
++      const content = createLessonContent([createImageBlock()]);
++      render(<LessonPlayer content={content} showThai={true} />);
++
++      expect(screen.getByText('การสังเคราะห์ด้วยแสงของพืช')).toBeInTheDocument();
++    });
++  });
++
+   describe('Accessibility', () => {
+     it('has proper article role on lesson player', () => {
+       const content = createLessonContent([createTextBlock()]);
+[0m
+<think>No Next.js dev server is running. The timeout issues with running the dev server are a problem. Let me try a different approach - just run the verification step by starting the server in a way that won't hang, and check if the browser-harness can be used.
+
+Actually, looking at the autonomous prompt again, it says if browser-harness is unavailable, fall back to manual verification instructions for the user. Given the difficulty getting the dev server to stay running in this environment, let me proceed with what I can do:
+
+1. Check the current state of the test files that are modified
+2. Run the tests
+3. Try to run the build
+4. Check the files that are modified
+
+Let me first look at what was modified in the lesson-player.test.tsx file and check the output.log.
+</think>
+[0m→ [0mRead measure/output.log
+<think>The output.log shows the previous autonomous session already ran through Phase 2 tests. The test file has new tests added for "Lesson Type Rendering" and "Bilingual Scaffolding". Let me:
+
+1. First, handle the dirty state (commit the changes)
+2. Run the test suite to verify Phase 2 tests pass
+3. Check if the build succeeds
+4. Verify functionality
+
+Let me start by checking the state, committing if needed, and running tests.
+</think>

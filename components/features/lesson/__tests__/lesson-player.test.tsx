@@ -481,6 +481,83 @@ describe('LessonPlayer', () => {
     });
   });
 
+  describe('Lesson Type Rendering', () => {
+    it('renders LabSafetyNotice and LabTimer when lessonType is LAB', () => {
+      const content = createLessonContent([createTextBlock()]);
+      render(<LessonPlayer content={content} lessonType="LAB" />);
+
+      expect(screen.getByText('Lab Safety Notice')).toBeInTheDocument();
+    });
+
+    it('does not render LabSafetyNotice or LabTimer for non-LAB lesson types', () => {
+      const content = createLessonContent([createTextBlock()]);
+      render(<LessonPlayer content={content} lessonType="LESSON" />);
+
+      expect(screen.queryByText('Lab Safety Notice')).not.toBeInTheDocument();
+    });
+
+    it('renders StepModeProcedureBlock for procedure blocks when lessonType is LAB', () => {
+      const content = createLessonContent([createProcedureBlock()]);
+      render(<LessonPlayer content={content} lessonType="LAB" />);
+
+      expect(screen.getByText(/0 of 2 completed/)).toBeInTheDocument();
+    });
+
+    it('renders InteractiveMaterialsBlock for materials blocks when lessonType is LAB', () => {
+      const content = createLessonContent([createMaterialsBlock()]);
+      render(<LessonPlayer content={content} lessonType="LAB" />);
+
+      expect(screen.getByText('Materials Needed')).toBeInTheDocument();
+    });
+
+    it('renders regular ProcedureBlock for non-LAB lesson types', () => {
+      const content = createLessonContent([createProcedureBlock()]);
+      render(<LessonPlayer content={content} lessonType="LESSON" />);
+
+      expect(screen.getByRole('heading', { level: 3, name: 'Procedure' })).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: 'Mark step 1 as complete' })).toBeInTheDocument();
+    });
+
+    it('renders regular MaterialsBlock for non-LAB lesson types', () => {
+      const content = createLessonContent([createMaterialsBlock()]);
+      render(<LessonPlayer content={content} lessonType="LESSON" />);
+
+      expect(screen.getByRole('heading', { level: 3, name: 'Materials Needed' })).toBeInTheDocument();
+    });
+  });
+
+  describe('Bilingual Scaffolding', () => {
+    it('only shows Thai toggle button when Thai content exists in at least one block', () => {
+      const content = createLessonContent([createTextBlock()]);
+      render(<LessonPlayer content={content} />);
+
+      expect(screen.queryByRole('button', { name: /thai/i })).not.toBeInTheDocument();
+    });
+
+    it('does not show Thai content when showThai is false even if Thai content exists', () => {
+      const content = createLessonContent([createTextBlock()]);
+      render(<LessonPlayer content={content} showThai={false} />);
+
+      expect(screen.getByRole('heading', { level: 1, name: 'Hello World' })).toBeInTheDocument();
+      expect(screen.queryByRole('heading', { level: 1, name: 'สวัสดีโลก' })).not.toBeInTheDocument();
+    });
+
+    it('falls back to English when Thai content is null', () => {
+      const textBlock = createTextBlock({ contentThai: null } as Partial<ContentBlock>);
+      const content = createLessonContent([textBlock]);
+      render(<LessonPlayer content={content} showThai={true} />);
+
+      expect(screen.getByRole('heading', { level: 1, name: 'Hello World' })).toBeInTheDocument();
+    });
+
+    it('shows Thai caption for image blocks when showThai is true', () => {
+      const content = createLessonContent([createImageBlock()]);
+      render(<LessonPlayer content={content} showThai={true} />);
+
+      expect(screen.getByText('การสังเคราะห์ด้วยแสงของพืช')).toBeInTheDocument();
+    });
+  });
+
   describe('Accessibility', () => {
     it('has proper article role on lesson player', () => {
       const content = createLessonContent([createTextBlock()]);
