@@ -19,12 +19,12 @@
 - [x] Task: Define failing tests for lesson-type rendering and bilingual scaffolding
   - [x] Cover supported block types and lesson modes
   - [x] Cover Thai toggle behavior only when translated content exists
-- [ ] Task: Implement lesson-type specific student experiences
-  - [ ] Finalize rendering for explicit instruction, lab, review, and summative lessons
-  - [ ] Ensure structured content validation failures degrade gracefully
-- [ ] Task: Remove fake translation and placeholder behaviors
-  - [ ] Make bilingual affordances conditional on real content
-  - [ ] Tighten empty/loading states for lesson media and content blocks
+- [x] Task: Implement lesson-type specific student experiences
+  - [x] Finalize rendering for explicit instruction, lab, review, and summative lessons
+  - [x] Ensure structured content validation failures degrade gracefully
+- [x] Task: Remove fake translation and placeholder behaviors
+  - [x] Make bilingual affordances conditional on real content
+  - [x] Tighten empty/loading states for lesson media and content blocks
 - [ ] Task: Measure - Manual Verification 'Lesson Type Delivery'
   - [ ] Review one lesson of each type and verify Thai scaffolding behavior
 
