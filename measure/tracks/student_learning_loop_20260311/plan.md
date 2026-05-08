@@ -30,10 +30,9 @@
 
 ## Phase 3: Quiz, Completion, and Next Step
 
-- [ ] Task: Define failing tests for attempt submission and post-lesson guidance
-  - [ ] Cover scoring, completion updates, retries, and recommendation fallback behavior
-- [ ] Task: Implement the complete post-lesson loop
-  - [ ] Align quiz submission, completion persistence, and next-step UI
-  - [ ] Ensure deterministic fallback guidance remains useful when AI is unavailable
+- [x] Task: Define failing tests for attempt submission and post-lesson guidance
+  - [x] Cover scoring, completion updates, retries, and recommendation fallback behavior
+- [x] Task: Implement the complete post-lesson loop
+  - [x] Align quiz submission, completion persistence, and next-step UI
+  - [x] Ensure deterministic fallback guidance remains useful when AI is unavailable
 - [ ] Task: Measure - Manual Verification 'Quiz, Completion, and Next Step'
-  - [ ] Verify a student can complete a lesson, submit a quiz, and receive the correct next action
