@@ -2,17 +2,17 @@
 
 ## Phase 1: Class Detail as the Teacher Control Surface
 
-- [ ] Task: Define failing tests for class detail and curriculum state visibility
-  - [ ] Cover class metadata, curriculum alignment, roster context, and empty states
-  - [ ] Capture current placeholder or missing teacher signals
-- [ ] Task: Implement curriculum-aware class detail pages
-  - [ ] Make class detail the source of truth for curriculum state and next actions
-  - [ ] Ensure join code and roster surfaces remain intact
-- [ ] Task: Remove or replace placeholder dashboard cards
-  - [ ] Hide unfinished widgets or swap them for real delivery signals
-  - [ ] Keep the teacher landing page focused on actionable information
-- [ ] Task: Measure - Manual Verification 'Class Detail Control Surface'
-  - [ ] Verify a teacher can understand class status immediately after landing
+- [x] Task: Define failing tests for class detail and curriculum state visibility
+  - [x] Cover class metadata, curriculum alignment, roster context, and empty states
+  - [x] Capture current placeholder or missing teacher signals
+- [x] Task: Implement curriculum-aware class detail pages
+  - [x] Make class detail the source of truth for curriculum state and next actions
+  - [x] Ensure join code and roster surfaces remain intact
+- [x] Task: Remove or replace placeholder dashboard cards
+  - [x] Hide unfinished widgets or swap them for real delivery signals
+  - [x] Keep the teacher landing page focused on actionable information
+- [x] Task: Measure - Manual Verification 'Class Detail Control Surface'
+  - [x] Verify a teacher can understand class status immediately after landing
 
 ## Phase 2: Lesson Preview and Assignment Flow
 
