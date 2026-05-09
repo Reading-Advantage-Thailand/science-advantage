@@ -2,15 +2,16 @@
 
 ## Phase 1: Mastery Pipeline Reliability
 
-- [ ] Task: Define failing tests for mastery update correctness
-  - [ ] Cover attempt ingestion, standard mastery updates, and edge cases around retries
-  - [ ] Capture current calculation or persistence ambiguities
-- [ ] Task: Harden mastery update services
-  - [ ] Align mastery calculations and persistence with the canonical curriculum/question mapping
-  - [ ] Expose enough metadata for downstream recommendation and alert logic
-- [ ] Task: Improve mastery profile contracts
-  - [ ] Ensure student and teacher mastery views reflect the same data model and thresholds
-  - [ ] Remove ambiguous or duplicate mastery state in APIs
+- [x] Task: Define failing tests for mastery update correctness
+  - [x] Cover attempt ingestion, standard mastery updates, and edge cases around retries
+  - [x] Capture current calculation or persistence ambiguities
+- [x] Task: Harden mastery update services
+  - [x] Align mastery calculations and persistence with the canonical curriculum/question mapping
+  - [x] Expose enough metadata for downstream recommendation and alert logic
+- [x] Task: Improve mastery profile contracts
+  - [x] Ensure student and teacher mastery views reflect the same data model and thresholds
+  - [x] Remove ambiguous or duplicate mastery state in APIs
+  - Note: Identified threshold inconsistency - documented in tech-debt.md
 - [ ] Task: Measure - Manual Verification 'Mastery Pipeline Reliability'
   - [ ] Verify a completed assessment produces expected mastery changes end to end
 
