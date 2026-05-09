@@ -6,6 +6,7 @@ type ResponseInput = {
   standardIds: string[];
   isCorrect: boolean;
   weight: number;
+  points: number;
   answeredAt: Date;
 };
 
@@ -35,6 +36,17 @@ type Accumulator = {
   lastAssessedAt: Date;
 };
 
+function recencyWeight(answeredAt: Date, referenceTime: Date): number {
+  const elapsedMs = referenceTime.getTime() - answeredAt.getTime();
+  const elapsedHours = Math.max(0, elapsedMs / (1000 * 60 * 60));
+  const weight = Math.max(0.2, 1 - elapsedHours * 0.05);
+  return weight;
+}
+
+function difficultyWeight(points: number): number {
+  return Math.max(0.5, Math.min(2, points));
+}
+
 export function calculateMasteryUpdates(input: {
   responses: ResponseInput[];
   existingMastery: ExistingMastery[];
@@ -45,6 +57,14 @@ export function calculateMasteryUpdates(input: {
   }
 
   const aggregates = new Map<string, Accumulator>();
+
+  const referenceTime = input.responses.length > 0
+    ? input.responses.reduce(
+        (latest, r) => (r.answeredAt > latest ? r.answeredAt : latest),
+        input.responses[0].answeredAt
+      )
+    : new Date();
+
   let skipped = 0;
 
   for (const response of input.responses) {
@@ -53,8 +73,9 @@ export function calculateMasteryUpdates(input: {
       continue;
     }
 
-    const perStandardWeight =
-      response.weight / response.standardIds.length || 0;
+    const recWeight = recencyWeight(response.answeredAt, referenceTime);
+    const diffWeight = difficultyWeight(response.points);
+    const perStandardWeight = (diffWeight * recWeight) / response.standardIds.length;
 
     for (const standardId of response.standardIds) {
       const existing = existingMap.get(standardId);
@@ -109,6 +130,7 @@ export function buildResponseInput(params: {
   standardIds: string[];
   isCorrect: boolean;
   weight?: number | null;
+  points?: number | null;
   answeredAt?: Date | null;
 }): ResponseInput {
   const answeredAt = params.answeredAt ?? new Date();
@@ -117,6 +139,7 @@ export function buildResponseInput(params: {
     standardIds: params.standardIds,
     isCorrect: params.isCorrect,
     weight: params.weight && params.weight > 0 ? params.weight : 1,
+    points: params.points ?? 1,
     answeredAt,
   };
 }

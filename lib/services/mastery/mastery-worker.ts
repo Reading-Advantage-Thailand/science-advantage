@@ -2,6 +2,7 @@ import type { PrismaClient } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 import { clampMasteryLevel, recordStandardMastery } from './standard-mastery';
+import { recencyWeight, difficultyWeight } from '@/lib/ai/mastery-calculator';
 
 export type MasteryRunContext = {
   attemptId: string;
@@ -54,19 +55,6 @@ type WorkerPrisma = Pick<PrismaClient, '$transaction'> & {
   attempt: PrismaClient['attempt'];
   standardMastery: PrismaClient['standardMastery'];
 };
-
-/** Compute a recency weight for an attempt based on how recently it was taken. */
-function recencyWeight(answeredAt: Date, referenceTime: Date): number {
-  const elapsedMs = referenceTime.getTime() - answeredAt.getTime();
-  const elapsedHours = Math.max(0, elapsedMs / (1000 * 60 * 60));
-  const weight = Math.max(0.2, 1 - elapsedHours * 0.05);
-  return weight;
-}
-
-/** Compute a difficulty weight from question points (higher points = harder = higher weight). */
-function difficultyWeight(points: number): number {
-  return Math.max(0.5, Math.min(2, points));
-}
 
 /**
  * Process a mastery run by reading the attempt data, evaluating each question's
