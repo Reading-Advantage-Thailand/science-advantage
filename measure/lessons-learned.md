@@ -45,3 +45,4 @@
 - [Browser] browser-harness requires uv tool; run with `uv run bh <<'PY'` not bare `browser-harness`.
 - [Bilingual] Thai toggle button should only appear when content has Thai translations; use contentHasThai() helper to detect per-block, not just showThai prop.
 - [Build] Production build succeeds even when unit tests fail due to db unavailability; don't conflate build success with test pass rate.
+- [Next.js] Root page with session check needs explicit redirect('/signin') when no session — returning landing page content without redirect allows unauthenticated users to see landing page content which may include teacher student role buttons.
