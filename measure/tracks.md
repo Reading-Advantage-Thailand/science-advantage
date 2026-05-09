@@ -39,7 +39,7 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 
 ## [~] Track: Student Learning Loop
 *Link: [./measure/tracks/student_learning_loop_20260311/](./measure/tracks/student_learning_loop_20260311/)*
-*Status: Phase 1 complete — navigation and lesson entry verification done; Phase 2 in progress*
+*Status: Phase 1 and 2 verification done; Phase 3 verification in progress*
 
 ## [ ] Track: Teacher Delivery & Classroom Visibility
 *Link: [./measure/tracks/teacher_delivery_20260311/](./measure/tracks/teacher_delivery_20260311/)*
