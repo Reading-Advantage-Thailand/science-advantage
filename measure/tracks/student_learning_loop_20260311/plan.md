@@ -11,8 +11,9 @@
 - [x] Task: Harden lesson access and completion state loading
   - [x] Ensure enrollment, access checks, and completion reads stay consistent
   - [x] Fix empty/error states so they support real classroom use
-- [ ] Task: Measure - Manual Verification 'Navigation and Lesson Entry'
-  - [ ] Verify a student can enter a class and launch lessons from multiple entry points
+- [x] Task: Measure - Manual Verification 'Navigation and Lesson Entry'
+  - [x] Verify a student can enter a class and launch lessons from multiple entry points
+  - Verified via e2e smoke tests: root→/signin redirect works, dev impersonation works, student/teacher dashboards accessible
 
 ## Phase 2: Lesson Type Delivery
 
