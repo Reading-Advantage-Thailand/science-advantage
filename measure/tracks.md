@@ -42,7 +42,7 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 *Completed: 2026-05-09*
 
 ## [x] Track: Teacher Delivery & Classroom Visibility
-*Link: [./measure/tracks/teacher_delivery_20260311/](./measure/tracks/teacher_delivery_20260311/)*
+*Link: [./measure/archive/teacher_delivery_20260311/](./measure/archive/teacher_delivery_20260311/)*
 *Completed: 2026-05-09*
 
 ## [ ] Track: Mastery, Recommendations & Intervention Signals
