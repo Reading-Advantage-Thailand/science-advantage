@@ -46,7 +46,7 @@ tracks were archived to `measure/archive/replan_20260311/` on 2026-03-11.
 *Completed: 2026-05-09*
 
 ## [ ] Track: Mastery, Recommendations & Intervention Signals
-*Link: [./measure/tracks/mastery_assistance_20260311/](./measure/tracks/mastery_assistance_20260311/)*
+*Link: [./measure/archive/mastery_assistance_20260311/](./measure/archive/mastery_assistance_20260311/)*
 
 ## Upcoming Tracks
 
